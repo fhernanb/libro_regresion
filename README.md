@@ -4,5 +4,5 @@
   <img src="images/cover.png" width="250">
 </p>
 
-El libro puede ser consultado en este [enlace](https://fhernanb.github.io/libro_regresion) 
+El libro puede ser consultado en este [enlace](https://fhernanb.github.io/libro_regresion/) 
 
