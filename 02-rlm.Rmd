@@ -1,0 +1,101 @@
+# Regresión lineal múltiple {#rlm}
+En este capítulo se presenta una descripción breve del modelo de regresión lineal múltiple y la forma de estimar los parámetros del modelo con R.
+
+## Modelo estadístico {-}
+El modelo estadístico en regresión lineal múltiple es una generalización del regresión lineal simple para $k$ covariables. El modelo en este caso se puede escribir de dos formas como se muestra a continuación.
+
+1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}$ y un error aleatorio $e_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
+
+\begin{align} \label{mod1}
+y_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + e_i, \\ 
+e_i &\sim N(0, \sigma^2)
+\end{align}
+
+2. En esta forma la variable respuesta $y$ tiene distribución normal con media que cambia en función de las variables $x_k$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
+
+\begin{align} \label{mod2}
+y_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \cdots, \beta_k, \sigma)^\top$. 
+
+### Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
+
+Los datos del ejemplo están disponibles en el paquete **MPV**\index{MPV} (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.
+
+```{r, message=FALSE}
+require(MPV)
+colnames(softdrink) <- c('tiempo', 'cantidad', 'distancia')
+head(softdrink)
+```
+
+Un gráfico en 3d es obligratorio para explorar la relación entre las variables, este diagrama de puede obtener usando el paquete **scatterplot3d**\index{scatterplot3d}. A continuación el código para construirlo.
+
+```{r, 3d_refrescos_01}
+library(scatterplot3d)
+attach(softdrink)
+scatterplot3d(x=cantidad, y=distancia, z=tiempo, pch=16, cex.lab=1,
+              highlight.3d=TRUE, type="h", xlab='Cantidad de cajas',
+              ylab='Distancia (pies)', zlab='Tiempo (min)')
+```
+
+De la figura anterior se ve claramente que a medida que aumenta el número de cajas y la distancia los tiempos tienden a ser mayores.
+
+El mismo diagrama de dispersión anterior se puede crear usando el paquete **plotly**\index{plotly}. El lector puede jugar con el diagrama, puede moverlo, girarlo, acercarse y muchas cosas más, la curiosidad le mostrará las diferentes posibilidades.
+
+```{r, 3d_refrescos_02, message=FALSE}
+library(plotly)
+plot_ly(x=cantidad, y=distancia, z=tiempo, type="scatter3d", color=tiempo) %>% 
+  layout(scene = list(xaxis = list(title = 'Cantidad'),
+                      yaxis = list(title = 'Distancia (pies)'),
+                      zaxis = list(title = 'Tiempo (min)')))
+```
+
+Otro gráfico de dispersión en 3d se puede construir usando el paquete **rgl**\index{rgl}. A continuación está el código para obtener el diagrama de dispersión. De tarea se deja que el lector copie el código en la consola y reconstruya el gráfico.
+
+```{r, eval=FALSE}
+library(rgl)
+plot3d(x=cantidad, y=distancia, z=tiempo, type='s', col='pink',
+       xlab='Cantidad',
+       ylab='Distancia (pies)',
+       zlab='Tiempo (min)')
+```
+
+Basándonos en el diagrama de dispersión 3d, el modelo que se va a ajustar se muestra a continuación.
+
+\begin{align}
+Tiempo_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 Cantidad_i + \beta_2 Distancia_i, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+
+```{r}
+mod <- lm(tiempo ~ cantidad + distancia, data=softdrink)
+summary(mod)
+```
+
+Con los resultados anteriores se puede expresar el modelo ajustado como se muestra a continuación.
+
+\begin{align}
+\widehat{Tiempo}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
+\hat{\mu}_i &= 2.341 + 1.616 \, Cantidad_i + 0.014 Distancia_i, \\
+\hat{\sigma} &= 3.259
+\end{align}
+
+Para incluir el plano de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.
+
+```{r 3d_refrescos_03}
+# Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d
+mi_3d <- scatterplot3d(x=cantidad, y=distancia, z=tiempo, pch=16, cex.lab=1,
+                       highlight.3d=TRUE, type="h", xlab='Cantidad de cajas',
+                       ylab='Distancia (pies)', zlab='Tiempo (min)')
+# Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado
+mi_3d$plane3d(mod, lty.box="solid", col='mediumblue')
+```
+
+
+

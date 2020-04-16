@@ -1,0 +1,53 @@
+# Intervalos de confianza {#ic}
+En este capítulo se muestra como construir intervalos de confianza para un modelo de regresión lineal.
+
+## Función `confint` {-}
+La función `confint` de R se usa para obtener intevalos de confianza de los parámetros de un modelo de regresión lineal, la estructura de esta función se muestra a continuación.
+
+```{r, eval=FALSE}
+confint(object, parm, level = 0.95, ...)
+```
+
+A continuación se presenta una corta descripción de los parámetros de la función.
+
+- `object`: es un objeto con el modelo ajustado.
+- `parm`: es un vector con los nombres de las variables para los cuales nos interesa construir el intervalo de confianza. Si no se especifica ninguna variable se obtienen intervalos de confianza para todos los parámetros.
+- `level`: nivel de confianza.
+
+### Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo mostrado en el capítulo \@ref(rls). En ese ejemplo se ajustó un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.
+
+A continuación el código para cargar los datos y ajustar el modelo de interés.
+
+```{r}
+file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
+datos <- read.table(file=file, header=TRUE)
+mod1 <- lm(Resistencia ~ Edad, data=datos)
+```
+
+El objetivo ahora es construir un intervalo de confianza del 95% para el parámetro $\beta_1$. La instrucción para obtener el intervalo de confianza se muestra a continuación.
+
+```{r}
+confint(object=mod1, parm="Edad", level=0.95)
+```
+
+## Función `confint_sigma2` {-}
+La función `confint_sigma2` pertenece al paquete [model](https://fhernanb.github.io/model/index.html) y sirve para obtener un intervalo de confianza para el parámetro $\sigma^2$. El paquete **model** está alojado en github y para poder instalarlo se sebe usar el siguiente código.
+
+```{r eval=FALSE}
+if (!require('devtools')) install.packages('devtools')
+devtools::install_github('fhernanb/model', force=TRUE)
+```
+
+Si deseamos construir un intervalo de confianza del 95% para $\sigma^2$ del ejemplo anterior se debe escribir el siguiente código.
+
+```{r}
+library(model)
+confint_sigma2(object=mod1, level=0.95)
+```
+
+
+
+
+
+

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Modelos con variables cualitativas | Modelos de Regresión con R</title>
+  <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Modelos con variables cualitativas | Modelos de Regresión con R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
+  <meta name="github-repo" content="fhernanb/libro_regresion" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Modelos con variables cualitativas | Modelos de Regresión con R" />
+  
+  <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
+  <meta name="twitter:image" content="images/cover.png" />
+
+<meta name="author" content="Freddy Hernández" />
+<meta name="author" content="Mauricio Mazo" />
+
+
+<meta name="date" content="2019-09-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mod-poli.html"/>
+<link rel="next" href="selec.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos de Regresión con R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-libro"><i class="fa fa-check"></i>Estructura del libro</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-y-convenciones"><i class="fa fa-check"></i>Software y convenciones</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bloques-informativos"><i class="fa fa-check"></i>Bloques informativos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#modelo-estadistico"><i class="fa fa-check"></i>Modelo estadístico</a></li>
+<li><a href="rls.html#funcion-lm">Función <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i><b>1.1</b> Apéndice</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.1.1</b> Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="1.1.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.1.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadistico-1"><i class="fa fa-check"></i>Modelo estadístico</a><ul>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a><ul>
+<li><a href="ic.html#funcion-confint">Función <code>confint</code></a><ul>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ic.html#funcion-confint_sigma2">Función <code>confint_sigma2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a></li>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li><a href="ph.html#funcion-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ph.html#funcion-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ph.html#funcion-anova">Función <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ph.html#summary-versus-anova"><code>summary</code> versus <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="5" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>5</b> Modelos polinomiales</a><ul>
+<li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#funcion-bs">Función <code>bs</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#funcion-lowess">Función <code>lowess</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-13"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#funcion-loess">Función <code>loess</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimizacion-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
+<li><a href="mod-poli.html#funcion-nlminb">Función <code>nlminb</code></a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>7</b> Selección de variables</a><ul>
+<li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
+<li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#metodos"><i class="fa fa-check"></i>Métodos</a></li>
+<li><a href="selec.html#funcion-stepaic">Función <code>stepAIC</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li><a href="selec.html#aplicacion-del-metodo-backward">Aplicación del método <strong>backward</strong></a></li>
+<li><a href="selec.html#aplicacion-del-metodo-forward">Aplicación del método <strong>forward</strong></a></li>
+<li><a href="selec.html#aplicacion-del-metodo-both">Aplicación del método <strong>both</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
+</ul></li>
+<li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas.html"><a href="pruebas.html"><i class="fa fa-check"></i><b>8</b> Algunas pruebas de los resultados más importantes</a></li>
+<li class="chapter" data-level="" data-path="capitulo-de-guia-para-crear-otros-capitulos.html"><a href="capitulo-de-guia-para-crear-otros-capitulos.html"><i class="fa fa-check"></i>Capítulo de guía para crear otros capítulos</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión con R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="varcuali" class="section level1">
+<h1><span class="header-section-number">6</span> Modelos con variables cualitativas</h1>
+<p>En este capítulo se muestra cómo incluir variables cualitativas en un modelo de regresión con R.</p>
+<div id="es-posible-incluir-variables-cualitativas" class="section level2 unnumbered">
+<h2>¿Es posible incluir variables cualitativas?</h2>
+<p>Una de las preguntas frecuentes entre los que inician el estudio de los modelos de regresión es: ¿se pueden incluir variables cualitativas en un modelo de regresión?</p>
+<p>La respuesta es <strong>SI</strong>, definitivamente si.</p>
+<p>A continuación una figura que ilustra algunas de las variables que se pueden incluir en la construcción de un modelo de regresión.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-68"></span>
+<img src="images/embudo.png" alt="Variables variables cualitativas a incluir en un modelo."  />
+<p class="caption">
+Figure 6.1: Variables variables cualitativas a incluir en un modelo.
+</p>
+</div>
+</div>
+<div id="variable-indicadora-dummy-ficticia-o-binaria" class="section level2 unnumbered">
+<h2>Variable indicadora, dummy, ficticia o binaria</h2>
+<p>La palabra indicadora, dummy, ficticia o binaria es la denominación genérica para una variable que toma valores de 0 o de 1 y que se utiliza para re-expresar variables cualitativas.</p>
+<p>Observe la figura <a href="varcuali.html#fig:cuali02">6.2</a>. En la parte izquierda se tiene una base original de ejemplo con las variables precio, área y piscina, asociadas a seis apartamentos. La variable cualitativa Piscina de niveles <strong>sin</strong>, <strong>pequeña</strong> y <strong>grande</strong>, el nivel <strong>sin</strong> es el nivel de referencia natural.</p>
+<p>Al lado derecho de la figura <a href="varcuali.html#fig:cuali02">6.2</a> está la base transformada y vemos que hay 4 variables. Las nuevas variables <strong>PisPeq</strong> y <strong>PisGra</strong> son 2 variables indicadoras que logran resumir la información de la variable Piscina que tiene 3 variables.</p>
+<p>Para comprender como las 2 variables indicadoras pueden resumir la información de la variable Piscina, vamos a considerar los siguientes tres casos:</p>
+<ol style="list-style-type: decimal">
+<li>Si <code>PisPeq = 0</code> y <code>PisGra = 0</code>, entonces el apartamento está <strong>SIN</strong> piscina.</li>
+<li>Si <code>PisPeq = 1</code> y <code>PisGra = 0</code>, entonces el apartamento tiene piscina <strong>PEQUEÑA</strong>.</li>
+<li>Si <code>PisPeq = 0</code> y <code>PisGra = 1</code>, entonces el apartamento tiene piscina <strong>GRANDE</strong>.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:cuali02"></span>
+<img src="images/var_cuali_01.png" alt="Transformando una base de datos con variables cualitativas."  />
+<p class="caption">
+Figure 6.2: Transformando una base de datos con variables cualitativas.
+</p>
+</div>
+
+<div class="rmdnote">
+Como regla general, si una variable cualitativa tiene <span class="math inline">\(k\)</span> niveles, se necesitarán de <span class="math inline">\(k-1\)</span> variables indicadoras para resumir la variable cualitativa.
+</div>
+
+</div>
+<div id="creando-variables-indicadoras" class="section level2 unnumbered">
+<h2>Creando variables indicadoras</h2>
+<p>Crear manualmente variables indicadoras para re-expresar variables cualitativas es una tarea muy sencilla, manualmente la podemos hacer. Sin embargo, R posee una herramienta que nos permite convertir la base de datos original en una base de datos transformada (con variables indicadoras). Para este fin se usa la función <code>model.matrix</code>.</p>
+<div id="ejemplo-16" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Retomando la base de datos original mostrada en la figura <a href="varcuali.html#fig:cuali02">6.2</a> vamos a crear la matriz de diseño <span class="math inline">\(\boldsymbol{X}\)</span> para ajustar el modelo siguiente:</p>
+<p><span class="math display">\[\begin{align}
+Precio_i &amp;\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &amp;= \beta_0 + \beta_1 Area_i + \beta_2 PisciPequena_i + \beta_3 PisiGrande_i, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>Lo primero a realizar es ingresar los datos para el ejemplo mostrado en la figura <a href="varcuali.html#fig:cuali02">6.2</a>. El código necesario se muestra a continuación.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">Precio &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb113-2" data-line-number="2">Area &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb113-3" data-line-number="3">Pisci &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">                <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>))</a></code></pre></div>
+<p>Al crear el vector <code>Pisci</code> se usó el argumento <code>levels</code> dentro de la función <code>factor</code> para indicarle a R que el nivel de referencia es <code>Sin</code>, seguido de <code>Pequena</code> y luego <code>Grande</code>.</p>
+<p>Para obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> con las variables indicadoras (no con la variable original <code>Pisci</code>) se hace lo siguiente:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="kw">model.matrix</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a></code></pre></div>
+<pre><code>##   (Intercept) Area PisciPequena PisciGrande
+## 1           1    3            0           1
+## 2           1    4            0           0
+## 3           1    1            1           0
+## 4           1    6            1           0
+## 5           1    5            0           0
+## 6           1    3            0           1
+## attr(,&quot;assign&quot;)
+## [1] 0 1 2 2
+## attr(,&quot;contrasts&quot;)
+## attr(,&quot;contrasts&quot;)$Pisci
+## [1] &quot;contr.treatment&quot;</code></pre>
+</div>
+</div>
+<div id="modelos-con-variables-cualitativas" class="section level2 unnumbered">
+<h2>Modelos con variables cualitativas</h2>
+<p>Para ajustar un modelo de regresión lineal con variables cualitativas se procede de la forma usual como se ajustan modelos con <code>lm</code>, no es necesario crear de antemano la matriz <span class="math inline">\(\boldsymbol{X}\)</span>, esto porque <code>lm</code> internamente crea la matriz de diseño <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
+<div id="ejemplo-17" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>En este ejemplo vamos a utilizar la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es ajustar el siguiente modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto, es decir, el objetivo es ajustar el siguiente modelo.</p>
+<p><span class="math display">\[\begin{align}
+Precio_i &amp;\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &amp;= \beta_0 + \beta_1 EngSiz_i + \beta_2 TComp_i + \beta_3 TSpor_i + \beta_4 TMid_i + \beta_5 TLarg_i + \beta_6 TVan_i, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>Lo primero a realizar es cargar el paquete y explorar las variables de interés con la ayuda de la función <code>str</code>.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="kw">str</span>(Cars93[, <span class="kw">c</span>(<span class="st">&#39;Price&#39;</span>, <span class="st">&#39;EngineSize&#39;</span>, <span class="st">&#39;Type&#39;</span>)])</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    93 obs. of  3 variables:
+##  $ Price     : num  15.9 33.9 29.1 37.7 30 15.7 20.8 23.7 26.3 34.7 ...
+##  $ EngineSize: num  1.8 3.2 2.8 2.8 3.5 2.2 3.8 5.7 3.8 4.9 ...
+##  $ Type      : Factor w/ 6 levels &quot;Compact&quot;,&quot;Large&quot;,..: 4 3 1 3 3 3 2 2 3 2 ...</code></pre>
+<p>La variable <code>Type</code> tiene 6 niveles, para ver todos niveles usamos el siguiente código.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)</a></code></pre></div>
+<pre><code>## [1] &quot;Compact&quot; &quot;Large&quot;   &quot;Midsize&quot; &quot;Small&quot;   &quot;Sporty&quot;  &quot;Van&quot;</code></pre>
+<p>De la salida anterior se observan que los niveles son Compact, Large, Midsize, Small, Sporty y Van. Al observar cuidadosamente los niveles vemos que ellos están ordenados por orden lexicográfico, primero Compact por iniciar con la letra <strong>C</strong>, por último Van por iniciar con la letra <strong>V</strong>. Al mirar el modelo requerido se nota que el nivel Small no aparece en la ecuación de <span class="math inline">\(\mu\)</span>, esto significa que ese es el nivel de referencia que se encuentra en el intercepto <span class="math inline">\(\beta_0\)</span>. Para redefinir los niveles en el orden requerido usamos el siguiente código.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
+<a class="sourceLine" id="cb120-2" data-line-number="2">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>))</a>
+<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)  <span class="co"># Para verificar el cambio</span></a></code></pre></div>
+<pre><code>## [1] &quot;Small&quot;   &quot;Compact&quot; &quot;Sporty&quot;  &quot;Midsize&quot; &quot;Large&quot;   &quot;Van&quot;</code></pre>
+<p>A continuación vamos a crear un diagrama de dispersión para ver la relación entre las variables del problema.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="kw">ggplot</span>(Cars93, <span class="kw">aes</span>(<span class="dt">x=</span>EngineSize, <span class="dt">y=</span>Price, <span class="dt">color=</span>Type)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/cuanti1-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Ahora si podemos ajustar el modelo solicitado usando el siguiente código.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ EngineSize + Type, data = Cars93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.742  -4.568  -0.845   2.473  34.031 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.794      2.348   1.190  0.23732    
+## EngineSize     4.621      1.110   4.164  7.4e-05 ***
+## TypeCompact    4.644      2.484   1.870  0.06489 .  
+## TypeSporty     5.078      2.634   1.928  0.05721 .  
+## TypeMidsize   10.286      2.700   3.810  0.00026 ***
+## TypeLarge      2.053      3.916   0.524  0.60138    
+## TypeVan        1.517      3.332   0.455  0.65006    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.068 on 86 degrees of freedom
+## Multiple R-squared:  0.4995, Adjusted R-squared:  0.4646 
+## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
+<p>Usando la información de la salida anterior se puede construir el siguiente modelo ajustado.</p>
+<p><span class="math display">\[\begin{align}
+\widehat{Precio}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
+\hat{\mu}_i &amp;= 2.794 + 4.621 EngSiz_i + 4.644 TComp_i + 5.078 TSpor_i + \ldots \\
+\hat{\sigma} &amp;= 7.068
+\end{align}\]</span></p>
+</div>
+</div>
+<div id="significancia-de-variables-cualitativas" class="section level2 unnumbered">
+<h2>Significancia de variables cualitativas</h2>
+<p>Cuando se incluye una variable cualitativa de <span class="math inline">\(k\)</span> niveles en un modelo de regresión, aparecen <span class="math inline">\(k-1\)</span> variables indicadoras y por lo tanto <span class="math inline">\(k-1\)</span> valores-P en la tabla resumen. Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para el modelo?</p>
+<p>Para saber si una variable cualitativa es significativa para un modelo hay tres formas:</p>
+<ol style="list-style-type: decimal">
+<li>Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el <code>summary(mod)</code>.</li>
+<li>Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando <code>anova(mod)</code>.</li>
+<li>Crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, <code>anova(mod.redu, mod)</code>.</li>
+</ol>
+<div id="ejemplo-18" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>En este ejemplo vamos a retomar los datos del ejemplo anterior en el cual se usa la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es ajustar un modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto.</p>
+<p>¿Será la variable tipo de auto significativa para el modelo?</p>
+<p>Para responder la pregunta anterior vamos a usar las tres formas listadas anteriormente.</p>
+<p>Primero vamos a ajustar el modelo de interés nuevamente.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb125-2" data-line-number="2">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
+<a class="sourceLine" id="cb125-3" data-line-number="3">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>)) <span class="co"># Para usar Small como referencia</span></a>
+<a class="sourceLine" id="cb125-4" data-line-number="4">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a></code></pre></div>
+<p><strong>Forma 1</strong><br />
+En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el <code>summary(mod)</code>.</p>
+<p>Al mirar el resultado del <code>summary(mod)</code> se observa que el valor-P asociado a la variable <code>TypeMidsize</code> es menor que el valor usuar de significancia 5%, por lo tanto la variable Type es sifinificativa para el modelo.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ EngineSize + Type, data = Cars93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.742  -4.568  -0.845   2.473  34.031 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.794      2.348   1.190  0.23732    
+## EngineSize     4.621      1.110   4.164  7.4e-05 ***
+## TypeCompact    4.644      2.484   1.870  0.06489 .  
+## TypeSporty     5.078      2.634   1.928  0.05721 .  
+## TypeMidsize   10.286      2.700   3.810  0.00026 ***
+## TypeLarge      2.053      3.916   0.524  0.60138    
+## TypeVan        1.517      3.332   0.455  0.65006    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.068 on 86 degrees of freedom
+## Multiple R-squared:  0.4995, Adjusted R-squared:  0.4646 
+## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
+<p><strong>Forma 2</strong><br />
+En la forma 2 debemos crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando <code>anova(mod)</code>.</p>
+<p>Al usar la función <code>anova</code> sobre un modelo <code>mod</code> obtenido con la función <code>lm</code>, apareceran tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \text{la variable de la FILA no aporta información para el modelo}, \\ 
+H_A &amp;: \text{la variable de la FILA si aporta información para el modelo}
+\end{align}\]</span></p>
+<p>A continuación el código para usar la forma 2..</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">anova</span>(mod)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Price
+##            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## EngineSize  1 3063.8 3063.78 61.3270 1.16e-11 ***
+## Type        5 1223.8  244.77  4.8994 0.000542 ***
+## Residuals  86 4296.4   49.96                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De la salida anterior se observa que el valor-P asociado a Type es de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, la variable Type si aporta información al modelo.</p>
+<p><strong>Forma 3</strong><br />
+En la forma 3 debemos crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, <code>anova(mod.redu, mod)</code>.</p>
+<p>Al usar la función <code>anova</code> el conjunto de hipótesis es:</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \text{la variable Type no aporta información para el modelo}, \\ 
+H_A &amp;: \text{la variable Type si aporta información para el modelo}
+\end{align}\]</span></p>
+<p>A continuación el código para usar la forma 3. El modelo <code>mod.redu</code> contiene un modelo <strong>sin</strong> la variable cualitativa de interés Type.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">mod.redu &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb130-2" data-line-number="2"><span class="kw">anova</span>(mod.redu, mod)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: Price ~ EngineSize
+## Model 2: Price ~ EngineSize + Type
+##   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)    
+## 1     91 5520.2                                 
+## 2     86 4296.4  5    1223.8 4.8994 0.000542 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De la salida anterior se tiene un valor-P de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, la variable Type si aporta información para el modelo y por lo tanto es una variable útil.</p>
+
+<div class="rmdnote">
+La decisión final con las formas 1, 2 y 3 siempre coinciden.
+</div>
+
+
+<div class="rmdwarning">
+La forma 2 y la forma 3 no son la misma.
+</div>
+
+
+<div class="rmdwarning">
+Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor <span class="math inline">\(\alpha\)</span>, el resultado del <code>summary</code> puede ser engañoso. Para esto se recomienda usar la función <code>anova</code>. Por favor vea los ejemplos con variables cualitativas del capítulo <a href="ph.html#ph">4</a>.
+</div>
+
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mod-poli.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="selec.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/08-var_cuali.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

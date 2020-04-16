@@ -1,0 +1,354 @@
+# Selección de variables {#selec}
+En este capítulo se muestra como realizar selección de variables en un modelo de regresión lineal.
+
+## Akaike Information Criterion ($AIC$) {-}
+El $AIC$ se define como:
+
+$$AIC = - 2 \times logLik + k \times n_{par},$$
+
+donde $logLik$ corresponde al valor de log-verosimilitud del modelo para el vector de parámetros $\hat{\Theta}$, $k$ es un valor de penalización por el exceso de parámetros y $n_{par}$ corresponde al número de parámetros del modelo. 
+
+Se debe recordar siempre que:
+
+- El mejor modelo es aquel que $logLik$ ↑.
+- El mejor modelo es aquel que $AIC$ ↓. 
+
+Cuando el valor de penalización $k=\log(n)$ entonces el $AIC$ se llamada en $BIC$ o $SBC$ (Schwarz's Bayesian criterion).
+
+## Funciones `logLik` y `AIC` {-}
+La función `logLik` sirve para obtener el valor de log-verosimilitud de un modelo y la función `AIC` entrega el Akaike Information Criterion. La estructura de ambas funciones se muestra a continuación.
+
+```{r eval=FALSE}
+logLik(object)
+AIC(object, k=2)
+```
+
+## Métodos {-}
+Los métodos para realizar selcción de variables se pueden clasificar de la siguiente manera:
+
+1. Todas las regresiones posibles.
+2. Selección de variables.
+    + Forward
+    + Backward
+
+A continuación una imagen ilustrativa para entender ambos métodos.
+
+```{r selection01, echo=F, fig.cap='Ilustración de los métodos Forward y Backward.', dpi=60, fig.align='center'}
+knitr::include_graphics("images/forward_backward.png")
+```
+
+- Un término ingresa al modelo si su presencia disminuye el $AIC$.
+- Un términa sale del modelo si su ausencia disminuye el $AIC$.
+
+## Función `stepAIC` {-}
+La función `stepAIC` del paquete **MASS** [@R-MASS] es útil para hacer selección de variables en un modelo de regresión. La estructura de la función se muestra a continuación.
+
+```{r, eval=FALSE}
+stepAIC(object, scope, scale = 0,
+        direction = c("both", "backward", "forward"),
+        trace = 1, keep = NULL, steps = 1000, use.start = FALSE,
+        k = 2, ...)
+```
+
+Algunos de los argumentos son:
+
+- `object`: un objeto con un modelo.
+- `scope`: fórmula(s) con los límites de búsqueda.
+- `direction`: los posibles valores son `both`, `backward`, `forward`.
+- `trace`: valor lógico para indicar si se desea ver el paso a paso de la selección.
+- `k`: valor de penalidad, por defecto es 2.
+
+### Ejemplo {-}
+En este ejemplo se busca encontrar un modelo de regresion lineal que explique la variable respuesta $y$ en función de las covariables $x_1$ a $x_{11}$, los datos provienen del ejercicio 9.5 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278).
+
+A continuación se muestra el encabezado de la base de datos y la definición de las variables.
+
+```{r selection02, echo=F, fig.cap='Ilustración de los métodos Forward y Backward.', dpi=60, fig.align='center'}
+knitr::include_graphics("images/tableb3.png")
+```
+
+__Nota__: Type of transmission (1=automatic, 0=manual).
+
+Antes de iniciar es necesario revisar si hay `NA's` y eliminarlos.
+
+```{r, message=F}
+library(MPV)  # Aqui estan los datos
+table.b3[22:26, ] # Can you see the missing values?
+datos <- table.b3[-c(23, 25), ]
+```
+
+El objeto `datos` tiene la base de datos sin las líneas con `NA`, lo mismo se hubiese podido realizar usando la función `na.omit`.
+
+A continuación se muestran los diagramas de dispersión para las variables de la base de datos.
+```{r, selection03, echo=F, fig.asp=0.8, fig.width=10}
+library(psych)
+pairs.panels(table.b3, 
+             method="pearson", # correlation method
+             hist.col="#00AFBB",
+             density=FALSE,  # show density plots
+             ellipses=FALSE, # show correlation ellipses
+             smooth=FALSE)
+```
+
+### Aplicación del método __backward__ {-}
+Vamos a crear un modelo _saturado_, es decir, el modelo mayor a considerar.
+
+```{r}
+full.model <- lm(y ~ ., data=datos)
+summary(full.model)
+```
+
+De la tabla anterior se puede pensar en que hay un efecto de <span style="color:red">enmascaramiento</span> entre las variables ya que ninguna parece significativa marginalmente.
+
+Se usa la función `stepAIC` y se elije `trace=TRUE` para obtener detalles del proceso de selección.
+
+```{r, message=F}
+library(MASS)  # Para poder usar la funcion stepAIC
+modback <- stepAIC(full.model, trace=TRUE, direction="backward")
+```
+
+Para obtener un resumen del proceso se usa:
+
+```{r}
+modback$anova
+```
+
+Para ver la tabla de resultados del modelo `modback`.
+
+```{r}
+summary(modback)
+```
+
+### Aplicación del método __forward__ {-}
+Para aplicar este metodo se debe crear un modelo vacío (`empty.model`) del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una fórmula que en este caso llamaremos `horizonte`. A continuación el codigo.
+
+```{r}
+empty.model <- lm(y ~ 1, data=datos)
+horizonte <- formula(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11)
+```
+
+Se usa la función `stepAIC` y se elije `trace=FALSE` para que NO se muestren los detalles del proceso de selección.
+
+```{r, message=F}
+modforw <- stepAIC(empty.model, trace=FALSE, direction="forward", scope=horizonte)
+modforw$anova
+```
+
+Para ver la tabla de resultados del modelo `modforw`.
+
+```{r}
+summary(modforw)
+```
+
+Como la variable $x_4$ no es significativa, entonces se puede <span style="color:red">refinar</span> o actualizar el modelo `modforw` sacando $x_4$, esto se puede realizar fácilmente por medio de la función `update` así:
+
+```{r}
+modforw <- update(modforw, y ~ x1)
+summary(modforw)
+```
+
+En este [enlace](https://www.researchgate.net/post/Why_stepAIC_gives_a_model_with_insignificant_variables_in_the_summarymodel2) usted podrá encontrar la respuesta que le dieron a Audrey al preguntar "Why stepAIC gives a model with insignificant variables?".
+
+### Aplicación del método __both__  {-}
+Para aplicar este método se debe crear un modelo vacío del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una `formula` que en este caso llamaremos `horizonte`. A continuación el código.
+
+```{r}
+modboth <- stepAIC(empty.model, trace=FALSE, direction="both", scope=horizonte)
+modboth$anova
+```
+
+El modelo `modboth` y `modforw` son el mismo.
+
+A continuación vamos a realizar una comparación de los modelos obtenidos.
+
+#### Comparando $R^2_{Adj}$  {-}
+Para extraer el $R^2_{Adj}$ de la tabla de resultados se usa:
+```{r}
+summary(modback)$adj.r.squared
+summary(modforw)$adj.r.squared
+```
+
+#### Comparando $\hat{\sigma}$  {-}
+Para extraer el $\hat{\sigma}$ de la tabla de resultados se usa:
+```{r}
+summary(modback)$sigma
+summary(modforw)$sigma
+```
+
+#### Comparando los residuales  {-}
+```{r selection04, message=F, fig.asp=0.5, fig.width=8}
+par(mfrow=c(1, 2))
+plot(modback, main="Backward", pch=19, cex=1, which=1)
+plot(modforw, main="Forward", pch=19, cex=1, which=1)
+```
+
+### Ejercicios {-}
+
+1.	¿Qué patrón observa en los gráficos?
+2.	Para cada uno de los dos modelos incluya términos cuadráticos con el objetivo de explicar ese patrón cuadrático no explicado y mostrado en los gráficos de residuales anteriores.
+
+## Funciones `addterm` y `dropterm` {-}
+Estas dos funciones pertenecen al paquete **MASS** [@R-MASS] y son útiles para agregar/quitar 1 variable con respecto al modelo ingresado. A continuación la estructura de las funciones.
+
+```{r, eval=FALSE}
+addterm(object, ...)
+dropterm (object, ...)
+```
+
+### Ejemplo {-}
+Usando datos anteriores ajuste un modelo para explicar `y` en función de `x2` y `x5`, luego use `addterm` para determinar cual de las variables `x1`, `x4` y `x6` se debería ingresar.
+
+```{r}
+mod1 <- lm(y ~ x2 + x5, data=datos)
+maximo <- formula(~ x1 + x2 + x3 + x4 + x5 + x6)
+addterm(mod1, scope=maximo)
+```
+
+De la salida anterior se ve que ingresar `x1` mejoraría el modelo porque lo llevaría de un $AIC=79.974$ a uno con $AIC=73.319$.
+
+## Paquete **olsrr** {-}
+El paquete **olsrr** [@R-olsrr] contiene varias funciones útiles para modelación, en particular se destaca la función `ols_step_all_possible` que se puede utilizar para obtener todas las regresiones posibles.
+
+Si un modelo tiene inicialmente $k$ variables cuantitativas entonces se pueden construir $2^k$ modelos diferentes con subconjuntos de las variables originales. A continuación un ejemplo de cómo crece el número de todas las regresiones posibles en función del número $k$ de covariables.
+
+```{r, echo=FALSE}
+k <- c(2, 4, 8, 16, 32)
+num_de_regresiones <- 2^k
+cbind(k, num_de_regresiones)
+```
+
+### Ejemplo {-}
+En este ejemplo vamos a usar la base de datos `mtcars` para crear todas las regresiones posibles para explicar `mpg` en función de las variables `disp`, `hp`, `wt`, `qsec`, a continuación una parte de la base de datos.
+
+```{r}
+head(mtcars)
+```
+
+A continuación el código para ajustar el modelo saturado y luego crear todas las regresiones posibles.
+
+```{r message=FALSE}
+model <- lm(mpg ~ disp + hp + wt + qsec, data=mtcars)
+
+library(olsrr)
+res <- ols_step_all_possible(model)
+res
+```
+
+Los resultados anteriores se pueden ver de forma gráfica así:
+
+```{r selection05}
+plot(res)
+```
+
+Se le recomienda al lector explorar las viñetas del paquete [olsrr](https://cran.r-project.org/web/packages/olsrr/index.html) para conocer todas las bondades del paquete.
+
+## Paquete **mixlm** {-}
+El paquete **mixlm** [@R-mixlm] contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son `forward`, `backward`, `stepWise`.
+
+```{block2, type='rmdwarning'}
+Este paquete contiene otras funciones `lm` y `glm` que se pueden confundir con las funciones `lm` y `glm` del paquete **stats**. Por esta razón el usuario debe tener cuidado de usar la apropiada, en estos casos se recomienda usar `stats::lm(y ~ x)` o `mixlm::lm(y ~ x)` para obligar a R a que use la que el usuario desea.
+```
+
+### Ejemplo {-}
+En este ejemplo se retoman los datos del ejercicio 9.5 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En este ejemplo se busca encontrar un modelo de regresion lineal que explique la variable respuesta $y$ en función de las covariables $x_1$ a $x_{11}$, usando el modelo backward y que todas las variables sean significativas a un nivel del 4%.
+
+Para realizar lo solicitado se usa el siguiente código:
+
+```{r, message=FALSE}
+library(MPV) # Aqui estan los datos
+datos <- table.b3[-c(23, 25), ] # Eliminando 2 observaciones con NA
+modelo <- lm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11,
+             data=datos)
+
+library(mixlm)
+backward(modelo, alpha=0.04)
+```
+
+De la salida anterior vemos que el modelo final es `y ~ x8 + x10`. Si comparamos este modelo con el obtenido al usar la función `stepAIC`, vemos que se eliminó la variable `x5` ya que su valor-P era 5.02%, superior al límite definido aquí del 4%.
+
+## Paquete **leaps** {-}
+El paquete **leaps** [@R-leaps] creado por [Thomas Lumley](https://www.stat.auckland.ac.nz/people/tlum005) está basado en [Fortran](https://es.wikipedia.org/wiki/Fortran) y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.
+
+La función `regsubsets` realiza una búsqueda exhaustiva de los mejores subconjuntos de variables $x$ para explicar $y$. La búsqueda utiliza un algoritmo eficiente de ramificación y unión.
+
+La estructura de la función es la siguiente:
+
+```{r, eval=FALSE}
+regsubsets(x, data, nbest, nvmax, ...)
+```
+
+Algunos de los parámetros más usuados en la función son:
+
+- `x`: fórmula usual.
+- `data`: marco de datos.
+- `nbest`: número de subconjuntos de cada tamaño a guardar.
+- `nvmax`: máximo número de subconjuntos a evaluar.
+
+### Ejemplo {-}
+En este ejemplo vamos a usar la base de datos `mtcars` para encontrar los __dos__ mejores modelos con 1, 2, 3 y 4 covariables para explicar `mpg` en función de las variables `disp`, `hp`, `wt`, `qsec`.
+
+Para hacer la búsqueda usamos el siguiente código. `nbest=2` porque queremos los mejores __dos__ modelos con cada número de covariables posible.
+
+```{r}
+library(leaps)
+model_subset <- regsubsets(mpg ~ disp + hp + wt + qsec, 
+                           data=mtcars, nbest=2, nvmax=13)
+```
+
+El `model_subset` es un objeto de la clase `regsubsets` y es posible usar la función S3 `summary` para objetos de esa clase. A continuación los elementos que componen `summary`.
+
+```{r}
+names(summary(model_subset))
+```
+
+El primer elemento del `summary` se obtiene así:
+
+```{r}
+summary(model_subset)$which
+```
+
+De las dos primeras líneas de la salida anterior se observa que los dos mejores modelos con __una__ sola covariable son `mpg ~ wt` y `mpg ~ disp`. De forma similar, los dos mejores modelos con __dos__ covariables son `mpg ~ hp + wt` y `mpg ~ wt + qsec`. De forma análoga se interpretan las líneas de la salida anterior.
+
+Es posible mostrar gráficamente los resultados anteriores usando el método S3 `plot` para objetos de la clase `regsubsets`. A continuación la estructura de la función `plot`. El parámetro `scale` nos permite explorar los mejores modelos para cada uno de los cuatro criterios $BIC$, $C_p$, $R^2_{adj}$ y $R^2$. 
+
+```{r, eval=FALSE}
+plot(x, labels=obj$xnames, main=NULL, 
+     scale=c("bic", "Cp", "adjr2", "r2"),
+     col=gray(seq(0, 0.9, length = 10)),...)
+```
+
+A continuación el código para mostrar gráficamente los mejores modelos usando el criterio $R^2_{adj}$ y $BIC$.
+
+```{r selection06, fig.height=6, fig.width=10}
+par(mfrow=c(1, 2))
+plot(model_subset, scale="adjr2", main=expression(R[Adj]^2))
+plot(model_subset, scale="bic", main="BIC")
+```
+
+De la figura de la izquierda vemos que:
+
+- El modelo con mayor $R^2_{adj}$ es `mpg ~ hp + wt + qsec`.
+- El modelo `mpg ~ hp + wt` tiene igual $R^2_{adj}$ que `mpg ~ wt + qsec`.
+- El mejor modelo con una sola covariable es `mpg ~ wt`.
+
+La figura de la derecha se puede analizar de forma análoga.
+
+Para obtener los valores exacto de $R^2_{adj}$ y $BIC$ mostrados en la figura anterior se usa el siguiente código.
+
+```{r}
+summary(model_subset)$adjr2
+summary(model_subset)$bic
+```
+
+Para encontrar el modelo con el mejor $BIC$ se puede usar lo siguiente:
+```{r}
+which(summary(model_subset)$bic == min(summary(model_subset)$bic))
+```
+
+Para determinar la estructura del <span style="color:orange">modelo 3</span> identificado en la salida anterior usamos:
+```{r}
+summary(model_subset)$which[3, ]
+```
+
+
+

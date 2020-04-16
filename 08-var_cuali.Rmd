@@ -1,0 +1,202 @@
+# Modelos con variables cualitativas {#varcuali}
+En este capítulo se muestra cómo incluir variables cualitativas en un modelo de regresión con R.
+
+## ¿Es posible incluir variables cualitativas? {-}
+Una de las preguntas frecuentes entre los que inician el estudio de los modelos de regresión es: ¿se pueden incluir variables cualitativas en un modelo de regresión?
+
+La respuesta es __SI__, definitivamente si.
+
+A continuación una figura que ilustra algunas de las variables que se pueden incluir en la construcción de un modelo de regresión.
+
+```{r echo=F, fig.cap='Variables variables cualitativas a incluir en un modelo.', dpi=80, fig.align='center'}
+knitr::include_graphics("images/embudo.png")
+```
+
+## Variable indicadora, dummy, ficticia o binaria  {-}
+La palabra indicadora, dummy, ficticia o binaria es la denominación genérica para una variable que toma valores de 0 o de 1 y que se utiliza para re-expresar variables cualitativas.
+
+Observe la figura \@ref(fig:cuali02). En la parte izquierda se tiene una base original de ejemplo con las variables precio, área y piscina, asociadas a seis apartamentos. La variable cualitativa Piscina de niveles __sin__, __pequeña__ y __grande__, el nivel __sin__ es el nivel de referencia natural. 
+
+Al lado derecho de la figura \@ref(fig:cuali02) está la base transformada y vemos que hay 4 variables. Las nuevas variables __PisPeq__ y __PisGra__ son 2 variables indicadoras que logran resumir la información de la variable Piscina que tiene 3 variables.
+
+Para comprender como las 2 variables indicadoras pueden resumir la información de la variable Piscina, vamos a considerar los siguientes tres casos:
+
+1. Si `PisPeq = 0` y `PisGra = 0`, entonces el apartamento  está __SIN__ piscina.
+1. Si `PisPeq = 1` y `PisGra = 0`, entonces el apartamento tiene piscina __PEQUEÑA__.
+1. Si `PisPeq = 0` y `PisGra = 1`, entonces el apartamento tiene piscina __GRANDE__.
+
+```{r cuali02, echo=F, fig.cap='Transformando una base de datos con variables cualitativas.', dpi=80, fig.align='center'}
+knitr::include_graphics("images/var_cuali_01.png")
+```
+
+```{block2, type='rmdnote'}
+Como regla general, si una variable cualitativa tiene $k$ niveles, se necesitarán de $k-1$ variables indicadoras para resumir la variable cualitativa.
+```
+
+## Creando variables indicadoras  {-}
+Crear manualmente variables indicadoras para re-expresar variables cualitativas es una tarea muy sencilla, manualmente la podemos hacer. Sin embargo, R posee una herramienta que nos permite convertir la base de datos original en una base de datos transformada (con variables indicadoras). Para este fin se usa la función `model.matrix`.
+
+### Ejemplo {-}
+Retomando la base de datos original mostrada en la figura \@ref(fig:cuali02) vamos a crear la matriz de diseño $\boldsymbol{X}$ para ajustar el modelo siguiente:
+
+\begin{align}
+Precio_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 Area_i + \beta_2 PisciPequena_i + \beta_3 PisiGrande_i, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+Lo primero a realizar es ingresar los datos para el ejemplo mostrado en la figura \@ref(fig:cuali02). El código necesario se muestra a continuación.
+
+```{r}
+Precio <- c(12, 15, 25, 11, 16, 7)
+Area <- c(3, 4, 1, 6, 5, 3)
+Pisci <- factor(x=c('Grande', 'Sin', 'Pequena', 'Pequena', 'Sin', 'Grande'),
+                levels=c('Sin','Pequena','Grande'))
+```
+
+Al crear el vector `Pisci` se usó el argumento `levels` dentro de la función `factor` para indicarle a R que el nivel de referencia es `Sin`, seguido de `Pequena` y luego `Grande`.
+
+Para obtener la matriz $\boldsymbol{X}$ con las variables indicadoras (no con la variable original `Pisci`) se hace lo siguiente:
+
+```{r}
+model.matrix(Precio ~ Area + Pisci)
+```
+
+## Modelos con variables cualitativas  {-}
+Para ajustar un modelo de regresión lineal con variables cualitativas se procede de la forma usual como se ajustan modelos con `lm`, no es necesario crear de antemano la matriz $\boldsymbol{X}$, esto porque `lm` internamente crea la matriz de diseño $\boldsymbol{X}$.
+
+### Ejemplo {-}
+En este ejemplo vamos a utilizar la base de datos `Cars93` del paquete `MASS`. El objetivo es ajustar el siguiente modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto, es decir, el objetivo es ajustar el siguiente modelo.
+
+\begin{align}
+Precio_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 EngSiz_i + \beta_2 TComp_i + \beta_3 TSpor_i + \beta_4 TMid_i + \beta_5 TLarg_i + \beta_6 TVan_i, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+Lo primero a realizar es cargar el paquete y explorar las variables de interés con la ayuda de la función `str`.
+
+```{r, message=FALSE}
+require(MASS)
+str(Cars93[, c('Price', 'EngineSize', 'Type')])
+```
+
+La variable `Type` tiene 6 niveles, para ver todos niveles usamos el siguiente código.
+
+```{r}
+levels(Cars93$Type)
+```
+
+De la salida anterior se observan que los niveles son Compact, Large, Midsize, Small, Sporty y Van. Al observar cuidadosamente los niveles vemos que ellos están ordenados por orden lexicográfico, primero Compact por iniciar con la letra __C__, por último Van por iniciar con la letra __V__. Al mirar el modelo requerido se nota que el nivel Small no aparece en la ecuación de $\mu$, esto significa que ese es el nivel de referencia que se encuentra en el intercepto $\beta_0$. Para redefinir los niveles en el orden requerido usamos el siguiente código.
+
+```{r}
+Cars93$Type <- factor(Cars93$Type, 
+                      levels=c('Small', 'Compact', 'Sporty', 'Midsize', 'Large', 'Van'))
+levels(Cars93$Type)  # Para verificar el cambio
+```
+
+A continuación vamos a crear un diagrama de dispersión para ver la relación entre las variables del problema.
+
+```{r cuanti1, fig.height=3, fig.width=5, fig.align='center', message=FALSE}
+library(ggplot2)
+ggplot(Cars93, aes(x=EngineSize, y=Price, color=Type)) + 
+  geom_point() + theme_light()
+```
+
+Ahora si podemos ajustar el modelo solicitado usando el siguiente código.
+
+```{r}
+mod <- lm(Price ~ EngineSize + Type, data=Cars93)
+summary(mod)
+```
+
+Usando la información de la salida anterior se puede construir el siguiente modelo ajustado.
+
+\begin{align}
+\widehat{Precio}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
+\hat{\mu}_i &= 2.794 + 4.621 EngSiz_i + 4.644 TComp_i + 5.078 TSpor_i + \ldots \\
+\hat{\sigma} &= 7.068
+\end{align}
+
+## Significancia de variables cualitativas  {-}
+Cuando se incluye una variable cualitativa de $k$ niveles en un modelo de regresión, aparecen $k-1$ variables indicadoras y por lo tanto $k-1$ valores-P en la tabla resumen. Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para el modelo? 
+
+Para saber si una variable cualitativa es significativa para un modelo hay tres formas:
+
+1. Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)`.
+2. Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
+3. Crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, `anova(mod.redu, mod)`.
+
+### Ejemplo {-}
+En este ejemplo vamos a retomar los datos del ejemplo anterior en el cual se usa la base de datos `Cars93` del paquete `MASS`. El objetivo es ajustar un modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto. 
+
+¿Será la variable tipo de auto significativa para el modelo?
+
+Para responder la pregunta anterior vamos a usar las tres formas listadas anteriormente.
+
+Primero vamos a ajustar el modelo de interés nuevamente.
+
+```{r}
+require(MASS)
+Cars93$Type <- factor(Cars93$Type, 
+                      levels=c('Small', 'Compact', 'Sporty', 'Midsize', 'Large', 'Van')) # Para usar Small como referencia
+mod <- lm(Price ~ EngineSize + Type, data=Cars93)
+```
+
+__Forma 1__  
+En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)`. 
+
+Al mirar el resultado del `summary(mod)` se observa que el valor-P asociado a la variable `TypeMidsize` es menor que el valor usuar de significancia 5%, por lo tanto la variable Type es sifinificativa para el modelo.
+
+```{r}
+summary(mod)
+```
+
+__Forma 2__  
+En la forma 2 debemos crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
+
+Al usar la función `anova` sobre un modelo `mod` obtenido con la función `lm`, apareceran tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:
+
+\begin{align}
+H_0 &: \text{la variable de la FILA no aporta información para el modelo}, \\ 
+H_A &: \text{la variable de la FILA si aporta información para el modelo}
+\end{align}
+
+A continuación el código para usar la forma 2.. 
+
+```{r}
+anova(mod)
+```
+
+De la salida anterior se observa que el valor-P asociado a Type es de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar $H_0$, es decir, la variable Type si aporta información al modelo.
+
+__Forma 3__  
+En la forma 3 debemos crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, `anova(mod.redu, mod)`.
+
+Al usar la función `anova` el conjunto de hipótesis es:
+
+\begin{align}
+H_0 &: \text{la variable Type no aporta información para el modelo}, \\ 
+H_A &: \text{la variable Type si aporta información para el modelo}
+\end{align}
+
+A continuación el código para usar la forma 3. El modelo `mod.redu` contiene un modelo __sin__ la variable cualitativa de interés Type. 
+
+```{r}
+mod.redu <- lm(Price ~ EngineSize, data=Cars93)
+anova(mod.redu, mod)
+```
+
+De la salida anterior se tiene un valor-P de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar $H_0$, es decir, la variable Type si aporta información para el modelo y por lo tanto es una variable útil.
+
+```{block2, type='rmdnote'}
+La decisión final con las formas 1, 2 y 3 siempre coinciden.
+```
+
+```{block2, type='rmdwarning'}
+La forma 2 y la forma 3 no son la misma.
+```
+
+```{block2, type='rmdwarning'}
+Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor $\alpha$, el resultado del `summary` puede ser engañoso. Para esto se recomienda usar la función `anova`. Por favor vea los ejemplos con variables cualitativas del capítulo \@ref(ph).
+```
