@@ -23,6 +23,15 @@ knitr::write_bib(c(
                 'model'), 'packages.bib')
 ```
 
+```{r echo=FALSE, message=FALSE}
+# lista de paquetes necesarios para compilar el libro
+list.of.packages <- c("plot3D")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) 
+  install.packages(new.packages,
+                   repos="https://cloud.r-project.org")
+```
+
 ```{r echo=FALSE, out.width="33%", fig.align='center'}
 knitr::include_graphics("images/cover.png")
 ```

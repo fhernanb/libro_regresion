@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Regresión lineal múltiple | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Regresión lineal múltiple | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2019-09-25" />
+<meta name="date" content="2020-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -41,6 +41,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,18 +52,18 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -72,13 +75,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -151,9 +152,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i><b>1.1</b> Apéndice</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.1.1</b> Estimación por mínimos cuadrados</a></li>
-<li class="chapter" data-level="1.1.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.1.2</b> Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i>Apéndice</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.0.1</b> Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="1.0.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.0.2</b> Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -185,7 +186,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="5" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>5</b> Modelos polinomiales</a><ul>
 <li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="pruebas.html"><a href="pruebas.html"><i class="fa fa-check"></i><b>8</b> Algunas pruebas de los resultados más importantes</a></li>
-<li class="chapter" data-level="" data-path="capitulo-de-guia-para-crear-otros-capitulos.html"><a href="capitulo-de-guia-para-crear-otros-capitulos.html"><i class="fa fa-check"></i>Capítulo de guía para crear otros capítulos</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -291,9 +291,9 @@ y_i &amp;\sim N(\mu_i, \sigma^2), \\
 <h3>Ejemplo</h3>
 <p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
 <p>Los datos del ejemplo están disponibles en el paquete <strong>MPV</strong> (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">require</span>(MPV)</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">head</span>(softdrink)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">require</span>(MPV)</a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw">head</span>(softdrink)</a></code></pre></div>
 <pre><code>##   tiempo cantidad distancia
 ## 1  16.68        7       560
 ## 2  11.50        3       220
@@ -302,36 +302,35 @@ y_i &amp;\sim N(\mu_i, \sigma^2), \\
 ## 5  13.75        6       150
 ## 6  18.11        7       330</code></pre>
 <p>Un gráfico en 3d es obligratorio para explorar la relación entre las variables, este diagrama de puede obtener usando el paquete <strong>scatterplot3d</strong>. A continuación el código para construirlo.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">library</span>(scatterplot3d)</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">attach</span>(softdrink)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">              <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">              <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">library</span>(scatterplot3d)</a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="kw">attach</span>(softdrink)</a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb28-4" title="4">              <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
+<a class="sourceLine" id="cb28-5" title="5">              <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/3d_refrescos_01-1.png" width="672" /></p>
 <p>De la figura anterior se ve claramente que a medida que aumenta el número de cajas y la distancia los tiempos tienden a ser mayores.</p>
 <p>El mismo diagrama de dispersión anterior se puede crear usando el paquete <strong>plotly</strong>. El lector puede jugar con el diagrama, puede moverlo, girarlo, acercarse y muchas cosas más, la curiosidad le mostrará las diferentes posibilidades.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">library</span>(plotly)</a></code></pre></div>
-<pre><code>## Warning: package &#39;plotly&#39; was built under R version 3.5.3</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plot_ly</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&quot;scatter3d&quot;</span>, <span class="dt">color=</span>tiempo) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">layout</span>(<span class="dt">scene =</span> <span class="kw">list</span>(<span class="dt">xaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Cantidad&#39;</span>),</a>
-<a class="sourceLine" id="cb30-3" data-line-number="3">                      <span class="dt">yaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Distancia (pies)&#39;</span>),</a>
-<a class="sourceLine" id="cb30-4" data-line-number="4">                      <span class="dt">zaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Tiempo (min)&#39;</span>)))</a></code></pre></div>
-<div id="htmlwidget-9d6443c9f055dc57cf0b" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d6443c9f055dc57cf0b">{"x":{"visdat":{"1e905f72ccf":["function () ","plotlyVisDat"]},"cur_data":"1e905f72ccf","attrs":{"1e905f72ccf":{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Cantidad"},"yaxis":{"title":"Distancia (pies)"},"zaxis":{"title":"Tiempo (min)"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"type":"scatter3d","mode":"markers","marker":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"line":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75]}},"frame":null},{"x":[2,30],"y":[36,1460],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[8,79.24],"line":{"color":"rgba(255,127,14,1)"}},"z":[8,79.24],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">library</span>(plotly)</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="kw">plot_ly</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&quot;scatter3d&quot;</span>, <span class="dt">color=</span>tiempo) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="st">  </span><span class="kw">layout</span>(<span class="dt">scene =</span> <span class="kw">list</span>(<span class="dt">xaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Cantidad&#39;</span>),</a>
+<a class="sourceLine" id="cb29-4" title="4">                      <span class="dt">yaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Distancia (pies)&#39;</span>),</a>
+<a class="sourceLine" id="cb29-5" title="5">                      <span class="dt">zaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Tiempo (min)&#39;</span>)))</a></code></pre></div>
+<div id="htmlwidget-91d53627b10fd906a1be" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91d53627b10fd906a1be">{"x":{"visdat":{"13686890764":["function () ","plotlyVisDat"]},"cur_data":"13686890764","attrs":{"13686890764":{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Cantidad"},"yaxis":{"title":"Distancia (pies)"},"zaxis":{"title":"Tiempo (min)"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"type":"scatter3d","mode":"markers","marker":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"line":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75]}},"frame":null},{"x":[2,30],"y":[36,1460],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[8,79.24],"line":{"color":"rgba(255,127,14,1)"}},"z":[8,79.24],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>Otro gráfico de dispersión en 3d se puede construir usando el paquete <strong>rgl</strong>. A continuación está el código para obtener el diagrama de dispersión. De tarea se deja que el lector copie el código en la consola y reconstruya el gráfico.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">plot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&#39;s&#39;</span>, <span class="dt">col=</span><span class="st">&#39;pink&#39;</span>,</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">       <span class="dt">xlab=</span><span class="st">&#39;Cantidad&#39;</span>,</a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>,</a>
-<a class="sourceLine" id="cb31-5" data-line-number="5">       <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="kw">plot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&#39;s&#39;</span>, <span class="dt">col=</span><span class="st">&#39;pink&#39;</span>,</a>
+<a class="sourceLine" id="cb30-3" title="3">       <span class="dt">xlab=</span><span class="st">&#39;Cantidad&#39;</span>,</a>
+<a class="sourceLine" id="cb30-4" title="4">       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>,</a>
+<a class="sourceLine" id="cb30-5" title="5">       <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
 <p>Basándonos en el diagrama de dispersión 3d, el modelo que se va a ajustar se muestra a continuación.</p>
 <p><span class="math display">\[\begin{align}
 Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\ 
 \mu_i &amp;= \beta_0 + \beta_1 Cantidad_i + \beta_2 Distancia_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tiempo ~ cantidad + distancia, data = softdrink)
@@ -358,12 +357,12 @@ Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\
 \hat{\sigma} &amp;= 3.259
 \end{align}\]</span></p>
 <p>Para incluir el plano de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">mi_3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">                       <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">                       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a>
-<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co"># Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado</span></a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">mi_3d<span class="op">$</span><span class="kw">plane3d</span>(mod, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>, <span class="dt">col=</span><span class="st">&#39;mediumblue&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d</span></a>
+<a class="sourceLine" id="cb33-2" title="2">mi_3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb33-3" title="3">                       <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
+<a class="sourceLine" id="cb33-4" title="4">                       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="co"># Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado</span></a>
+<a class="sourceLine" id="cb33-6" title="6">mi_3d<span class="op">$</span><span class="kw">plane3d</span>(mod, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>, <span class="dt">col=</span><span class="st">&#39;mediumblue&#39;</span>)</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/3d_refrescos_03-1.png" width="672" /></p>
 
 </div>
@@ -380,11 +379,13 @@ Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

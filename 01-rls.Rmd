@@ -158,7 +158,7 @@ ggplot(datos, aes(x=Edad, y=Resistencia)) +
 ```
 
 
-## Apéndice 
+## Apéndice {-}
 
 ### Estimación por mínimos cuadrados {#apend11}
 

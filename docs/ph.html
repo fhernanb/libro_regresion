@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Pruebas de hipótesis | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Pruebas de hipótesis | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2019-09-25" />
+<meta name="date" content="2020-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="ic.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="mod-poli.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +41,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -49,18 +52,18 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -72,13 +75,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -151,9 +152,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i><b>1.1</b> Apéndice</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.1.1</b> Estimación por mínimos cuadrados</a></li>
-<li class="chapter" data-level="1.1.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.1.2</b> Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i>Apéndice</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.0.1</b> Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="1.0.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.0.2</b> Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -185,7 +186,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="5" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>5</b> Modelos polinomiales</a><ul>
 <li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="pruebas.html"><a href="pruebas.html"><i class="fa fa-check"></i><b>8</b> Algunas pruebas de los resultados más importantes</a></li>
-<li class="chapter" data-level="" data-path="capitulo-de-guia-para-crear-otros-capitulos.html"><a href="capitulo-de-guia-para-crear-otros-capitulos.html"><i class="fa fa-check"></i>Capítulo de guía para crear otros capítulos</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -275,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 frente a
 <span class="math display">\[H_A: \text{al menos algún} \, \beta \, \text{no es cero}\]</span>
 Esta prueba de hipótesis se llama prueba de significancia de la regresión. Para realizar esta prueba se puede utilizar la salida del <code>summary</code>. La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">summary</span>(object, <span class="dt">correlation =</span> <span class="ot">FALSE</span>, <span class="dt">symbolic.cor =</span> <span class="ot">FALSE</span>, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">summary</span>(object, <span class="dt">correlation =</span> <span class="ot">FALSE</span>, <span class="dt">symbolic.cor =</span> <span class="ot">FALSE</span>, ...)</a></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -288,10 +288,10 @@ Esta prueba de hipótesis se llama prueba de significancia de la regresión. Par
 <p>¿Son las variables número de cajas y distancia significativas para explicar el tiempo medio?</p>
 <p>En este ejemplo nos interesa probar <span class="math inline">\(H_0: \beta_{cant} = \beta_{dist} = 0,\)</span> frente a <span class="math inline">\(H_A: \text{al menos algún} \, \beta \, \text{no es cero}\)</span>.</p>
 <p>Los datos para el ejemplo están disponibles en el paquete <strong>MPV</strong> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-MPV"><strong>???</strong></span>)</span> dentro del objeto <code>softdrink</code>. A continuación el código para disponer los datos, ajustar el modelo y mostrar la tabla de resumen con <code>summary</code>.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">require</span>(MPV)</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">require</span>(MPV)</a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</a>
+<a class="sourceLine" id="cb42-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</a>
+<a class="sourceLine" id="cb42-4" title="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tiempo ~ cantidad + distancia, data = softdrink)
@@ -348,10 +348,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
 <span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
 <p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></a>
+<a class="sourceLine" id="cb44-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb44-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
@@ -375,11 +375,11 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 </div>
 <div id="funcion-beta_test-para-beta_k0-neq-0" class="section level2 unnumbered">
 <h2>Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></h2>
-<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model">2019</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</a>
+<a class="sourceLine" id="cb46-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</a></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -395,8 +395,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
 <span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
 <p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>(model)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw">library</span>(model)</a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
 <pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
 ## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
 <p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>
@@ -411,7 +411,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 </ul>
 <p>Suponga que se tienen dos modelos <code>m1</code> y <code>m2</code> creados para explicar la misma variable respuesta. El modelo <code>m1</code> se dice que está anidado en el modelo <code>m2</code> si, el modelo <code>m2</code> tiene todos los términos de <code>m1</code> y al menos otro término que no esté en <code>m1</code>.</p>
 <p>El método S3 <code>anova.lm</code> (o simplemente <code>anova</code>) tiene la estructura mostrada a continuación.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">anova</span>(object, test, <span class="dt">scale=</span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="kw">anova</span>(object, test, <span class="dt">scale=</span><span class="dv">0</span>)</a></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -423,23 +423,23 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p>En este ejemplo queremos comparar dos modelos anidados, el modelo <code>m1</code> con la fórmula <code>y ~ x1 + x2</code> y el modelo <code>m2</code> con la fórmula <code>y ~ x1 + x2 + x3 + x4</code>.</p>
 <p>¿Será que la inclusión simultánea de las variables <code>x3</code> y <code>x4</code> mejora el modelo para explicar la variable respuesta <code>y</code>?</p>
 <p>Para este ejemplo vamos a usar los datos que se muestran a continuación.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">datos &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">29.5</span>, <span class="fl">27.9</span>, <span class="fl">25.9</span>, <span class="fl">29.9</span>, <span class="fl">29.9</span>, <span class="fl">30.9</span>, <span class="fl">28.9</span>, </a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="fl">35.9</span>, <span class="fl">31.5</span>, <span class="dv">31</span>, <span class="fl">30.9</span>, <span class="dv">30</span>, <span class="fl">36.9</span>, <span class="fl">41.9</span>, <span class="fl">40.5</span>, <span class="fl">43.9</span>, <span class="fl">37.5</span>, <span class="fl">37.9</span>, </a>
-<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="fl">44.5</span>, <span class="fl">37.9</span>, <span class="fl">38.9</span>, <span class="fl">36.9</span>, <span class="fl">45.8</span>, <span class="fl">25.9</span>), <span class="dt">x1 =</span> <span class="kw">c</span>(<span class="fl">5.0208</span>, <span class="fl">4.5429</span>, <span class="fl">4.5573</span>, </a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="fl">5.0597</span>, <span class="fl">3.891</span>, <span class="fl">5.898</span>, <span class="fl">5.6039</span>, <span class="fl">5.8282</span>, <span class="fl">5.3003</span>, <span class="fl">6.2712</span>, <span class="fl">5.9592</span>, </a>
-<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="fl">5.05</span>, <span class="fl">8.2464</span>, <span class="fl">6.6969</span>, <span class="fl">7.7841</span>, <span class="fl">9.0384</span>, <span class="fl">5.9894</span>, <span class="fl">7.5422</span>, <span class="fl">8.7951</span>, </a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="fl">6.0831</span>, <span class="fl">8.3607</span>, <span class="fl">8.14</span>, <span class="fl">9.1416</span>, <span class="fl">4.9176</span>), <span class="dt">x2 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, </a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">1</span>), <span class="dt">x3 =</span> <span class="kw">c</span>(<span class="fl">3.531</span>, <span class="fl">2.275</span>, <span class="fl">4.05</span>, <span class="fl">4.455</span>, <span class="fl">4.455</span>, <span class="fl">5.85</span>, <span class="fl">9.52</span>, </a>
-<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="fl">6.435</span>, <span class="fl">4.9883</span>, <span class="fl">5.52</span>, <span class="fl">6.666</span>, <span class="dv">5</span>, <span class="fl">5.15</span>, <span class="fl">6.902</span>, <span class="fl">7.102</span>, <span class="fl">7.8</span>, <span class="fl">5.52</span>, </a>
-<a class="sourceLine" id="cb52-10" data-line-number="10"><span class="dv">5</span>, <span class="fl">9.89</span>, <span class="fl">6.7265</span>, <span class="fl">9.15</span>, <span class="dv">8</span>, <span class="fl">7.3262</span>, <span class="fl">3.472</span>), <span class="dt">x4 =</span> <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">1.175</span>, </a>
-<a class="sourceLine" id="cb52-11" data-line-number="11"><span class="fl">1.232</span>, <span class="fl">1.121</span>, <span class="fl">0.988</span>, <span class="fl">1.24</span>, <span class="fl">1.501</span>, <span class="fl">1.225</span>, <span class="fl">1.552</span>, <span class="fl">0.975</span>, <span class="fl">1.121</span>, </a>
-<a class="sourceLine" id="cb52-12" data-line-number="12"><span class="fl">1.02</span>, <span class="fl">1.664</span>, <span class="fl">1.488</span>, <span class="fl">1.376</span>, <span class="fl">1.5</span>, <span class="fl">1.256</span>, <span class="fl">1.69</span>, <span class="fl">1.82</span>, <span class="fl">1.652</span>, <span class="fl">1.777</span>, </a>
-<a class="sourceLine" id="cb52-13" data-line-number="13"><span class="fl">1.504</span>, <span class="fl">1.831</span>, <span class="fl">0.998</span>)), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, </a>
-<a class="sourceLine" id="cb52-14" data-line-number="14"><span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;8&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;11&quot;</span>, <span class="st">&quot;12&quot;</span>, <span class="st">&quot;13&quot;</span>, </a>
-<a class="sourceLine" id="cb52-15" data-line-number="15"><span class="st">&quot;14&quot;</span>, <span class="st">&quot;15&quot;</span>, <span class="st">&quot;16&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;18&quot;</span>, <span class="st">&quot;19&quot;</span>, <span class="st">&quot;20&quot;</span>, <span class="st">&quot;21&quot;</span>, <span class="st">&quot;22&quot;</span>, <span class="st">&quot;23&quot;</span>, <span class="st">&quot;24&quot;</span></a>
-<a class="sourceLine" id="cb52-16" data-line-number="16">))</a>
-<a class="sourceLine" id="cb52-17" data-line-number="17"><span class="kw">head</span>(datos)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">29.5</span>, <span class="fl">27.9</span>, <span class="fl">25.9</span>, <span class="fl">29.9</span>, <span class="fl">29.9</span>, <span class="fl">30.9</span>, <span class="fl">28.9</span>, </a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="fl">35.9</span>, <span class="fl">31.5</span>, <span class="dv">31</span>, <span class="fl">30.9</span>, <span class="dv">30</span>, <span class="fl">36.9</span>, <span class="fl">41.9</span>, <span class="fl">40.5</span>, <span class="fl">43.9</span>, <span class="fl">37.5</span>, <span class="fl">37.9</span>, </a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="fl">44.5</span>, <span class="fl">37.9</span>, <span class="fl">38.9</span>, <span class="fl">36.9</span>, <span class="fl">45.8</span>, <span class="fl">25.9</span>), <span class="dt">x1 =</span> <span class="kw">c</span>(<span class="fl">5.0208</span>, <span class="fl">4.5429</span>, <span class="fl">4.5573</span>, </a>
+<a class="sourceLine" id="cb51-4" title="4"><span class="fl">5.0597</span>, <span class="fl">3.891</span>, <span class="fl">5.898</span>, <span class="fl">5.6039</span>, <span class="fl">5.8282</span>, <span class="fl">5.3003</span>, <span class="fl">6.2712</span>, <span class="fl">5.9592</span>, </a>
+<a class="sourceLine" id="cb51-5" title="5"><span class="fl">5.05</span>, <span class="fl">8.2464</span>, <span class="fl">6.6969</span>, <span class="fl">7.7841</span>, <span class="fl">9.0384</span>, <span class="fl">5.9894</span>, <span class="fl">7.5422</span>, <span class="fl">8.7951</span>, </a>
+<a class="sourceLine" id="cb51-6" title="6"><span class="fl">6.0831</span>, <span class="fl">8.3607</span>, <span class="fl">8.14</span>, <span class="fl">9.1416</span>, <span class="fl">4.9176</span>), <span class="dt">x2 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb51-7" title="7"><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb51-8" title="8"><span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">1</span>), <span class="dt">x3 =</span> <span class="kw">c</span>(<span class="fl">3.531</span>, <span class="fl">2.275</span>, <span class="fl">4.05</span>, <span class="fl">4.455</span>, <span class="fl">4.455</span>, <span class="fl">5.85</span>, <span class="fl">9.52</span>, </a>
+<a class="sourceLine" id="cb51-9" title="9"><span class="fl">6.435</span>, <span class="fl">4.9883</span>, <span class="fl">5.52</span>, <span class="fl">6.666</span>, <span class="dv">5</span>, <span class="fl">5.15</span>, <span class="fl">6.902</span>, <span class="fl">7.102</span>, <span class="fl">7.8</span>, <span class="fl">5.52</span>, </a>
+<a class="sourceLine" id="cb51-10" title="10"><span class="dv">5</span>, <span class="fl">9.89</span>, <span class="fl">6.7265</span>, <span class="fl">9.15</span>, <span class="dv">8</span>, <span class="fl">7.3262</span>, <span class="fl">3.472</span>), <span class="dt">x4 =</span> <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">1.175</span>, </a>
+<a class="sourceLine" id="cb51-11" title="11"><span class="fl">1.232</span>, <span class="fl">1.121</span>, <span class="fl">0.988</span>, <span class="fl">1.24</span>, <span class="fl">1.501</span>, <span class="fl">1.225</span>, <span class="fl">1.552</span>, <span class="fl">0.975</span>, <span class="fl">1.121</span>, </a>
+<a class="sourceLine" id="cb51-12" title="12"><span class="fl">1.02</span>, <span class="fl">1.664</span>, <span class="fl">1.488</span>, <span class="fl">1.376</span>, <span class="fl">1.5</span>, <span class="fl">1.256</span>, <span class="fl">1.69</span>, <span class="fl">1.82</span>, <span class="fl">1.652</span>, <span class="fl">1.777</span>, </a>
+<a class="sourceLine" id="cb51-13" title="13"><span class="fl">1.504</span>, <span class="fl">1.831</span>, <span class="fl">0.998</span>)), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, </a>
+<a class="sourceLine" id="cb51-14" title="14"><span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;8&quot;</span>, <span class="st">&quot;9&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;11&quot;</span>, <span class="st">&quot;12&quot;</span>, <span class="st">&quot;13&quot;</span>, </a>
+<a class="sourceLine" id="cb51-15" title="15"><span class="st">&quot;14&quot;</span>, <span class="st">&quot;15&quot;</span>, <span class="st">&quot;16&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;18&quot;</span>, <span class="st">&quot;19&quot;</span>, <span class="st">&quot;20&quot;</span>, <span class="st">&quot;21&quot;</span>, <span class="st">&quot;22&quot;</span>, <span class="st">&quot;23&quot;</span>, <span class="st">&quot;24&quot;</span></a>
+<a class="sourceLine" id="cb51-16" title="16">))</a>
+<a class="sourceLine" id="cb51-17" title="17"><span class="kw">head</span>(datos)</a></code></pre></div>
 <pre><code>##      y     x1 x2    x3    x4
 ## 1 29.5 5.0208  1 3.531 1.500
 ## 2 27.9 4.5429  1 2.275 1.175
@@ -448,13 +448,13 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 ## 5 29.9 3.8910  1 4.455 0.988
 ## 6 30.9 5.8980  1 5.850 1.240</code></pre>
 <p>Ahora vamos a ajustar ambos modelos usando el siguiente código.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3 <span class="op">+</span><span class="st"> </span>x4, <span class="dt">data=</span>datos)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos)</a>
+<a class="sourceLine" id="cb53-2" title="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3 <span class="op">+</span><span class="st"> </span>x4, <span class="dt">data=</span>datos)</a></code></pre></div>
 <p>El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.</p>
 <p><span class="math display">\[H_0: \text{las variables x3 y x4 no mejoran el modelo},\]</span>
 <span class="math display">\[H_A: \text{al menos una de ellas si mejora el modelo}\]</span></p>
 <p>Para comparar los dos modelos usamos la siguiente instrucción.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">anova</span>(mod1, mod2)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">anova</span>(mod1, mod2)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: y ~ x1 + x2
@@ -469,7 +469,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p>En este ejemplo se mostrará la segunda utilidad de la función <code>anova</code>. Para esto vamos a utilizar la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es construir un modelo para explicar la media del <code>Price</code> de los autos en función de las variables <code>Horsepower</code>, <code>Type</code> y <code>Weight</code>.</p>
 <p>La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (<code>mod0</code>) hasta uno con todas las covariables (<code>mod3</code>). En la segunda parte se analizará el modelo con todas las covariables directamente.</p>
 <p>A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo <code>Horsepower</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(MASS)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="kw">library</span>(MASS)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;MASS&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:plotly&#39;:
@@ -478,9 +478,9 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <pre><code>## The following object is masked from &#39;package:MPV&#39;:
 ## 
 ##     cement</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">mod0 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="kw">anova</span>(mod0, mod1)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">mod0 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb60-2" title="2">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb60-3" title="3"><span class="kw">anova</span>(mod0, mod1)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ 1
@@ -492,8 +492,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior se tiene que el valor-P es &lt; 2.2e-16 y por lo tanto se concluye que la variable <code>Horsepower</code> mejora el modelo (la misma conclusión se pudo obtener del <code>summary</code>).</p>
 <p>Ahora vamos a crear y comparar el modelo con sólo <code>Horsepower</code> con el modelo con <code>Horsepower</code> y <code>Type</code>.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw">anova</span>(mod1, mod2)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb62-2" title="2"><span class="kw">anova</span>(mod1, mod2)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ Horsepower
@@ -505,8 +505,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior se tiene que el valor-P es 0.01337 y por lo tanto se concluye que el modelo <code>mod2</code> con dos covariables explica mejor la variable <code>Price</code>.</p>
 <p>Ahora vamos a crear y comparar el modelo con <code>Horsepower</code> y <code>Type</code> con el modelo con las tres covariables.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower <span class="op">+</span><span class="st"> </span>Type <span class="op">+</span><span class="st"> </span>Weight, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">anova</span>(mod2, mod3)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Horsepower <span class="op">+</span><span class="st"> </span>Type <span class="op">+</span><span class="st"> </span>Weight, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="kw">anova</span>(mod2, mod3)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ Horsepower + Type
@@ -516,7 +516,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 ## 2     85 2751.3  1    6.7934 0.2099  0.648</code></pre>
 <p>De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable <code>Weight</code> no mejora el modelo <code>mod2</code> (la misma conclusión se pudo obtener del <code>summary</code>).</p>
 <p>En esta segunda parte del ejemplo se usará la función <code>anova</code> directamente sobre el modelo completo <code>mod3</code>, a continuación los resultados.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">anova</span>(mod3)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">anova</span>(mod3)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Price
@@ -537,15 +537,15 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <h3>Ejemplo</h3>
 <p>El ejemplo aquí mostrado está basado <a href="https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input">pregunta/respuesta</a> de StackOverFlow.</p>
 <p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu_g, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="dv">0</span>,    <span class="dt">sd=</span><span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb69-3" data-line-number="3">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">sd=</span><span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb69-4" data-line-number="4">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="fl">0.5</span>,  <span class="dt">sd=</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb69-5" data-line-number="5">g &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">each=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></a>
+<a class="sourceLine" id="cb68-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="dv">0</span>,    <span class="dt">sd=</span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb68-3" title="3">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">sd=</span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb68-4" title="4">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="fl">0.5</span>,  <span class="dt">sd=</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb68-5" title="5">g &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">each=</span><span class="dv">10</span>)</a></code></pre></div>
 <p>Ahora vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <code>y</code>.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>g)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>g)</a></code></pre></div>
 <p>Obviamente esperamos concluir que la media de la variable <code>y</code> dependa de la variable de agrupación <code>g</code>. Para esto vamos a explorar el resultado con la función <code>summary</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="kw">summary</span>(model)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ g)
@@ -565,7 +565,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 ## F-statistic: 4.199 on 2 and 27 DF,  p-value: 0.02583</code></pre>
 <p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <code>y</code>. El lector podría encontrar esto puede ser un poco desconcertante.</p>
 <p>Vamos a realizar el análisis pero ahora con la función <code>anova</code>.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">anova</span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">anova</span>(model)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: y
@@ -590,7 +590,7 @@ Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es 
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-R-model">
-<p>Hernandez, Freddy, and Olga Usuga. 2019. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model" class="uri">https://fhernanb.github.io/model</a>.</p>
+<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
 </div>
 </div>
             </section>
@@ -599,16 +599,18 @@ Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es 
         </div>
       </div>
 <a href="ic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mod-poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
