@@ -1,0 +1,83 @@
+# Prueba sobre la significancia de la regresión {#signi}
+En este capítulo se presenta una descripción breve de como realizar la prueba sobre la significancia de la regresión.
+
+## ¿Para qué sirve esta prueba? {-}
+Esta prueba sirve para determinar si el modelo de regresión ajustadoa yuda a explicar la media de la variable respuesta $Y$. 
+
+Supongamos que tenemos un modelo de regresión múltiple como se muestra a continuación.
+
+\begin{align}
+y_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+La prueba de significancia de la regresión para el modelo anterior tiene como hipótesis:
+
+\begin{align}
+H_0 &: \beta_1=\beta_2=\ldots=\beta_k=0 \\ 
+H_1 &= \text{al menos uno de los} \, \beta_j\neq0 \, \text{con} \, j=1,2,\ldots,k,
+\end{align}
+
+## Idea intuitiva {-}
+En todo modelo de regresión vamos a tener una variabilidad total ($SS_T$), una variabilidad explicada por el modelo de regresión ($SS_R$) y una variabilidad que no logra ser explicada ($SS_{Res}$), abajo una figura ilustrativa de las tres cantidades.
+
+<p align="center">
+  <img src="images/ph_significancia_reg.png" width="500">
+</p>
+
+En esta prueba la idea es determinar si la variabilidad explicada por la regresión ($SS_R$) es una parte considerable de la variabilidad total ($SS_T$).
+
+## La prueba {-}
+Usualmente para realizar la prueba se construye la tabla anova (analysis of variance) que se muestra a continuación.
+
+<p align="center">
+  <img src="images/tabla_ph_significancia_reg.png" width="600">
+</p>
+
+Para realizar la prueba se debe calcular el estadístico $F_0$ y luego su valor-P según la distribución $F_{k, n-k-1}$.
+
+## Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
+
+¿Será que las variables __Número de Cajas__ y __Distancia__ son significativas en el modelo?
+
+Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.
+
+```{r, message=FALSE}
+require(MPV)
+colnames(softdrink) <- c('tiempo', 'cantidad', 'distancia')
+mod <- lm(tiempo ~ cantidad + distancia, data=softdrink, x=TRUE)
+```
+
+Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso usamos el siguiente código.
+
+```{r}
+y <- softdrink$tiempo
+n <- length(y)
+ss_t <- sum(y^2) - sum(y)^2 / n
+ss_r <- matrix(coef(mod), nrow=1) %*% t(mod$x) %*% matrix(y, ncol=1) - sum(y)^2 / n
+ss_res <- ss_t - ss_r
+ms_r <- ss_r / (length(coef(mod))-1)
+ms_res <- ss_res / (n-length(coef(mod)))
+F0 <- ms_r / ms_res
+valorP <- pf(F0, df1=length(coef(mod))-1, df2=(n-length(coef(mod))), lower.tail=FALSE)
+tabla <- matrix(NA, ncol=5, nrow=3)
+tabla[1, ] <- c(ss_r, length(coef(mod))-1, ms_r, F0, valorP)
+tabla[2, 1:3] <- c(ss_res, n-length(coef(mod)), ms_res)
+tabla[3, 1:2] <- c(ss_t, n-1)
+colnames(tabla) <- c('Suma Cuadrados', 'gl', 'Cuadrado medio', 'F0', 'Valor-P')
+rownames(tabla) <- c('Reg', 'Resid', 'Total')
+tabla
+```
+
+De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar $H_0: \beta_{cant}=\beta_{dis}=0$, eso significa que al menos una (o ambas) de las variables si ayudan a explicar la media de la variable respuesta.
+
+Al usar la función `summary` sobre el modelo `mod` es posible obtener una parte de la tabla anova anterior.
+
+```{r}
+summary(mod)
+```
+
+En la última línea de la tabla anterior se observa __F-statistic: 261.2 on 2 and 22 DF,  p-value: 4.687e-16__ lo que corresponde a la información relevante de la tabla anova.
+
