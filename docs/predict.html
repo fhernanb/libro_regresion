@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Modelos de Regresión con R</title>
+  <title>3 Predicción | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Modelos de Regresión con R" />
+  <meta property="og:title" content="3 Predicción | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="3 Predicción | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pruebas.html"/>
-
+<link rel="prev" href="rlm.html"/>
+<link rel="next" href="ic.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -269,34 +269,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="predict" class="section level1">
+<h1><span class="header-section-number">3</span> Predicción</h1>
+<p>En este capítulo se presenta una descripción breve de como realizar predicciones a partir de un modelo de regresión lineal.</p>
+<div id="funcion-predict" class="section level2 unnumbered">
+<h2>Función <code>predict</code></h2>
+<p>La función <code>predict</code> es una función genérica de clase S3 que se puede aplicar a un modelo ajustado para obtener los valores de <span class="math inline">\(\hat{y}\)</span>. Abajo se muestra la estructura de la función <code>predict</code> con la lista de sus argumentos.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">predict.lm</span>(object, newdata, <span class="dt">se.fit =</span> <span class="ot">FALSE</span>, <span class="dt">scale =</span> <span class="ot">NULL</span>, <span class="dt">df =</span> <span class="ot">Inf</span>, </a>
+<a class="sourceLine" id="cb34-2" title="2">    <span class="dt">interval =</span> <span class="kw">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;confidence&quot;</span>, <span class="st">&quot;prediction&quot;</span>), </a>
+<a class="sourceLine" id="cb34-3" title="3">    <span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;response&quot;</span>, <span class="st">&quot;terms&quot;</span>), </a>
+<a class="sourceLine" id="cb34-4" title="4">    <span class="dt">terms =</span> <span class="ot">NULL</span>, <span class="dt">na.action =</span> na.pass, <span class="dt">pred.var =</span> res.var<span class="op">/</span>weights, </a>
+<a class="sourceLine" id="cb34-5" title="5">    <span class="dt">weights =</span> <span class="dv">1</span>, ...) </a></code></pre></div>
+</div>
+<div id="ejemplo-3" class="section level2 unnumbered">
+<h2>Ejemplo</h2>
+<p>Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos <code>longley</code>. Luego de ajustar el modelo queremos predecir el valor de <span class="math inline">\(\widehat{Employed}\)</span> en dos situaciones:</p>
+<ul>
+<li>Año 1963 con 420 desempleados y 270 personas en fuerzas armadas.</li>
+<li>Año 1964 con 430 desempleados y 250 personas en fuerzas armadas.</li>
+</ul>
+<p><strong>Solución</strong></p>
+<p>Lo primero que se debe hacer es ajustar el modelo así.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Employed <span class="op">~</span><span class="st"> </span>Unemployed <span class="op">+</span><span class="st"> </span>Armed.Forces <span class="op">+</span><span class="st"> </span>Year, <span class="dt">data=</span>longley)</a>
+<a class="sourceLine" id="cb35-2" title="2"></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="kw">tidy</span>(mod, <span class="dt">quick=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   term            estimate
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 (Intercept)  -1797.     
+## 2 Unemployed      -0.0147 
+## 3 Armed.Forces    -0.00772
+## 4 Year             0.956</code></pre>
+<p>De la tabla anterior tenemos que el modelo ajustado es el siguiente:</p>
+<p><span class="math display">\[
+\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year}) + \epsilon
+\]</span></p>
+<p>Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular <span class="math inline">\(\widehat{Employed}\)</span>. Sin embargo, aquí lo vamos a realizar usando la función <code>predict</code>.</p>
+<p>Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">nuevo &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Year=</span><span class="kw">c</span>(<span class="dv">1963</span>, <span class="dv">1964</span>),</a>
+<a class="sourceLine" id="cb37-2" title="2">                    <span class="dt">Unemployed=</span><span class="kw">c</span>(<span class="dv">420</span>, <span class="dv">430</span>),</a>
+<a class="sourceLine" id="cb37-3" title="3">                    <span class="dt">Armed.Forces=</span><span class="kw">c</span>(<span class="dv">270</span>, <span class="dv">250</span>))</a>
+<a class="sourceLine" id="cb37-4" title="4">nuevo</a></code></pre></div>
+<pre><code>##   Year Unemployed Armed.Forces
+## 1 1963        420          270
+## 2 1964        430          250</code></pre>
+<p>Ahora ya podemos usar la función <code>predict</code> para obtener lo solicitado.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">predict</span>(<span class="dt">object=</span>mod, <span class="dt">newdata=</span>nuevo)</a></code></pre></div>
+<pre><code>##        1        2 
+## 71.89467 72.85853</code></pre>
+<p>De la salida anterior tenemos los valores de <span class="math inline">\(\widehat{Employed}\)</span>.</p>
 
-<div id="refs" class="references">
-<div>
-<p>Fortran code by Alan Miller, Thomas Lumley based on. 2017. <em>Leaps: Regression Subset Selection</em>. <a href="https://CRAN.R-project.org/package=leaps">https://CRAN.R-project.org/package=leaps</a>.</p>
+<div class="rmdwarning">
+<p>¿Qué sucede si en el <code>nuevo</code> marco de datos anterior las variables se llaman diferente a las variables conjunto de datos de entrenamiento?</p>
+Error, nos sale un error. No se le ocurra usar nombres diferentes.
 </div>
-<div>
-<p>Hebbali, Aravind. 2020. <em>Olsrr: Tools for Building Ols Regression Models</em>. <a href="https://CRAN.R-project.org/package=olsrr">https://CRAN.R-project.org/package=olsrr</a>.</p>
-</div>
-<div>
-<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
-</div>
-<div>
-<p>Liland, Kristian Hovde. 2018. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
-</div>
-<div>
-<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
-</div>
-<div>
-<p>Ripley, Brian. 2019. <em>MASS: Support Functions and Datasets for Venables and Ripley’s Mass</em>. <a href="https://CRAN.R-project.org/package=MASS">https://CRAN.R-project.org/package=MASS</a>.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2019. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
+
+<p>Supongamos ahora que, además de obtener <span class="math inline">\(\widehat{Employed}\)</span>, queremos un intervalo de confianza del 90%. Para obtener esto podemos usar el siguiente código.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">predict</span>(<span class="dt">object=</span>mod, <span class="dt">newdata=</span>nuevo, <span class="dt">level=</span><span class="fl">0.90</span>, <span class="dt">interval=</span><span class="st">&quot;confidence&quot;</span>)</a></code></pre></div>
+<pre><code>##        fit      lwr     upr
+## 1 71.89467 71.54423 72.2451
+## 2 72.85853 72.43467 73.2824</code></pre>
+
 </div>
 </div>
             </section>
@@ -304,8 +338,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="pruebas.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="rlm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -337,7 +371,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/9999-references.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/021-predict.Rmd",
 "text": "Edit"
 },
 "history": {
