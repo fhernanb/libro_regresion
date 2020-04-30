@@ -1,0 +1,81 @@
+# Pruebas de hipótesis {#ph}
+En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.
+
+## Pruebas sobre los coeficientes $\beta$ {-}
+Cuando se tiene un modelo de regresión con $p$ variables, es usual que nos interese estudiar 
+$$H_0: \beta_k = \beta_{k0},$$
+frente a una de las tres siguientes hipótesis alternas:
+$$H_A: \beta_k < \beta_{k0}, \quad H_A: \beta_k \neq \beta_{k0}, \quad H_A: \beta_k  > \beta_{k0},$$
+para algún $k=0, 1, 2, \ldots, p$.
+
+```{block2, type='rmdnote'}
+Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes $\beta$, se asume que las variables restantes permanecen en el modelo, es decir que este tipo de pruebas son pruebas marginales.
+```
+
+## Función `summary` para $\beta_{k0} = 0$  {-}
+Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{k0}$ es igual a cero se puede usar la función `summary`. 
+
+### Ejemplo {-} 
+Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.
+
+¿Será la variable Edad una variable significativa para el modelo? es decir, ¿será el coeficiente de la Edad igual a cero o no?
+
+Las anteriores preguntas se pueden resumir por medio del siguiente conjunto de hipótesis.
+
+$$H_0: \beta_{Edad} = 0,$$
+$$H_A: \beta_{Edad} \neq 0$$
+
+Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.
+
+```{r}
+file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
+datos <- read.table(file=file, header=TRUE)
+mod <- lm(Resistencia ~ Edad, data=datos)
+summary(mod)
+```
+
+De la tabla anterior tenemos que el valor-P asociado a Edad es 1.64e-10, por lo tanto a un nivel de significancia usual de 5%, hay evidencias para rechazar $H_0$ y se concluye que la variable Edad si aporta información para predecir la media de la Resistencia. 
+
+## Función `beta_test` para $\beta_{k0} \neq 0$ {-}
+Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{k0}$ es diferente de cero, se puede usar la función `beta_test` del paquete **model** [@R-model]. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.
+
+```{r eval=FALSE}
+if (!require('devtools')) install.packages('devtools')
+devtools::install_github('fhernanb/model', force=TRUE)
+```
+
+La estructura de la función se muestra a continuación.
+
+```{r, eval=FALSE}
+beta_test(object, alternative = c("two.sided", "less", "greater"), parm, ref.value)
+```
+
+Los argumentos de esta función son:
+
+- `object`: un objeto de la clase `lm`.
+- `alternative`: una cadena de caracteres indicando el signo de la hipótesis alterna, los valores posibles son `two.sided` (valor por defecto), `greater` o `less`.
+- `parm`: vector con el nombre de la variable.
+- `ref.value`: valor de referencia $\beta_{k0}$ de la prueba.
+
+### Ejemplo {-} 
+Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.
+
+El proveedor de la soldadura afirma que la resistencia media para soldaduras nuevas es 2700 psi. Pruebe la hipótesis de que la resistencia media es diferente a un nivel de significancia del 5%.
+
+La anterior pregunta se pueden resumir por medio del siguiente conjunto de hipótesis.
+
+$$H_0: \beta_{0} = 2700,$$
+$$H_A: \beta_{0} \neq 2700$$
+
+Para responder a esta pregunta vamos usar la función `beta_test`.
+
+```{r}
+library(model)
+beta_test(object=mod, parm='(Intercept)', ref.value=2700, alternative='two.sided')
+```
+
+Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar $H_0$, esto a un nivel de significancia del 5%.
+
+
+
+
