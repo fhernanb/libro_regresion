@@ -12,7 +12,7 @@ predict.lm(object, newdata, se.fit = FALSE, scale = NULL, df = Inf,
     weights = 1, ...) 
 ```
 
-## Ejemplo {-}
+### Ejemplo {-}
 Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos `longley`. Luego de ajustar el modelo queremos predecir el valor de $\widehat{Employed}$ en dos situaciones:
 
 - Año 1963 con 420 desempleados y 270 personas en fuerzas armadas.
