@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Algunas pruebas de los resultados más importantes | Modelos de Regresión con R</title>
+  <title>11 Algebra matricial con R | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Algunas pruebas de los resultados más importantes | Modelos de Regresión con R" />
+  <meta property="og:title" content="11 Algebra matricial con R | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Algunas pruebas de los resultados más importantes | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="11 Algebra matricial con R | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="selec.html"/>
-<link rel="next" href="algmat.html"/>
+<link rel="prev" href="pruebas.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -292,18 +292,195 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pruebas" class="section level1">
-<h1><span class="header-section-number">10</span> Algunas pruebas de los resultados más importantes</h1>
-<p>En este capítulo se presentan las pruebas de algunos de los resultados teóricos más importantes presentados a lo largo del texto.</p>
+<div id="algmat" class="section level1">
+<h1><span class="header-section-number">11</span> Algebra matricial con R</h1>
+<p>En este capítulo se muestran algunas funciones útiles para álgebra lineal con R.</p>
+<div id="matrices" class="section level2 unnumbered">
+<h2>Matrices</h2>
+<p>Una matriz es un arreglo bidimensional (filas y columna) de números.</p>
+<p align="center">
+<img src="images/matriz.png" width="400">
+</p>
+<p>La función para crear una matriz es <code>matrix</code>. A continuación se muestran los argumentos de la función.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1"><span class="kw">matrix</span>(<span class="dt">data=</span><span class="ot">NA</span>, <span class="dt">nrow=</span><span class="dv">1</span>, <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>, <span class="dt">dimnames=</span><span class="ot">NULL</span>)</a></code></pre></div>
+<div id="ejemplo-28" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Crear en R la matriz <span class="math inline">\(M\)</span> siguiente.</p>
+<p><span class="math display">\[
+M = \begin{pmatrix}
+1 &amp; 2  \\
+1 &amp; 5  
+\end{pmatrix}
+\]</span></p>
+<p><strong>Solución</strong></p>
+<p>Para crear la matriz podemos usar el siguiente código.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb218-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb218-3" title="3">M</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    1    5</code></pre>
+</div>
+</div>
+<div id="operaciones-básicas-sobre-una-matriz" class="section level2 unnumbered">
+<h2>Operaciones básicas sobre una matriz</h2>
+<p>En la siguiente tabla se listan algunas de las funciones que se pueden utilizar sobre matrices. Los objetos <code>A</code> y <code>B</code> son matrices mientras que los objetos <code>x</code> y <code>b</code> son vectores.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operador</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>A * B</code></td>
+<td>Element-wise multiplication</td>
+</tr>
+<tr class="even">
+<td><code>A %*% B</code></td>
+<td>Matrix multiplication</td>
+</tr>
+<tr class="odd">
+<td><code>A %o% B</code></td>
+<td>Outer product. <span class="math inline">\(AB^\top\)</span>.</td>
+</tr>
+<tr class="even">
+<td><code>t(A)</code></td>
+<td>Transpose</td>
+</tr>
+<tr class="odd">
+<td><code>diag(x)</code></td>
+<td>Creates diagonal matrix with elements of x in the principal diagonal</td>
+</tr>
+<tr class="even">
+<td><code>diag(A)</code></td>
+<td>Returns a vector containing the elements of the principal diagonal</td>
+</tr>
+<tr class="odd">
+<td><code>diag(k)</code></td>
+<td>If <code>k</code> is a scalar, this creates a <span class="math inline">\(k \times k\)</span> identity matrix. Go figure.</td>
+</tr>
+<tr class="even">
+<td><code>solve(A, b)</code></td>
+<td>Returns vector x in the equation b = Ax (i.e., A-1b)</td>
+</tr>
+<tr class="odd">
+<td><code>solve(A)</code></td>
+<td>Inverse of A where A is a square matrix.</td>
+</tr>
+<tr class="even">
+<td><code>ginv(A)</code></td>
+<td>Moore-Penrose Generalized Inverse of A.</td>
+</tr>
+<tr class="odd">
+<td><code>ginv(A)</code></td>
+<td>requires loading the MASS package.</td>
+</tr>
+<tr class="even">
+<td><code>cbind(A,B,...)</code></td>
+<td>Combine matrices(vectors) horizontally. Returns a matrix.</td>
+</tr>
+<tr class="odd">
+<td><code>rbind(A,B,...)</code></td>
+<td>Combine matrices(vectors) vertically. Returns a matrix.</td>
+</tr>
+<tr class="even">
+<td><code>rowMeans(A)</code></td>
+<td>Returns vector of row means.</td>
+</tr>
+<tr class="odd">
+<td><code>rowSums(A)</code></td>
+<td>Returns vector of row sums.</td>
+</tr>
+<tr class="even">
+<td><code>colMeans(A)</code></td>
+<td>Returns vector of column means.</td>
+</tr>
+<tr class="odd">
+<td><code>colSums(A)</code></td>
+<td>Returns vector of column sums.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="rango-de-una-matriz" class="section level2 unnumbered">
+<h2>Rango de una matriz</h2>
+<p>El rango de una matriz es el número máximo de columnas (filas respectivamente) que son linealmente independientes.</p>
+<div id="ejemplo-29" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Calcular el rango de la matriz <span class="math inline">\(M\)</span> siguiente.</p>
+<p><span class="math display">\[
+M = \begin{pmatrix}
+1 &amp; 2 &amp; 5 \\
+1 &amp; 5 &amp; 2 \\
+1 &amp; 4 &amp; 7
+\end{pmatrix}
+\]</span></p>
+<p><strong>Solución</strong></p>
+<p>Lo primero es crear la matriz <span class="math inline">\(M\)</span>.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb220-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb220-3" title="3">              <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb220-4" title="4">M</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    5
+## [2,]    1    5    2
+## [3,]    1    4    7</code></pre>
+<p>Una forma de obtener el rango es por medio de la función <code>qr</code> que hace una <a href="https://en.wikipedia.org/wiki/QR_decomposition">descomposición QR</a> de la matriz.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">qr</span>(M)<span class="op">$</span>rank</a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>De la salida anterior vemos que el rango de <span class="math inline">\(M\)</span> es 3, eso quiere decir que el número máximo de columnas linealmente independientes es 3.</p>
+<p>Otra forma para obtener el rango de la matriz es por medio de la función <code>rankMatrix</code> del paquete <strong>Matrix</strong> <span class="citation">(Bates and Maechler <a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span> así:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">library</span>(Matrix)</a>
+<a class="sourceLine" id="cb224-2" title="2"><span class="kw">rankMatrix</span>(M)[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="ejemplo-30" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Calcular el rango de la matriz <span class="math inline">\(N\)</span> siguiente.</p>
+<p><span class="math display">\[
+N = \begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+1 &amp; 5 &amp; 6 \\
+1 &amp; 7 &amp; 8
+\end{pmatrix}
+\]</span></p>
+<p><strong>Solución</strong></p>
+<p>Lo primero es crear la matriz <span class="math inline">\(N\)</span>.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1">N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb226-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb226-3" title="3">              <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb226-4" title="4">N</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    1    5    6
+## [3,]    1    7    8</code></pre>
+<p>Al mirar con calma las columnas de la matriz se observa un detalle, la tercera columna de <span class="math inline">\(N\)</span> se obtiene al sumar la primera y segunda columna de <span class="math inline">\(N\)</span>, eso significa que la tercera columna es combinación lineal de las dos primeras. Vamos a calcular el rango de <span class="math inline">\(N\)</span>.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="kw">qr</span>(N)<span class="op">$</span>rank</a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>El valor de 2 obtenido no nos sorprende porque ya habíamos detectado que la tercera columna es combinación lineal de las dos primeras.</p>
 
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-Matrix">
+<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="selec.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="algmat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="pruebas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -334,7 +511,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/091-Pruebas.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/092-algebramatricial.Rmd",
 "text": "Edit"
 },
 "history": {

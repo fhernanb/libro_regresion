@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9 Selección de variables | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9 Selección de variables | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-02" />
+<meta name="date" content="2020-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,11 +51,11 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
@@ -145,46 +145,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#bloques-informativos"><i class="fa fa-check"></i>Bloques informativos</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#modelo-estadistico"><i class="fa fa-check"></i>Modelo estadístico</a></li>
-<li><a href="rls.html#funcion-lm">Función <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#modelo-estadístico"><i class="fa fa-check"></i>Modelo estadístico</a></li>
+<li><a href="rls.html#función-lm">Función <code>lm</code></a><ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apendice"><i class="fa fa-check"></i>Apéndice</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
 <li class="chapter" data-level="1.0.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.0.1</b> Estimación por mínimos cuadrados</a></li>
 <li class="chapter" data-level="1.0.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.0.2</b> Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
-<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadistico-1"><i class="fa fa-check"></i>Modelo estadístico</a><ul>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a><ul>
 <li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a><ul>
-<li><a href="predict.html#funcion-predict">Función <code>predict</code></a><ul>
+<li><a href="predict.html#función-predict">Función <code>predict</code></a><ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0">Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-prediccion-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a><ul>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a><ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>4</b> Intervalos de confianza</a><ul>
-<li><a href="ic.html#funcion-confint">Función <code>confint</code></a><ul>
+<li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ic.html#funcion-confint_sigma2">Función <code>confint_sigma2</code></a><ul>
+<li><a href="ic.html#función-confint_sigma2">Función <code>confint_sigma2</code></a><ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>5</b> Pruebas de hipótesis</a><ul>
 <li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph.html#funcion-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
+<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph.html#funcion-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
@@ -195,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph2.html#funcion-anova">Función <code>anova</code></a><ul>
+<li><a href="ph2.html#función-anova">Función <code>anova</code></a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -208,17 +208,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#funcion-bs">Función <code>bs</code></a><ul>
+<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#funcion-lowess">Función <code>lowess</code></a><ul>
+<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#funcion-loess">Función <code>loess</code></a><ul>
+<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimizacion-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
-<li><a href="mod-poli.html#funcion-nlminb">Función <code>nlminb</code></a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
+<li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
@@ -239,12 +239,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>9</b> Selección de variables</a><ul>
 <li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
 <li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#metodos"><i class="fa fa-check"></i>Métodos</a></li>
-<li><a href="selec.html#funcion-stepaic">Función <code>stepAIC</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
+<li><a href="selec.html#función-stepaic">Función <code>stepAIC</code></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li><a href="selec.html#aplicacion-del-metodo-backward">Aplicación del método <strong>backward</strong></a></li>
-<li><a href="selec.html#aplicacion-del-metodo-forward">Aplicación del método <strong>forward</strong></a></li>
-<li><a href="selec.html#aplicacion-del-metodo-both">Aplicación del método <strong>both</strong></a></li>
+<li><a href="selec.html#aplicación-del-método-backward">Aplicación del método <strong>backward</strong></a></li>
+<li><a href="selec.html#aplicación-del-método-forward">Aplicación del método <strong>forward</strong></a></li>
+<li><a href="selec.html#aplicación-del-método-both">Aplicación del método <strong>both</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
 </ul></li>
 <li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
@@ -261,6 +261,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="pruebas.html"><a href="pruebas.html"><i class="fa fa-check"></i><b>10</b> Algunas pruebas de los resultados más importantes</a></li>
+<li class="chapter" data-level="11" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>11</b> Algebra matricial con R</a><ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -303,7 +313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">logLik</span>(object)</a>
 <a class="sourceLine" id="cb155-2" title="2"><span class="kw">AIC</span>(object, <span class="dt">k=</span><span class="dv">2</span>)</a></code></pre></div>
 </div>
-<div id="metodos" class="section level2 unnumbered">
+<div id="métodos" class="section level2 unnumbered">
 <h2>Métodos</h2>
 <p>Los métodos para realizar selcción de variables se pueden clasificar de la siguiente manera:</p>
 <ol style="list-style-type: decimal">
@@ -326,7 +336,7 @@ Figure 9.1: Ilustración de los métodos Forward y Backward.
 <li>Un términa sale del modelo si su ausencia disminuye el <span class="math inline">\(AIC\)</span>.</li>
 </ul>
 </div>
-<div id="funcion-stepaic" class="section level2 unnumbered">
+<div id="función-stepaic" class="section level2 unnumbered">
 <h2>Función <code>stepAIC</code></h2>
 <p>La función <code>stepAIC</code> del paquete <strong>MASS</strong> <span class="citation">(Ripley <a href="#ref-R-MASS" role="doc-biblioref">2019</a>)</span> es útil para hacer selección de variables en un modelo de regresión. La estructura de la función se muestra a continuación.</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">stepAIC</span>(object, scope, <span class="dt">scale =</span> <span class="dv">0</span>,</a>
@@ -374,7 +384,7 @@ Figure 9.2: Ilustración de los métodos Forward y Backward.
 ##     %+%, alpha</code></pre>
 <p><img src="Regresion_con_R_files/figure-html/selection03-1.png" width="960" /></p>
 </div>
-<div id="aplicacion-del-metodo-backward" class="section level3 unnumbered">
+<div id="aplicación-del-método-backward" class="section level3 unnumbered">
 <h3>Aplicación del método <strong>backward</strong></h3>
 <p>Vamos a crear un modelo <em>saturado</em>, es decir, el modelo mayor a considerar.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">full.model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>datos)</a>
@@ -572,7 +582,7 @@ Figure 9.2: Ilustración de los métodos Forward y Backward.
 ## Multiple R-squared:  0.8035, Adjusted R-squared:  0.7808 
 ## F-statistic: 35.44 on 3 and 26 DF,  p-value: 2.462e-09</code></pre>
 </div>
-<div id="aplicacion-del-metodo-forward" class="section level3 unnumbered">
+<div id="aplicación-del-método-forward" class="section level3 unnumbered">
 <h3>Aplicación del método <strong>forward</strong></h3>
 <p>Para aplicar este metodo se debe crear un modelo vacío (<code>empty.model</code>) del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una fórmula que en este caso llamaremos <code>horizonte</code>. A continuación el codigo.</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">empty.model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>datos)</a>
@@ -638,7 +648,7 @@ Figure 9.2: Ilustración de los métodos Forward y Backward.
 ## F-statistic:    89 on 1 and 28 DF,  p-value: 3.429e-10</code></pre>
 <p>En este <a href="https://www.researchgate.net/post/Why_stepAIC_gives_a_model_with_insignificant_variables_in_the_summarymodel2">enlace</a> usted podrá encontrar la respuesta que le dieron a Audrey al preguntar “Why stepAIC gives a model with insignificant variables?”.</p>
 </div>
-<div id="aplicacion-del-metodo-both" class="section level3 unnumbered">
+<div id="aplicación-del-método-both" class="section level3 unnumbered">
 <h3>Aplicación del método <strong>both</strong></h3>
 <p>Para aplicar este método se debe crear un modelo vacío del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una <code>formula</code> que en este caso llamaremos <code>horizonte</code>. A continuación el código.</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">modboth &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(empty.model, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>, <span class="dt">scope=</span>horizonte)</a>
@@ -766,7 +776,7 @@ Figure 9.2: Ilustración de los métodos Forward y Backward.
 </div>
 <div id="paquete-mixlm" class="section level2 unnumbered">
 <h2>Paquete <strong>mixlm</strong></h2>
-<p>El paquete <strong>mixlm</strong> <span class="citation">(Liland <a href="#ref-R-mixlm" role="doc-biblioref">2018</a>)</span> contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son <code>forward</code>, <code>backward</code>, <code>stepWise</code>.</p>
+<p>El paquete <strong>mixlm</strong> <span class="citation">(Liland <a href="#ref-R-mixlm" role="doc-biblioref">2019</a>)</span> contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son <code>forward</code>, <code>backward</code>, <code>stepWise</code>.</p>
 
 <div class="rmdwarning">
 Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se pueden confundir con las funciones <code>lm</code> y <code>glm</code> del paquete <strong>stats</strong>. Por esta razón el usuario debe tener cuidado de usar la apropiada, en estos casos se recomienda usar <code>stats::lm(y ~ x)</code> o <code>mixlm::lm(y ~ x)</code> para obligar a R a que use la que el usuario desea.
@@ -786,7 +796,7 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
-## &lt;environment: 0x0000000035423808&gt;
+## &lt;environment: 0x0000000035733288&gt;
 ## 
 ##     Step    RSS    AIC  R2pred       Cp F value  Pr(&gt;F)  
 ## x11    1 187.87 77.036 0.41925 10.04465  0.0446 0.83503  
@@ -812,7 +822,7 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 </div>
 <div id="paquete-leaps" class="section level2 unnumbered">
 <h2>Paquete <strong>leaps</strong></h2>
-<p>El paquete <strong>leaps</strong> <span class="citation">(Fortran code by Alan Miller <a href="#ref-R-leaps" role="doc-biblioref">2017</a>)</span> creado por <a href="https://www.stat.auckland.ac.nz/people/tlum005">Thomas Lumley</a> está basado en <a href="https://es.wikipedia.org/wiki/Fortran">Fortran</a> y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.</p>
+<p>El paquete <strong>leaps</strong> <span class="citation">(Fortran code by Alan Miller <a href="#ref-R-leaps" role="doc-biblioref">2020</a>)</span> creado por <a href="https://www.stat.auckland.ac.nz/people/tlum005">Thomas Lumley</a> está basado en <a href="https://es.wikipedia.org/wiki/Fortran">Fortran</a> y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.</p>
 <p>La función <code>regsubsets</code> realiza una búsqueda exhaustiva de los mejores subconjuntos de variables <span class="math inline">\(x\)</span> para explicar <span class="math inline">\(y\)</span>. La búsqueda utiliza un algoritmo eficiente de ramificación y unión.</p>
 <p>La estructura de la función es la siguiente:</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">regsubsets</span>(x, data, nbest, nvmax, ...)</a></code></pre></div>
@@ -879,13 +889,13 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-R-leaps">
-<p>Fortran code by Alan Miller, Thomas Lumley based on. 2017. <em>Leaps: Regression Subset Selection</em>. <a href="https://CRAN.R-project.org/package=leaps">https://CRAN.R-project.org/package=leaps</a>.</p>
+<p>Fortran code by Alan Miller, Thomas Lumley based on. 2020. <em>Leaps: Regression Subset Selection</em>. <a href="https://CRAN.R-project.org/package=leaps">https://CRAN.R-project.org/package=leaps</a>.</p>
 </div>
 <div id="ref-R-olsrr">
 <p>Hebbali, Aravind. 2020. <em>Olsrr: Tools for Building Ols Regression Models</em>. <a href="https://CRAN.R-project.org/package=olsrr">https://CRAN.R-project.org/package=olsrr</a>.</p>
 </div>
 <div id="ref-R-mixlm">
-<p>Liland, Kristian Hovde. 2018. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
+<p>Liland, Kristian Hovde. 2019. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
 </div>
 <div id="ref-R-MASS">
 <p>Ripley, Brian. 2019. <em>MASS: Support Functions and Datasets for Venables and Ripley’s Mass</em>. <a href="https://CRAN.R-project.org/package=MASS">https://CRAN.R-project.org/package=MASS</a>.</p>
@@ -916,12 +926,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -933,6 +942,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
