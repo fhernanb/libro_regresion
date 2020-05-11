@@ -184,7 +184,7 @@ F0 <- ((ssr_complete - ssr_reduced) / (p1-p0)) / ms_res
 F0
 ```
 
-Ahora vamos a calcular el parámetro de no centralidad $\lambda$. Recuerede revisar la página 90 de [@Montgomery12] para conocer su expresión.
+Ahora vamos a calcular el parámetro de no centralidad $\lambda$. Recuerde revisar la página 90 de [@Montgomery12] para conocer su expresión.
 
 ```{r}
 beta2 <- matrix(c(0.3233333, -0.2176622), ncol=1)
@@ -197,7 +197,7 @@ lambda <- (a1 %*% a2 %*% a3) / summary(comp_mod)$sigma^2
 lambda
 ```
 
-Ahora vamos a calcular el valor-P de la prueba.
+Ahora vamos a calcular el valor-P de la prueba usando la distribución F no central y la distribució F (usual) así:
 
 ```{r}
 pf(q=F0, df1=p1-p0, df2=n-p1, ncp=lambda, lower.tail=FALSE)
@@ -359,4 +359,128 @@ El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rec
 Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función `anova` que los resultados del `summary`.
 ```
 
+## Prueba razón de verosimilitud {-}
+Esta prueba evalúa la bondad de ajuste de dos modelos estadísticos competitivos en función de la razón de sus verosimilitudes, específicamente uno encontrado por maximización en todo el espacio de parámetros y otro encontrado después de imponer alguna restricción ($H_0$).
 
+El estadístico de la prueba razón de verosimilitud se muestra a continuación.
+
+$$
+\lambda = -2 \log \left[ \frac{L(\Theta_0)}{L(\Theta)} \right] = -2 \left[ l(\Theta_0)-l(\Theta) \right],
+$$
+
+donde $L$ representa el valor de la verosimilitud y $l$ el valor de log-verosimilitud. Bajo la hipótesis nula, $\lambda \sim \chi^2_{k}$ donde $k$ es la diferencia entre el número de parámetros de los modelos comparados.
+
+### Ejemplo {-}
+Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos comparar dos modelos anidados:
+
+- el modelo reducido con la fórmula `y ~ x1 + x2`,
+- y el modelo completo con la fórmula `y ~ x1 + x2 + x3 + x4`. 
+
+¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+
+__Solución__
+
+Para este ejemplo vamos a usar los datos que se muestran a continuación.
+
+```{r message=FALSE}
+require(MPV)
+data(table.b4) 
+head(table.b4, n=4)
+```
+
+Ahora vamos a ajustar ambos modelos usando el siguiente código.
+
+```{r}
+mod0 <- lm(y ~ x1 + x2, data=table.b4)
+mod1 <- lm(y ~ x1 + x2 + x3 + x4, data=table.b4)
+```
+
+El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.
+
+$$H_0: \text{las variables x3 y x4 no mejoran el modelo},$$
+$$H_A: \text{al menos una de ellas si mejora el modelo}$$
+
+Para aplicar la prueba razón de verosimilitud usamos el siguiente código. Los grados de libertad en esta prueba son 2 porque esa es la diferencia entre el número de parámetros de los modelos.
+
+```{r}
+lambda <- -2 * (logLik(mod0) - logLik(mod1))
+lambda
+pchisq(q=lambda, df=2, lower.tail=FALSE)
+```
+
+Como el valor-P es grande, no hay evidencias para rechazar $H_0: \beta_3 = \beta_4 = 0$, y por lo tanto podemos concluir que las variables `x3` y `x4` no mejoran el modelo.
+
+## Comparaciones múltiples {-}
+En esta sección se muestra como utilizar el paquete __multcomp__ [@R-multcomp] que está basado en el libro "Multiple comparisons using R" [@bretz2010] para estudiar pruebas de hipótesis múltiples.
+
+### Ejemplo {-}
+Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos ajustar el siguiente modelo:
+
+\begin{align}
+y_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i}, \\
+\sigma^2 &= \text{constante}
+\end{align}
+
+¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+
+__Solución__
+
+Lo primero que debemos hacer es ajustar el modelo de interés.
+
+```{r}
+require(MPV)
+data(table.b4) 
+mod <- lm(y ~ x1 + x2 + x3 + x4, data=table.b4)
+coef(mod)
+```
+
+En este ejemplo nos interesa estudiar las siguientes dos hipótesis simultáneamente (no individualmente).
+
+\begin{align*}
+H_0 &: \beta_{3} = 0      &  H_0 &: \beta_{4} = 0 \\
+H_A &: \beta_{3} \neq 0   &  H_A &: \beta_{4} \neq 0 
+\end{align*}
+
+Los dos conjuntos de hipótesis anteriores se pueden escribir matricialmente usando una matriz de constrate $\boldsymbol{C}$ que multiplica al vector de parámetros $\boldsymbol{\beta}$ y luego igualando es producto con el vector $\boldsymbol{a}=(0, 0)^\top$ que contiene lados derechos de las hipótesis anteriores.
+
+$$
+\boldsymbol{C} \boldsymbol{\beta} = 
+\begin{pmatrix}
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+\beta_4 \\
+\end{pmatrix} =
+\begin{pmatrix}
+\beta_3 \\
+\beta_4 
+\end{pmatrix}
+$$
+
+Teniendo definida la matriz $\boldsymbol{C}$, el vector $\boldsymbol{a}$ la prueba simultánea de las hipótesis se puede hacer de la siguiente manera.
+
+```{r message=FALSE}
+library(multcomp)
+C <- matrix(c(0, 0, 0, 1, 0,
+              0, 0, 0, 0, 1), ncol=5, byrow=TRUE)
+mult_test <- glht(model=mod, linfct=C, alternative='two.sided', rhs=c(0, 0))
+summary(mult_test, test = adjusted(type="single-step"))
+```
+
+De la salida anterior se obtiene que los dos valores-P "ajustados" (ver sección 2.1.2 de [@bretz2010]) son:
+
+$$
+q_1 = 0.704 \qquad q_2 = 0.998
+$$
+
+lo que significa que no hay evidencias para rechazar $H_0 : \beta_{3} = 0$ ni evidencias para rechazar $H_0 : \beta_{4} = 0$ porque ambos valores-P "ajustados" fueron mayores del nivel de significancia de 0.03. En otras palabras, ni `x3` ni `x4` aportan información para explicar la media de `y`.
+
+```{block2, type='rmdwarning'}
+Si un valor-P "ajustado" es menor que el $\alpha$, se rechaza su correspondiente hipótesis nula $H_0$, pero si el valor-P "ajustado" es mayor que el $\alpha$, no se rechaza $H_0$. En una aplicación es posible que se rechacen todas/algunas/ninguna de las $H_0$.
+```

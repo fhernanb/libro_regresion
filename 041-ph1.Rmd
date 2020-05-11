@@ -1,6 +1,8 @@
 # Pruebas de hipótesis {#ph}
 En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.
 
+La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).
+
 ## Pruebas sobre los coeficientes $\beta$ {-}
 Cuando se tiene un modelo de regresión con $p$ variables, es usual que nos interese estudiar 
 $$H_0: \beta_k = \beta_{k0},$$

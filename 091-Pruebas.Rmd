@@ -1,3 +1,0 @@
-# Algunas pruebas de los resultados más importantes {#pruebas}
-En este capítulo se presentan las pruebas de algunos de los resultados teóricos más importantes presentados a lo largo del texto.
-

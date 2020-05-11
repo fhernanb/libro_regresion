@@ -20,13 +20,14 @@ description: "Libro de Modelos de Regresión con R para los estudiantes de la Es
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'mixlm', 'MPV',
                 'stats', 'leaps', 'olsrr', 'MASS',
-                'model', 'Matrix'), 'packages.bib')
+                'model', 'Matrix', 'multcomp'), 'packages.bib')
 ```
 
 ```{r echo=FALSE, message=FALSE}
 # lista de paquetes necesarios para compilar el libro
 list.of.packages <- c('plot3D', 'MPV', 'scatterplot3d',
-                      'leaps', 'olsrr', 'MASS', 'psych')
+                      'leaps', 'olsrr', 'MASS', 'psych',
+                      'multcomp')
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) 
   install.packages(new.packages,
