@@ -16,5 +16,94 @@ A continuación se muestran algunas de esas preguntas/respuestas hechas en Stack
 - [Create Simulated Data Multiple Regression in R](https://stackoverflow.com/questions/27114449/create-simulated-data-multiple-regression-in-r).
 - [Simulate data from regression model with exact parameters in R](https://stackoverflow.com/questions/57360673/simulate-data-from-regression-model-with-exact-parameters-in-r).
 
+Las respuestas a cómo simular datos de un modelo lineal son muy variadas, algunas sencillas, otras un poco más complejas, y por esa razón en la siguiente sección se mostrará como simular datos de una forma didáctica.
+
+## Simulando datos de un modelo lineal {-}
+Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en __forma simbólica__ el modelo, eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes. 
+
+A continuación se muestra un ejemplo de como simular observaciones de un modelo lineal.
+
+### Ejemplo {-}
+Crear una función que simule `n` observaciones del siguiente modelo que tiene el vector de parámetros $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$.
+
+\begin{align*} 
+y_i &\sim  N(\mu_i, \sigma^2) \\ 
+\mu_i &= 4 - 6 x_i \\
+x_i &\sim U(-5, 6) \\
+\sigma^2 &= 16
+\end{align*}
+
+__Solución__
+
+Todo modelo en lenguaje simbólico se lee de arriba hacia abajo $\Downarrow$ pero al escribirlo en R se hace de abajo hacia arriba $\Uparrow$. 
+
+A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.
+
+```{r}
+gen_dat <- function(n) {
+  varianza <- 16
+  x <- runif(n=n, min=-5, max=6)
+  media <- 4 - 6 * x
+  y <- rnorm(n=n, mean=media, sd=sqrt(varianza))
+  marco_datos <- data.frame(y=y, x=x)
+  return(marco_datos)
+}
+```
+
+Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.
+
+```{r}
+datos <- gen_dat(n=5)
+datos
+```
+
+Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$.
+
+```{r simul01, fig.height=3, fig.width=5, fig.align='center'}
+datos <- gen_dat(n=200)
+
+library(ggplot2)
+ggplot(datos, aes(x=x, y=y)) +
+  geom_point() + theme_light()
+```
+
+De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a $\beta_1=-6$; la nube tiene la misma dispersión y eso de debe a que $\sigma$ es constante e igual a 4.
+
+Para estimar $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$ podemos usar el siguiente código.
+
+```{r}
+mod <- lm(y ~ x, data=datos)
+theta_hat <- c(coef(mod), sigma=summary(mod)$sigma)
+theta_hat
+```
+
+De la salida anterior vemos que el vector estimado $\hat{\boldsymbol{\Theta}}$ está muy cerca del vector de parámetros $\boldsymbol{\Theta}$
+
+```{block2, type='rmdwarning'}
+El código usado en este ejemplo para simular datos de un modelo lineal es un código sencillo y didáctico. Este código busca que el lector aprenda a escribir de una forma sencilla las relaciones entre la variable respuesta, las variables independientes y la influencia de los parámetros. 
+
+Este código NO es un código óptimo desde el punto de vista computacional. Muy seguramente usa muchos recursos de memoria y puede demorar un poco para simular datos. Sin embargo, es un código FÁCIL de entender.
+```
+
+## Función `simulate` {-}
+La función `simulate` del paquete básico **stats** permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:
+
+```{r eval=FALSE}
+simulate(object, nsim = 1, seed = NULL, ...)
+```
+
+### Ejemplo {-}
+Use las 5 primeras observaciones base de datos `cars` y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.
+
+__Solución__
+
+```{r}
+datos <- cars[1:5, ]
+mod <- lm(dist ~ speed, data=datos)
+simulate(object=mod, nsim=1, seed=1234)
+```
+
+
+
 
 
