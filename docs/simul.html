@@ -179,6 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="simul.html#función-simulate">Función <code>simulate</code></a><ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#otras-herramientas-para-simular"><i class="fa fa-check"></i>Otras herramientas para simular</a></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#videos-sugeridos"><i class="fa fa-check"></i>Videos sugeridos</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
@@ -353,12 +354,12 @@ x_i &amp;\sim U(-5, 6) \\
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb50-2" title="2">datos</a></code></pre></div>
-<pre><code>##           y         x
-## 1 -22.90884  4.246255
-## 2  34.17774 -4.950687
-## 3 -25.32841  4.653801
-## 4 -30.20432  5.288678
-## 5  27.56083 -4.311258</code></pre>
+<pre><code>##            y          x
+## 1  20.228498 -2.5693148
+## 2  13.329163 -1.3314677
+## 3   4.288971  0.3213095
+## 4 -13.820787  3.9562166
+## 5   4.736250 -0.4927456</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
 <a class="sourceLine" id="cb52-2" title="2"></a>
@@ -372,7 +373,7 @@ x_i &amp;\sim U(-5, 6) \\
 <a class="sourceLine" id="cb53-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
 <a class="sourceLine" id="cb53-3" title="3">theta_hat</a></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    3.262929   -5.989363    3.812946</code></pre>
+##    4.294255   -5.957647    3.984735</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
@@ -400,6 +401,15 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
 ## 4 -5.645603
 ## 5 19.110007</code></pre>
 </div>
+</div>
+<div id="otras-herramientas-para-simular" class="section level2 unnumbered">
+<h2>Otras herramientas para simular</h2>
+<p>Abajo una lista de herramientas para simular datos a partir de un modelo.</p>
+<ul>
+<li>Paquete <a href="https://cran.r-project.org/web/packages/simglm/">simglm</a>: Simulate Models Based on the Generalized Linear Model.</li>
+<li>Paquete <a href="https://cran.r-project.org/web/packages/simrel/index.html">simrel</a>: Simulation of Multivariate Linear Model Data.</li>
+<li><a href="https://www.r-bloggers.com/make-your-r-simulation-models-20-times-faster/">Make your R simulation models 20 times faster</a>.</li>
+</ul>
 </div>
 <div id="videos-sugeridos" class="section level2 unnumbered">
 <h2>Videos sugeridos</h2>

@@ -103,6 +103,13 @@ mod <- lm(dist ~ speed, data=datos)
 simulate(object=mod, nsim=1, seed=1234)
 ```
 
+## Otras herramientas para simular {-}
+Abajo una lista de herramientas para simular datos a partir de un modelo.
+
+- Paquete [simglm](https://cran.r-project.org/web/packages/simglm/): Simulate Models Based on the Generalized Linear Model.
+- Paquete [simrel](https://cran.r-project.org/web/packages/simrel/index.html): Simulation of Multivariate Linear Model Data.
+- [Make your R simulation models 20 times faster](https://www.r-bloggers.com/make-your-r-simulation-models-20-times-faster/).
+
 ## Videos sugeridos {-}
 A continuación se muestran algunos videos que muestran cómo simular datos de un modelo lineal usando R.
 
