@@ -1,0 +1,20 @@
+# Simulación {#simul}
+En este capítulo se muestra como simular datos que sigan un modelo o estructura dada. Aprender a simular datos es de mucha utilidad para comprender la naturaleza de los datos y para poner a prueba algunos procedimientos de modelos de regresión.
+
+<p align="center">
+  <img src="images/lego.jpg" width="300">
+</p>
+
+## Preguntas sobre simulación en StackOverFlow {-}
+Una de las preguntas más frecuente que hacen los usuarios en StackOverFlow es: "How to simulate linear models in R?". Muchas respuestas se han dado para ayudar a esos usuarios que necesitan simular datos con una estructura dada. 
+
+A continuación se muestran algunas de esas preguntas/respuestas hechas en StackOverFlow, invito a lector para que visite los enlaces y explore las respuestas dadas.
+
+- [How to generate observations from a linear model in R](https://stackoverflow.com/questions/23301703/how-to-generate-observations-from-a-linear-model-in-r).
+- [How to generate random Y at specific X from a linear model in R?](https://stackoverflow.com/questions/15889174/how-to-generate-random-y-at-specific-x-from-a-linear-model-in-r).
+- [Simulate data in R from a linear model where the parameters are correlated](https://stackoverflow.com/questions/47294225/simulate-data-in-r-from-a-linear-model-where-the-parameters-are-correlated).
+- [Create Simulated Data Multiple Regression in R](https://stackoverflow.com/questions/27114449/create-simulated-data-multiple-regression-in-r).
+- [Simulate data from regression model with exact parameters in R](https://stackoverflow.com/questions/57360673/simulate-data-from-regression-model-with-exact-parameters-in-r).
+
+
+

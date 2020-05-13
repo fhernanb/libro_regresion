@@ -24,6 +24,10 @@ En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsym
 ### Ejemplo {-}
 Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
 
+<p align="center">
+  <img src="images/ilustracion_refrescos.png" width="600">
+</p>
+
 Los datos del ejemplo están disponibles en el paquete **MPV**\index{MPV} (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.
 
 ```{r, message=FALSE}
@@ -81,9 +85,22 @@ Con los resultados anteriores se puede expresar el modelo ajustado como se muest
 
 \begin{align}
 \widehat{Tiempo}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
-\hat{\mu}_i &= 2.341 + 1.616 \, Cantidad_i + 0.014 Distancia_i, \\
+\hat{\mu}_i &= 2.341 + 1.616 \, Cantidad_i + 0.014 \, Distancia_i, \\
 \hat{\sigma} &= 3.259
 \end{align}
+
+```{block2, type='rmdnote'}
+¿Cómo se pueden interpretar los efectos $\hat{\beta}$?
+  
+- Si el camión queda un pie más lejos (30.48 cm) de la máquina, se espera que el __tiempo promedio__ de mantenimineto aumente en 0.014 minutos.
+- Si el camión queda 100 pies más lejos (30.48 mt) de la máquina, se espera que el __tiempo promedio__ de mantenimiento aumente en 14 minutos.
+- Por cada caja adicional de refresco que se deba llevar, se espera que el __tiempo promedio__ aumente en 1.616 minutos.
+- Si el camión quedó a 0 pies de distancia y no hay que llevar cajas de refresco, se espera que el __tiempo promedio__ de mantenimiento sea de 2.341 minutos.
+```
+
+```{block2, type='rmdwarning'}
+La interpretación de cada $\hat{\beta}$ se hace suponiendo que las demás variables quedan constantes en algún valor.
+```
 
 Para incluir el plano de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.
 

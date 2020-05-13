@@ -19,7 +19,19 @@ Y_i &\sim N(\mu_i, \sigma^2), \\
 \sigma^2 &= \text{constante}
 \end{align}
 
-En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [mínimos cuadrados](#apend11) o [máxima verosimilitud](#apend12) 
+En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [mínimos cuadrados](#apend11) o [máxima verosimilitud](#apend12).
+
+La siguiente figura es tomada del libro [@neter2005] muestra con claridad el supuesto de normalidad de la variable $Y$, la dependencia de la media $\mu$ con $X$ y la varianza constante.
+
+<p align="center">
+  <img src="images/supuesto_lm1.png" width="600">
+</p>
+
+En la siguiente figura se muestran dos ilustraciones para donde los supuestos no se cumplen.
+
+<p align="center">
+  <img src="images/supuesto_lm2.png" width="800">
+</p>
 
 ## Función `lm` {-}
 La función `lm` de R se usa para ajustar un modelo de regresión lineal simple, la estructura de esta función se muestra a continuación.
@@ -96,6 +108,13 @@ Con los resultados anteriores se puede expresar el modelo ajustado como se muest
 \hat{\mu}_i &= 2627.822 -37.154 \, Edad_i, \\
 \hat{\sigma} &= 96.11
 \end{align}
+
+```{block2, type='rmdnote'}
+¿Cómo se pueden interpretar los efectos $\hat{\beta}$?
+  
+- Por cada semana que envejezca la soldadura, se espera que la __resistencia promedio__ disminuya en 37.154 psi.
+- Si la soldadura es nueva ($Edad =0$), se espera que la __resistencia promedio__ sea de 2627.822 psi.
+```
 
 Para incluir la recta de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Modelos con variables cualitativas | Modelos de Regresión con R</title>
+  <title>9 Modelos con variables cualitativas | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Modelos con variables cualitativas | Modelos de Regresión con R" />
+  <meta property="og:title" content="9 Modelos con variables cualitativas | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Modelos con variables cualitativas | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="9 Modelos con variables cualitativas | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-10" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,7 +171,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>4</b> Intervalos de confianza</a><ul>
+<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#preguntas-sobre-simulación-en-stackoverflow"><i class="fa fa-check"></i>Preguntas sobre simulación en StackOverFlow</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
 <li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -179,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>5</b> Pruebas de hipótesis</a><ul>
+<li class="chapter" data-level="6" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>6</b> Pruebas de hipótesis</a><ul>
 <li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
 <li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -188,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>6</b> Pruebas de significancia</a><ul>
+<li class="chapter" data-level="7" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>7</b> Pruebas de significancia</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -209,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>7</b> Modelos polinomiales</a><ul>
+<li class="chapter" data-level="8" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>8</b> Modelos polinomiales</a><ul>
 <li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -229,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>8</b> Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="9" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>9</b> Modelos con variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a><ul>
@@ -242,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>9</b> Selección de variables</a><ul>
+<li class="chapter" data-level="10" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>10</b> Selección de variables</a><ul>
 <li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
 <li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
@@ -266,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>10</b> Algebra matricial con R</a><ul>
+<li class="chapter" data-level="11" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>11</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -298,25 +301,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="varcuali" class="section level1">
-<h1><span class="header-section-number">8</span> Modelos con variables cualitativas</h1>
+<h1><span class="header-section-number">9</span> Modelos con variables cualitativas</h1>
 <p>En este capítulo se muestra cómo incluir variables cualitativas en un modelo de regresión con R.</p>
 <div id="es-posible-incluir-variables-cualitativas" class="section level2 unnumbered">
 <h2>¿Es posible incluir variables cualitativas?</h2>
 <p>Una de las preguntas frecuentes entre los que inician el estudio de los modelos de regresión es: ¿se pueden incluir variables cualitativas en un modelo de regresión?</p>
 <p>La respuesta es <strong>SI</strong>, definitivamente si.</p>
 <p>A continuación una figura que ilustra algunas de las variables que se pueden incluir en la construcción de un modelo de regresión.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
 <img src="images/embudo.png" alt="Variables variables cualitativas a incluir en un modelo." width="438" />
 <p class="caption">
-Figure 8.1: Variables variables cualitativas a incluir en un modelo.
+Figure 9.1: Variables variables cualitativas a incluir en un modelo.
 </p>
 </div>
 </div>
 <div id="variable-indicadora-dummy-ficticia-o-binaria" class="section level2 unnumbered">
 <h2>Variable indicadora, dummy, ficticia o binaria</h2>
 <p>La palabra indicadora, dummy, ficticia o binaria es la denominación genérica para una variable que toma valores de 0 o de 1 y que se utiliza para re-expresar variables cualitativas.</p>
-<p>Observe la figura <a href="varcuali.html#fig:cuali02">8.2</a>. En la parte izquierda se tiene una base original de ejemplo con las variables precio, área y piscina, asociadas a seis apartamentos. La variable cualitativa Piscina de niveles <strong>sin</strong>, <strong>pequeña</strong> y <strong>grande</strong>, el nivel <strong>sin</strong> es el nivel de referencia natural.</p>
-<p>Al lado derecho de la figura <a href="varcuali.html#fig:cuali02">8.2</a> está la base transformada y vemos que hay 4 variables. Las nuevas variables <strong>PisPeq</strong> y <strong>PisGra</strong> son 2 variables indicadoras que logran resumir la información de la variable Piscina que tiene 3 variables.</p>
+<p>Observe la figura <a href="varcuali.html#fig:cuali02">9.2</a>. En la parte izquierda se tiene una base original de ejemplo con las variables precio, área y piscina, asociadas a seis apartamentos. La variable cualitativa Piscina de niveles <strong>sin</strong>, <strong>pequeña</strong> y <strong>grande</strong>, el nivel <strong>sin</strong> es el nivel de referencia natural.</p>
+<p>Al lado derecho de la figura <a href="varcuali.html#fig:cuali02">9.2</a> está la base transformada y vemos que hay 4 variables. Las nuevas variables <strong>PisPeq</strong> y <strong>PisGra</strong> son 2 variables indicadoras que logran resumir la información de la variable Piscina que tiene 3 variables.</p>
 <p>Para comprender como las 2 variables indicadoras pueden resumir la información de la variable Piscina, vamos a considerar los siguientes tres casos:</p>
 <ol style="list-style-type: decimal">
 <li>Si <code>PisPeq = 0</code> y <code>PisGra = 0</code>, entonces el apartamento está <strong>SIN</strong> piscina.</li>
@@ -326,7 +329,7 @@ Figure 8.1: Variables variables cualitativas a incluir en un modelo.
 <div class="figure" style="text-align: center"><span id="fig:cuali02"></span>
 <img src="images/var_cuali_01.png" alt="Transformando una base de datos con variables cualitativas." width="631" />
 <p class="caption">
-Figure 8.2: Transformando una base de datos con variables cualitativas.
+Figure 9.2: Transformando una base de datos con variables cualitativas.
 </p>
 </div>
 
@@ -340,13 +343,13 @@ Como regla general, si una variable cualitativa tiene <span class="math inline">
 <p>Crear manualmente variables indicadoras para re-expresar variables cualitativas es una tarea muy sencilla, manualmente la podemos hacer. Sin embargo, R posee una herramienta que nos permite convertir la base de datos original en una base de datos transformada (con variables indicadoras). Para este fin se usa la función <code>model.matrix</code>.</p>
 <div id="ejemplo-22" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Retomando la base de datos original mostrada en la figura <a href="varcuali.html#fig:cuali02">8.2</a> vamos a crear la matriz de diseño <span class="math inline">\(\boldsymbol{X}\)</span> para ajustar el modelo siguiente:</p>
+<p>Retomando la base de datos original mostrada en la figura <a href="varcuali.html#fig:cuali02">9.2</a> vamos a crear la matriz de diseño <span class="math inline">\(\boldsymbol{X}\)</span> para ajustar el modelo siguiente:</p>
 <p><span class="math display">\[\begin{align}
 Precio_i &amp;\sim N(\mu_i, \sigma^2), \\ 
 \mu_i &amp;= \beta_0 + \beta_1 Area_i + \beta_2 PisciPequena_i + \beta_3 PisiGrande_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
-<p>Lo primero a realizar es ingresar los datos para el ejemplo mostrado en la figura <a href="varcuali.html#fig:cuali02">8.2</a>. El código necesario se muestra a continuación.</p>
+<p>Lo primero a realizar es ingresar los datos para el ejemplo mostrado en la figura <a href="varcuali.html#fig:cuali02">9.2</a>. El código necesario se muestra a continuación.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">Precio &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb147-2" title="2">Area &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb147-3" title="3">Pisci &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
@@ -530,7 +533,7 @@ La forma 2 y la forma 3 no son la misma.
 
 
 <div class="rmdwarning">
-Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor <span class="math inline">\(\alpha\)</span>, el resultado del <code>summary</code> puede ser engañoso. Para esto se recomienda usar la función <code>anova</code>. Por favor vea los ejemplos con variables cualitativas del capítulo <a href="ph.html#ph">5</a>.
+Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor <span class="math inline">\(\alpha\)</span>, el resultado del <code>summary</code> puede ser engañoso. Para esto se recomienda usar la función <code>anova</code>. Por favor vea los ejemplos con variables cualitativas del capítulo <a href="ph.html#ph">6</a>.
 </div>
 
 

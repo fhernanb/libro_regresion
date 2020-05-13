@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Regresión lineal múltiple | Modelos de Regresión con R</title>
+  <title>4 Simulación | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Regresión lineal múltiple | Modelos de Regresión con R" />
+  <meta property="og:title" content="4 Simulación | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Regresión lineal múltiple | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="4 Simulación | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rls.html"/>
-<link rel="next" href="predict.html"/>
+<link rel="prev" href="predict.html"/>
+<link rel="next" href="ic.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -300,131 +300,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rlm" class="section level1">
-<h1><span class="header-section-number">2</span> Regresión lineal múltiple</h1>
-<p>En este capítulo se presenta una descripción breve del modelo de regresión lineal múltiple y la forma de estimar los parámetros del modelo con R.</p>
-<div id="modelo-estadístico-1" class="section level2 unnumbered">
-<h2>Modelo estadístico</h2>
-<p>El modelo estadístico en regresión lineal múltiple es una generalización del regresión lineal simple para <span class="math inline">\(k\)</span> covariables. El modelo en este caso se puede escribir de dos formas como se muestra a continuación.</p>
-<ol style="list-style-type: decimal">
-<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> se expresa como una suma de <span class="math inline">\(\beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}\)</span> y un error aleatorio <span class="math inline">\(e_i\)</span> el cual tiene distribución <span class="math inline">\(N(0, \sigma^2)\)</span>. El modelo en esta forma se puede expresar como sigue.</li>
-</ol>
-<p><span class="math display">\[\begin{align} \label{mod1}
-y_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + e_i, \\ 
-e_i &amp;\sim N(0, \sigma^2)
-\end{align}\]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> tiene distribución normal con media que cambia en función de las variables <span class="math inline">\(x_k\)</span> pero con varianza constante. El modelo en esta forma se puede expresar como sigue.</li>
-</ol>
-<p><span class="math display">\[\begin{align} \label{mod2}
-y_i &amp;\sim N(\mu_i, \sigma^2), \\ 
-\mu_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \\
-\sigma^2 &amp;= \text{constante}
-\end{align}\]</span></p>
-<p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \cdots, \beta_k, \sigma)^\top\)</span>.</p>
-<div id="ejemplo-2" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">(Montgomery <a href="#ref-mpv06" role="doc-biblioref">2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
+<div id="simul" class="section level1">
+<h1><span class="header-section-number">4</span> Simulación</h1>
+<p>En este capítulo se muestra como simular datos que sigan un modelo o estructura dada. Aprender a simular datos es de mucha utilidad para comprender la naturaleza de los datos y para poner a prueba algunos procedimientos de modelos de regresión.</p>
 <p align="center">
-<img src="images/ilustracion_refrescos.png" width="600">
+<img src="images/lego.jpg" width="300">
 </p>
-<p>Los datos del ejemplo están disponibles en el paquete <strong>MPV</strong> (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">require</span>(MPV)</a>
-<a class="sourceLine" id="cb26-2" title="2"><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="kw">head</span>(softdrink)</a></code></pre></div>
-<pre><code>##   tiempo cantidad distancia
-## 1  16.68        7       560
-## 2  11.50        3       220
-## 3  12.03        3       340
-## 4  14.88        4        80
-## 5  13.75        6       150
-## 6  18.11        7       330</code></pre>
-<p>Un gráfico en 3d es obligratorio para explorar la relación entre las variables, este diagrama de puede obtener usando el paquete <strong>scatterplot3d</strong>. A continuación el código para construirlo.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">library</span>(scatterplot3d)</a>
-<a class="sourceLine" id="cb28-2" title="2"><span class="kw">attach</span>(softdrink)</a>
-<a class="sourceLine" id="cb28-3" title="3"><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb28-4" title="4">              <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
-<a class="sourceLine" id="cb28-5" title="5">              <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/3d_refrescos_01-1.png" width="672" /></p>
-<p>De la figura anterior se ve claramente que a medida que aumenta el número de cajas y la distancia los tiempos tienden a ser mayores.</p>
-<p>El mismo diagrama de dispersión anterior se puede crear usando el paquete <strong>plotly</strong>. El lector puede jugar con el diagrama, puede moverlo, girarlo, acercarse y muchas cosas más, la curiosidad le mostrará las diferentes posibilidades.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">library</span>(plotly)</a>
-<a class="sourceLine" id="cb29-2" title="2"><span class="kw">plot_ly</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&quot;scatter3d&quot;</span>, <span class="dt">color=</span>tiempo) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb29-3" title="3"><span class="st">  </span><span class="kw">layout</span>(<span class="dt">scene =</span> <span class="kw">list</span>(<span class="dt">xaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Cantidad&#39;</span>),</a>
-<a class="sourceLine" id="cb29-4" title="4">                      <span class="dt">yaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Distancia (pies)&#39;</span>),</a>
-<a class="sourceLine" id="cb29-5" title="5">                      <span class="dt">zaxis =</span> <span class="kw">list</span>(<span class="dt">title =</span> <span class="st">&#39;Tiempo (min)&#39;</span>)))</a></code></pre></div>
-<div id="htmlwidget-e8ef889e330c2fef6a30" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8ef889e330c2fef6a30">{"x":{"visdat":{"f7c4a604ebf":["function () ","plotlyVisDat"]},"cur_data":"f7c4a604ebf","attrs":{"f7c4a604ebf":{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Cantidad"},"yaxis":{"title":"Distancia (pies)"},"zaxis":{"title":"Tiempo (min)"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"type":"scatter3d","mode":"markers","marker":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75],"line":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.03,14.88,13.75,18.11,8,17.83,79.24,21.5,40.33,21,13.5,19.75,24,29,15.35,19,9.5,35.1,17.9,52.32,18.75,19.83,10.75]}},"frame":null},{"x":[2,30],"y":[36,1460],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":8,"cmax":79.24,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[8,79.24],"line":{"color":"rgba(255,127,14,1)"}},"z":[8,79.24],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<p>Otro gráfico de dispersión en 3d se puede construir usando el paquete <strong>rgl</strong>. A continuación está el código para obtener el diagrama de dispersión. De tarea se deja que el lector copie el código en la consola y reconstruya el gráfico.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb30-2" title="2"><span class="kw">plot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">type=</span><span class="st">&#39;s&#39;</span>, <span class="dt">col=</span><span class="st">&#39;pink&#39;</span>,</a>
-<a class="sourceLine" id="cb30-3" title="3">       <span class="dt">xlab=</span><span class="st">&#39;Cantidad&#39;</span>,</a>
-<a class="sourceLine" id="cb30-4" title="4">       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>,</a>
-<a class="sourceLine" id="cb30-5" title="5">       <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a></code></pre></div>
-<p>Basándonos en el diagrama de dispersión 3d, el modelo que se va a ajustar se muestra a continuación.</p>
-<p><span class="math display">\[\begin{align}
-Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\ 
-\mu_i &amp;= \beta_0 + \beta_1 Cantidad_i + \beta_2 Distancia_i, \\
-\sigma^2 &amp;= \text{constante}
-\end{align}\]</span></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</a>
-<a class="sourceLine" id="cb31-2" title="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = tiempo ~ cantidad + distancia, data = softdrink)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -5.7880 -0.6629  0.4364  1.1566  7.4197 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 2.341231   1.096730   2.135 0.044170 *  
-## cantidad    1.615907   0.170735   9.464 3.25e-09 ***
-## distancia   0.014385   0.003613   3.981 0.000631 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 3.259 on 22 degrees of freedom
-## Multiple R-squared:  0.9596, Adjusted R-squared:  0.9559 
-## F-statistic: 261.2 on 2 and 22 DF,  p-value: 4.687e-16</code></pre>
-<p>Con los resultados anteriores se puede expresar el modelo ajustado como se muestra a continuación.</p>
-<p><span class="math display">\[\begin{align}
-\widehat{Tiempo}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
-\hat{\mu}_i &amp;= 2.341 + 1.616 \, Cantidad_i + 0.014 \, Distancia_i, \\
-\hat{\sigma} &amp;= 3.259
-\end{align}\]</span></p>
-
-<div class="rmdnote">
-<p>¿Cómo se pueden interpretar los efectos <span class="math inline">\(\hat{\beta}\)</span>?</p>
+<div id="preguntas-sobre-simulación-en-stackoverflow" class="section level2 unnumbered">
+<h2>Preguntas sobre simulación en StackOverFlow</h2>
+<p>Una de las preguntas más frecuente que hacen los usuarios en StackOverFlow es: “How to simulate linear models in R?”. Muchas respuestas se han dado para ayudar a esos usuarios que necesitan simular datos con una estructura dada.</p>
+<p>A continuación se muestran algunas de esas preguntas/respuestas hechas en StackOverFlow, invito a lector para que visite los enlaces y explore las respuestas dadas.</p>
 <ul>
-<li>Si el camión queda un pie más lejos (30.48 cm) de la máquina, se espera que el <strong>tiempo promedio</strong> de mantenimineto aumente en 0.014 minutos.</li>
-<li>Si el camión queda 100 pies más lejos (30.48 mt) de la máquina, se espera que el <strong>tiempo promedio</strong> de mantenimiento aumente en 14 minutos.</li>
-<li>Por cada caja adicional de refresco que se deba llevar, se espera que el <strong>tiempo promedio</strong> aumente en 1.616 minutos.</li>
-<li>Si el camión quedó a 0 pies de distancia y no hay que llevar cajas de refresco, se espera que el <strong>tiempo promedio</strong> de mantenimiento sea de 2.341 minutos.
-</div></li>
+<li><a href="https://stackoverflow.com/questions/23301703/how-to-generate-observations-from-a-linear-model-in-r">How to generate observations from a linear model in R</a>.</li>
+<li><a href="https://stackoverflow.com/questions/15889174/how-to-generate-random-y-at-specific-x-from-a-linear-model-in-r">How to generate random Y at specific X from a linear model in R?</a>.</li>
+<li><a href="https://stackoverflow.com/questions/47294225/simulate-data-in-r-from-a-linear-model-where-the-parameters-are-correlated">Simulate data in R from a linear model where the parameters are correlated</a>.</li>
+<li><a href="https://stackoverflow.com/questions/27114449/create-simulated-data-multiple-regression-in-r">Create Simulated Data Multiple Regression in R</a>.</li>
+<li><a href="https://stackoverflow.com/questions/57360673/simulate-data-from-regression-model-with-exact-parameters-in-r">Simulate data from regression model with exact parameters in R</a>.</li>
 </ul>
 
-<div class="rmdwarning">
-La interpretación de cada <span class="math inline">\(\hat{\beta}\)</span> se hace suponiendo que las demás variables quedan constantes en algún valor.
-</div>
-
-<p>Para incluir el plano de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d</span></a>
-<a class="sourceLine" id="cb33-2" title="2">mi_3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(<span class="dt">x=</span>cantidad, <span class="dt">y=</span>distancia, <span class="dt">z=</span>tiempo, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex.lab=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb33-3" title="3">                       <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</a>
-<a class="sourceLine" id="cb33-4" title="4">                       <span class="dt">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="dt">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</a>
-<a class="sourceLine" id="cb33-5" title="5"><span class="co"># Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado</span></a>
-<a class="sourceLine" id="cb33-6" title="6">mi_3d<span class="op">$</span><span class="kw">plane3d</span>(mod, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>, <span class="dt">col=</span><span class="st">&#39;mediumblue&#39;</span>)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/3d_refrescos_03-1.png" width="672" /></p>
-
-</div>
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-mpv06">
-<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
 </div>
 </div>
             </section>
@@ -432,8 +325,8 @@ La interpretación de cada <span class="math inline">\(\hat{\beta}\)</span> se h
           </div>
         </div>
       </div>
-<a href="rls.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="predict.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="predict.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -464,7 +357,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/02-rlm.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/021-simul.Rmd",
 "text": "Edit"
 },
 "history": {

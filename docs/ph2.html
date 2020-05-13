@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Pruebas de significancia | Modelos de Regresión con R</title>
+  <title>7 Pruebas de significancia | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Pruebas de significancia | Modelos de Regresión con R" />
+  <meta property="og:title" content="7 Pruebas de significancia | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Pruebas de significancia | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="7 Pruebas de significancia | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-10" />
+<meta name="date" content="2020-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,7 +171,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>4</b> Intervalos de confianza</a><ul>
+<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#preguntas-sobre-simulación-en-stackoverflow"><i class="fa fa-check"></i>Preguntas sobre simulación en StackOverFlow</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
 <li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -179,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>5</b> Pruebas de hipótesis</a><ul>
+<li class="chapter" data-level="6" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>6</b> Pruebas de hipótesis</a><ul>
 <li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
 <li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -188,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>6</b> Pruebas de significancia</a><ul>
+<li class="chapter" data-level="7" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>7</b> Pruebas de significancia</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -209,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>7</b> Modelos polinomiales</a><ul>
+<li class="chapter" data-level="8" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>8</b> Modelos polinomiales</a><ul>
 <li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -229,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>8</b> Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="9" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>9</b> Modelos con variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a><ul>
@@ -242,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>9</b> Selección de variables</a><ul>
+<li class="chapter" data-level="10" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>10</b> Selección de variables</a><ul>
 <li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
 <li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
@@ -266,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>10</b> Algebra matricial con R</a><ul>
+<li class="chapter" data-level="11" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>11</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -298,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="ph2" class="section level1">
-<h1><span class="header-section-number">6</span> Pruebas de significancia</h1>
+<h1><span class="header-section-number">7</span> Pruebas de significancia</h1>
 <p>En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas explicadas son las siguientes:</p>
 <ul>
 <li>Prueba sobre todos los coeficientes (prueba de significancia de la regresión).</li>
