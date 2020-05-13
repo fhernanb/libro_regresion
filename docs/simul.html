@@ -179,6 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="simul.html#función-simulate">Función <code>simulate</code></a><ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#videos-sugeridos"><i class="fa fa-check"></i>Videos sugeridos</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
 <li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
@@ -352,12 +353,12 @@ x_i &amp;\sim U(-5, 6) \\
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb50-2" title="2">datos</a></code></pre></div>
-<pre><code>##            y          x
-## 1   3.001217  1.0298873
-## 2 -25.048884  4.1408564
-## 3  15.170889 -2.2775280
-## 4 -20.845728  3.1708867
-## 5   3.018722 -0.3038379</code></pre>
+<pre><code>##           y         x
+## 1  19.83618 -3.294918
+## 2  24.73534 -3.680169
+## 3 -26.20368  4.932240
+## 4  17.04074 -2.568819
+## 5  24.34438 -3.435824</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
 <a class="sourceLine" id="cb52-2" title="2"></a>
@@ -371,7 +372,7 @@ x_i &amp;\sim U(-5, 6) \\
 <a class="sourceLine" id="cb53-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
 <a class="sourceLine" id="cb53-3" title="3">theta_hat</a></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    4.091485   -6.085402    3.878226</code></pre>
+##    4.036997   -5.985672    3.923151</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
@@ -398,8 +399,16 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
 ## 3 21.954305
 ## 4 -5.645603
 ## 5 19.110007</code></pre>
-
 </div>
+</div>
+<div id="videos-sugeridos" class="section level2 unnumbered">
+<h2>Videos sugeridos</h2>
+<p>A continuación se muestran algunos videos que muestran cómo simular datos de un modelo lineal usando R.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/p7kSSSsv4ms" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pGvJl8vvlXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+
 </div>
 </div>
             </section>

@@ -103,6 +103,12 @@ mod <- lm(dist ~ speed, data=datos)
 simulate(object=mod, nsim=1, seed=1234)
 ```
 
+## Videos sugeridos {-}
+A continuación se muestran algunos videos que muestran cómo simular datos de un modelo lineal usando R.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/p7kSSSsv4ms" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pGvJl8vvlXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
