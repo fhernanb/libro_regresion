@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Pruebas de hipótesis | Modelos de Regresión con R</title>
+  <title>12 Otros aspectos importantes | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Pruebas de hipótesis | Modelos de Regresión con R" />
+  <meta property="og:title" content="12 Otros aspectos importantes | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Pruebas de hipótesis | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="12 Otros aspectos importantes | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ic.html"/>
-<link rel="next" href="ph2.html"/>
+<link rel="prev" href="algmat.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -313,94 +313,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ph" class="section level1">
-<h1><span class="header-section-number">6</span> Pruebas de hipótesis</h1>
-<p>En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.</p>
-<p>La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).</p>
-<div id="pruebas-sobre-los-coeficientes-beta" class="section level2 unnumbered">
-<h2>Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></h2>
-<p>Cuando se tiene un modelo de regresión con <span class="math inline">\(p\)</span> variables, es usual que nos interese estudiar
-<span class="math display">\[H_0: \beta_k = \beta_{k0},\]</span>
-frente a una de las tres siguientes hipótesis alternas:
-<span class="math display">\[H_A: \beta_k &lt; \beta_{k0}, \quad H_A: \beta_k \neq \beta_{k0}, \quad H_A: \beta_k  &gt; \beta_{k0},\]</span>
-para algún <span class="math inline">\(k=0, 1, 2, \ldots, p\)</span>.</p>
+<div id="important" class="section level1">
+<h1><span class="header-section-number">12</span> Otros aspectos importantes</h1>
+<p>En este capítulo se presentan algunos aspectos importantes relacionados con modelación y que no se pudieron incluir en los capítulos anteriores.</p>
+<div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered">
+<h2>¿Qué otras funciones hay en R para ajustar un modelo?</h2>
+<p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1"><span class="kw">lm</span>(formula, data, subset, weights, na.action,</a>
+<a class="sourceLine" id="cb250-2" title="2">   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb250-3" title="3">   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</a>
+<a class="sourceLine" id="cb250-4" title="4"></a>
+<a class="sourceLine" id="cb250-5" title="5"><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb250-6" title="6">       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb250-7" title="7"></a>
+<a class="sourceLine" id="cb250-8" title="8"><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb250-9" title="9">        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb250-10" title="10"></a>
+<a class="sourceLine" id="cb250-11" title="11"><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</a>
+<a class="sourceLine" id="cb250-12" title="12"></a>
+<a class="sourceLine" id="cb250-13" title="13"><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Lo invito a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
+</div>
+<div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered">
+<h2>Modelos de regresión con grandes conjuntos de datos</h2>
+<p>En ocasiones tenemos grandes bases de datos y cuando queremos ajustar un modelo de regresión se nos pueden presentar problemas porque saturamos la memoria de nuestro computador.</p>
+<p>En <a href="https://statr.me/2011/10/large-regression/">este enlace</a> usted podrá encontrar una publicación de Yixuan Qiu en el 2011 quien explica qué hacer para abordar este tipo de situaciones.</p>
+</div>
+<div id="fast-lm-in-r" class="section level2 unnumbered">
+<h2>Fast <code>lm</code> in R</h2>
+<p>Martin Maechler en 2015 escribió una publicación en <a href="https://rpubs.com/maechler/fast_lm">Rpubs</a> en la cual compara el tiempo que tardan las funciones <code>lm</code>, <code>lsfit</code> y <code>.lm.fit</code> para ajustar un modelo de regresión. Martin Maechler creó 5 funciones basadas en <code>lm</code>, <code>lsfit</code> y <code>.lm.fit</code> para obtener los parámetros de un modelo.</p>
+<p>Abajo una figura con los resultados de la comparación de tiempos.</p>
+<p align="center">
+<img src="images/comparing_lm_fits.png" width="500">
+</p>
+<p>¿Cuáles opciones demoran menos tiempo?</p>
 
-<div class="rmdnote">
-Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span class="math inline">\(\beta\)</span>, se asume que las variables restantes permanecen en el modelo, es decir que este tipo de pruebas son pruebas marginales.
-</div>
-
-</div>
-<div id="función-summary-para-beta_k0-0" class="section level2 unnumbered">
-<h2>Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></h2>
-<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es igual a cero se puede usar la función <code>summary</code>.</p>
-<div id="ejemplo-9" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
-<p>¿Será la variable Edad una variable significativa para el modelo? es decir, ¿será el coeficiente de la Edad igual a cero o no?</p>
-<p>Las anteriores preguntas se pueden resumir por medio del siguiente conjunto de hipótesis.</p>
-<p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
-<span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
-<p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></a>
-<a class="sourceLine" id="cb65-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb65-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb65-4" title="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Resistencia ~ Edad, data = datos)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -215.98  -50.68   28.74   66.61  106.76 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 2627.822     44.184   59.48  &lt; 2e-16 ***
-## Edad         -37.154      2.889  -12.86 1.64e-10 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 96.11 on 18 degrees of freedom
-## Multiple R-squared:  0.9018, Adjusted R-squared:  0.8964 
-## F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10</code></pre>
-<p>De la tabla anterior tenemos que el valor-P asociado a Edad es 1.64e-10, por lo tanto a un nivel de significancia usual de 5%, hay evidencias para rechazar <span class="math inline">\(H_0\)</span> y se concluye que la variable Edad si aporta información para predecir la media de la Resistencia.</p>
-</div>
-</div>
-<div id="función-beta_test-para-beta_k0-neq-0" class="section level2 unnumbered">
-<h2>Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></h2>
-<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</a>
-<a class="sourceLine" id="cb67-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</a></code></pre></div>
-<p>Los argumentos de esta función son:</p>
-<ul>
-<li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
-<li><code>alternative</code>: una cadena de caracteres indicando el signo de la hipótesis alterna, los valores posibles son <code>two.sided</code> (valor por defecto), <code>greater</code> o <code>less</code>.</li>
-<li><code>parm</code>: vector con el nombre de la variable.</li>
-<li><code>ref.value</code>: valor de referencia <span class="math inline">\(\beta_{k0}\)</span> de la prueba.</li>
-</ul>
-<div id="ejemplo-10" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
-<p>El proveedor de la soldadura afirma que la resistencia media para soldaduras nuevas es 2700 psi. Pruebe la hipótesis de que la resistencia media es diferente a un nivel de significancia del 5%.</p>
-<p>La anterior pregunta se pueden resumir por medio del siguiente conjunto de hipótesis.</p>
-<p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
-<span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
-<p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">library</span>(model)</a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
-<pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
-## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
-<p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>
-
-</div>
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-R-model">
-<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
 </div>
 </div>
             </section>
@@ -408,8 +355,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
           </div>
         </div>
       </div>
-<a href="ic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ph2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="algmat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -440,7 +387,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/06-ph1.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/9999-behind.Rmd",
 "text": "Edit"
 },
 "history": {

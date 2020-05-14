@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2020-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -287,6 +287,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>12</b> Otros aspectos importantes</a><ul>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
+<li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -354,12 +359,12 @@ x_i &amp;\sim U(-5, 6) \\
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb50-2" title="2">datos</a></code></pre></div>
-<pre><code>##            y          x
-## 1  20.228498 -2.5693148
-## 2  13.329163 -1.3314677
-## 3   4.288971  0.3213095
-## 4 -13.820787  3.9562166
-## 5   4.736250 -0.4927456</code></pre>
+<pre><code>##            y         x
+## 1  17.137379 -2.758737
+## 2  -7.832963  2.090143
+## 3 -24.872553  4.878397
+## 4  33.450994 -4.451146
+## 5  23.019364 -3.322686</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
 <a class="sourceLine" id="cb52-2" title="2"></a>
@@ -373,7 +378,7 @@ x_i &amp;\sim U(-5, 6) \\
 <a class="sourceLine" id="cb53-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
 <a class="sourceLine" id="cb53-3" title="3">theta_hat</a></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    4.294255   -5.957647    3.984735</code></pre>
+##    4.134907   -6.084929    3.891170</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
