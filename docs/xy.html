@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>11 Algebra matricial con R | Modelos de Regresión con R</title>
+  <title>12 Notación de Wilkinson y Rogers | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="11 Algebra matricial con R | Modelos de Regresión con R" />
+  <meta property="og:title" content="12 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 Algebra matricial con R | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="12 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -25,14 +25,14 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-17" />
+<meta name="date" content="2020-05-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="varcuali.html"/>
+<link rel="prev" href="algmat.html"/>
 <link rel="next" href="xy.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,77 +51,8 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -287,10 +218,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>12</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="12" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>12</b> Notación de Wilkinson y Rogers</a></li>
+<li class="chapter" data-level="13" data-path="xy.html"><a href="xy.html#xy"><i class="fa fa-check"></i><b>13</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
 <li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>13</b> Otros aspectos importantes</a><ul>
+<li class="chapter" data-level="14" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>14</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
@@ -316,194 +248,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="algmat" class="section level1">
-<h1><span class="header-section-number">11</span> Algebra matricial con R</h1>
-<p>En este capítulo se muestran algunas funciones útiles para álgebra lineal con R.</p>
-<div id="matrices" class="section level2 unnumbered">
-<h2>Matrices</h2>
-<p>Una matriz es un arreglo bidimensional (filas y columna) de números.</p>
+<div id="xy" class="section level1">
+<h1><span class="header-section-number">12</span> Notación de Wilkinson y Rogers</h1>
+<p>En este capítulo se muestra la notación de <a href="https://www.jstor.org/stable/2346786?seq=1">Wilkinson y Rogers (1973)</a> para escribir fórmulas que representen modelos de regresión.</p>
 <p align="center">
-<img src="images/matriz.png" width="400">
+<img src="images/einstein.png" width="300">
 </p>
-<p>La función para crear una matriz es <code>matrix</code>. A continuación se muestran los argumentos de la función.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">matrix</span>(<span class="dt">data=</span><span class="ot">NA</span>, <span class="dt">nrow=</span><span class="dv">1</span>, <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>, <span class="dt">dimnames=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<div id="ejemplo-32" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Crear en R la matriz <span class="math inline">\(M\)</span> siguiente.</p>
-<p><span class="math display">\[
-M = \begin{pmatrix}
-1 &amp; 2  \\
-1 &amp; 5  
-\end{pmatrix}
-\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Para crear la matriz podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb238-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb238-3" title="3">M</a></code></pre></div>
-<pre><code>##      [,1] [,2]
-## [1,]    1    2
-## [2,]    1    5</code></pre>
-</div>
-</div>
-<div id="operaciones-básicas-sobre-una-matriz" class="section level2 unnumbered">
-<h2>Operaciones básicas sobre una matriz</h2>
-<p>En la siguiente tabla se listan algunas de las funciones que se pueden utilizar sobre matrices. Los objetos <code>A</code> y <code>B</code> son matrices mientras que los objetos <code>x</code> y <code>b</code> son vectores.</p>
+<p>La notación de Wilkinson y Rogers (1973) permite representar la fórmula algebraica que define un modelo estadístico en una fórmula de R usando unas instrucciones sencillas. A continuación se muestra una tabla en la cual aparecen los símbolos que ayudan a escribir fórmulas para representar modelos estadísticos, la tabla fue tomada <a href="https://jerous.org/att/2016/05/11/wilkinson-rogers/wilkinson2formula.html">de este enlace</a>.</p>
+<p align="center">
+<img src="images/wil_rog.PNG" width="500">
+</p>
+<p>Usando los símbolos anteriores se puede escribir gran variedad de modelos, en la siguiente tabla de muestran varios ejemplos.</p>
 <table>
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="60%" />
+<col width="39%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Operador</th>
-<th>Descripción</th>
+<th>Notación algebraica</th>
+<th>Notación computacional</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>A * B</code></td>
-<td>Element-wise multiplication</td>
+<td><span class="math inline">\(y = \beta_0\)</span></td>
+<td><code>y ~ 1</code></td>
 </tr>
 <tr class="even">
-<td><code>A %*% B</code></td>
-<td>Matrix multiplication</td>
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1\)</span></td>
+<td><code>y ~ 1 + x1</code> ó <code>y ~ x1</code></td>
 </tr>
 <tr class="odd">
-<td><code>A %o% B</code></td>
-<td>Outer product. <span class="math inline">\(AB^\top\)</span>.</td>
+<td><span class="math inline">\(y = \beta_1 x_1\)</span></td>
+<td><code>y ~ 0 + x1</code> ó <code>y ~ -1 + x1</code></td>
 </tr>
 <tr class="even">
-<td><code>t(A)</code></td>
-<td>Transpose</td>
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span></td>
+<td><code>y ~ x1 + x2</code></td>
 </tr>
 <tr class="odd">
-<td><code>diag(x)</code></td>
-<td>Creates diagonal matrix with elements of x in the principal diagonal</td>
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 x_2\)</span></td>
+<td><code>y ~ x1:x2</code></td>
 </tr>
 <tr class="even">
-<td><code>diag(A)</code></td>
-<td>Returns a vector containing the elements of the principal diagonal</td>
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2\)</span></td>
+<td><code>y ~ x1 + x2 + x1:x2</code></td>
 </tr>
 <tr class="odd">
-<td><code>diag(k)</code></td>
-<td>If <code>k</code> is a scalar, this creates a <span class="math inline">\(k \times k\)</span> identity matrix. Go figure.</td>
-</tr>
-<tr class="even">
-<td><code>solve(A, b)</code></td>
-<td>Returns vector x in the equation b = Ax (i.e., A-1b)</td>
-</tr>
-<tr class="odd">
-<td><code>solve(A)</code></td>
-<td>Inverse of A where A is a square matrix.</td>
-</tr>
-<tr class="even">
-<td><code>ginv(A)</code></td>
-<td>Moore-Penrose Generalized Inverse of A.</td>
-</tr>
-<tr class="odd">
-<td><code>ginv(A)</code></td>
-<td>requires loading the MASS package.</td>
-</tr>
-<tr class="even">
-<td><code>cbind(A,B,...)</code></td>
-<td>Combine matrices(vectors) horizontally. Returns a matrix.</td>
-</tr>
-<tr class="odd">
-<td><code>rbind(A,B,...)</code></td>
-<td>Combine matrices(vectors) vertically. Returns a matrix.</td>
-</tr>
-<tr class="even">
-<td><code>rowMeans(A)</code></td>
-<td>Returns vector of row means.</td>
-</tr>
-<tr class="odd">
-<td><code>rowSums(A)</code></td>
-<td>Returns vector of row sums.</td>
-</tr>
-<tr class="even">
-<td><code>colMeans(A)</code></td>
-<td>Returns vector of column means.</td>
-</tr>
-<tr class="odd">
-<td><code>colSums(A)</code></td>
-<td>Returns vector of column sums.</td>
+<td><span class="math inline">\(y = \beta_0 + \sum_{i=1}^{i=999} \beta_i x_i\)</span></td>
+<td><code>y ~ .</code></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="rango-de-una-matriz" class="section level2 unnumbered">
-<h2>Rango de una matriz</h2>
-<p>El rango de una matriz es el número máximo de columnas (filas respectivamente) que son linealmente independientes.</p>
-<div id="ejemplo-33" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Calcular el rango de la matriz <span class="math inline">\(M\)</span> siguiente.</p>
-<p><span class="math display">\[
-M = \begin{pmatrix}
-1 &amp; 2 &amp; 5 \\
-1 &amp; 5 &amp; 2 \\
-1 &amp; 4 &amp; 7
-\end{pmatrix}
-\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Lo primero es crear la matriz <span class="math inline">\(M\)</span>.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb240-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb240-3" title="3">              <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb240-4" title="4">M</a></code></pre></div>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    5
-## [2,]    1    5    2
-## [3,]    1    4    7</code></pre>
-<p>Una forma de obtener el rango es por medio de la función <code>qr</code> que hace una <a href="https://en.wikipedia.org/wiki/QR_decomposition">descomposición QR</a> de la matriz.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">qr</span>(M)<span class="op">$</span>rank</a></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<p>De la salida anterior vemos que el rango de <span class="math inline">\(M\)</span> es 3, eso quiere decir que el número máximo de columnas linealmente independientes es 3.</p>
-<p>Otra forma para obtener el rango de la matriz es por medio de la función <code>rankMatrix</code> del paquete <strong>Matrix</strong> <span class="citation">(Bates and Maechler <a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span> así:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="kw">library</span>(Matrix)</a>
-<a class="sourceLine" id="cb244-2" title="2"><span class="kw">rankMatrix</span>(M)[<span class="dv">1</span>]</a></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-</div>
-<div id="ejemplo-34" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Calcular el rango de la matriz <span class="math inline">\(N\)</span> siguiente.</p>
-<p><span class="math display">\[
-N = \begin{pmatrix}
-1 &amp; 2 &amp; 3 \\
-1 &amp; 5 &amp; 6 \\
-1 &amp; 7 &amp; 8
-\end{pmatrix}
-\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Lo primero es crear la matriz <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb246-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb246-3" title="3">              <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb246-4" title="4">N</a></code></pre></div>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    3
-## [2,]    1    5    6
-## [3,]    1    7    8</code></pre>
-<p>Al mirar con calma las columnas de la matriz se observa un detalle, la tercera columna de <span class="math inline">\(N\)</span> se obtiene al sumar la primera y segunda columna de <span class="math inline">\(N\)</span>, eso significa que la tercera columna es combinación lineal de las dos primeras. Vamos a calcular el rango de <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">qr</span>(N)<span class="op">$</span>rank</a></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<p>El valor de 2 obtenido no nos sorprende porque ya habíamos detectado que la tercera columna es combinación lineal de las dos primeras.</p>
 
-</div>
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-R-Matrix">
-<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="varcuali.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="algmat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="xy.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -535,7 +340,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/90-algebramatricial.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/999-Wilkinson-Rogers.Rmd",
 "text": "Edit"
 },
 "history": {
