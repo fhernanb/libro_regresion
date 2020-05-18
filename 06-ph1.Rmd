@@ -22,6 +22,12 @@ Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (
 
 ¿Será la variable Edad una variable significativa para el modelo? es decir, ¿será el coeficiente de la Edad igual a cero o no?
 
+<p align="center">
+  <img src="images/ilustracion_soldadura.png" width="400">
+</p>
+
+__Solución__
+
 Las anteriores preguntas se pueden resumir por medio del siguiente conjunto de hipótesis.
 
 $$H_0: \beta_{Edad} = 0,$$
@@ -63,6 +69,12 @@ Los argumentos de esta función son:
 Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.
 
 El proveedor de la soldadura afirma que la resistencia media para soldaduras nuevas es 2700 psi. Pruebe la hipótesis de que la resistencia media es diferente a un nivel de significancia del 5%.
+
+<p align="center">
+  <img src="images/ilustracion_soldadura.png" width="400">
+</p>
+
+__Solución__
 
 La anterior pregunta se pueden resumir por medio del siguiente conjunto de hipótesis.
 

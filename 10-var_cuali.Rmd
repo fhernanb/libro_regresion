@@ -140,7 +140,7 @@ Cuando se incluye una variable cualitativa de $k$ niveles en un modelo de regres
 
 Para saber si una variable cualitativa es significativa para un modelo hay tres formas:
 
-1. Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)`.
+1. Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)` (método no recomendado).
 2. Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
 3. Crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, `anova(mod.redu, mod)`.
 

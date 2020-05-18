@@ -42,6 +42,10 @@ Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. 
 
 ¿Será que las variables __Número de Cajas__ y __Distancia__ son significativas en el modelo?
 
+<p align="center">
+  <img src="images/ilustracion_refrescos.png" width="600">
+</p>
+
 __Solución__
 
 En este problema nos interesa estudiar el siguiente conjunto de hipótesis.
@@ -146,6 +150,10 @@ Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos compar
 
 ¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
 
+<p align="center">
+  <img src="images/blocks.jpg" width="200">
+</p>
+
 __Solución__
 
 Primero veamos los datos.
@@ -235,6 +243,12 @@ A continuación se muestran dos ejemplos en los cuales se ilustra la utilidad de
 ### Ejemplo {-}
 En este ejemplo se mostrará la segunda utilidad de la función `anova`. Para esto vamos a utilizar la base de datos `Cars93` del paquete `MASS`. El objetivo es construir un modelo para explicar la media del `Price` de los autos en función de las variables `Horsepower`, `Type` y `Weight`.
 
+<p align="center">
+  <img src="images/car.gif" width="200">
+</p>
+
+__Solución__
+
 La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (`mod0`) hasta uno con todas las covariables (`mod3`). En la segunda parte se analizará el modelo con todas las covariables directamente.
 
 A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo `Horsepower`.
@@ -281,6 +295,10 @@ Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos compar
 - y el modelo completo con la fórmula `y ~ x1 + x2 + x3 + x4`. 
 
 ¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+
+<p align="center">
+  <img src="images/blocks.jpg" width="200">
+</p>
 
 __Solución__
 
