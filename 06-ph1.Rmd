@@ -10,6 +10,14 @@ frente a una de las tres siguientes hipótesis alternas:
 $$H_A: \beta_k < \beta_{k0}, \quad H_A: \beta_k \neq \beta_{k0}, \quad H_A: \beta_k  > \beta_{k0},$$
 para algún $k=0, 1, 2, \ldots, p$.
 
+Para estas pruebas el estadístico de prueba está dado por
+
+$$
+t_0 = \frac{\hat{\beta}_k - \beta_{k0}}{s.e.(\hat{\beta}_k)},
+$$
+
+y bajo la hipótesis nula cierta, $t_0 \sim t_{n-p}$.
+
 ```{block2, type='rmdnote'}
 Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes $\beta$, se asume que las variables restantes permanecen en el modelo, es decir que este tipo de pruebas son pruebas marginales.
 ```

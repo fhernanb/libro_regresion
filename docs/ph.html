@@ -325,6 +325,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 frente a una de las tres siguientes hipótesis alternas:
 <span class="math display">\[H_A: \beta_k &lt; \beta_{k0}, \quad H_A: \beta_k \neq \beta_{k0}, \quad H_A: \beta_k  &gt; \beta_{k0},\]</span>
 para algún <span class="math inline">\(k=0, 1, 2, \ldots, p\)</span>.</p>
+<p>Para estas pruebas el estadístico de prueba está dado por</p>
+<p><span class="math display">\[
+t_0 = \frac{\hat{\beta}_k - \beta_{k0}}{s.e.(\hat{\beta}_k)},
+\]</span></p>
+<p>y bajo la hipótesis nula cierta, <span class="math inline">\(t_0 \sim t_{n-p}\)</span>.</p>
 
 <div class="rmdnote">
 Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span class="math inline">\(\beta\)</span>, se asume que las variables restantes permanecen en el modelo, es decir que este tipo de pruebas son pruebas marginales.
