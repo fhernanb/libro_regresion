@@ -70,9 +70,15 @@ En este ejemplo vamos a utilizar la base de datos `Cars93` del paquete `MASS`. E
 
 \begin{align}
 Precio_i &\sim N(\mu_i, \sigma^2), \\ 
-\mu_i &= \beta_0 + \beta_1 EngSiz_i + \beta_2 TComp_i + \beta_3 TSpor_i + \beta_4 TMid_i + \beta_5 TLarg_i + \beta_6 TVan_i, \\
+\mu_i &= \beta_0 + \beta_1 EngSize_i + \beta_2 TypeC_i + \beta_3 TypeS_i + \beta_4 TypeM_i + \beta_5 TypeL_i + \beta_6 TypeV_i, \\
 \sigma^2 &= \text{constante}
 \end{align}
+
+<p align="center">
+  <img src="images/types_cars.png" width="500">
+</p>
+
+__Solución__
 
 Lo primero a realizar es cargar el paquete y explorar las variables de interés con la ayuda de la función `str`.
 
@@ -114,9 +120,20 @@ Usando la información de la salida anterior se puede construir el siguiente mod
 
 \begin{align}
 \widehat{Precio}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
-\hat{\mu}_i &= 2.794 + 4.621 EngSiz_i + 4.644 TComp_i + 5.078 TSpor_i + \ldots \\
+\hat{\mu}_i &= 2.794 + 4.621 EngSize_i + 4.644 TypeC_i + 5.078 TypeS_i + 10.286 TypeM_i + \ldots \\
 \hat{\sigma} &= 7.068
 \end{align}
+
+¿Cómo se interpretan los coeficientes?
+
+- Para cada tipo de auto, si el tamaño del motor se pudiera aumentar en 1 litro, se espera que el precio promedio aumente en 4.621 miles de dólares.
+- Si tenemos dos autos, uno small y otro compacto, ambos con el mismo tamaño del motor, se espera que el precio promedio del compacto sea 4.644 miles de dólares mayor con respecto al auto small.
+- Si comparamos un auto small y uno midsize, ambos con el mismo tamaño del motor, es de esperarse que el precio promedio del auto midsize sea 10.286 miles de dólares más que el small.
+- Dos autos con el mismo tamaño del motos, uno de tipo sporty y otro de tipo large, se espera que el de tipo sporty tenga un precio promedio de 3.025 miles de dólares más que el large (valor obtenido de 5.078-2.053).
+
+```{block2, type='rmdwarning'}
+Cuidado, no intente interpretar $\hat{\beta}_0$ en este ejemplo. ¿Por qué?
+```
 
 ## Significancia de variables cualitativas  {-}
 Cuando se incluye una variable cualitativa de $k$ niveles en un modelo de regresión, aparecen $k-1$ variables indicadoras y por lo tanto $k-1$ valores-P en la tabla resumen. Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para el modelo? 

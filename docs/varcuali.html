@@ -51,13 +51,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -329,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Una de las preguntas frecuentes entre los que inician el estudio de los modelos de regresión es: ¿se pueden incluir variables cualitativas en un modelo de regresión?</p>
 <p>La respuesta es <strong>SI</strong>, definitivamente si.</p>
 <p>A continuación una figura que ilustra algunas de las variables que se pueden incluir en la construcción de un modelo de regresión.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-131"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
 <img src="images/embudo.png" alt="Variables variables cualitativas a incluir en un modelo." width="438" />
 <p class="caption">
 Figure 10.1: Variables variables cualitativas a incluir en un modelo.
@@ -371,25 +364,25 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
 <p>Lo primero a realizar es ingresar los datos para el ejemplo mostrado en la figura <a href="varcuali.html#fig:cuali02">10.2</a>. El código necesario se muestra a continuación.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1">Precio &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb218-2" title="2">Area &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb218-3" title="3">Pisci &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
-<a class="sourceLine" id="cb218-4" title="4">                <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">Precio &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">Area &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3">Pisci &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
+<a class="sourceLine" id="cb1-4" title="4">                <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>))</a></code></pre></div>
 <p>Al crear el vector <code>Pisci</code> se usó el argumento <code>levels</code> dentro de la función <code>factor</code> para indicarle a R que el nivel de referencia es <code>Sin</code>, seguido de <code>Pequena</code> y luego <code>Grande</code>.</p>
 <p>Para obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> con las variables indicadoras (no con la variable original <code>Pisci</code>) se hace lo siguiente:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1"><span class="kw">model.matrix</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a></code></pre></div>
-<pre><code>##   (Intercept) Area Pisci1 Pisci2
-## 1           1    3     -1     -1
-## 2           1    4      1      0
-## 3           1    1      0      1
-## 4           1    6      0      1
-## 5           1    5      1      0
-## 6           1    3     -1     -1
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">model.matrix</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a></code></pre></div>
+<pre><code>##   (Intercept) Area PisciPequena PisciGrande
+## 1           1    3            0           1
+## 2           1    4            0           0
+## 3           1    1            1           0
+## 4           1    6            1           0
+## 5           1    5            0           0
+## 6           1    3            0           1
 ## attr(,&quot;assign&quot;)
 ## [1] 0 1 2 2
 ## attr(,&quot;contrasts&quot;)
 ## attr(,&quot;contrasts&quot;)$Pisci
-## [1] &quot;contr.sum&quot;</code></pre>
+## [1] &quot;contr.treatment&quot;</code></pre>
 </div>
 </div>
 <div id="modelos-con-variables-cualitativas" class="section level2 unnumbered">
@@ -400,32 +393,36 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 <p>En este ejemplo vamos a utilizar la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es ajustar el siguiente modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto, es decir, el objetivo es ajustar el siguiente modelo.</p>
 <p><span class="math display">\[\begin{align}
 Precio_i &amp;\sim N(\mu_i, \sigma^2), \\ 
-\mu_i &amp;= \beta_0 + \beta_1 EngSiz_i + \beta_2 TComp_i + \beta_3 TSpor_i + \beta_4 TMid_i + \beta_5 TLarg_i + \beta_6 TVan_i, \\
+\mu_i &amp;= \beta_0 + \beta_1 EngSize_i + \beta_2 TypeC_i + \beta_3 TypeS_i + \beta_4 TypeM_i + \beta_5 TypeL_i + \beta_6 TypeV_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
+<p align="center">
+<img src="images/types_cars.png" width="500">
+</p>
+<p><strong>Solución</strong></p>
 <p>Lo primero a realizar es cargar el paquete y explorar las variables de interés con la ayuda de la función <code>str</code>.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1"><span class="kw">require</span>(MASS)</a>
-<a class="sourceLine" id="cb221-2" title="2"><span class="kw">str</span>(Cars93[, <span class="kw">c</span>(<span class="st">&#39;Price&#39;</span>, <span class="st">&#39;EngineSize&#39;</span>, <span class="st">&#39;Type&#39;</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">str</span>(Cars93[, <span class="kw">c</span>(<span class="st">&#39;Price&#39;</span>, <span class="st">&#39;EngineSize&#39;</span>, <span class="st">&#39;Type&#39;</span>)])</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    93 obs. of  3 variables:
 ##  $ Price     : num  15.9 33.9 29.1 37.7 30 15.7 20.8 23.7 26.3 34.7 ...
 ##  $ EngineSize: num  1.8 3.2 2.8 2.8 3.5 2.2 3.8 5.7 3.8 4.9 ...
 ##  $ Type      : Factor w/ 6 levels &quot;Compact&quot;,&quot;Large&quot;,..: 4 3 1 3 3 3 2 2 3 2 ...</code></pre>
 <p>La variable <code>Type</code> tiene 6 niveles, para ver todos niveles usamos el siguiente código.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)</a></code></pre></div>
 <pre><code>## [1] &quot;Compact&quot; &quot;Large&quot;   &quot;Midsize&quot; &quot;Small&quot;   &quot;Sporty&quot;  &quot;Van&quot;</code></pre>
 <p>De la salida anterior se observan que los niveles son Compact, Large, Midsize, Small, Sporty y Van. Al observar cuidadosamente los niveles vemos que ellos están ordenados por orden lexicográfico, primero Compact por iniciar con la letra <strong>C</strong>, por último Van por iniciar con la letra <strong>V</strong>. Al mirar el modelo requerido se nota que el nivel Small no aparece en la ecuación de <span class="math inline">\(\mu\)</span>, esto significa que ese es el nivel de referencia que se encuentra en el intercepto <span class="math inline">\(\beta_0\)</span>. Para redefinir los niveles en el orden requerido usamos el siguiente código.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
-<a class="sourceLine" id="cb225-2" title="2">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>))</a>
-<a class="sourceLine" id="cb225-3" title="3"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)  <span class="co"># Para verificar el cambio</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
+<a class="sourceLine" id="cb8-2" title="2">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>))</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)  <span class="co"># Para verificar el cambio</span></a></code></pre></div>
 <pre><code>## [1] &quot;Small&quot;   &quot;Compact&quot; &quot;Sporty&quot;  &quot;Midsize&quot; &quot;Large&quot;   &quot;Van&quot;</code></pre>
 <p>A continuación vamos a crear un diagrama de dispersión para ver la relación entre las variables del problema.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb227-2" title="2"><span class="kw">ggplot</span>(Cars93, <span class="kw">aes</span>(<span class="dt">x=</span>EngineSize, <span class="dt">y=</span>Price, <span class="dt">color=</span>Type)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb227-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">ggplot</span>(Cars93, <span class="kw">aes</span>(<span class="dt">x=</span>EngineSize, <span class="dt">y=</span>Price, <span class="dt">color=</span>Type)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/cuanti1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Ahora si podemos ajustar el modelo solicitado usando el siguiente código.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb228-2" title="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ EngineSize + Type, data = Cars93)
@@ -435,27 +432,38 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 ## -15.742  -4.568  -0.845   2.473  34.031 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     6.7242     3.2178   2.090   0.0396 *  
-## EngineSize      4.6215     1.1099   4.164 7.40e-05 ***
-## Type(Small)    -3.9298     2.0032  -1.962   0.0530 .  
-## Type(Compact)   0.7145     1.7218   0.415   0.6792    
-## Type(Sporty)    1.1480     1.7612   0.652   0.5162    
-## Type(Midsize)   6.3565     1.4775   4.302 4.45e-05 ***
-## Type(Large)    -1.8764     2.4533  -0.765   0.4465    
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.794      2.348   1.190  0.23732    
+## EngineSize     4.621      1.110   4.164  7.4e-05 ***
+## TypeCompact    4.644      2.484   1.870  0.06489 .  
+## TypeSporty     5.078      2.634   1.928  0.05721 .  
+## TypeMidsize   10.286      2.700   3.810  0.00026 ***
+## TypeLarge      2.053      3.916   0.524  0.60138    
+## TypeVan        1.517      3.332   0.455  0.65006    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## s: 7.068 on 86 degrees of freedom
-## Multiple R-squared: 0.4995,
-## Adjusted R-squared: 0.4646 
+## Residual standard error: 7.068 on 86 degrees of freedom
+## Multiple R-squared:  0.4995, Adjusted R-squared:  0.4646 
 ## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
 <p>Usando la información de la salida anterior se puede construir el siguiente modelo ajustado.</p>
 <p><span class="math display">\[\begin{align}
 \widehat{Precio}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
-\hat{\mu}_i &amp;= 2.794 + 4.621 EngSiz_i + 4.644 TComp_i + 5.078 TSpor_i + \ldots \\
+\hat{\mu}_i &amp;= 2.794 + 4.621 EngSize_i + 4.644 TypeC_i + 5.078 TypeS_i + 10.286 TypeM_i + \ldots \\
 \hat{\sigma} &amp;= 7.068
 \end{align}\]</span></p>
+<p>¿Cómo se interpretan los coeficientes?</p>
+<ul>
+<li>Para cada tipo de auto, si el tamaño del motor se pudiera aumentar en 1 litro, se espera que el precio promedio aumente en 4.621 miles de dólares.</li>
+<li>Si tenemos dos autos, uno small y otro compacto, ambos con el mismo tamaño del motor, se espera que el precio promedio del compacto sea 4.644 miles de dólares mayor con respecto al auto small.</li>
+<li>Si comparamos un auto small y uno midsize, ambos con el mismo tamaño del motor, es de esperarse que el precio promedio del auto midsize sea 10.286 miles de dólares más que el small.</li>
+<li>Dos autos con el mismo tamaño del motos, uno de tipo sporty y otro de tipo large, se espera que el de tipo sporty tenga un precio promedio de 3.025 miles de dólares más que el large (valor obtenido de 5.078-2.053).</li>
+</ul>
+
+<div class="rmdwarning">
+Cuidado, no intente interpretar <span class="math inline">\(\hat{\beta}_0\)</span> en este ejemplo. ¿Por qué?
+</div>
+
 </div>
 </div>
 <div id="significancia-de-variables-cualitativas" class="section level2 unnumbered">
@@ -473,14 +481,14 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 <p>¿Será la variable tipo de auto significativa para el modelo?</p>
 <p>Para responder la pregunta anterior vamos a usar las tres formas listadas anteriormente.</p>
 <p>Primero vamos a ajustar el modelo de interés nuevamente.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">require</span>(MASS)</a>
-<a class="sourceLine" id="cb230-2" title="2">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
-<a class="sourceLine" id="cb230-3" title="3">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>)) <span class="co"># Para usar Small como referencia</span></a>
-<a class="sourceLine" id="cb230-4" title="4">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb13-2" title="2">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
+<a class="sourceLine" id="cb13-3" title="3">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>)) <span class="co"># Para usar Small como referencia</span></a>
+<a class="sourceLine" id="cb13-4" title="4">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a></code></pre></div>
 <p><strong>Forma 1</strong><br />
 En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el <code>summary(mod)</code>.</p>
 <p>Al mirar el resultado del <code>summary(mod)</code> se observa que el valor-P asociado a la variable <code>TypeMidsize</code> es menor que el valor usuar de significancia 5%, por lo tanto la variable Type es sifinificativa para el modelo.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ EngineSize + Type, data = Cars93)
@@ -490,20 +498,19 @@ En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicad
 ## -15.742  -4.568  -0.845   2.473  34.031 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     6.7242     3.2178   2.090   0.0396 *  
-## EngineSize      4.6215     1.1099   4.164 7.40e-05 ***
-## Type(Small)    -3.9298     2.0032  -1.962   0.0530 .  
-## Type(Compact)   0.7145     1.7218   0.415   0.6792    
-## Type(Sporty)    1.1480     1.7612   0.652   0.5162    
-## Type(Midsize)   6.3565     1.4775   4.302 4.45e-05 ***
-## Type(Large)    -1.8764     2.4533  -0.765   0.4465    
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2.794      2.348   1.190  0.23732    
+## EngineSize     4.621      1.110   4.164  7.4e-05 ***
+## TypeCompact    4.644      2.484   1.870  0.06489 .  
+## TypeSporty     5.078      2.634   1.928  0.05721 .  
+## TypeMidsize   10.286      2.700   3.810  0.00026 ***
+## TypeLarge      2.053      3.916   0.524  0.60138    
+## TypeVan        1.517      3.332   0.455  0.65006    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## s: 7.068 on 86 degrees of freedom
-## Multiple R-squared: 0.4995,
-## Adjusted R-squared: 0.4646 
+## Residual standard error: 7.068 on 86 degrees of freedom
+## Multiple R-squared:  0.4995, Adjusted R-squared:  0.4646 
 ## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
 <p><strong>Forma 2</strong><br />
 En la forma 2 debemos crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando <code>anova(mod)</code>.</p>
@@ -513,7 +520,7 @@ H_0 &amp;: \text{la variable de la FILA no aporta información para el modelo}, 
 H_A &amp;: \text{la variable de la FILA si aporta información para el modelo}
 \end{align}\]</span></p>
 <p>A continuación el código para usar la forma 2..</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">anova</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">anova</span>(mod)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Price
@@ -532,8 +539,8 @@ H_0 &amp;: \text{la variable Type no aporta información para el modelo}, \\
 H_A &amp;: \text{la variable Type si aporta información para el modelo}
 \end{align}\]</span></p>
 <p>A continuación el código para usar la forma 3. El modelo <code>mod.redu</code> contiene un modelo <strong>sin</strong> la variable cualitativa de interés Type.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">mod.redu &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb235-2" title="2"><span class="kw">anova</span>(mod.redu, mod)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">mod.redu &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="kw">anova</span>(mod.redu, mod)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ EngineSize
