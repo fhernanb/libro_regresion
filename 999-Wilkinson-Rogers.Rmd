@@ -1,9 +1,45 @@
-# Notación de Wilkinson y Rogers {#xy}
-En este capítulo se muestra la notación de [Wilkinson y Rogers (1973)](https://www.jstor.org/stable/2346786?seq=1) para escribir fórmulas que representen modelos de regresión.
+# Notación de Wilkinson y Rogers {#WilRog}
+En este capítulo se muestra la notación de [Wilkinson y Rogers (1973)](https://www.jstor.org/stable/2346786?seq=1) para escribir fórmulas que representan modelos de regresión.
 
 <p align="center">
   <img src="images/einstein.png" width="300">
 </p>
+
+## ¿Qué es una fórmula en R? {-}
+Una fórmula es un objeto especial de R para representar un modelo de regresión y se construye usando la función `formula`. Una fórmula básica tiene tres elementos:
+
+- La [virgulilla](https://dle.rae.es/virgulilla) `~` que actua como separador.
+- Lado izquierdo que representa la variable respuesta.
+- Lado derecho que contiene las variables explicativas y sus relaciones.
+
+A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico $precio = \beta_0 + \beta_1 area + \beta_2 habit$.
+
+```{r}
+my_form <- formula(precio ~ area + habit)
+my_form
+```
+
+Para conocer la clase de `my_form` usamos:
+
+```{r}
+class(my_form)
+```
+
+Para conocer la longitud de `my_form` usamos:
+
+```{r}
+length(my_form)
+```
+
+Para explorar los tres elementos de `my_form` usamos:
+
+```{r}
+my_form[1] # el separador
+my_form[2] # el lado izquierdo
+my_form[3] # el lado derecho
+```
+
+## ¿Para qué sirve la notación de Wilkinson y Rogers? {-}
 
 La notación de Wilkinson y Rogers (1973) permite representar la fórmula algebraica que define un modelo estadístico en una fórmula de R usando unas instrucciones sencillas. A continuación se muestra una tabla en la cual aparecen los símbolos que ayudan a escribir fórmulas para representar modelos estadísticos, la tabla fue tomada [de este enlace](https://jerous.org/att/2016/05/11/wilkinson-rogers/wilkinson2formula.html).
 
@@ -18,7 +54,13 @@ Notación algebraica  | Notación computacional
 $y = \beta_0$ | `y ~ 1`
 $y = \beta_0 + \beta_1 x_1$ | `y ~ 1 + x1` ó `y ~ x1`
 $y = \beta_1 x_1$ | `y ~ 0 + x1` ó `y ~ -1 + x1`
-$y = \beta_0 + \beta_1 x_1 +  \beta_2 x_2$ | `y ~ x1 + x2`
+$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2$ | `y ~ x1 + x2`
 $y = \beta_0 + \beta_1 x_1 x_2$ | `y ~ x1:x2`
 $y = \beta_0 + \beta_1 x_1 +  \beta_2 x_2 + \beta_3 x_1 x_2$ | `y ~ x1 + x2 + x1:x2`
 $y = \beta_0 + \sum_{i=1}^{i=999} \beta_i x_i$ | `y ~ .`
+$y = \beta_0 + \beta_1 x_ + \beta_2 x^5$ | `y ~ x1 + I(x^5)`
+
+## Paquete Formula de R {-}
+El manejo de fórmulas es un aspecto importante y por esa razón existe el paquete **Formula** [@R-Formula]. El lector podrá encontrar una explicación detallada del paquete [en este enlace](https://cran.r-project.org/web/packages/Formula/index.html).
+
+

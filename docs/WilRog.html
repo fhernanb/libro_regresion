@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13 ¿Cómo obtener la matriz \(\boldsymbol{X}\) y el vector \(\boldsymbol{y}\)? | Modelos de Regresión con R</title>
+  <title>12 Notación de Wilkinson y Rogers | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13 ¿Cómo obtener la matriz \(\boldsymbol{X}\) y el vector \(\boldsymbol{y}\)? | Modelos de Regresión con R" />
+  <meta property="og:title" content="12 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13 ¿Cómo obtener la matriz \(\boldsymbol{X}\) y el vector \(\boldsymbol{y}\)? | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="12 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="WilRog.html"/>
-<link rel="next" href="important.html"/>
+<link rel="prev" href="algmat.html"/>
+<link rel="next" href="xy.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -321,53 +321,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="xy" class="section level1">
-<h1><span class="header-section-number">13</span> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</h1>
-<p>En este corto capítulo se muestra cómo crear la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span> necesario para aplicar varios modelos predictivos.</p>
-<p>Las funciones <code>model.matrix</code>, <code>model.frame</code> y <code>model.extract</code> son útiles para obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>. A continuación se muestra un ejemplo ilustrativo.</p>
-<div id="ejemplo-35" class="section level2 unnumbered">
-<h2>Ejemplo</h2>
-<p>Usando la base de datos de abajo construya la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span> para crear un modelo de regresión que explique la variable <code>Precio</code> del apartamento en función del <code>Area</code> del apartamento y <code>Pisci</code>. Tome el nivel <code>Sin</code> de la variable <code>Pisci</code> como nivel de referencia.</p>
+<div id="WilRog" class="section level1">
+<h1><span class="header-section-number">12</span> Notación de Wilkinson y Rogers</h1>
+<p>En este capítulo se muestra la notación de <a href="https://www.jstor.org/stable/2346786?seq=1">Wilkinson y Rogers (1973)</a> para escribir fórmulas que representan modelos de regresión.</p>
 <p align="center">
-<img src="images/obtencion_X_y.png" width="200">
+<img src="images/einstein.png" width="300">
 </p>
-<p><strong>Solución</strong></p>
-<p>Lo primero es crear el marco de datos así:</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Precio =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>),</a>
-<a class="sourceLine" id="cb262-2" title="2">                    <span class="dt">Area =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>), </a>
-<a class="sourceLine" id="cb262-3" title="3">                    <span class="dt">Pisci =</span> <span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
-<a class="sourceLine" id="cb262-4" title="4">                                   <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>)))</a>
-<a class="sourceLine" id="cb262-5" title="5">datos</a></code></pre></div>
-<pre><code>##   Precio Area   Pisci
-## 1     12    3  Grande
-## 2     15    4     Sin
-## 3     25    1 Pequena
-## 4     11    6 Pequena
-## 5     16    5     Sin
-## 6      7    3  Grande</code></pre>
-<p>Luego usamos la función <code>model.matrix</code> para obtener <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a>
-<a class="sourceLine" id="cb264-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="dt">object=</span>form, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb264-3" title="3">X</a></code></pre></div>
-<pre><code>##   (Intercept) Area Pisci1 Pisci2
-## 1           1    3     -1     -1
-## 2           1    4      1      0
-## 3           1    1      0      1
-## 4           1    6      0      1
-## 5           1    5      1      0
-## 6           1    3     -1     -1
-## attr(,&quot;assign&quot;)
-## [1] 0 1 2 2
-## attr(,&quot;contrasts&quot;)
-## attr(,&quot;contrasts&quot;)$Pisci
-## [1] &quot;contr.sum&quot;</code></pre>
-<p>Luego usamos las funciones <code>model.frame</code> y <code>model.extract</code> para obtener el vector <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1">mf &lt;-<span class="st"> </span><span class="kw">model.frame</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb266-2" title="2">y &lt;-<span class="st"> </span><span class="kw">model.extract</span>(mf, <span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb266-3" title="3">y</a></code></pre></div>
-<pre><code>##  1  2  3  4  5  6 
-## 12 15 25 11 16  7</code></pre>
+<div id="qué-es-una-fórmula-en-r" class="section level2 unnumbered">
+<h2>¿Qué es una fórmula en R?</h2>
+<p>Una fórmula es un objeto especial de R para representar un modelo de regresión y se construye usando la función <code>formula</code>. Una fórmula básica tiene tres elementos:</p>
+<ul>
+<li>La <a href="https://dle.rae.es/virgulilla">virgulilla</a> <code>~</code> que actua como separador.</li>
+<li>Lado izquierdo que representa la variable respuesta.</li>
+<li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
+</ul>
+<p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1">my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</a>
+<a class="sourceLine" id="cb250-2" title="2">my_form</a></code></pre></div>
+<pre><code>## precio ~ area + habit</code></pre>
+<p>Para conocer la clase de <code>my_form</code> usamos:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1"><span class="kw">class</span>(my_form)</a></code></pre></div>
+<pre><code>## [1] &quot;formula&quot;</code></pre>
+<p>Para conocer la longitud de <code>my_form</code> usamos:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">length</span>(my_form)</a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">my_form[<span class="dv">1</span>] <span class="co"># el separador</span></a></code></pre></div>
+<pre><code>## `~`()</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1">my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></a></code></pre></div>
+<pre><code>## precio()</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1">my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></a></code></pre></div>
+<pre><code>## (area + habit)()</code></pre>
+</div>
+<div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered">
+<h2>¿Para qué sirve la notación de Wilkinson y Rogers?</h2>
+<p>La notación de Wilkinson y Rogers (1973) permite representar la fórmula algebraica que define un modelo estadístico en una fórmula de R usando unas instrucciones sencillas. A continuación se muestra una tabla en la cual aparecen los símbolos que ayudan a escribir fórmulas para representar modelos estadísticos, la tabla fue tomada <a href="https://jerous.org/att/2016/05/11/wilkinson-rogers/wilkinson2formula.html">de este enlace</a>.</p>
+<p align="center">
+<img src="images/wil_rog.PNG" width="500">
+</p>
+<p>Usando los símbolos anteriores se puede escribir gran variedad de modelos, en la siguiente tabla de muestran varios ejemplos.</p>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Notación algebraica</th>
+<th>Notación computacional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y = \beta_0\)</span></td>
+<td><code>y ~ 1</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1\)</span></td>
+<td><code>y ~ 1 + x1</code> ó <code>y ~ x1</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y = \beta_1 x_1\)</span></td>
+<td><code>y ~ 0 + x1</code> ó <code>y ~ -1 + x1</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span></td>
+<td><code>y ~ x1 + x2</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 x_2\)</span></td>
+<td><code>y ~ x1:x2</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2\)</span></td>
+<td><code>y ~ x1 + x2 + x1:x2</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y = \beta_0 + \sum_{i=1}^{i=999} \beta_i x_i\)</span></td>
+<td><code>y ~ .</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_ + \beta_2 x^5\)</span></td>
+<td><code>y ~ x1 + I(x^5)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="paquete-formula-de-r" class="section level2 unnumbered">
+<h2>Paquete Formula de R</h2>
+<p>El manejo de fórmulas es un aspecto importante y por esa razón existe el paquete <strong>Formula</strong> <span class="citation">(Zeileis and Croissant <a href="#ref-R-Formula" role="doc-biblioref">2018</a>)</span>. El lector podrá encontrar una explicación detallada del paquete <a href="https://cran.r-project.org/web/packages/Formula/index.html">en este enlace</a>.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-Formula">
+<p>Zeileis, Achim, and Yves Croissant. 2018. <em>Formula: Extended Model Formulas</em>. <a href="https://CRAN.R-project.org/package=Formula">https://CRAN.R-project.org/package=Formula</a>.</p>
 </div>
 </div>
             </section>
@@ -375,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="WilRog.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="important.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="algmat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="xy.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -407,7 +456,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/999-xy.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/999-Wilkinson-Rogers.Rmd",
 "text": "Edit"
 },
 "history": {
