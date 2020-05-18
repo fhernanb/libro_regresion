@@ -367,12 +367,12 @@ x_i &amp;\sim U(-5, 6) \\
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb50-2" title="2">datos</a></code></pre></div>
-<pre><code>##            y         x
-## 1  20.649221 -3.094691
-## 2 -12.017274  2.417636
-## 3  13.909917 -1.484886
-## 4  -5.659893  1.474452
-## 5   7.062520 -1.378177</code></pre>
+<pre><code>##           y         x
+## 1  28.23706 -3.340531
+## 2 -22.15514  4.979152
+## 3  23.26733 -3.342753
+## 4  10.84238 -1.320308
+## 5  -4.35397  1.162409</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
 <a class="sourceLine" id="cb52-2" title="2"></a>
@@ -386,7 +386,7 @@ x_i &amp;\sim U(-5, 6) \\
 <a class="sourceLine" id="cb53-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
 <a class="sourceLine" id="cb53-3" title="3">theta_hat</a></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    3.951930   -6.065365    4.145895</code></pre>
+##    3.774023   -6.047145    3.748686</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">

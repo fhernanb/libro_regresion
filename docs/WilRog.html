@@ -389,20 +389,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td><code>y ~ x1 + x2</code></td>
 </tr>
 <tr class="odd">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2\)</span></td>
+<td><code>y ~ x1*x2</code></td>
+</tr>
+<tr class="even">
 <td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 x_2\)</span></td>
 <td><code>y ~ x1:x2</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2\)</span></td>
 <td><code>y ~ x1 + x2 + x1:x2</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><span class="math inline">\(y = \beta_0 + \sum_{i=1}^{i=999} \beta_i x_i\)</span></td>
 <td><code>y ~ .</code></td>
 </tr>
-<tr class="even">
-<td><span class="math inline">\(y = \beta_0 + \beta_1 x_ + \beta_2 x^5\)</span></td>
-<td><code>y ~ x1 + I(x^5)</code></td>
+<tr class="odd">
+<td><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^5\)</span></td>
+<td><code>y ~ x + I(x^5)</code></td>
 </tr>
 </tbody>
 </table>

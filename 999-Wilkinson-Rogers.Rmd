@@ -55,10 +55,11 @@ $y = \beta_0$ | `y ~ 1`
 $y = \beta_0 + \beta_1 x_1$ | `y ~ 1 + x1` ó `y ~ x1`
 $y = \beta_1 x_1$ | `y ~ 0 + x1` ó `y ~ -1 + x1`
 $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2$ | `y ~ x1 + x2`
+$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2$ | `y ~ x1*x2`
 $y = \beta_0 + \beta_1 x_1 x_2$ | `y ~ x1:x2`
 $y = \beta_0 + \beta_1 x_1 +  \beta_2 x_2 + \beta_3 x_1 x_2$ | `y ~ x1 + x2 + x1:x2`
 $y = \beta_0 + \sum_{i=1}^{i=999} \beta_i x_i$ | `y ~ .`
-$y = \beta_0 + \beta_1 x_ + \beta_2 x^5$ | `y ~ x1 + I(x^5)`
+$y = \beta_0 + \beta_1 x + \beta_2 x^5$ | `y ~ x + I(x^5)`
 
 ## Paquete Formula de R {-}
 El manejo de fórmulas es un aspecto importante y por esa razón existe el paquete **Formula** [@R-Formula]. El lector podrá encontrar una explicación detallada del paquete [en este enlace](https://cran.r-project.org/web/packages/Formula/index.html).
