@@ -20,7 +20,7 @@ description: "Libro de Modelos de Regresión con R para los estudiantes de la Es
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'mixlm', 'MPV',
                 'stats', 'leaps', 'olsrr', 'MASS',
-                'model', 'Matrix', 'multcomp', 'Formula'), 'packages.bib')
+                'model', 'Matrix', 'multcomp', 'Formula', 'car'), 'packages.bib')
 ```
 
 ```{r echo=FALSE, message=FALSE}

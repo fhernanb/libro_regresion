@@ -5,6 +5,13 @@ En este capítulo se muestra la utilidad de los residuales cuando se ajusta un m
   <img src="images/ResidualsLinear.gif" width="300">
 </p>
 
+## Tipos de residuales {-}
+A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.
+
+<p align="center">
+  <img src="images/tipos_de_residuales.png" width="450">
+</p>
+
 ## Supuestos {-}
 Los supuestos en un modelo de regresión se pueden escribir de dos formas:
 
@@ -23,13 +30,6 @@ __Forma II__
 4. Relación lineal entre la variable respuesta y las covariables.
 
 Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los $e_i$ mientras que en la forma II está dirigida hacia los $y_i$.
-
-## Tipos de residuales {-}
-A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.
-
-<p align="center">
-  <img src="images/tipos_de_residuales.png" width="450">
-</p>
 
 ## Chequeando normalidad de los errores $e_i$ {-}
 Para estudiar si lo errores $e_i$ tienen una distribución aproximadamente normal se construyen los residuales estandarizados:
@@ -75,5 +75,89 @@ Una analogía útil para recordar si se cumple la homocedasticidad es que el gr�
 <p align="center">
   <img src="images/cielo_estrellado.png" width="450">
 </p>
+
+Otro gráfico útil para chequear el supuesto de homocedasticidad es dibujar un diagrama de dispersión de $\sqrt{|r_i|}$ versus $\hat{\mu}$, un gráfico similar al mostrado a continuación.
+
+<p align="center">
+  <img src="images/di_versus_mui.png" width="450">
+</p>
+
+Al igual que en el gráfico de $e_i$ versus $\hat{\mu}$, se espera que no existan patrones claros en la nube de puntos.
+
+## Chequeando si errores $e_i$ no están correlacionados {-}
+Para estudiar esta situación se debe tener la historia de los errores, es decir, el orden en que las observaciones fueron tomadas. Usando es información se puede dibujar un diagrama de dispersión del residual versus tiempo,  un gráfico similar al mostrado a continuación.
+
+<p align="center">
+  <img src="images/res_tiempo.png" width="450">
+</p>
+
+En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de $e_i$ versus el tiempo. Para que se cumpla el supuesto de independencia se espera que los puntos se ubiquen como una nube de puntos sin ningún patrón claro.
+
+<p align="center">
+  <img src="images/patrones_ei_tiempo.png" width="450">
+</p>
+
+### Ejemplo {-}
+En este ejemplo vamos a simular 1000 observaciones del siguiente modelo y luego vamos a realizar el análisis de residuales para saber si el modelo fue bien ajustado.
+
+\begin{align*} 
+y_i &\sim  N(\mu_i, \sigma^2) \\ 
+\mu_i &= 4 - 6 x_i \\
+x_i &\sim U(-5, 6) \\
+\sigma^2 &= 16
+\end{align*}
+
+__Solución__
+
+Lo primero que se debe hacer es simular los datos y ajustar el modelo.
+
+```{r}
+gen_dat <- function(n) {
+  varianza <- 16
+  x <- runif(n=n, min=-5, max=6)
+  media <- 4 - 6 * x
+  y <- rnorm(n=n, mean=media, sd=sqrt(varianza))
+  marco_datos <- data.frame(y=y, x=x)
+  return(marco_datos)
+}
+
+datos <- gen_dat(n=1000)
+mod <- lm(y ~ x, data=datos)
+```
+
+Luego se pueden obtener los gráficos de residuales de la siguiente manera.
+
+```{r resid01, fig.height=6, fig.width=6, fig.align='center'}
+par(mfrow=c(2, 2))
+plot(mod, las=1, col='deepskyblue4', which=1:3)
+```
+
+En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados $d_i$ están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus $\hat{\mu}$ no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.
+
+### Ejemplo {-}
+Este ejemplo corresponde al ejemplo mostrado en el capítulo 6 de [Fox and Weisberg (2011)](https://www.amazon.es/R-Companion-Applied-Regression/dp/141297514X).
+
+En este ejemplo se desea ajustar un modelo de regresión para explicar la media de la variable prestige en función de las variables education, income y type, usando la base de datos Prestige del paquete **car** [@R-car].
+
+<p align="center">
+  <img src="images/canadian.jpg" width="250">
+</p>
+
+```{r message=FALSE}
+library(car)
+str(Prestige)
+prestige_mod <- lm (prestige ~ education + income + type, data=Prestige)
+```
+
+```{r}
+residualPlots(prestige_mod)
+```
+
+
+
+```{r}
+
+marginalModelPlots(prestige_mod)
+```
 
 
