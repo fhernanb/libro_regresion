@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Pruebas de hipótesis | Modelos de Regresión con R</title>
+  <title>7 Pruebas de hipótesis | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Pruebas de hipótesis | Modelos de Regresión con R" />
+  <meta property="og:title" content="7 Pruebas de hipótesis | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Pruebas de hipótesis | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="7 Pruebas de hipótesis | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ic.html"/>
-<link rel="next" href="diag.html"/>
+<link rel="prev" href="diag.html"/>
+<link rel="next" href="ph2.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -190,26 +190,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>6</b> Pruebas de hipótesis</a><ul>
-<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>7</b> Diagnósticos</a><ul>
+<li class="chapter" data-level="6" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>6</b> Diagnósticos</a><ul>
 <li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
 <li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
 <li><a href="diag.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
 <li><a href="diag.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
 <li><a href="diag.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
 <li><a href="diag.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a><ul>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis</a><ul>
+<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de significancia</a><ul>
@@ -335,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="ph" class="section level1">
-<h1><span class="header-section-number">6</span> Pruebas de hipótesis</h1>
+<h1><span class="header-section-number">7</span> Pruebas de hipótesis</h1>
 <p>En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.</p>
 <p>La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).</p>
 <div id="pruebas-sobre-los-coeficientes-beta" class="section level2 unnumbered">
@@ -359,7 +361,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <div id="función-summary-para-beta_k0-0" class="section level2 unnumbered">
 <h2>Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></h2>
 <p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es igual a cero se puede usar la función <code>summary</code>.</p>
-<div id="ejemplo-9" class="section level3 unnumbered">
+<div id="ejemplo-11" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
 <p>¿Será la variable Edad una variable significativa para el modelo? es decir, ¿será el coeficiente de la Edad igual a cero o no?</p>
@@ -371,10 +373,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
 <span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
 <p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></a>
-<a class="sourceLine" id="cb65-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb65-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb65-4" title="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></a>
+<a class="sourceLine" id="cb75-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb75-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</a>
+<a class="sourceLine" id="cb75-4" title="4"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
@@ -399,10 +401,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <div id="función-beta_test-para-beta_k0-neq-0" class="section level2 unnumbered">
 <h2>Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></h2>
 <p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</a>
-<a class="sourceLine" id="cb67-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</a>
+<a class="sourceLine" id="cb77-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</a></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -410,7 +412,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <li><code>parm</code>: vector con el nombre de la variable.</li>
 <li><code>ref.value</code>: valor de referencia <span class="math inline">\(\beta_{k0}\)</span> de la prueba.</li>
 </ul>
-<div id="ejemplo-10" class="section level3 unnumbered">
+<div id="ejemplo-12" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
 <p>El proveedor de la soldadura afirma que la resistencia media para soldaduras nuevas es 2700 psi. Pruebe la hipótesis de que la resistencia media es diferente a un nivel de significancia del 5%.</p>
@@ -422,8 +424,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
 <span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
 <p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">library</span>(model)</a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">library</span>(model)</a>
+<a class="sourceLine" id="cb79-2" title="2"><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
 <pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
 ## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
 <p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>
@@ -442,8 +444,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
           </div>
         </div>
       </div>
-<a href="ic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="diag.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diag.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ph2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

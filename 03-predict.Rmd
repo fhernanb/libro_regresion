@@ -32,7 +32,7 @@ tidy(mod, quick=TRUE)
 De la tabla anterior tenemos que el modelo ajustado es el siguiente:
 
 $$
-\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year}) + \epsilon
+\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year})
 $$
 
 Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular $E(Employed|x=x_0)$. Sin embargo, aquí lo vamos a realizar usando la función `predict`.
@@ -64,14 +64,14 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 En regresión lineal simple, Si $\hat{\mu}_{y|x_0}$ es la media estimada para la variable respuesta cuando $x=x_0$, entonces un IC del $(1−\alpha⁄2)$×100% para $E(y|x_0)$_0) está dado por:
 
 $$
-\hat{\mu}_{y|x_0} \pm t_{\alpha / 2, n - 2} \, \sqrt{MSE \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{\mu}_{y|x_0} \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
 $$
 
 ## Intervalo de confianza para la predicción de nuevas observaciones {-}
 En regresión lineal simple, Si $\hat{y}_0$ es el valor estimado para la variable respuesta cuando $x=x_0$, entonces un IC del $(1−\alpha⁄2)$×100% para $y_0$está dado por:
 
 $$
-\hat{y}_0 \pm t_{\alpha / 2, n - 2} \, \sqrt{MSE \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{y}_0 \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
 $$
 
 ### Ejemplo {-}

@@ -190,26 +190,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>6</b> Pruebas de hipótesis</a><ul>
-<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>7</b> Diagnósticos</a><ul>
+<li class="chapter" data-level="6" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>6</b> Diagnósticos</a><ul>
 <li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
 <li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
 <li><a href="diag.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
 <li><a href="diag.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
 <li><a href="diag.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
 <li><a href="diag.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a><ul>
-<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis</a><ul>
+<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de significancia</a><ul>
@@ -367,7 +369,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Year             0.956</code></pre>
 <p>De la tabla anterior tenemos que el modelo ajustado es el siguiente:</p>
 <p><span class="math display">\[
-\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year}) + \epsilon
+\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year})
 \]</span></p>
 <p>Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular <span class="math inline">\(E(Employed|x=x_0)\)</span>. Sin embargo, aquí lo vamos a realizar usando la función <code>predict</code>.</p>
 <p>Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.</p>
@@ -395,14 +397,14 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 <h2>Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></h2>
 <p>En regresión lineal simple, Si <span class="math inline">\(\hat{\mu}_{y|x_0}\)</span> es la media estimada para la variable respuesta cuando <span class="math inline">\(x=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(E(y|x_0)\)</span>_0) está dado por:</p>
 <p><span class="math display">\[
-\hat{\mu}_{y|x_0} \pm t_{\alpha / 2, n - 2} \, \sqrt{MSE \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{\mu}_{y|x_0} \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
 \]</span></p>
 </div>
 <div id="intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones" class="section level2 unnumbered">
 <h2>Intervalo de confianza para la predicción de nuevas observaciones</h2>
 <p>En regresión lineal simple, Si <span class="math inline">\(\hat{y}_0\)</span> es el valor estimado para la variable respuesta cuando <span class="math inline">\(x=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(y_0\)</span>está dado por:</p>
 <p><span class="math display">\[
-\hat{y}_0 \pm t_{\alpha / 2, n - 2} \, \sqrt{MSE \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{y}_0 \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
 \]</span></p>
 <div id="ejemplo-4" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
