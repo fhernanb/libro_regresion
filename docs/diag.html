@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>12 Algebra matricial con R | Modelos de Regresión con R</title>
+  <title>7 Diagnósticos | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="12 Algebra matricial con R | Modelos de Regresión con R" />
+  <meta property="og:title" content="7 Diagnósticos | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="12 Algebra matricial con R | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="7 Diagnósticos | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="varcuali.html"/>
-<link rel="next" href="WilRog.html"/>
+<link rel="prev" href="ph.html"/>
+<link rel="next" href="ph2.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -334,186 +334,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="algmat" class="section level1">
-<h1><span class="header-section-number">12</span> Algebra matricial con R</h1>
-<p>En este capítulo se muestran algunas funciones útiles para álgebra lineal con R.</p>
-<div id="matrices" class="section level2 unnumbered">
-<h2>Matrices</h2>
-<p>Una matriz es un arreglo bidimensional (filas y columna) de números.</p>
+<div id="diag" class="section level1">
+<h1><span class="header-section-number">7</span> Diagnósticos</h1>
+<p>En este capítulo se muestra la utilidad de los residuales cuando se ajusta un modelo de regresión.</p>
 <p align="center">
-<img src="images/matriz.png" width="400">
+<img src="images/ResidualsLinear.gif" width="300">
 </p>
-<p>La función para crear una matriz es <code>matrix</code>. A continuación se muestran los argumentos de la función.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">matrix</span>(<span class="dt">data=</span><span class="ot">NA</span>, <span class="dt">nrow=</span><span class="dv">1</span>, <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>, <span class="dt">dimnames=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<div id="ejemplo-34" class="section level3 unnumbered">
+<div id="tipos-de-residuales" class="section level2 unnumbered">
+<h2>Tipos de residuales</h2>
+<p>A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.</p>
+<p align="center">
+<img src="images/tipos_de_residuales.png" width="450">
+</p>
+<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero o hat <span class="math inline">\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top\)</span>.</p>
+</div>
+<div id="supuestos" class="section level2 unnumbered">
+<h2>Supuestos</h2>
+<p>Los supuestos en un modelo de regresión se pueden escribir de dos formas:</p>
+<p><strong>Forma I</strong></p>
+<ol style="list-style-type: decimal">
+<li>Los errores <span class="math inline">\(e_i\)</span> tienen distribución normal.</li>
+<li>Los errores <span class="math inline">\(e_i\)</span> tienen media cero.</li>
+<li>Los errores <span class="math inline">\(e_i\)</span> tiene varianza constante.</li>
+<li>Los errores <span class="math inline">\(e_i\)</span> no están correlacionados.</li>
+</ol>
+<p><strong>Forma II</strong></p>
+<ol style="list-style-type: decimal">
+<li>La respuesta <span class="math inline">\(y\)</span> tiene distribución normal.</li>
+<li>La varianza de la respuesta <span class="math inline">\(y\)</span> es constante.</li>
+<li>Las observaciones son independientes <span class="math inline">\(y\)</span>.</li>
+<li>Relación lineal entre la variable respuesta y las covariables.</li>
+</ol>
+<p>Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los <span class="math inline">\(e_i\)</span> mientras que en la forma II está dirigida hacia los <span class="math inline">\(y_i\)</span>.</p>
+</div>
+<div id="chequeando-normalidad-de-los-errores-e_i" class="section level2 unnumbered">
+<h2>Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></h2>
+<p>Para estudiar si lo errores <span class="math inline">\(e_i\)</span> tienen una distribución aproximadamente normal se construyen los residuales estandarizados:</p>
+<p><span class="math display">\[ d_i = \frac{e_i}{\hat{\sigma}}\]</span></p>
+<p>Una vez calculados los <span class="math inline">\(d_i\)</span> se construye un gráfico de normalidad o qqplot usando la función <code>qqnorm</code>, el resultado es un gráfico similar al mostrado a continuación.</p>
+<p align="center">
+<img src="images/qq_residuales_estandarizados.png" width="450">
+</p>
+<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de normalidad para <span class="math inline">\(d_i\)</span>. Para que se cumpla el supuesto de normalidad de los errores <span class="math inline">\(e_i\)</span> se necesita que los <span class="math inline">\(d_i\)</span> estén lo más alineados con la recta de referencia, alejamientos severos de esta recta significa que se viola el supuesto de normalidad de <span class="math inline">\(e_i\)</span>.</p>
+<p align="center">
+<img src="images/patrones_qqplot.png" width="450">
+</p>
+</div>
+<div id="chequeando-si-errores-e_i-con-media-cero" class="section level2 unnumbered">
+<h2>Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</h2>
+<p>Para determinar si los errores <span class="math inline">\(e_i\)</span> tienen una media cerca al valor de cero se puede usar la función <code>mean</code> sobre los residuales.</p>
+</div>
+<div id="chequeando-si-los-errores-e_i-tiene-varianza-constante" class="section level2 unnumbered">
+<h2>Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</h2>
+<p>En la siguiente figura se muestra el caso de varianza <span class="math inline">\(\sigma^2\)</span> constante u homocedasticidad y el caso de varianza <span class="math inline">\(\sigma^2\)</span> no constante o heterocedasticidad. La homocedasticidad es el supuesto exigido en modelos de regresión.</p>
+<p align="center">
+<img src="images/homo_hetero.png" width="500">
+</p>
+<p>Para chequear si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante se construye un gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, un gráfico similar al mostrado a continuación.</p>
+<p align="center">
+<img src="images/ei_versus_mui.png" width="450">
+</p>
+<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>. Para que se cumpla el supuesto de homocedasticidad se necesita que los puntos se ubiquen como una nube de puntos sin ningún patrón claro. Cualquier patrón que se observe es evidencia de que no se cumple el supuesto de homocedasticidad.</p>
+<p align="center">
+<img src="images/patrones_ei_versus_mui.png" width="450">
+</p>
+<p>Una analogía útil para recordar si se cumple la homocedasticidad es que el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span> tenga una apariencia como la mostrada en la siguiente figura.</p>
+<p align="center">
+<img src="images/cielo_estrellado.png" width="450">
+</p>
+<p>Otro gráfico útil para chequear el supuesto de homocedasticidad es dibujar un diagrama de dispersión de <span class="math inline">\(\sqrt{|r_i|}\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, un gráfico similar al mostrado a continuación.</p>
+<p align="center">
+<img src="images/di_versus_mui.png" width="450">
+</p>
+<p>Al igual que en el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, se espera que no existan patrones claros en la nube de puntos.</p>
+</div>
+<div id="chequeando-si-errores-e_i-no-están-correlacionados" class="section level2 unnumbered">
+<h2>Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</h2>
+<p>Para estudiar esta situación se debe tener la historia de los errores, es decir, el orden en que las observaciones fueron tomadas. Usando es información se puede dibujar un diagrama de dispersión del residual versus tiempo, un gráfico similar al mostrado a continuación.</p>
+<p align="center">
+<img src="images/res_tiempo.png" width="450">
+</p>
+<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de <span class="math inline">\(e_i\)</span> versus el tiempo. Para que se cumpla el supuesto de independencia se espera que los puntos se ubiquen como una nube de puntos sin ningún patrón claro.</p>
+<p align="center">
+<img src="images/patrones_ei_tiempo.png" width="450">
+</p>
+<div id="ejemplo-11" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Crear en R la matriz <span class="math inline">\(M\)</span> siguiente.</p>
-<p><span class="math display">\[
-M = \begin{pmatrix}
-1 &amp; 2  \\
-1 &amp; 5  
-\end{pmatrix}
-\]</span></p>
+<p>En este ejemplo vamos a simular 1000 observaciones del siguiente modelo y luego vamos a realizar el análisis de residuales para saber si el modelo fue bien ajustado.</p>
+<p><span class="math display">\[\begin{align*} 
+y_i &amp;\sim  N(\mu_i, \sigma^2) \\ 
+\mu_i &amp;= 4 - 6 x_i \\
+x_i &amp;\sim U(-5, 6) \\
+\sigma^2 &amp;= 16
+\end{align*}\]</span></p>
 <p><strong>Solución</strong></p>
-<p>Para crear la matriz podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb247-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb247-3" title="3">M</a></code></pre></div>
-<pre><code>##      [,1] [,2]
-## [1,]    1    2
-## [2,]    1    5</code></pre>
+<p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb71-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
+<a class="sourceLine" id="cb71-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb71-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb71-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
+<a class="sourceLine" id="cb71-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
+<a class="sourceLine" id="cb71-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
+<a class="sourceLine" id="cb71-8" title="8">}</a>
+<a class="sourceLine" id="cb71-9" title="9"></a>
+<a class="sourceLine" id="cb71-10" title="10">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb71-11" title="11">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a></code></pre></div>
+<p>Luego se pueden obtener los gráficos de residuales de la siguiente manera.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="kw">plot</span>(mod, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="dt">which=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/resid01-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados <span class="math inline">\(d_i\)</span> están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus <span class="math inline">\(\hat{\mu}\)</span> no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.</p>
 </div>
 </div>
-<div id="operaciones-básicas-sobre-una-matriz" class="section level2 unnumbered">
-<h2>Operaciones básicas sobre una matriz</h2>
-<p>En la siguiente tabla se listan algunas de las funciones que se pueden utilizar sobre matrices. Los objetos <code>A</code> y <code>B</code> son matrices mientras que los objetos <code>x</code> y <code>b</code> son vectores.</p>
-<table>
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Operador</th>
-<th>Descripción</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>A * B</code></td>
-<td>Element-wise multiplication</td>
-</tr>
-<tr class="even">
-<td><code>A %*% B</code></td>
-<td>Matrix multiplication</td>
-</tr>
-<tr class="odd">
-<td><code>A %o% B</code></td>
-<td>Outer product. <span class="math inline">\(AB^\top\)</span>.</td>
-</tr>
-<tr class="even">
-<td><code>t(A)</code></td>
-<td>Transpose</td>
-</tr>
-<tr class="odd">
-<td><code>diag(x)</code></td>
-<td>Creates diagonal matrix with elements of x in the principal diagonal</td>
-</tr>
-<tr class="even">
-<td><code>diag(A)</code></td>
-<td>Returns a vector containing the elements of the principal diagonal</td>
-</tr>
-<tr class="odd">
-<td><code>diag(k)</code></td>
-<td>If <code>k</code> is a scalar, this creates a <span class="math inline">\(k \times k\)</span> identity matrix. Go figure.</td>
-</tr>
-<tr class="even">
-<td><code>solve(A, b)</code></td>
-<td>Returns vector x in the equation b = Ax (i.e., A-1b)</td>
-</tr>
-<tr class="odd">
-<td><code>solve(A)</code></td>
-<td>Inverse of A where A is a square matrix.</td>
-</tr>
-<tr class="even">
-<td><code>ginv(A)</code></td>
-<td>Moore-Penrose Generalized Inverse of A.</td>
-</tr>
-<tr class="odd">
-<td><code>ginv(A)</code></td>
-<td>requires loading the MASS package.</td>
-</tr>
-<tr class="even">
-<td><code>cbind(A,B,...)</code></td>
-<td>Combine matrices(vectors) horizontally. Returns a matrix.</td>
-</tr>
-<tr class="odd">
-<td><code>rbind(A,B,...)</code></td>
-<td>Combine matrices(vectors) vertically. Returns a matrix.</td>
-</tr>
-<tr class="even">
-<td><code>rowMeans(A)</code></td>
-<td>Returns vector of row means.</td>
-</tr>
-<tr class="odd">
-<td><code>rowSums(A)</code></td>
-<td>Returns vector of row sums.</td>
-</tr>
-<tr class="even">
-<td><code>colMeans(A)</code></td>
-<td>Returns vector of column means.</td>
-</tr>
-<tr class="odd">
-<td><code>colSums(A)</code></td>
-<td>Returns vector of column sums.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="rango-de-una-matriz" class="section level2 unnumbered">
-<h2>Rango de una matriz</h2>
-<p>El rango de una matriz es el número máximo de columnas (filas respectivamente) que son linealmente independientes.</p>
-<div id="ejemplo-35" class="section level3 unnumbered">
+<div id="matriz-sombrero-o-hat" class="section level2 unnumbered">
+<h2>Matriz sombrero o hat</h2>
+<p>La matriz sombrero o matriz Hat se define así:</p>
+<p><span class="math display">\[
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top
+\]</span></p>
+<p>Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos.</p>
+<p align="center">
+<img src="images/ilustracion_hat.png" width="300">
+</p>
+<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H}\)</span>. Los valores de <span class="math inline">\(h_{ii}\)</span> siempre están entre 0 y 1. Si la observación <span class="math inline">\(i\)</span>-ésima tiene un valor grande de <span class="math inline">\(h_{ii}\)</span> significa que ella tiene valores inusuales de <span class="math inline">\(\boldsymbol{x}_i\)</span>, mientras que valores pequeños de <span class="math inline">\(h_{ii}\)</span> significa que la observación se encuentra cerca del centroide de los datos.</p>
+<div id="ejemplo-12" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Calcular el rango de la matriz <span class="math inline">\(M\)</span> siguiente.</p>
-<p><span class="math display">\[
-M = \begin{pmatrix}
-1 &amp; 2 &amp; 5 \\
-1 &amp; 5 &amp; 2 \\
-1 &amp; 4 &amp; 7
-\end{pmatrix}
-\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Lo primero es crear la matriz <span class="math inline">\(M\)</span>.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb249-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb249-3" title="3">              <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb249-4" title="4">M</a></code></pre></div>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    5
-## [2,]    1    5    2
-## [3,]    1    4    7</code></pre>
-<p>Una forma de obtener el rango es por medio de la función <code>qr</code> que hace una <a href="https://en.wikipedia.org/wiki/QR_decomposition">descomposición QR</a> de la matriz.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="kw">qr</span>(M)<span class="op">$</span>rank</a></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<p>De la salida anterior vemos que el rango de <span class="math inline">\(M\)</span> es 3, eso quiere decir que el número máximo de columnas linealmente independientes es 3.</p>
-<p>Otra forma para obtener el rango de la matriz es por medio de la función <code>rankMatrix</code> del paquete <strong>Matrix</strong> <span class="citation">(Bates and Maechler <a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span> así:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">library</span>(Matrix)</a>
-<a class="sourceLine" id="cb253-2" title="2"><span class="kw">rankMatrix</span>(M)[<span class="dv">1</span>]</a></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-</div>
-<div id="ejemplo-36" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Calcular el rango de la matriz <span class="math inline">\(N\)</span> siguiente.</p>
-<p><span class="math display">\[
-N = \begin{pmatrix}
-1 &amp; 2 &amp; 3 \\
-1 &amp; 5 &amp; 6 \\
-1 &amp; 7 &amp; 8
-\end{pmatrix}
-\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Lo primero es crear la matriz <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1">N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb255-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb255-3" title="3">              <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb255-4" title="4">N</a></code></pre></div>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    3
-## [2,]    1    5    6
-## [3,]    1    7    8</code></pre>
-<p>Al mirar con calma las columnas de la matriz se observa un detalle, la tercera columna de <span class="math inline">\(N\)</span> se obtiene al sumar la primera y segunda columna de <span class="math inline">\(N\)</span>, eso significa que la tercera columna es combinación lineal de las dos primeras. Vamos a calcular el rango de <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">qr</span>(N)<span class="op">$</span>rank</a></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<p>El valor de 2 obtenido no nos sorprende porque ya habíamos detectado que la tercera columna es combinación lineal de las dos primeras.</p>
+<p>Este ejemplo corresponde al ejemplo mostrado en el capítulo 6 de <a href="https://www.amazon.es/R-Companion-Applied-Regression/dp/141297514X">Fox and Weisberg (2011)</a>.</p>
+<p>En este ejemplo se desea ajustar un modelo de regresión para explicar la media de la variable prestige en función de las variables education, income y type, usando la base de datos Prestige del paquete <strong>car</strong> <span class="citation">(Fox, Weisberg, and Price <a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>.</p>
+<p align="center">
+<img src="images/canadian.jpg" width="250">
+</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">library</span>(car)</a>
+<a class="sourceLine" id="cb73-2" title="2"><span class="kw">str</span>(Prestige)</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    102 obs. of  6 variables:
+##  $ education: num  13.1 12.3 12.8 11.4 14.6 ...
+##  $ income   : int  12351 25879 9271 8865 8403 11030 8258 14163 11377 11023 ...
+##  $ women    : num  11.16 4.02 15.7 9.11 11.68 ...
+##  $ prestige : num  68.8 69.1 63.4 56.8 73.5 77.6 72.6 78.1 73.1 68.8 ...
+##  $ census   : int  1113 1130 1171 1175 2111 2113 2133 2141 2143 2153 ...
+##  $ type     : Factor w/ 3 levels &quot;bc&quot;,&quot;prof&quot;,&quot;wc&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="kw">residualPlots</span>(prestige_mod)</a></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<pre><code>##            Test stat Pr(&gt;|Test stat|)   
+## education    -0.6836         0.495942   
+## income       -2.8865         0.004854 **
+## type                                    
+## Tukey test   -2.6104         0.009043 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod)</a></code></pre></div>
+<pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-R-Matrix">
-<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
+<div id="ref-R-car">
+<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
 </div>
 </div>
             </section>
@@ -521,8 +502,8 @@ N = \begin{pmatrix}
           </div>
         </div>
       </div>
-<a href="varcuali.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="WilRog.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ph.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ph2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -553,7 +534,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/90-algebramatricial.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/06-residuals.Rmd",
 "text": "Edit"
 },
 "history": {

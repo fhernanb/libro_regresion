@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-19" />
+<meta name="date" content="2020-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,15 +199,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="residuales.html"><a href="residuales.html"><i class="fa fa-check"></i><b>7</b> Residuales</a><ul>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
-<li><a href="residuales.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
-<li><a href="residuales.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
-<li><a href="residuales.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
-<li><a href="residuales.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="7" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>7</b> Diagnósticos</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
+<li><a href="diag.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
+<li><a href="diag.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
+<li><a href="diag.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
+<li><a href="diag.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de significancia</a><ul>
@@ -379,11 +381,11 @@ x_i &amp;\sim U(-5, 6) \\
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb50-2" title="2">datos</a></code></pre></div>
 <pre><code>##            y          x
-## 1  26.696215 -3.6510744
-## 2  36.754337 -4.7577115
-## 3 -21.317669  3.8852112
-## 4   4.239085 -0.6371309
-## 5 -20.543925  3.2612069</code></pre>
+## 1  19.084533 -1.5745983
+## 2  23.022173 -4.2913480
+## 3   8.360966 -0.7225094
+## 4 -27.752117  5.7676791
+## 5   7.390653  0.1216872</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
 <a class="sourceLine" id="cb52-2" title="2"></a>
@@ -397,7 +399,7 @@ x_i &amp;\sim U(-5, 6) \\
 <a class="sourceLine" id="cb53-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
 <a class="sourceLine" id="cb53-3" title="3">theta_hat</a></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    3.771416   -6.164917    3.833812</code></pre>
+##    3.832558   -6.075349    4.056051</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">

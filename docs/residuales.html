@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-19" />
+<meta name="date" content="2020-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,13 +51,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -207,6 +200,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="residuales.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
 <li><a href="residuales.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
 <li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#matriz-hat"><i class="fa fa-check"></i>Matriz Hat</a><ul>
 <li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
@@ -344,6 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p align="center">
 <img src="images/tipos_de_residuales.png" width="450">
 </p>
+<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top\)</span>.</p>
 </div>
 <div id="supuestos" class="section level2 unnumbered">
 <h2>Supuestos</h2>
@@ -426,23 +422,35 @@ x_i &amp;\sim U(-5, 6) \\
 \end{align*}\]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb71-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
-<a class="sourceLine" id="cb71-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb71-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb71-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
-<a class="sourceLine" id="cb71-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
-<a class="sourceLine" id="cb71-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
-<a class="sourceLine" id="cb71-8" title="8">}</a>
-<a class="sourceLine" id="cb71-9" title="9"></a>
-<a class="sourceLine" id="cb71-10" title="10">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb71-11" title="11">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb1-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb1-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
+<a class="sourceLine" id="cb1-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
+<a class="sourceLine" id="cb1-8" title="8">}</a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a></code></pre></div>
 <p>Luego se pueden obtener los gráficos de residuales de la siguiente manera.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb72-2" title="2"><span class="kw">plot</span>(mod, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="dt">which=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">plot</span>(mod, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="dt">which=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados <span class="math inline">\(d_i\)</span> están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus <span class="math inline">\(\hat{\mu}\)</span> no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.</p>
 </div>
+</div>
+<div id="matriz-hat" class="section level2 unnumbered">
+<h2>Matriz Hat</h2>
+<p>La matriz sombrero o matriz Hat se define así:</p>
+<p><span class="math display">\[
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top
+\]</span></p>
+<p>Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos.</p>
+<p align="center">
+<img src="images/ilustracion_hat.png" width="500">
+</p>
+<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H}\)</span>. Los valores de <span class="math inline">\(h_{ii}\)</span> siempre están entre 0 y 1. Si la observación <span class="math inline">\(i\)</span>-ésima tiene un valor grande de <span class="math inline">\(h_{ii}\)</span> significa que ella tiene valores inusuales de <span class="math inline">\(\bolsymbol{x}_i\)</span>, mientras que valores pequeños de <span class="math inline">\(h_{ii}\)</span> significa que la observación se encuentra cerca del centroide de los datos.</p>
 <div id="ejemplo-12" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Este ejemplo corresponde al ejemplo mostrado en el capítulo 6 de <a href="https://www.amazon.es/R-Companion-Applied-Regression/dp/141297514X">Fox and Weisberg (2011)</a>.</p>
@@ -450,8 +458,8 @@ x_i &amp;\sim U(-5, 6) \\
 <p align="center">
 <img src="images/canadian.jpg" width="250">
 </p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">library</span>(car)</a>
-<a class="sourceLine" id="cb73-2" title="2"><span class="kw">str</span>(Prestige)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(car)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">str</span>(Prestige)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    102 obs. of  6 variables:
 ##  $ education: num  13.1 12.3 12.8 11.4 14.6 ...
 ##  $ income   : int  12351 25879 9271 8865 8403 11030 8258 14163 11377 11023 ...
@@ -459,9 +467,9 @@ x_i &amp;\sim U(-5, 6) \\
 ##  $ prestige : num  68.8 69.1 63.4 56.8 73.5 77.6 72.6 78.1 73.1 68.8 ...
 ##  $ census   : int  1113 1130 1171 1175 2111 2113 2133 2141 2143 2153 ...
 ##  $ type     : Factor w/ 3 levels &quot;bc&quot;,&quot;prof&quot;,&quot;wc&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="kw">residualPlots</span>(prestige_mod)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">residualPlots</span>(prestige_mod)</a></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre><code>##            Test stat Pr(&gt;|Test stat|)   
 ## education    -0.6836         0.495942   
 ## income       -2.8865         0.004854 **
@@ -469,9 +477,9 @@ x_i &amp;\sim U(-5, 6) \\
 ## Tukey test   -2.6104         0.009043 **
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod)</a></code></pre></div>
 <pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
-# Residuales {#residuales}
+# Diagnósticos {#diag}
 En este capítulo se muestra la utilidad de los residuales cuando se ajusta un modelo de regresión.
 
 <p align="center">
@@ -11,6 +11,8 @@ A continuación se muestran los diferentes tipos de residuales que se pueden def
 <p align="center">
   <img src="images/tipos_de_residuales.png" width="450">
 </p>
+
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top$.
 
 ## Supuestos {-}
 Los supuestos en un modelo de regresión se pueden escribir de dos formas:
@@ -133,6 +135,22 @@ plot(mod, las=1, col='deepskyblue4', which=1:3)
 ```
 
 En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados $d_i$ están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus $\hat{\mu}$ no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.
+
+## Matriz sombrero o hat {-}
+La matriz sombrero o matriz Hat se define así:
+
+$$
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top
+$$
+
+Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos.
+
+<p align="center">
+  <img src="images/ilustracion_hat.png" width="300">
+</p>
+
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero $\boldsymbol{H}$. Los valores de $h_{ii}$ siempre están entre 0 y 1. Si la observación $i$-ésima tiene un valor grande de $h_{ii}$ significa que ella tiene valores inusuales de $\boldsymbol{x}_i$, mientras que valores pequeños de $h_{ii}$ significa que la observación se encuentra cerca del centroide de los datos.
+
 
 ### Ejemplo {-}
 Este ejemplo corresponde al ejemplo mostrado en el capítulo 6 de [Fox and Weisberg (2011)](https://www.amazon.es/R-Companion-Applied-Regression/dp/141297514X).
