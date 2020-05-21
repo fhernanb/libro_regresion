@@ -1,6 +1,6 @@
-# Pruebas de significancia {#ph2}
+# Pruebas de hipótesis parte II {#ph2}
 
-En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas explicadas son las siguientes:
+En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas aquí explicadas son las siguientes:
 
 - Prueba sobre todos los coeficientes (prueba de significancia de la regresión).
 - Prueba para comparar modelos anidados (prueba parcial F).
@@ -251,6 +251,8 @@ __Solución__
 
 La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (`mod0`) hasta uno con todas las covariables (`mod3`). En la segunda parte se analizará el modelo con todas las covariables directamente.
 
+__Primera parte__
+
 A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo `Horsepower`.
 
 ```{r message=FALSE}
@@ -279,6 +281,8 @@ anova(mod2, mod3)
 ```
 
 De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable `Weight` no mejora el modelo `mod2` (la misma conclusión se pudo obtener del `summary`).
+
+__Segunda parte__
 
 En esta segunda parte del ejemplo se usará la función `anova` directamente sobre el modelo completo `mod3`, a continuación los resultados.
 

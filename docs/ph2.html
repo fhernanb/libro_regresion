@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Pruebas de significancia | Modelos de Regresión con R</title>
+  <title>8 Pruebas de hipótesis parte II | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Pruebas de significancia | Modelos de Regresión con R" />
+  <meta property="og:title" content="8 Pruebas de hipótesis parte II | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Pruebas de significancia | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="8 Pruebas de hipótesis parte II | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,7 +32,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ph.html"/>
+<link rel="prev" href="ph1.html"/>
 <link rel="next" href="mod-poli.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -205,16 +205,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis</a><ul>
-<li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a><ul>
+<li><a href="ph1.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li><a href="ph1.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li><a href="ph1.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de significancia</a><ul>
+<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a><ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-13"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -342,8 +342,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="ph2" class="section level1">
-<h1><span class="header-section-number">8</span> Pruebas de significancia</h1>
-<p>En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas explicadas son las siguientes:</p>
+<h1><span class="header-section-number">8</span> Pruebas de hipótesis parte II</h1>
+<p>En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas aquí explicadas son las siguientes:</p>
 <ul>
 <li>Prueba sobre todos los coeficientes (prueba de significancia de la regresión).</li>
 <li>Prueba para comparar modelos anidados (prueba parcial F).</li>
@@ -566,6 +566,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 </p>
 <p><strong>Solución</strong></p>
 <p>La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (<code>mod0</code>) hasta uno con todas las covariables (<code>mod3</code>). En la segunda parte se analizará el modelo con todas las covariables directamente.</p>
+<p><strong>Primera parte</strong></p>
 <p>A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo <code>Horsepower</code>.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">library</span>(MASS)</a>
 <a class="sourceLine" id="cb98-2" title="2">mod0 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data=</span>Cars93)</a>
@@ -605,6 +606,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 ## 1     86 2758.1                           
 ## 2     85 2751.3  1    6.7934 0.2099  0.648</code></pre>
 <p>De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable <code>Weight</code> no mejora el modelo <code>mod2</code> (la misma conclusión se pudo obtener del <code>summary</code>).</p>
+<p><strong>Segunda parte</strong></p>
 <p>En esta segunda parte del ejemplo se usará la función <code>anova</code> directamente sobre el modelo completo <code>mod3</code>, a continuación los resultados.</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">anova</span>(mod3)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
@@ -853,7 +855,7 @@ Si un valor-P “ajustado” es menor que el <span class="math inline">\(\alpha\
           </div>
         </div>
       </div>
-<a href="ph.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ph1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="mod-poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

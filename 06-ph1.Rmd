@@ -1,4 +1,4 @@
-# Pruebas de hipótesis {#ph}
+# Pruebas de hipótesis parte I {#ph1}
 En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.
 
 La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).

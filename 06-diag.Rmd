@@ -12,7 +12,7 @@ A continuación se muestran los diferentes tipos de residuales que se pueden def
   <img src="images/tipos_de_residuales.png" width="450">
 </p>
 
-La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top$.
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top$.
 
 ## Supuestos {-}
 Los supuestos en un modelo de regresión se pueden escribir de dos formas:
@@ -140,7 +140,7 @@ En la figura anterior se observa que los puntos del gráfico de normalidad de lo
 La matriz sombrero o matriz Hat se define así:
 
 $$
-\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top
 $$
 
 Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos para un caso con tres variables explicativas $x_1$, $x_2$ y $x_3$.
