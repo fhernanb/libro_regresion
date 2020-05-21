@@ -4,26 +4,27 @@ En este capítulo se muestra como realizar pruebas de hipótesis para un modelo 
 La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).
 
 ## Pruebas sobre los coeficientes $\beta$ {-}
-Cuando se tiene un modelo de regresión con $p$ variables, es usual que nos interese estudiar 
-$$H_0: \beta_k = \beta_{k0},$$
+Cuando se tiene un modelo de regresión con $k$ variables en la matriz de diseño $\boldsymbol{X}$ (la primera columna de $\boldsymbol{X}$ son unos y no se cuenta como variable), es usual que nos interese estudiar 
+
+$$H_0: \beta_j = \beta_{j0},$$
 frente a una de las tres siguientes hipótesis alternas:
-$$H_A: \beta_k < \beta_{k0}, \quad H_A: \beta_k \neq \beta_{k0}, \quad H_A: \beta_k  > \beta_{k0},$$
-para algún $k=0, 1, 2, \ldots, p$.
+$$H_A: \beta_j < \beta_{j0}, \quad H_A: \beta_j \neq \beta_{j0}, \quad H_A: \beta_j  > \beta_{j0},$$
+para algún $j = 0, 1, 2, \ldots, k$.
 
 Para estas pruebas el estadístico de prueba está dado por
 
 $$
-t_0 = \frac{\hat{\beta}_k - \beta_{k0}}{s.e.(\hat{\beta}_k)},
+t_0 = \frac{\hat{\beta}_j - \beta_{j0}}{s.e.(\hat{\beta}_j)},
 $$
 
-y bajo la hipótesis nula cierta, $t_0 \sim t_{n-p}$.
+y bajo la hipótesis nula cierta, $t_0 \sim t_{n-k-1}$.
 
 ```{block2, type='rmdnote'}
-Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes $\beta$, se asume que las variables restantes permanecen en el modelo, es decir que este tipo de pruebas son pruebas marginales.
+Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes $\beta$, se asume que las variables restantes permanecen en el modelo, en otras palabras, esta es una prueba marginal.
 ```
 
-## Función `summary` para $\beta_{k0} = 0$  {-}
-Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{k0}$ es igual a cero se puede usar la función `summary`. 
+## Función `summary` cuando $\beta_{j0} = 0$  {-}
+Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{j0}$ es igual a cero se puede usar la función `summary`. 
 
 ### Ejemplo {-} 
 Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.
@@ -52,7 +53,7 @@ summary(mod)
 
 De la tabla anterior tenemos que el valor-P asociado a Edad es 1.64e-10, por lo tanto a un nivel de significancia usual de 5%, hay evidencias para rechazar $H_0$ y se concluye que la variable Edad si aporta información para predecir la media de la Resistencia. 
 
-## Función `beta_test` para $\beta_{k0} \neq 0$ {-}
+## Función `beta_test` cuando $\beta_{k0} \neq 0$ {-}
 Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{k0}$ es diferente de cero, se puede usar la función `beta_test` del paquete **model** [@R-model]. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.
 
 ```{r eval=FALSE}
@@ -71,7 +72,7 @@ Los argumentos de esta función son:
 - `object`: un objeto de la clase `lm`.
 - `alternative`: una cadena de caracteres indicando el signo de la hipótesis alterna, los valores posibles son `two.sided` (valor por defecto), `greater` o `less`.
 - `parm`: vector con el nombre de la variable.
-- `ref.value`: valor de referencia $\beta_{k0}$ de la prueba.
+- `ref.value`: valor de referencia $\beta_{j0}$ de la prueba.
 
 ### Ejemplo {-} 
 Aquí vamos a retomar el ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.

@@ -9,10 +9,19 @@ En este capítulo se muestra la utilidad de los residuales cuando se ajusta un m
 A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.
 
 <p align="center">
-  <img src="images/tipos_de_residuales.png" width="450">
+  <img src="images/tipos_de_residuales.png" width="650">
 </p>
 
-La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top$.
+La cantidad $w_i$ corresponde al peso o importancia de cada observación en el modelo, por defecto es 1. La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top$. La varianza $\hat{\sigma}_{(i)}^{2}$ es la varianza estimada al __NO__ tener en cuenta la observación $i$-ésima. La cantidad $\hat{y}_{(i)}$ es la estimación de la $i$-ésima observación usando un modelo en el cual la observación $i$-ésima __NO__ participó.
+
+Para obtener los residuales arriba definidos tenemos las siguientes funciones:
+
+```{r eval=FALSE}
+residuals(object, type=c("working", "response", "deviance", "pearson", "partial"))
+rstandard(model)
+rstudent(model)
+```
+
 
 ## Supuestos {-}
 Los supuestos en un modelo de regresión se pueden escribir de dos formas:
@@ -34,9 +43,7 @@ __Forma II__
 Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los $e_i$ mientras que en la forma II está dirigida hacia los $y_i$.
 
 ## Chequeando normalidad de los errores $e_i$ {-}
-Para estudiar si lo errores $e_i$ tienen una distribución aproximadamente normal se construyen los residuales estandarizados:
-
-$$ d_i = \frac{e_i}{\hat{\sigma}}$$
+Para estudiar si lo errores $e_i$ tienen una distribución aproximadamente normal se construyen los residuales estandarizados $d_i$.
 
 Una vez calculados los $d_i$ se construye un gráfico de normalidad o qqplot usando la función `qqnorm`, el resultado es un gráfico similar al mostrado a continuación.
 
@@ -171,7 +178,6 @@ Una vez se tenga el modelo ajustado podríamos usar valores de $x_1$ y $x_2$ par
 Si tratamos de estimar la media de $y$ para valores de las covariables fuera del cascarón, como en el caso del punto rojo, no podemos garantizar que el modelo tenga un buen desempeño debido a que el modelo no se entrenó con ese tipo de ejemplos.
 
 El problema de __extrapolación oculta__ se presenta cuando tratamos de predecir información de $y$ con covariables fuera del cascarón. La extrapolación oculta es fácil de identificarla cuando sólo se tiene dos covariables, pero, ¿cómo saber si se está haciendo extrapolación oculta cuando se tienen varias covariables. 
-
 Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(x_1, x_2, \ldots, x_p)^\top$ está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando $\boldsymbol{x}_0$?. Los pasos para determinar si $\boldsymbol{x}_0$ está o no dentro del cascarón son:
 
 1. Calcular la matriz $\boldsymbol{H}$.
@@ -179,6 +185,37 @@ Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(x_1
 3. Identificar $h_{max} = max\{h_{11}, h_{22}, \ldots, h_{nn}\}$.
 4. Calcular $h_{00} = \boldsymbol{x}_0 (\boldsymbol{X}^\top \boldsymbol{X})^{-1} \boldsymbol{x}_0^\top$.
 5. Si $h_{00} > h_{max}$ el punto $\boldsymbol{x}_0$ está fuera del cascarón y se podría estár cometiendo extrapolación oculta.
+
+Los valores $h_{ii}$ se pueden obtener al calcular la matriz $\boldsymbol{H}$. Otra forma de obtener los $h_{ii}$ es ajustando el modelo de regresión y luego usando la función `hatvalues(model)` o `lm.influence(model)`.
+
+### Ejemplo {-}
+Calcular los valores $h_{ii}$ para un modelo de regresión `y ~ x + z` con los siguientes datos.
+
+```{r}
+y <- c(2, 3, 6, 5)
+x <- c(3, 5, 6, 7)
+z <- c(5, 4, 6, 3)
+```
+
+__Solución__
+
+A seguir se muestran las tres formas para obtener los valores $h_{ii}$.
+
+```{r}
+# Forma 1
+X <- cbind(1, x, z)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+H
+diag(H)
+
+# Forma 2
+mod <- lm(y ~ x + z)
+hatvalues(mod)
+
+# Form3
+lm.influence(mod)$hat
+```
+
 
 ## Gráficos de residuales usando car {-}
 El paquete **car** [@R-car] tiene unas funciones para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación se muestra la estructura de esas funciones.
