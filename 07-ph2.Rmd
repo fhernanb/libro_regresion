@@ -336,7 +336,7 @@ La función `summary` permite evaluar el efecto de una variable asumiendo que la
 ### Ejemplo {-}
 El ejemplo aquí mostrado está basado en una [pregunta](https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input) de StackOverFlow.
 
-El ejemplo consiste en simular un conjunto de 30 valores de $y \sim N(\mu_g, 1)$, donde las observaciones 1 a 10 tienen $\mu=0$, las observaciones 11 a 20 tienen $\mu=-0.5$ y las restantes diez tienen $\mu=0.5$. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa `g` que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.
+El ejemplo consiste en simular un conjunto de 30 valores de $y \sim N(\mu, 1)$, donde las observaciones 1 a 10 tienen $\mu=0$, las observaciones 11 a 20 tienen $\mu=-0.5$ y las restantes diez tienen $\mu=0.5$. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa `g` que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.
 
 ```{r}
 set.seed(8867)  # this makes the example exactly reproducible
@@ -346,7 +346,11 @@ y <- c(rnorm(10, mean=0,    sd=1),
 g <- rep(c("A", "B", "C"), each=10)
 ```
 
-Ahora vamos a ajustar el modelo con fórmula `y ~ g` para estudiar el efecto de la agrupación `g` en la media de la variable respuesta `y`.
+¿Será la variable cualitativa `g` significativa en un modelo de regresión?
+
+__Solución__
+
+Vamos a ajustar el modelo con fórmula `y ~ g` para estudiar el efecto de la agrupación `g` en la media de la variable respuesta `y`.
 
 ```{r}
 model <- lm(y ~ g)
@@ -358,7 +362,7 @@ Obviamente esperamos concluir que la media de la variable `y` dependa de la vari
 summary(model)
 ```
 
-De la salida anterior vemos que los efectos `gB` y `gC` tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable `g` no tiene efecto sobre la media de `y`. El lector podría encontrar esto puede ser un poco desconcertante.
+De la salida anterior vemos que los efectos `gB` y `gC` tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable `g` no tiene efecto sobre la media de `y`. El lector podría encontrar esto un poco desconcertante.
 
 Vamos a realizar el análisis pero ahora con la función `anova`.
 
@@ -373,7 +377,7 @@ $$H_A: \text{la variable g si influye en la media de y}$$
 
 El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar $H_0$, es decir, encontramos que la variable `g` si influye sobre la media de la variable `y`.
 
-```{block2, type='rmdwarning'}
+```{block2, type='rmdtip'}
 Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función `anova` que los resultados del `summary`.
 ```
 

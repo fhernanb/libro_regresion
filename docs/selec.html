@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -316,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -840,7 +845,7 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
-## &lt;environment: 0x000000003b870418&gt;
+## &lt;environment: 0x000000003b73a438&gt;
 ## 
 ##     Step    RSS    AIC  R2pred       Cp F value  Pr(&gt;F)  
 ## x11    1 187.87 77.036 0.41925 10.04465  0.0446 0.83503  

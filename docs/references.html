@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="important.html"/>
-
+<link rel="next" href="pasos.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -316,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -339,64 +344,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references">
-<div>
-<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
-</div>
-<div>
-<p>Braun, W. J. 2019. <em>MPV: Data Sets from Montgomery, Peck and Vining</em>. <a href="https://CRAN.R-project.org/package=MPV">https://CRAN.R-project.org/package=MPV</a>.</p>
-</div>
-<div>
-<p>Fortran code by Alan Miller, Thomas Lumley based on. 2020. <em>Leaps: Regression Subset Selection</em>. <a href="https://CRAN.R-project.org/package=leaps">https://CRAN.R-project.org/package=leaps</a>.</p>
-</div>
-<div>
-<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
-</div>
-<div>
-<p>Frank Bretz, Peter Westfall, Torsten Hothorn. 2010. <em>Multiple Comparisons Using R</em>. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>Hebbali, Aravind. 2020. <em>Olsrr: Tools for Building Ols Regression Models</em>. <a href="https://CRAN.R-project.org/package=olsrr">https://CRAN.R-project.org/package=olsrr</a>.</p>
-</div>
-<div>
-<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
-</div>
-<div>
-<p>Hothorn, Torsten, Frank Bretz, and Peter Westfall. 2020. <em>Multcomp: Simultaneous Inference in General Parametric Models</em>. <a href="https://CRAN.R-project.org/package=multcomp">https://CRAN.R-project.org/package=multcomp</a>.</p>
-</div>
-<div>
-<p>Kutner, M., C. Nachtsheim, J. Neter, and W. Li. 2005. <em>Applied Linear Statistical Models</em>. Fifth. McGraw Hill/Irwin.</p>
-</div>
-<div>
-<p>Liland, Kristian Hovde. 2019. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
-</div>
-<div>
-<p>Montgomery, Douglas C., Elizabeth A. Peck, and Geoffrey G. Vining. 2012. <em>Introduction to Linear Regression Analysis (5th Ed.)</em>. Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
-</div>
-<div>
-<p>Ripley, Brian. 2019. <em>MASS: Support Functions and Datasets for Venables and Ripley’s Mass</em>. <a href="https://CRAN.R-project.org/package=MASS">https://CRAN.R-project.org/package=MASS</a>.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-<div>
-<p>Zeileis, Achim, and Yves Croissant. 2018. <em>Formula: Extended Model Formulas</em>. <a href="https://CRAN.R-project.org/package=Formula">https://CRAN.R-project.org/package=Formula</a>.</p>
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="important.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="important.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pasos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

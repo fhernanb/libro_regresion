@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Residuales | Modelos de Regresión con R</title>
+  <title>16 Pasos para construir modelos | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Residuales | Modelos de Regresión con R" />
+  <meta property="og:title" content="16 Pasos para construir modelos | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Residuales | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="16 Pasos para construir modelos | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -25,15 +25,15 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ph.html"/>
-<link rel="next" href="ph2.html"/>
+<link rel="prev" href="references.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -183,26 +190,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>6</b> Pruebas de hipótesis</a><ul>
+<li class="chapter" data-level="6" data-path="diag.html"><a href="diag.html"><i class="fa fa-check"></i><b>6</b> Diagnósticos</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
+<li><a href="diag.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
+<li><a href="diag.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
+<li><a href="diag.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
+<li><a href="diag.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a></li>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
+<li class="chapter" data-level="" data-path="diag.html"><a href="diag.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ph.html"><a href="ph.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis</a><ul>
 <li><a href="ph.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
 <li><a href="ph.html#función-summary-para-beta_k0-0">Función <code>summary</code> para <span class="math inline">\(\beta_{k0} = 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li><a href="ph.html#función-beta_test-para-beta_k0-neq-0">Función <code>beta_test</code> para <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
-<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="residuales.html"><a href="residuales.html"><i class="fa fa-check"></i><b>7</b> Residuales</a><ul>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#tipos-de-residuales"><i class="fa fa-check"></i>Tipos de residuales</a></li>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
-<li><a href="residuales.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
-<li><a href="residuales.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
-<li><a href="residuales.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
-<li><a href="residuales.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#matriz-hat"><i class="fa fa-check"></i>Matriz Hat</a><ul>
-<li class="chapter" data-level="" data-path="residuales.html"><a href="residuales.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph.html"><a href="ph.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de significancia</a><ul>
@@ -281,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -299,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -307,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -327,167 +341,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="residuales" class="section level1">
-<h1><span class="header-section-number">7</span> Residuales</h1>
-<p>En este capítulo se muestra la utilidad de los residuales cuando se ajusta un modelo de regresión.</p>
+<div id="pasos" class="section level1">
+<h1><span class="header-section-number">16</span> Pasos para construir modelos</h1>
+<p>En este capítulo se sugieren unos pasos para la construcción de modelos de regresión.</p>
 <p align="center">
-<img src="images/ResidualsLinear.gif" width="300">
+<img src="images/construir_modelos.gif" width="300">
 </p>
-<div id="tipos-de-residuales" class="section level2 unnumbered">
-<h2>Tipos de residuales</h2>
-<p>A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.</p>
+<div id="pasos-para-construir-un-modelo" class="section level2 unnumbered">
+<h2>Pasos para construir UN modelo</h2>
+<p>A continuación se muestran los pasos sugeridos.</p>
 <p align="center">
-<img src="images/tipos_de_residuales.png" width="450">
-</p>
-<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top\)</span>.</p>
-</div>
-<div id="supuestos" class="section level2 unnumbered">
-<h2>Supuestos</h2>
-<p>Los supuestos en un modelo de regresión se pueden escribir de dos formas:</p>
-<p><strong>Forma I</strong></p>
-<ol style="list-style-type: decimal">
-<li>Los errores <span class="math inline">\(e_i\)</span> tienen distribución normal.</li>
-<li>Los errores <span class="math inline">\(e_i\)</span> tienen media cero.</li>
-<li>Los errores <span class="math inline">\(e_i\)</span> tiene varianza constante.</li>
-<li>Los errores <span class="math inline">\(e_i\)</span> no están correlacionados.</li>
-</ol>
-<p><strong>Forma II</strong></p>
-<ol style="list-style-type: decimal">
-<li>La respuesta <span class="math inline">\(y\)</span> tiene distribución normal.</li>
-<li>La varianza de la respuesta <span class="math inline">\(y\)</span> es constante.</li>
-<li>Las observaciones son independientes <span class="math inline">\(y\)</span>.</li>
-<li>Relación lineal entre la variable respuesta y las covariables.</li>
-</ol>
-<p>Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los <span class="math inline">\(e_i\)</span> mientras que en la forma II está dirigida hacia los <span class="math inline">\(y_i\)</span>.</p>
-</div>
-<div id="chequeando-normalidad-de-los-errores-e_i" class="section level2 unnumbered">
-<h2>Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></h2>
-<p>Para estudiar si lo errores <span class="math inline">\(e_i\)</span> tienen una distribución aproximadamente normal se construyen los residuales estandarizados:</p>
-<p><span class="math display">\[ d_i = \frac{e_i}{\hat{\sigma}}\]</span></p>
-<p>Una vez calculados los <span class="math inline">\(d_i\)</span> se construye un gráfico de normalidad o qqplot usando la función <code>qqnorm</code>, el resultado es un gráfico similar al mostrado a continuación.</p>
-<p align="center">
-<img src="images/qq_residuales_estandarizados.png" width="450">
-</p>
-<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de normalidad para <span class="math inline">\(d_i\)</span>. Para que se cumpla el supuesto de normalidad de los errores <span class="math inline">\(e_i\)</span> se necesita que los <span class="math inline">\(d_i\)</span> estén lo más alineados con la recta de referencia, alejamientos severos de esta recta significa que se viola el supuesto de normalidad de <span class="math inline">\(e_i\)</span>.</p>
-<p align="center">
-<img src="images/patrones_qqplot.png" width="450">
+<img src="images/pasos1.PNG" width="600">
 </p>
 </div>
-<div id="chequeando-si-errores-e_i-con-media-cero" class="section level2 unnumbered">
-<h2>Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</h2>
-<p>Para determinar si los errores <span class="math inline">\(e_i\)</span> tienen una media cerca al valor de cero se puede usar la función <code>mean</code> sobre los residuales.</p>
-</div>
-<div id="chequeando-si-los-errores-e_i-tiene-varianza-constante" class="section level2 unnumbered">
-<h2>Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</h2>
-<p>En la siguiente figura se muestra el caso de varianza <span class="math inline">\(\sigma^2\)</span> constante u homocedasticidad y el caso de varianza <span class="math inline">\(\sigma^2\)</span> no constante o heterocedasticidad. La homocedasticidad es el supuesto exigido en modelos de regresión.</p>
+<div id="pasos-para-comparar-varios-modelos" class="section level2 unnumbered">
+<h2>Pasos para comparar varios modelos</h2>
+<p>A continuación se muestran los pasos sugeridos.</p>
 <p align="center">
-<img src="images/homo_hetero.png" width="500">
+<img src="images/pasos2.PNG" width="600">
 </p>
-<p>Para chequear si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante se construye un gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, un gráfico similar al mostrado a continuación.</p>
-<p align="center">
-<img src="images/ei_versus_mui.png" width="450">
-</p>
-<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>. Para que se cumpla el supuesto de homocedasticidad se necesita que los puntos se ubiquen como una nube de puntos sin ningún patrón claro. Cualquier patrón que se observe es evidencia de que no se cumple el supuesto de homocedasticidad.</p>
-<p align="center">
-<img src="images/patrones_ei_versus_mui.png" width="450">
-</p>
-<p>Una analogía útil para recordar si se cumple la homocedasticidad es que el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span> tenga una apariencia como la mostrada en la siguiente figura.</p>
-<p align="center">
-<img src="images/cielo_estrellado.png" width="450">
-</p>
-<p>Otro gráfico útil para chequear el supuesto de homocedasticidad es dibujar un diagrama de dispersión de <span class="math inline">\(\sqrt{|r_i|}\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, un gráfico similar al mostrado a continuación.</p>
-<p align="center">
-<img src="images/di_versus_mui.png" width="450">
-</p>
-<p>Al igual que en el gráfico de <span class="math inline">\(e_i\)</span> versus <span class="math inline">\(\hat{\mu}\)</span>, se espera que no existan patrones claros en la nube de puntos.</p>
-</div>
-<div id="chequeando-si-errores-e_i-no-están-correlacionados" class="section level2 unnumbered">
-<h2>Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</h2>
-<p>Para estudiar esta situación se debe tener la historia de los errores, es decir, el orden en que las observaciones fueron tomadas. Usando es información se puede dibujar un diagrama de dispersión del residual versus tiempo, un gráfico similar al mostrado a continuación.</p>
-<p align="center">
-<img src="images/res_tiempo.png" width="450">
-</p>
-<p>En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de <span class="math inline">\(e_i\)</span> versus el tiempo. Para que se cumpla el supuesto de independencia se espera que los puntos se ubiquen como una nube de puntos sin ningún patrón claro.</p>
-<p align="center">
-<img src="images/patrones_ei_tiempo.png" width="450">
-</p>
-<div id="ejemplo-11" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>En este ejemplo vamos a simular 1000 observaciones del siguiente modelo y luego vamos a realizar el análisis de residuales para saber si el modelo fue bien ajustado.</p>
-<p><span class="math display">\[\begin{align*} 
-y_i &amp;\sim  N(\mu_i, \sigma^2) \\ 
-\mu_i &amp;= 4 - 6 x_i \\
-x_i &amp;\sim U(-5, 6) \\
-\sigma^2 &amp;= 16
-\end{align*}\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb1-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
-<a class="sourceLine" id="cb1-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb1-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb1-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
-<a class="sourceLine" id="cb1-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
-<a class="sourceLine" id="cb1-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
-<a class="sourceLine" id="cb1-8" title="8">}</a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb1-11" title="11">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a></code></pre></div>
-<p>Luego se pueden obtener los gráficos de residuales de la siguiente manera.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">plot</span>(mod, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="dt">which=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/resid01-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados <span class="math inline">\(d_i\)</span> están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus <span class="math inline">\(\hat{\mu}\)</span> no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.</p>
-</div>
-</div>
-<div id="matriz-hat" class="section level2 unnumbered">
-<h2>Matriz Hat</h2>
-<p>La matriz sombrero o matriz Hat se define así:</p>
-<p><span class="math display">\[
-\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^\top\boldsymbol{X}^\top
-\]</span></p>
-<p>Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos.</p>
-<p align="center">
-<img src="images/ilustracion_hat.png" width="500">
-</p>
-<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H}\)</span>. Los valores de <span class="math inline">\(h_{ii}\)</span> siempre están entre 0 y 1. Si la observación <span class="math inline">\(i\)</span>-ésima tiene un valor grande de <span class="math inline">\(h_{ii}\)</span> significa que ella tiene valores inusuales de <span class="math inline">\(\bolsymbol{x}_i\)</span>, mientras que valores pequeños de <span class="math inline">\(h_{ii}\)</span> significa que la observación se encuentra cerca del centroide de los datos.</p>
-<div id="ejemplo-12" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Este ejemplo corresponde al ejemplo mostrado en el capítulo 6 de <a href="https://www.amazon.es/R-Companion-Applied-Regression/dp/141297514X">Fox and Weisberg (2011)</a>.</p>
-<p>En este ejemplo se desea ajustar un modelo de regresión para explicar la media de la variable prestige en función de las variables education, income y type, usando la base de datos Prestige del paquete <strong>car</strong> <span class="citation">(Fox, Weisberg, and Price <a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>.</p>
-<p align="center">
-<img src="images/canadian.jpg" width="250">
-</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(car)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">str</span>(Prestige)</a></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    102 obs. of  6 variables:
-##  $ education: num  13.1 12.3 12.8 11.4 14.6 ...
-##  $ income   : int  12351 25879 9271 8865 8403 11030 8258 14163 11377 11023 ...
-##  $ women    : num  11.16 4.02 15.7 9.11 11.68 ...
-##  $ prestige : num  68.8 69.1 63.4 56.8 73.5 77.6 72.6 78.1 73.1 68.8 ...
-##  $ census   : int  1113 1130 1171 1175 2111 2113 2133 2141 2143 2153 ...
-##  $ type     : Factor w/ 3 levels &quot;bc&quot;,&quot;prof&quot;,&quot;wc&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">residualPlots</span>(prestige_mod)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre><code>##            Test stat Pr(&gt;|Test stat|)   
-## education    -0.6836         0.495942   
-## income       -2.8865         0.004854 **
-## type                                    
-## Tukey test   -2.6104         0.009043 **
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod)</a></code></pre></div>
-<pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 
-</div>
-</div>
-</div>
-<h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-R-car">
+<div>
+<p>Bates, Douglas, and Martin Maechler. 2019. <em>Matrix: Sparse and Dense Matrix Classes and Methods</em>. <a href="https://CRAN.R-project.org/package=Matrix">https://CRAN.R-project.org/package=Matrix</a>.</p>
+</div>
+<div>
+<p>Braun, W. J. 2019. <em>MPV: Data Sets from Montgomery, Peck and Vining</em>. <a href="https://CRAN.R-project.org/package=MPV">https://CRAN.R-project.org/package=MPV</a>.</p>
+</div>
+<div>
+<p>Fortran code by Alan Miller, Thomas Lumley based on. 2020. <em>Leaps: Regression Subset Selection</em>. <a href="https://CRAN.R-project.org/package=leaps">https://CRAN.R-project.org/package=leaps</a>.</p>
+</div>
+<div>
 <p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
+</div>
+<div>
+<p>Frank Bretz, Peter Westfall, Torsten Hothorn. 2010. <em>Multiple Comparisons Using R</em>. Chapman; Hall/CRC.</p>
+</div>
+<div>
+<p>Hebbali, Aravind. 2020. <em>Olsrr: Tools for Building Ols Regression Models</em>. <a href="https://CRAN.R-project.org/package=olsrr">https://CRAN.R-project.org/package=olsrr</a>.</p>
+</div>
+<div>
+<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
+</div>
+<div>
+<p>Hothorn, Torsten, Frank Bretz, and Peter Westfall. 2020. <em>Multcomp: Simultaneous Inference in General Parametric Models</em>. <a href="https://CRAN.R-project.org/package=multcomp">https://CRAN.R-project.org/package=multcomp</a>.</p>
+</div>
+<div>
+<p>Kutner, M., C. Nachtsheim, J. Neter, and W. Li. 2005. <em>Applied Linear Statistical Models</em>. Fifth. McGraw Hill/Irwin.</p>
+</div>
+<div>
+<p>Liland, Kristian Hovde. 2019. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
+</div>
+<div>
+<p>Montgomery, Douglas C., Elizabeth A. Peck, and Geoffrey G. Vining. 2012. <em>Introduction to Linear Regression Analysis (5th Ed.)</em>. Wiley &amp; Sons.</p>
+</div>
+<div>
+<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
+</div>
+<div>
+<p>Ripley, Brian. 2019. <em>MASS: Support Functions and Datasets for Venables and Ripley’s Mass</em>. <a href="https://CRAN.R-project.org/package=MASS">https://CRAN.R-project.org/package=MASS</a>.</p>
+</div>
+<div>
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+</div>
+<div>
+<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+</div>
+<div>
+<p>Zeileis, Achim, and Yves Croissant. 2018. <em>Formula: Extended Model Formulas</em>. <a href="https://CRAN.R-project.org/package=Formula">https://CRAN.R-project.org/package=Formula</a>.</p>
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -495,8 +418,8 @@ x_i &amp;\sim U(-5, 6) \\
           </div>
         </div>
       </div>
-<a href="ph.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ph2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -527,7 +450,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/06-residuals.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/99999-pasos.Rmd",
 "text": "Edit"
 },
 "history": {

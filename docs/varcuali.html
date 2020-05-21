@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -316,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -433,10 +438,9 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)</a></code></pre></div>
 <pre><code>## [1] &quot;Compact&quot; &quot;Large&quot;   &quot;Midsize&quot; &quot;Small&quot;   &quot;Sporty&quot;  &quot;Van&quot;</code></pre>
 <p>De la salida anterior se observan que los niveles son Compact, Large, Midsize, Small, Sporty y Van. Al observar cuidadosamente los niveles vemos que ellos están ordenados por orden lexicográfico, primero Compact por iniciar con la letra <strong>C</strong>, por último Van por iniciar con la letra <strong>V</strong>. Al mirar el modelo requerido se nota que el nivel Small no aparece en la ecuación de <span class="math inline">\(\mu\)</span>, esto significa que ese es el nivel de referencia que se encuentra en el intercepto <span class="math inline">\(\beta_0\)</span>. Para redefinir los niveles en el orden requerido usamos el siguiente código.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
-<a class="sourceLine" id="cb235-2" title="2">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>))</a>
-<a class="sourceLine" id="cb235-3" title="3"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)  <span class="co"># Para verificar el cambio</span></a></code></pre></div>
-<pre><code>## [1] &quot;Small&quot;   &quot;Compact&quot; &quot;Sporty&quot;  &quot;Midsize&quot; &quot;Large&quot;   &quot;Van&quot;</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">relevel</span>(Cars93<span class="op">$</span>Type, <span class="dt">ref =</span> <span class="st">&#39;Small&#39;</span>)</a>
+<a class="sourceLine" id="cb235-2" title="2"><span class="kw">levels</span>(Cars93<span class="op">$</span>Type)  <span class="co"># Para verificar el cambio</span></a></code></pre></div>
+<pre><code>## [1] &quot;Small&quot;   &quot;Compact&quot; &quot;Large&quot;   &quot;Midsize&quot; &quot;Sporty&quot;  &quot;Van&quot;</code></pre>
 <p>A continuación vamos a crear un diagrama de dispersión para ver la relación entre las variables del problema.</p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb237-2" title="2"><span class="kw">ggplot</span>(Cars93, <span class="kw">aes</span>(<span class="dt">x=</span>EngineSize, <span class="dt">y=</span>Price, <span class="dt">color=</span>Type)) <span class="op">+</span><span class="st"> </span></a>
@@ -445,30 +449,17 @@ Precio_i &amp;\sim N(\mu_i, \sigma^2), \\
 <p>Ahora si podemos ajustar el modelo solicitado usando el siguiente código.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
 <a class="sourceLine" id="cb238-2" title="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Price ~ EngineSize + Type, data = Cars93)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -15.742  -4.568  -0.845   2.473  34.031 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     6.7242     3.2178   2.090   0.0396 *  
-## EngineSize      4.6215     1.1099   4.164 7.40e-05 ***
-## Type(Small)    -3.9298     2.0032  -1.962   0.0530 .  
-## Type(Compact)   0.7145     1.7218   0.415   0.6792    
-## Type(Sporty)    1.1480     1.7612   0.652   0.5162    
-## Type(Midsize)   6.3565     1.4775   4.302 4.45e-05 ***
-## Type(Large)    -1.8764     2.4533  -0.765   0.4465    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## s: 7.068 on 86 degrees of freedom
-## Multiple R-squared: 0.4995,
-## Adjusted R-squared: 0.4646 
-## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">Coefficients<span class="op">:</span></a>
+<a class="sourceLine" id="cb239-2" title="2"><span class="st">            </span>Estimate Std. Error t value <span class="kw">Pr</span>(<span class="op">&gt;</span><span class="er">|</span>t<span class="op">|</span>)    </a>
+<a class="sourceLine" id="cb239-3" title="3">(Intercept)    <span class="fl">2.794</span>      <span class="fl">2.348</span>   <span class="fl">1.190</span>  <span class="fl">0.23732</span>    </a>
+<a class="sourceLine" id="cb239-4" title="4">EngineSize     <span class="fl">4.621</span>      <span class="fl">1.110</span>   <span class="fl">4.164</span>  <span class="fl">7.4e-05</span> <span class="op">**</span><span class="er">*</span></a>
+<a class="sourceLine" id="cb239-5" title="5">TypeCompact    <span class="fl">4.644</span>      <span class="fl">2.484</span>   <span class="fl">1.870</span>  <span class="fl">0.06489</span> .  </a>
+<a class="sourceLine" id="cb239-6" title="6">TypeLarge      <span class="fl">2.053</span>      <span class="fl">3.916</span>   <span class="fl">0.524</span>  <span class="fl">0.60138</span>    </a>
+<a class="sourceLine" id="cb239-7" title="7">TypeMidsize   <span class="fl">10.286</span>      <span class="fl">2.700</span>   <span class="fl">3.810</span>  <span class="fl">0.00026</span> <span class="op">**</span><span class="er">*</span></a>
+<a class="sourceLine" id="cb239-8" title="8">TypeSporty     <span class="fl">5.078</span>      <span class="fl">2.634</span>   <span class="fl">1.928</span>  <span class="fl">0.05721</span> .  </a>
+<a class="sourceLine" id="cb239-9" title="9">TypeVan        <span class="fl">1.517</span>      <span class="fl">3.332</span>   <span class="fl">0.455</span>  <span class="fl">0.65006</span>    </a>
+<a class="sourceLine" id="cb239-10" title="10"><span class="op">---</span></a>
+<a class="sourceLine" id="cb239-11" title="11">Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> ‘<span class="op">**</span><span class="er">*</span>’ <span class="fl">0.001</span> ‘<span class="op">**</span>’ <span class="fl">0.01</span> ‘<span class="op">*</span>’ <span class="fl">0.05</span> ‘.’ <span class="fl">0.1</span> ‘ ’ <span class="dv">1</span></a></code></pre></div>
 <p>Usando la información de la salida anterior se puede construir el siguiente modelo ajustado.</p>
 <p><span class="math display">\[\begin{align}
 \widehat{Precio}_i &amp;\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
@@ -491,60 +482,36 @@ Cuidado, no intente interpretar <span class="math inline">\(\hat{\beta}_0\)</spa
 </div>
 <div id="significancia-de-variables-cualitativas" class="section level2 unnumbered">
 <h2>Significancia de variables cualitativas</h2>
-<p>Cuando se incluye una variable cualitativa de <span class="math inline">\(k\)</span> niveles en un modelo de regresión, aparecen <span class="math inline">\(k-1\)</span> variables indicadoras y por lo tanto <span class="math inline">\(k-1\)</span> valores-P en la tabla resumen. Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para el modelo?</p>
-<p>Para saber si una variable cualitativa es significativa para un modelo hay tres formas:</p>
+<p>Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para un modelo?</p>
+<p>Cuando se incluye una variable cualitativa de <span class="math inline">\(k\)</span> niveles en un modelo de regresión, aparecen <span class="math inline">\(k-1\)</span> variables indicadoras y por lo tanto <span class="math inline">\(k-1\)</span> valores-P en la tabla resumen. Usar esos valores-P nos puede llevar a conclusiones erróneas.</p>
+<p align="center">
+<img src="images/signi_var_cuali.png" width="400">
+</p>
+<p>Para saber si una variable cualitativa es significativa para un modelo hay dos formas:</p>
 <ol style="list-style-type: decimal">
-<li>Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el <code>summary(mod)</code> (método no recomendado).</li>
 <li>Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando <code>anova(mod)</code>.</li>
-<li>Crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, <code>anova(mod.redu, mod)</code>.</li>
+<li>Crear dos modelos, uno reducido sin la variable cualitativa y otro completo con la variable cualitativa, luego usar un análisis de varianza, <code>anova(mod.redu, mod)</code>.</li>
 </ol>
 <div id="ejemplo-33" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>En este ejemplo vamos a retomar los datos del ejemplo anterior en el cual se usa la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es ajustar un modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto.</p>
-<p>¿Será la variable tipo de auto significativa para el modelo?</p>
-<p>Para responder la pregunta anterior vamos a usar las tres formas listadas anteriormente.</p>
-<p>Primero vamos a ajustar el modelo de interés nuevamente.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">require</span>(MASS)</a>
-<a class="sourceLine" id="cb240-2" title="2">Cars93<span class="op">$</span>Type &lt;-<span class="st"> </span><span class="kw">factor</span>(Cars93<span class="op">$</span>Type, </a>
-<a class="sourceLine" id="cb240-3" title="3">                      <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Small&#39;</span>, <span class="st">&#39;Compact&#39;</span>, <span class="st">&#39;Sporty&#39;</span>, <span class="st">&#39;Midsize&#39;</span>, <span class="st">&#39;Large&#39;</span>, <span class="st">&#39;Van&#39;</span>)) <span class="co"># Para usar Small como referencia</span></a>
-<a class="sourceLine" id="cb240-4" title="4">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a></code></pre></div>
+<p>Supongamos el tamaño del motor está presente en el modelo, ¿será la variable tipo de auto significativa para el modelo?</p>
+<p align="center">
+<img src="images/types_cars.png" width="350">
+</p>
+<p><strong>Solución</strong></p>
 <p><strong>Forma 1</strong><br />
-En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el <code>summary(mod)</code>.</p>
-<p>Al mirar el resultado del <code>summary(mod)</code> se observa que el valor-P asociado a la variable <code>TypeMidsize</code> es menor que el valor usuar de significancia 5%, por lo tanto la variable Type es sifinificativa para el modelo.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">summary</span>(mod)</a></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Price ~ EngineSize + Type, data = Cars93)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -15.742  -4.568  -0.845   2.473  34.031 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     6.7242     3.2178   2.090   0.0396 *  
-## EngineSize      4.6215     1.1099   4.164 7.40e-05 ***
-## Type(Small)    -3.9298     2.0032  -1.962   0.0530 .  
-## Type(Compact)   0.7145     1.7218   0.415   0.6792    
-## Type(Sporty)    1.1480     1.7612   0.652   0.5162    
-## Type(Midsize)   6.3565     1.4775   4.302 4.45e-05 ***
-## Type(Large)    -1.8764     2.4533  -0.765   0.4465    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## s: 7.068 on 86 degrees of freedom
-## Multiple R-squared: 0.4995,
-## Adjusted R-squared: 0.4646 
-## F-statistic:  14.3 on 6 and 86 DF,  p-value: 3.071e-11</code></pre>
-<p><strong>Forma 2</strong><br />
-En la forma 2 debemos crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando <code>anova(mod)</code>.</p>
-<p>Al usar la función <code>anova</code> sobre un modelo <code>mod</code> obtenido con la función <code>lm</code>, apareceran tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:</p>
+En la forma 1 debemos ajustar el modelo y usar la función <code>anova</code> para ver si la variable cualitativa es significativa en el modelo.</p>
+<p>Al usar la función <code>anova</code> sobre un modelo <code>mod</code> obtenido con la función <code>lm</code>, aparecerán tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:</p>
 <p><span class="math display">\[\begin{align}
 H_0 &amp;: \text{la variable de la FILA no aporta información para el modelo}, \\ 
 H_A &amp;: \text{la variable de la FILA si aporta información para el modelo}
 \end{align}\]</span></p>
-<p>A continuación el código para usar la forma 2..</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">anova</span>(mod)</a></code></pre></div>
+<p>A continuación el código para usar la forma 1.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb240-2" title="2"><span class="kw">data</span>(<span class="st">&quot;Cars93&quot;</span>)</a>
+<a class="sourceLine" id="cb240-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb240-4" title="4"><span class="kw">anova</span>(mod)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Price
@@ -555,16 +522,19 @@ H_A &amp;: \text{la variable de la FILA si aporta información para el modelo}
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior se observa que el valor-P asociado a Type es de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, la variable Type si aporta información al modelo.</p>
-<p><strong>Forma 3</strong><br />
-En la forma 3 debemos crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, <code>anova(mod.redu, mod)</code>.</p>
+<p><strong>Forma 2</strong><br />
+En la forma 2 debemos crear dos modelos, uno reducido sin la variable cualitativa y otro completo con la variable cualitativa, luego usar un análisis de varianza, <code>anova(mod_redu, mod_comp)</code>.</p>
 <p>Al usar la función <code>anova</code> el conjunto de hipótesis es:</p>
 <p><span class="math display">\[\begin{align}
 H_0 &amp;: \text{la variable Type no aporta información para el modelo}, \\ 
 H_A &amp;: \text{la variable Type si aporta información para el modelo}
 \end{align}\]</span></p>
-<p>A continuación el código para usar la forma 3. El modelo <code>mod.redu</code> contiene un modelo <strong>sin</strong> la variable cualitativa de interés Type.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1">mod.redu &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize, <span class="dt">data=</span>Cars93)</a>
-<a class="sourceLine" id="cb245-2" title="2"><span class="kw">anova</span>(mod.redu, mod)</a></code></pre></div>
+<p>A continuación el código para usar la forma 2. El modelo <code>mod_redu</code> contiene un modelo <strong>sin</strong> la variable cualitativa de interés Type, mientras que el modelo <code>mod_comp</code> si la contiene.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">require</span>(MASS)</a>
+<a class="sourceLine" id="cb242-2" title="2"><span class="kw">data</span>(<span class="st">&quot;Cars93&quot;</span>)</a>
+<a class="sourceLine" id="cb242-3" title="3">mod_redu &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb242-4" title="4">mod_comp &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>EngineSize <span class="op">+</span><span class="st"> </span>Type, <span class="dt">data=</span>Cars93)</a>
+<a class="sourceLine" id="cb242-5" title="5"><span class="kw">anova</span>(mod_redu, mod_comp)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ EngineSize
@@ -577,17 +547,68 @@ H_A &amp;: \text{la variable Type si aporta información para el modelo}
 <p>De la salida anterior se tiene un valor-P de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, la variable Type si aporta información para el modelo y por lo tanto es una variable útil.</p>
 
 <div class="rmdnote">
-La decisión final con las formas 1, 2 y 3 siempre coinciden.
+La decisión final con las formas 1 y 3 siempre coinciden.
 </div>
 
 
 <div class="rmdwarning">
-La forma 2 y la forma 3 no son la misma.
+Algunas veces una variable cualitativa puede ser importante en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor <span class="math inline">\(\alpha\)</span>, el resultado del <code>summary</code> puede ser engañoso. A seguir un ejemplo claro de esta situación.
 </div>
 
+</div>
+<div id="ejemplo-34" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>El ejemplo aquí mostrado está basado en una <a href="https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input">pregunta</a> de StackOverFlow.</p>
+<p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(\mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(\mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(\mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></a>
+<a class="sourceLine" id="cb244-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="dv">0</span>,    <span class="dt">sd=</span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb244-3" title="3">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">sd=</span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb244-4" title="4">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="fl">0.5</span>,  <span class="dt">sd=</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb244-5" title="5">g &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">each=</span><span class="dv">10</span>)</a></code></pre></div>
+<p>¿Será la variable cualitativa <code>g</code> significativa en un modelo de regresión?</p>
+<p><strong>Solución</strong></p>
+<p>Vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <code>y</code>.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>g)</a></code></pre></div>
+<p>Obviamente esperamos concluir que la media de la variable <code>y</code> dependa de la variable de agrupación <code>g</code>. Para esto vamos a explorar el resultado con la función <code>summary</code>.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">summary</span>(model)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ g)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.59080 -0.54685  0.04124  0.79890  2.56064 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) -0.52024    0.22260  -2.337   0.0271 *
+## g1           0.07624    0.31480   0.242   0.8105  
+## g2          -0.82540    0.31480  -2.622   0.0142 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## s: 1.219 on 27 degrees of freedom
+## Multiple R-squared: 0.2372,
+## Adjusted R-squared: 0.1807 
+## F-statistic: 4.199 on 2 and 27 DF,  p-value: 0.02583</code></pre>
+<p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <code>y</code>. El lector podría encontrar esto un poco desconcertante.</p>
+<p>Vamos a realizar el análisis pero ahora con la función <code>anova</code>.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">anova</span>(model)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## g          2 12.484  6.2418   4.199 0.02583 *
+## Residuals 27 40.135  1.4865                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>En la fila donde aparece la variable <code>g</code> tenemos el resultado de la prueba de hipótesis</p>
+<p><span class="math display">\[H_0: \text{la variable g no influye en la media de y},\]</span>
+<span class="math display">\[H_A: \text{la variable g si influye en la media de y}\]</span></p>
+<p>El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, encontramos que la variable <code>g</code> si influye sobre la media de la variable <code>y</code>.</p>
 
-<div class="rmdwarning">
-Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor <span class="math inline">\(\alpha\)</span>, el resultado del <code>summary</code> puede ser engañoso. Para esto se recomienda usar la función <code>anova</code>. Por favor vea los ejemplos con variables cualitativas del capítulo <a href="ph.html#ph">7</a>.
+<div class="rmdtip">
+Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función <code>anova</code> que los resultados del <code>summary</code>.
 </div>
 
 

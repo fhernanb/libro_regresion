@@ -96,8 +96,7 @@ levels(Cars93$Type)
 De la salida anterior se observan que los niveles son Compact, Large, Midsize, Small, Sporty y Van. Al observar cuidadosamente los niveles vemos que ellos están ordenados por orden lexicográfico, primero Compact por iniciar con la letra __C__, por último Van por iniciar con la letra __V__. Al mirar el modelo requerido se nota que el nivel Small no aparece en la ecuación de $\mu$, esto significa que ese es el nivel de referencia que se encuentra en el intercepto $\beta_0$. Para redefinir los niveles en el orden requerido usamos el siguiente código.
 
 ```{r}
-Cars93$Type <- factor(Cars93$Type, 
-                      levels=c('Small', 'Compact', 'Sporty', 'Midsize', 'Large', 'Van'))
+Cars93$Type <- relevel(Cars93$Type, ref = 'Small')
 levels(Cars93$Type)  # Para verificar el cambio
 ```
 
@@ -111,9 +110,23 @@ ggplot(Cars93, aes(x=EngineSize, y=Price, color=Type)) +
 
 Ahora si podemos ajustar el modelo solicitado usando el siguiente código.
 
-```{r}
+```{r eval=FALSE}
 mod <- lm(Price ~ EngineSize + Type, data=Cars93)
 summary(mod)
+```
+
+```{r eval=FALSE}
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    2.794      2.348   1.190  0.23732    
+EngineSize     4.621      1.110   4.164  7.4e-05 ***
+TypeCompact    4.644      2.484   1.870  0.06489 .  
+TypeLarge      2.053      3.916   0.524  0.60138    
+TypeMidsize   10.286      2.700   3.810  0.00026 ***
+TypeSporty     5.078      2.634   1.928  0.05721 .  
+TypeVan        1.517      3.332   0.455  0.65006    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
 
 Usando la información de la salida anterior se puede construir el siguiente modelo ajustado.
@@ -136,59 +149,53 @@ Cuidado, no intente interpretar $\hat{\beta}_0$ en este ejemplo. ¿Por qué?
 ```
 
 ## Significancia de variables cualitativas  {-}
-Cuando se incluye una variable cualitativa de $k$ niveles en un modelo de regresión, aparecen $k-1$ variables indicadoras y por lo tanto $k-1$ valores-P en la tabla resumen. Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para el modelo? 
+Una pregunta frecuente entre los usuarios es ¿cómo saber si una variable cualitativa es significativa para un modelo?
 
-Para saber si una variable cualitativa es significativa para un modelo hay tres formas:
+Cuando se incluye una variable cualitativa de $k$ niveles en un modelo de regresión, aparecen $k-1$ variables indicadoras y por lo tanto $k-1$ valores-P en la tabla resumen. Usar esos valores-P nos puede llevar a conclusiones erróneas.
 
-1. Mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)` (método no recomendado).
-2. Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
-3. Crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, `anova(mod.redu, mod)`.
+<p align="center">
+  <img src="images/signi_var_cuali.png" width="400">
+</p>
+
+Para saber si una variable cualitativa es significativa para un modelo hay dos formas:
+
+1. Crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
+2. Crear dos modelos, uno reducido sin la variable cualitativa y otro completo con la variable cualitativa, luego usar un análisis de varianza, `anova(mod.redu, mod)`.
 
 ### Ejemplo {-}
 En este ejemplo vamos a retomar los datos del ejemplo anterior en el cual se usa la base de datos `Cars93` del paquete `MASS`. El objetivo es ajustar un modelo para explicar el precio del auto en función del tamaño del motor y del tipo de auto. 
 
-¿Será la variable tipo de auto significativa para el modelo?
+Supongamos el tamaño del motor está presente en el modelo, ¿será la variable tipo de auto significativa para el modelo?
 
-Para responder la pregunta anterior vamos a usar las tres formas listadas anteriormente.
+<p align="center">
+  <img src="images/types_cars.png" width="350">
+</p>
 
-Primero vamos a ajustar el modelo de interés nuevamente.
-
-```{r}
-require(MASS)
-Cars93$Type <- factor(Cars93$Type, 
-                      levels=c('Small', 'Compact', 'Sporty', 'Midsize', 'Large', 'Van')) # Para usar Small como referencia
-mod <- lm(Price ~ EngineSize + Type, data=Cars93)
-```
+__Solución__
 
 __Forma 1__  
-En la forma 1 debemos mirar si el valor-P de cualquiera de las variables indicadoras es menor que en el nivel de significancia en el `summary(mod)`. 
+En la forma 1 debemos ajustar el modelo y usar la función `anova` para ver si la variable cualitativa es significativa en el modelo.
 
-Al mirar el resultado del `summary(mod)` se observa que el valor-P asociado a la variable `TypeMidsize` es menor que el valor usuar de significancia 5%, por lo tanto la variable Type es sifinificativa para el modelo.
-
-```{r}
-summary(mod)
-```
-
-__Forma 2__  
-En la forma 2 debemos crear una anova y ver si la variable cualitativa es significativa en el modelo es decir, usando `anova(mod)`.
-
-Al usar la función `anova` sobre un modelo `mod` obtenido con la función `lm`, apareceran tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:
+Al usar la función `anova` sobre un modelo `mod` obtenido con la función `lm`, aparecerán tantas filas (con valor-P) como número de variables tenga el modelo ajustado. El conjunto de hipótesis para cada una de las filas es:
 
 \begin{align}
 H_0 &: \text{la variable de la FILA no aporta información para el modelo}, \\ 
 H_A &: \text{la variable de la FILA si aporta información para el modelo}
 \end{align}
 
-A continuación el código para usar la forma 2.. 
+A continuación el código para usar la forma 1.
 
 ```{r}
+require(MASS)
+data("Cars93")
+mod <- lm(Price ~ EngineSize + Type, data=Cars93)
 anova(mod)
 ```
 
 De la salida anterior se observa que el valor-P asociado a Type es de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar $H_0$, es decir, la variable Type si aporta información al modelo.
 
-__Forma 3__  
-En la forma 3 debemos crear un modelo reducido sin la variable cualitativa y usar un análisis de varianza, `anova(mod.redu, mod)`.
+__Forma 2__  
+En la forma 2 debemos crear dos modelos, uno reducido sin la variable cualitativa y otro completo con la variable cualitativa, luego usar un análisis de varianza, `anova(mod_redu, mod_comp)`.
 
 Al usar la función `anova` el conjunto de hipótesis es:
 
@@ -197,23 +204,70 @@ H_0 &: \text{la variable Type no aporta información para el modelo}, \\
 H_A &: \text{la variable Type si aporta información para el modelo}
 \end{align}
 
-A continuación el código para usar la forma 3. El modelo `mod.redu` contiene un modelo __sin__ la variable cualitativa de interés Type. 
+A continuación el código para usar la forma 2. El modelo `mod_redu` contiene un modelo __sin__ la variable cualitativa de interés Type, mientras que el modelo `mod_comp` si la contiene.
 
 ```{r}
-mod.redu <- lm(Price ~ EngineSize, data=Cars93)
-anova(mod.redu, mod)
+require(MASS)
+data("Cars93")
+mod_redu <- lm(Price ~ EngineSize, data=Cars93)
+mod_comp <- lm(Price ~ EngineSize + Type, data=Cars93)
+anova(mod_redu, mod_comp)
 ```
 
 De la salida anterior se tiene un valor-P de 0.000542, usando un nivel de significancia usual del 5% se concluye que hay evidencias para rechazar $H_0$, es decir, la variable Type si aporta información para el modelo y por lo tanto es una variable útil.
 
 ```{block2, type='rmdnote'}
-La decisión final con las formas 1, 2 y 3 siempre coinciden.
+La decisión final con las formas 1 y 3 siempre coinciden.
 ```
 
 ```{block2, type='rmdwarning'}
-La forma 2 y la forma 3 no son la misma.
+Algunas veces una variable cualitativa puede ser importante en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor $\alpha$, el resultado del `summary` puede ser engañoso. A seguir un ejemplo claro de esta situación.
 ```
 
-```{block2, type='rmdwarning'}
-Algunas veces una variable cualitativa puede ser significativa en el modelo pero los valores-P asociados a sus variables indicadoras (auxiliares) son todos mayores al valor $\alpha$, el resultado del `summary` puede ser engañoso. Para esto se recomienda usar la función `anova`. Por favor vea los ejemplos con variables cualitativas del capítulo \@ref(ph).
+### Ejemplo {-}
+El ejemplo aquí mostrado está basado en una [pregunta](https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input) de StackOverFlow.
+
+El ejemplo consiste en simular un conjunto de 30 valores de $y \sim N(\mu, 1)$, donde las observaciones 1 a 10 tienen $\mu=0$, las observaciones 11 a 20 tienen $\mu=-0.5$ y las restantes diez tienen $\mu=0.5$. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa `g` que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.
+
+```{r}
+set.seed(8867)  # this makes the example exactly reproducible
+y <- c(rnorm(10, mean=0,    sd=1),
+       rnorm(10, mean=-0.5, sd=1),
+       rnorm(10, mean=0.5,  sd=1))
+g <- rep(c("A", "B", "C"), each=10)
+```
+
+¿Será la variable cualitativa `g` significativa en un modelo de regresión?
+
+__Solución__
+
+Vamos a ajustar el modelo con fórmula `y ~ g` para estudiar el efecto de la agrupación `g` en la media de la variable respuesta `y`.
+
+```{r}
+model <- lm(y ~ g)
+```
+
+Obviamente esperamos concluir que la media de la variable `y` dependa de la variable de agrupación `g`. Para esto vamos a explorar el resultado con la función `summary`.
+
+```{r}
+summary(model)
+```
+
+De la salida anterior vemos que los efectos `gB` y `gC` tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable `g` no tiene efecto sobre la media de `y`. El lector podría encontrar esto un poco desconcertante.
+
+Vamos a realizar el análisis pero ahora con la función `anova`.
+
+```{r}
+anova(model)
+```
+
+En la fila donde aparece la variable `g` tenemos el resultado de la prueba de hipótesis
+
+$$H_0: \text{la variable g no influye en la media de y},$$
+$$H_A: \text{la variable g si influye en la media de y}$$
+
+El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar $H_0$, es decir, encontramos que la variable `g` si influye sobre la media de la variable `y`.
+
+```{block2, type='rmdtip'}
+Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función `anova` que los resultados del `summary`.
 ```

@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -316,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -659,13 +664,15 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 <div id="ejemplo-17" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>El ejemplo aquí mostrado está basado en una <a href="https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input">pregunta</a> de StackOverFlow.</p>
-<p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu_g, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(\mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(\mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(\mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
+<p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(\mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(\mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(\mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></a>
 <a class="sourceLine" id="cb111-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="dv">0</span>,    <span class="dt">sd=</span><span class="dv">1</span>),</a>
 <a class="sourceLine" id="cb111-3" title="3">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">sd=</span><span class="dv">1</span>),</a>
 <a class="sourceLine" id="cb111-4" title="4">       <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean=</span><span class="fl">0.5</span>,  <span class="dt">sd=</span><span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb111-5" title="5">g &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">each=</span><span class="dv">10</span>)</a></code></pre></div>
-<p>Ahora vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <code>y</code>.</p>
+<p>¿Será la variable cualitativa <code>g</code> significativa en un modelo de regresión?</p>
+<p><strong>Solución</strong></p>
+<p>Vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <code>y</code>.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>g)</a></code></pre></div>
 <p>Obviamente esperamos concluir que la media de la variable <code>y</code> dependa de la variable de agrupación <code>g</code>. Para esto vamos a explorar el resultado con la función <code>summary</code>.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="kw">summary</span>(model)</a></code></pre></div>
@@ -686,7 +693,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 ## Residual standard error: 1.219 on 27 degrees of freedom
 ## Multiple R-squared:  0.2372, Adjusted R-squared:  0.1807 
 ## F-statistic: 4.199 on 2 and 27 DF,  p-value: 0.02583</code></pre>
-<p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <code>y</code>. El lector podría encontrar esto puede ser un poco desconcertante.</p>
+<p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <code>y</code>. El lector podría encontrar esto un poco desconcertante.</p>
 <p>Vamos a realizar el análisis pero ahora con la función <code>anova</code>.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="kw">anova</span>(model)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
@@ -702,7 +709,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 <span class="math display">\[H_A: \text{la variable g si influye en la media de y}\]</span></p>
 <p>El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, encontramos que la variable <code>g</code> si influye sobre la media de la variable <code>y</code>.</p>
 
-<div class="rmdwarning">
+<div class="rmdtip">
 Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función <code>anova</code> que los resultados del <code>summary</code>.
 </div>
 

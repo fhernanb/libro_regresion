@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>12</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>13</b> Notación de Wilkinson y Rogers</a><ul>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>14</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>15</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
@@ -316,6 +317,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="16" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>16</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
+<li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -342,19 +347,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered">
 <h2>¿Qué otras funciones hay en R para ajustar un modelo?</h2>
 <p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1"><span class="kw">lm</span>(formula, data, subset, weights, na.action,</a>
-<a class="sourceLine" id="cb278-2" title="2">   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb278-3" title="3">   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</a>
-<a class="sourceLine" id="cb278-4" title="4"></a>
-<a class="sourceLine" id="cb278-5" title="5"><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
-<a class="sourceLine" id="cb278-6" title="6">       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
-<a class="sourceLine" id="cb278-7" title="7"></a>
-<a class="sourceLine" id="cb278-8" title="8"><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
-<a class="sourceLine" id="cb278-9" title="9">        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
-<a class="sourceLine" id="cb278-10" title="10"></a>
-<a class="sourceLine" id="cb278-11" title="11"><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</a>
-<a class="sourceLine" id="cb278-12" title="12"></a>
-<a class="sourceLine" id="cb278-13" title="13"><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="kw">lm</span>(formula, data, subset, weights, na.action,</a>
+<a class="sourceLine" id="cb281-2" title="2">   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb281-3" title="3">   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</a>
+<a class="sourceLine" id="cb281-4" title="4"></a>
+<a class="sourceLine" id="cb281-5" title="5"><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb281-6" title="6">       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb281-7" title="7"></a>
+<a class="sourceLine" id="cb281-8" title="8"><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb281-9" title="9">        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb281-10" title="10"></a>
+<a class="sourceLine" id="cb281-11" title="11"><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</a>
+<a class="sourceLine" id="cb281-12" title="12"></a>
+<a class="sourceLine" id="cb281-13" title="13"><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</a></code></pre></div>
 <p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Lo invito a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
 </div>
 <div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered">
