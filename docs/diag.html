@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-21" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -568,7 +568,7 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 ##  $ type     : Factor w/ 3 levels &quot;bc&quot;,&quot;prof&quot;,&quot;wc&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">residualPlots</span>(prestige_mod)</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <pre><code>##            Test stat Pr(&gt;|Test stat|)   
 ## education    -0.6836         0.495942   
 ## income       -2.8865         0.004854 **
@@ -578,7 +578,7 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod)</a></code></pre></div>
 <pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 
 </div>
 </div>

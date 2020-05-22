@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-21" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -520,7 +520,7 @@ Los valores ajustados y los residuales también se pueden recuperar usando las f
 <p>Los mínimos cuadrados ponderados son una generalización de los mínimos cuadrados ordinarios y se usan para hacer una regresión en la cual las observaciones tienen diferente peso o importancia en el modelo.</p>
 <div id="ejemplo-2" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Use la información de las siguientes variables y ajuste dos modelos de regresión, uno sin usar los pesos <code>w</code> y otro usando los pesos. Luego dibuje en una misma figura las rectas o modelos ajustados.</p>
+<p>Use la información de las siguientes variables y ajuste dos modelos de regresión, uno sin usar los pesos <code>w</code> y otro usando los pesos <code>w</code>. Luego dibuje en una misma figura las rectas o modelos ajustados.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb26-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb26-3" title="3">w &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.9</span>)</a></code></pre></div>
@@ -542,10 +542,15 @@ Los valores ajustados y los residuales también se pueden recuperar usando las f
 <a class="sourceLine" id="cb32-4" title="4"><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&#39;Sin pesos&#39;</span>, <span class="st">&#39;Con pesos&#39;</span>), </a>
 <a class="sourceLine" id="cb32-5" title="5">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;seagreen&#39;</span>, <span class="st">&#39;dodgerblue1&#39;</span>), <span class="dt">bty=</span><span class="st">&#39;n&#39;</span>, <span class="dt">lwd=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-24-1.png" width="384" style="display: block; margin: auto;" /></p>
-<p>De la anterior figura podemos ver que los ajustes son muy diferentes. La recta de color azul tiene menor pendiente y un mayor punto de corte. Esta recta azul tiende a estar más cerca del punto (5, 3) porque este tiene un peso de 0.9, el mayor de todos los pesos. El efecto de este punto en el modelo es que él jala la recta de regresión hacia él debido a su gran peso de 0.9.</p>
+<p>De la anterior figura podemos ver que los ajustes son muy diferentes. La recta de color azul tiene menor pendiente y un mayor punto de corte. Esta recta azul tiende a estar más cerca del punto (5, 4) porque este tiene un peso de 0.9, el mayor de todos los pesos. El efecto de este punto en el modelo es que él jala la recta de regresión hacia él debido a su gran peso de 0.9.</p>
 <p align="center">
 <img src="images/tirando_cuerda.png" width="400">
 </p>
+
+<div class="rmdnote">
+El método de mínimos cuadrados ponderados se usa cuando queremos hacer una regresión en la cual cada observación aporta de forma diferente al modelo.
+</div>
+
 </div>
 </div>
 <div id="apéndice" class="section level2 unnumbered">
