@@ -213,7 +213,7 @@ coef(mod_con_pesos)
 A continuación se muestra el código para construir el diagrama de dispersión usando la función `symbols`. La información de la importancia de cada observación se incluye en el dibujo usando `circles=w`. Finalmente se agregan las rectas de los dos modelos ajustados.
 
 ```{r fig.height=4, fig.width=4, fig.align='center'}
-symbols(x=x, y=y, circles=w, pch=20, las=1, inches=0.2, fg='red')
+symbols(x=x, y=y, circles=w, pch=20, las=1, inches=0.1, fg='red', lwd=2)
 abline(mod_sin_pesos, col='seagreen')
 abline(mod_con_pesos, col='dodgerblue1')
 legend('topleft', legend=c('Sin pesos', 'Con pesos'), 

@@ -1,0 +1,79 @@
+# Diagnósticos parte II {#diag2}
+En este capítulo se presentan otras herramientas útiles para realizar diagnósticos.
+
+## Matriz sombrero o hat {-}
+La matriz sombrero o matriz Hat se define así:
+
+$$
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top
+$$
+
+Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos para un caso con tres variables explicativas $x_1$, $x_2$ y $x_3$.
+
+<p align="center">
+  <img src="images/ilustracion_hat.png" width="300">
+</p>
+
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero $\boldsymbol{H}$. Los valores de $h_{ii}$ siempre están entre 0 y 1. Si la observación $i$-ésima tiene un valor grande de $h_{ii}$ significa que ella tiene valores inusuales de $\boldsymbol{x}_i$, mientras que valores pequeños de $h_{ii}$ significa que la observación se encuentra cerca del centroide de los datos.
+
+```{block2, type='rmdwarning'}
+La distancia $h_{ii}$ no incluye información de la variable respuesta $y$, solo de las covariables, esto se nota claramente en la fórmula de $\boldsymbol{H}$ dada arriba.
+```
+
+¿Para qué se usan los $h_{ii}$ en la práctica?
+
+En el siguiente apartado se explicará el uso de los $h_{ii}$.
+
+## ¿Qué es extrapolación oculta? {-}
+Suponga tenemos un modelo de regresión una variable respuesta y dos covariables $x_1$ y $x_2$. En la siguiente figura se ilustra los posibles datos desde una vista superior (sin ver los valores de $y$). Esa elipse o forma se llama Regressor Variable Hull (RVH) o cascarón de los datos.
+
+<p align="center">
+  <img src="images/extrapolacion_oculta.png" width="500">
+</p>
+
+Una vez se tenga el modelo ajustado podríamos usar valores de $x_1$ y $x_2$ para estimar la media de $y$. Lo ideal es usar el modelo para predecir la media de $y$ con valores de $x_1$ y $x_2$ que se encuentren dentro del cascarón. 
+
+Si tratamos de estimar la media de $y$ para valores de las covariables fuera del cascarón, como en el caso del punto rojo, no podemos garantizar que el modelo tenga un buen desempeño debido a que el modelo no se entrenó con ese tipo de ejemplos.
+
+El problema de __extrapolación oculta__ se presenta cuando tratamos de predecir información de $y$ con covariables fuera del cascarón. La extrapolación oculta es fácil de identificarla cuando sólo se tiene dos covariables, pero, ¿cómo saber si se está haciendo extrapolación oculta cuando se tienen varias covariables. 
+Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(x_1, x_2, \ldots, x_p)^\top$ está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando $\boldsymbol{x}_0$?. Los pasos para determinar si $\boldsymbol{x}_0$ está o no dentro del cascarón son:
+
+1. Calcular la matriz $\boldsymbol{H}$.
+2. Obtener los valores $h_{ii}$ de la matriz $\boldsymbol{H}$.
+3. Identificar $h_{max} = max\{h_{11}, h_{22}, \ldots, h_{nn}\}$.
+4. Calcular $h_{00} = \boldsymbol{x}_0 (\boldsymbol{X}^\top \boldsymbol{X})^{-1} \boldsymbol{x}_0^\top$.
+5. Si $h_{00} > h_{max}$ el punto $\boldsymbol{x}_0$ está fuera del cascarón y se podría estár cometiendo extrapolación oculta.
+
+Los valores $h_{ii}$ se pueden obtener al calcular la matriz $\boldsymbol{H}$. Otra forma de obtener los $h_{ii}$ es ajustando el modelo de regresión y luego usando la función `hatvalues(model)` o `lm.influence(model)`.
+
+### Ejemplo {-}
+Calcular los valores $h_{ii}$ para un modelo de regresión `y ~ x + z` con los siguientes datos.
+
+```{r}
+y <- c(2, 3, 6, 5)
+x <- c(3, 5, 6, 7)
+z <- c(5, 4, 6, 3)
+```
+
+__Solución__
+
+A seguir se muestran las tres formas para obtener los valores $h_{ii}$.
+
+```{r}
+# Forma 1
+X <- cbind(1, x, z)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+H
+diag(H)
+
+# Forma 2
+mod <- lm(y ~ x + z)
+hatvalues(mod)
+
+# Form3
+lm.influence(mod)$hat
+```
+
+### Reto para el lector {-}
+Use la información del ejemplo anterior y determine si la observación con valores de $x=4$ y $z=1$ está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con $x=4$ y $z=1$.
+

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Simulación | Modelos de Regresión con R</title>
+  <title>10 Diagnósticos parte II | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Simulación | Modelos de Regresión con R" />
+  <meta property="og:title" content="10 Diagnósticos parte II | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Simulación | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="10 Diagnósticos parte II | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="predict.html"/>
-<link rel="next" href="ic.html"/>
+<link rel="prev" href="diag1.html"/>
+<link rel="next" href="mod-poli.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -350,117 +350,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="simul" class="section level1">
-<h1><span class="header-section-number">4</span> Simulación</h1>
-<p>En este capítulo se muestra como simular datos que sigan un modelo o estructura dada. Aprender a simular datos es de mucha utilidad para comprender la naturaleza de los datos y para poner a prueba algunos procedimientos de modelos de regresión.</p>
+<div id="diag2" class="section level1">
+<h1><span class="header-section-number">10</span> Diagnósticos parte II</h1>
+<p>En este capítulo se presentan otras herramientas útiles para realizar diagnósticos.</p>
+<div id="matriz-sombrero-o-hat" class="section level2 unnumbered">
+<h2>Matriz sombrero o hat</h2>
+<p>La matriz sombrero o matriz Hat se define así:</p>
+<p><span class="math display">\[
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top
+\]</span></p>
+<p>Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos para un caso con tres variables explicativas <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span> y <span class="math inline">\(x_3\)</span>.</p>
 <p align="center">
-<img src="images/lego.jpg" width="300">
+<img src="images/ilustracion_hat.png" width="300">
 </p>
-<div id="preguntas-sobre-simulación-en-stackoverflow" class="section level2 unnumbered">
-<h2>Preguntas sobre simulación en StackOverFlow</h2>
-<p>Una de las preguntas más frecuente que hacen los usuarios en StackOverFlow es: “How to simulate linear models in R?”. Muchas respuestas se han dado para ayudar a esos usuarios que necesitan simular datos con una estructura dada.</p>
-<p>A continuación se muestran algunas de esas preguntas/respuestas hechas en StackOverFlow, invito a lector para que visite los enlaces y explore las respuestas dadas.</p>
-<ul>
-<li><a href="https://stackoverflow.com/questions/23301703/how-to-generate-observations-from-a-linear-model-in-r">How to generate observations from a linear model in R</a>.</li>
-<li><a href="https://stackoverflow.com/questions/15889174/how-to-generate-random-y-at-specific-x-from-a-linear-model-in-r">How to generate random Y at specific X from a linear model in R?</a>.</li>
-<li><a href="https://stackoverflow.com/questions/47294225/simulate-data-in-r-from-a-linear-model-where-the-parameters-are-correlated">Simulate data in R from a linear model where the parameters are correlated</a>.</li>
-<li><a href="https://stackoverflow.com/questions/27114449/create-simulated-data-multiple-regression-in-r">Create Simulated Data Multiple Regression in R</a>.</li>
-<li><a href="https://stackoverflow.com/questions/57360673/simulate-data-from-regression-model-with-exact-parameters-in-r">Simulate data from regression model with exact parameters in R</a>.</li>
-</ul>
-<p>Las respuestas a cómo simular datos de un modelo lineal son muy variadas, algunas sencillas, otras un poco más complejas, y por esa razón en la siguiente sección se mostrará como simular datos de una forma didáctica.</p>
-</div>
-<div id="simulando-datos-de-un-modelo-lineal" class="section level2 unnumbered">
-<h2>Simulando datos de un modelo lineal</h2>
-<p>Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en <strong>forma simbólica</strong> el modelo, eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes.</p>
-<p>A continuación se muestra un ejemplo de como simular observaciones de un modelo lineal.</p>
-<div id="ejemplo-6" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Crear una función que simule <code>n</code> observaciones del siguiente modelo que tiene el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
-<p><span class="math display">\[\begin{align*} 
-y_i &amp;\sim  N(\mu_i, \sigma^2) \\ 
-\mu_i &amp;= 4 - 6 x_i \\
-x_i &amp;\sim U(-5, 6) \\
-\sigma^2 &amp;= 16
-\end{align*}\]</span></p>
-<p><strong>Solución</strong></p>
-<p>Todo modelo en lenguaje simbólico se lee de arriba hacia abajo <span class="math inline">\(\Downarrow\)</span> pero al escribirlo en R se hace de abajo hacia arriba <span class="math inline">\(\Uparrow\)</span>.</p>
-<p>A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb56-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
-<a class="sourceLine" id="cb56-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb56-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb56-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
-<a class="sourceLine" id="cb56-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
-<a class="sourceLine" id="cb56-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
-<a class="sourceLine" id="cb56-8" title="8">}</a></code></pre></div>
-<p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb57-2" title="2">datos</a></code></pre></div>
-<pre><code>##            y         x
-## 1  -9.220943  1.996875
-## 2 -14.332028  3.055755
-## 3  -4.444770  1.611963
-## 4 -25.164470  4.623512
-## 5  21.696143 -2.431852</code></pre>
-<p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
-<a class="sourceLine" id="cb59-2" title="2"></a>
-<a class="sourceLine" id="cb59-3" title="3"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="kw">ggplot</span>(datos, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/simul01-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a <span class="math inline">\(\beta_1=-6\)</span>; la nube tiene la misma dispersión y eso de debe a que <span class="math inline">\(\sigma\)</span> es constante e igual a 4.</p>
-<p>Para estimar <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb60-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
-<a class="sourceLine" id="cb60-3" title="3">theta_hat</a></code></pre></div>
-<pre><code>## (Intercept)           x       sigma 
-##    3.793873   -6.033640    4.041378</code></pre>
-<p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
+<p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero <span class="math inline">\(\boldsymbol{H}\)</span>. Los valores de <span class="math inline">\(h_{ii}\)</span> siempre están entre 0 y 1. Si la observación <span class="math inline">\(i\)</span>-ésima tiene un valor grande de <span class="math inline">\(h_{ii}\)</span> significa que ella tiene valores inusuales de <span class="math inline">\(\boldsymbol{x}_i\)</span>, mientras que valores pequeños de <span class="math inline">\(h_{ii}\)</span> significa que la observación se encuentra cerca del centroide de los datos.</p>
 
 <div class="rmdwarning">
-<p>El código usado en este ejemplo para simular datos de un modelo lineal es un código sencillo y didáctico. Este código busca que el lector aprenda a escribir de una forma sencilla las relaciones entre la variable respuesta, las variables independientes y la influencia de los parámetros.</p>
-Este código NO es un código óptimo desde el punto de vista computacional. Muy seguramente usa muchos recursos de memoria y puede demorar un poco para simular datos. Sin embargo, es un código FÁCIL de entender.
+La distancia <span class="math inline">\(h_{ii}\)</span> no incluye información de la variable respuesta <span class="math inline">\(y\)</span>, solo de las covariables, esto se nota claramente en la fórmula de <span class="math inline">\(\boldsymbol{H}\)</span> dada arriba.
 </div>
 
+<p>¿Para qué se usan los <span class="math inline">\(h_{ii}\)</span> en la práctica?</p>
+<p>En el siguiente apartado se explicará el uso de los <span class="math inline">\(h_{ii}\)</span>.</p>
 </div>
-</div>
-<div id="función-simulate" class="section level2 unnumbered">
-<h2>Función <code>simulate</code></h2>
-<p>La función <code>simulate</code> del paquete básico <strong>stats</strong> permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">simulate</span>(object, <span class="dt">nsim =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="ot">NULL</span>, ...)</a></code></pre></div>
-<div id="ejemplo-7" class="section level3 unnumbered">
+<div id="qué-es-extrapolación-oculta" class="section level2 unnumbered">
+<h2>¿Qué es extrapolación oculta?</h2>
+<p>Suponga tenemos un modelo de regresión una variable respuesta y dos covariables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>. En la siguiente figura se ilustra los posibles datos desde una vista superior (sin ver los valores de <span class="math inline">\(y\)</span>). Esa elipse o forma se llama Regressor Variable Hull (RVH) o cascarón de los datos.</p>
+<p align="center">
+<img src="images/extrapolacion_oculta.png" width="500">
+</p>
+<p>Una vez se tenga el modelo ajustado podríamos usar valores de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> para estimar la media de <span class="math inline">\(y\)</span>. Lo ideal es usar el modelo para predecir la media de <span class="math inline">\(y\)</span> con valores de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> que se encuentren dentro del cascarón.</p>
+<p>Si tratamos de estimar la media de <span class="math inline">\(y\)</span> para valores de las covariables fuera del cascarón, como en el caso del punto rojo, no podemos garantizar que el modelo tenga un buen desempeño debido a que el modelo no se entrenó con ese tipo de ejemplos.</p>
+<p>El problema de <strong>extrapolación oculta</strong> se presenta cuando tratamos de predecir información de <span class="math inline">\(y\)</span> con covariables fuera del cascarón. La extrapolación oculta es fácil de identificarla cuando sólo se tiene dos covariables, pero, ¿cómo saber si se está haciendo extrapolación oculta cuando se tienen varias covariables.
+Supongamos que queremos saber si el vector de covariables <span class="math inline">\(\boldsymbol{x}_0=(x_1, x_2, \ldots, x_p)^\top\)</span> está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando <span class="math inline">\(\boldsymbol{x}_0\)</span>?. Los pasos para determinar si <span class="math inline">\(\boldsymbol{x}_0\)</span> está o no dentro del cascarón son:</p>
+<ol style="list-style-type: decimal">
+<li>Calcular la matriz <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
+<li>Obtener los valores <span class="math inline">\(h_{ii}\)</span> de la matriz <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
+<li>Identificar <span class="math inline">\(h_{max} = max\{h_{11}, h_{22}, \ldots, h_{nn}\}\)</span>.</li>
+<li>Calcular <span class="math inline">\(h_{00} = \boldsymbol{x}_0 (\boldsymbol{X}^\top \boldsymbol{X})^{-1} \boldsymbol{x}_0^\top\)</span>.</li>
+<li>Si <span class="math inline">\(h_{00} &gt; h_{max}\)</span> el punto <span class="math inline">\(\boldsymbol{x}_0\)</span> está fuera del cascarón y se podría estár cometiendo extrapolación oculta.</li>
+</ol>
+<p>Los valores <span class="math inline">\(h_{ii}\)</span> se pueden obtener al calcular la matriz <span class="math inline">\(\boldsymbol{H}\)</span>. Otra forma de obtener los <span class="math inline">\(h_{ii}\)</span> es ajustando el modelo de regresión y luego usando la función <code>hatvalues(model)</code> o <code>lm.influence(model)</code>.</p>
+<div id="ejemplo-25" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Use las 5 primeras observaciones base de datos <code>cars</code> y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.</p>
+<p>Calcular los valores <span class="math inline">\(h_{ii}\)</span> para un modelo de regresión <code>y ~ x + z</code> con los siguientes datos.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb158-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb158-3" title="3">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</a></code></pre></div>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">datos &lt;-<span class="st"> </span>cars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</a>
-<a class="sourceLine" id="cb63-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb63-3" title="3"><span class="kw">simulate</span>(<span class="dt">object=</span>mod, <span class="dt">nsim=</span><span class="dv">1</span>, <span class="dt">seed=</span><span class="dv">1234</span>)</a></code></pre></div>
-<pre><code>##       sim_1
-## 1 -3.769550
-## 2  8.175135
-## 3 21.954305
-## 4 -5.645603
-## 5 19.110007</code></pre>
+<p>A seguir se muestran las tres formas para obtener los valores <span class="math inline">\(h_{ii}\)</span>.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="co"># Forma 1</span></a>
+<a class="sourceLine" id="cb159-2" title="2">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</a>
+<a class="sourceLine" id="cb159-3" title="3">H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</a>
+<a class="sourceLine" id="cb159-4" title="4">H</a></code></pre></div>
+<pre><code>##               [,1]          [,2]          [,3]       [,4]
+## [1,]  8.333333e-01  3.333333e-01 -3.552714e-15 -0.1666667
+## [2,]  3.333333e-01  3.333333e-01 -9.992007e-16  0.3333333
+## [3,] -2.664535e-15 -1.110223e-15  1.000000e+00  0.0000000
+## [4,] -1.666667e-01  3.333333e-01 -1.332268e-15  0.8333333</code></pre>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">diag</span>(H)</a></code></pre></div>
+<pre><code>## [1] 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co"># Forma 2</span></a>
+<a class="sourceLine" id="cb163-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</a>
+<a class="sourceLine" id="cb163-3" title="3"><span class="kw">hatvalues</span>(mod)</a></code></pre></div>
+<pre><code>##         1         2         3         4 
+## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># Form3</span></a>
+<a class="sourceLine" id="cb165-2" title="2"><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</a></code></pre></div>
+<pre><code>##         1         2         3         4 
+## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
 </div>
-</div>
-<div id="otras-herramientas-para-simular" class="section level2 unnumbered">
-<h2>Otras herramientas para simular</h2>
-<p>Abajo una lista de herramientas para simular datos a partir de un modelo.</p>
-<ul>
-<li>Paquete <a href="https://cran.r-project.org/web/packages/simglm/">simglm</a>: Simulate Models Based on the Generalized Linear Model.</li>
-<li>Paquete <a href="https://cran.r-project.org/web/packages/simrel/index.html">simrel</a>: Simulation of Multivariate Linear Model Data.</li>
-<li><a href="https://www.r-bloggers.com/make-your-r-simulation-models-20-times-faster/">Make your R simulation models 20 times faster</a>.</li>
-</ul>
-</div>
-<div id="videos-sugeridos" class="section level2 unnumbered">
-<h2>Videos sugeridos</h2>
-<p>A continuación se muestran algunos videos que muestran cómo simular datos de un modelo lineal usando R.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/p7kSSSsv4ms" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pGvJl8vvlXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+<div id="reto-para-el-lector-1" class="section level3 unnumbered">
+<h3>Reto para el lector</h3>
+<p>Use la información del ejemplo anterior y determine si la observación con valores de <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span> está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span>.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -468,8 +431,8 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
           </div>
         </div>
       </div>
-<a href="predict.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diag1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod-poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -500,7 +463,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/04-simul.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/10-diag2.Rmd",
 "text": "Edit"
 },
 "history": {
