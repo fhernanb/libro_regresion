@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -484,10 +484,10 @@ En este ejemplo se usó <code>plot(mod, which=1:3)</code> para obtener los tres 
 </div>
 <div id="gráficos-de-residuales-usando-car" class="section level2 unnumbered">
 <h2>Gráficos de residuales usando car</h2>
-<p>El paquete <strong>car</strong> <span class="citation">(Fox, Weisberg, and Price <a href="#ref-R-car" role="doc-biblioref">2020</a>)</span> tiene unas funciones especiales para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación las funciones para crear nuevos gráficos de residuales.</p>
+<p>El paquete <strong>car</strong> de <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>, tiene unas funciones especiales para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación las funciones para crear nuevos gráficos de residuales.</p>
 <ul>
-<li><code>residualPlots(model)</code>: crea gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span>. También calcula una prueba de curvatura para cada una de las gráficas agregando un término cuadrático y probando si se necesita el término cuadrático o no.</li>
-<li><code>marginalModelPlots(model)</code>: dibuje una gráfica de la respuesta <span class="math inline">\(y_i\)</span> versus cada término del predictor lineal y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span>.</li>
+<li><code>residualPlots(model)</code>: dibuja una gráfica de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span>. También entrega hace una prueba de hipótesis de curvatura para cada una de las gráficas agregando un término cuadrático y probando si se necesita el término cuadrático o no.</li>
+<li><code>mmps</code> o <code>marginalModelPlots(model)</code>: dibuja una gráfica de la respuesta <span class="math inline">\(y_i\)</span> versus cada covariable cuantitativa y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span>, es una variación la propuesta de <span class="citation">Cook and Weisberg (<a href="#ref-cook_weisber97" role="doc-biblioref">1997</a>)</span>.</li>
 </ul>
 <div id="ejemplo-24" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
@@ -497,9 +497,9 @@ En este ejemplo se usó <code>plot(mod, which=1:3)</code> para obtener los tres 
 <img src="images/canadian.jpg" width="250">
 </p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1"><span class="kw">library</span>(car)</a>
-<a class="sourceLine" id="cb150-2" title="2">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
+<a class="sourceLine" id="cb150-2" title="2">prestige_mod1 &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
 <p>Para construir los gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span> se usa la siguiente instrucción (<code>las=1</code> para poner los números vertical en el eje Y).</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">residualPlots</span>(prestige_mod, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">residualPlots</span>(prestige_mod1, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid_car01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <pre><code>##            Test stat Pr(&gt;|Test stat|)   
 ## education    -0.6836         0.495942   
@@ -516,9 +516,15 @@ En este ejemplo se usó <code>plot(mod, which=1:3)</code> para obtener los tres 
 <li>De las observaciones anteriores parece que falta el término <span class="math inline">\(Income^2\)</span> en el predictor lineal.</li>
 </ul>
 <p>La sospecha de que falta el término <span class="math inline">\(Income^2\)</span> se ve reforzada por la tabla que acompaña la salida de <code>residualPlots(prestige_mod)</code>. En la línea para la variable <code>income</code> se tiene la prueba de hipótesis <span class="math inline">\(H_0:\)</span> no se necesita <span class="math inline">\(Income^2\)</span> versus <span class="math inline">\(H_A:\)</span> si se necesita <span class="math inline">\(Income^2\)</span>. El valor-P de esta prueba es 0.004854 y por lo tanto se justifica incluir <span class="math inline">\(Income^2\)</span>.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1">prestige_mod &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(income<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">residualPlots</span>(prestige_mod, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<p>Para dibujar los gráficos marginales de <span class="math inline">\(y_i\)</span> versus cada covariable cuantitativa y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span> se usa la siguiente instrucción.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod1, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
 <p><img src="Regresion_con_R_files/figure-html/resid_car02-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>La línea de color azul es una regresión lowess entre <span class="math inline">\(y_i\)</span> y la variable que está en el eje horizontal. La línea de color rojo es una regresión lowess entre <span class="math inline">\(\hat{\mu}_i\)</span> y la variable que está en el eje horizontal. Según <span class="citation">Fox and Weisberg (<a href="#ref-fox2019" role="doc-biblioref">2019</a>)</span>, si el modelo se ajusta bien a los datos, las líneas (azul y roja) estarán próximas, por el contrario, si las líneas difieren demasiado, es evidencia de que el modelo no explica bien los datos.</p>
+<p>De la figura anterior se observa que las líneas (azul y roja) difieren un poco en el panel de <span class="math inline">\(y_i\)</span> versus income, eso refuerza lo observado antes de que sería bueno agregar un término <code>I(income^2)</code>.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1">prestige_mod2 &lt;-<span class="st"> </span><span class="kw">lm</span> (prestige <span class="op">~</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(income<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>type, <span class="dt">data=</span>Prestige)</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">residualPlots</span>(prestige_mod2, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/resid_car03-1.png" width="576" style="display: block; margin: auto;" /></p>
 <pre><code>##             Test stat Pr(&gt;|Test stat|)  
 ## education     -0.3844          0.70156  
 ## income         0.3909          0.69680  
@@ -527,15 +533,25 @@ En este ejemplo se usó <code>plot(mod, which=1:3)</code> para obtener los tres 
 ## Tukey test    -2.1877          0.02869 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">marginalModelPlots</span>(prestige_mod, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">anova</span>(prestige_mod1, prestige_mod2)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: prestige ~ education + income + type
+## Model 2: prestige ~ education + income + I(income^2) + type
+##   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+## 1     93 4681.3                                
+## 2     92 4292.5  1    388.74 8.3317 0.004854 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-cook_weisber97">
+<p>Cook, R. Dennis, and Sanford Weisberg. 1997. “Graphics for Assessing the Adequacy of Regression Models.” <em>Journal of the American Statistical Association</em> 92 (438): 490–99. <a href="https://doi.org/10.1080/01621459.1997.10474002">https://doi.org/10.1080/01621459.1997.10474002</a>.</p>
+</div>
 <div id="ref-R-car">
 <p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -365,21 +365,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
 </ul>
 <p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1">my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</a>
-<a class="sourceLine" id="cb280-2" title="2">my_form</a></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1">my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</a>
+<a class="sourceLine" id="cb282-2" title="2">my_form</a></code></pre></div>
 <pre><code>## precio ~ area + habit</code></pre>
 <p>Para conocer la clase de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="kw">class</span>(my_form)</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="kw">class</span>(my_form)</a></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Para conocer la longitud de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="kw">length</span>(my_form)</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"><span class="kw">length</span>(my_form)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1">my_form[<span class="dv">1</span>] <span class="co"># el separador</span></a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1">my_form[<span class="dv">1</span>] <span class="co"># el separador</span></a></code></pre></div>
 <pre><code>## `~`()</code></pre>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1">my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></a></code></pre></div>
 <pre><code>## precio()</code></pre>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></a></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></a></code></pre></div>
 <pre><code>## (area + habit)()</code></pre>
 </div>
 <div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered">

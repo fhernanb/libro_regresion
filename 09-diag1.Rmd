@@ -160,10 +160,10 @@ Use la información del ejemplo anterior y viole alguno de los supuestos dentro 
 
 
 ## Gráficos de residuales usando car {-}
-El paquete **car** [@R-car] tiene unas funciones especiales para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación las funciones para crear nuevos gráficos de residuales.
+El paquete **car** de @R-car, tiene unas funciones especiales para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación las funciones para crear nuevos gráficos de residuales.
 
-- `residualPlots(model)`: crea gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$. También calcula una prueba de curvatura para cada una de las gráficas agregando un término cuadrático y probando si se necesita el término cuadrático o no. 
-- `marginalModelPlots(model)`: dibuje una gráfica de la respuesta $y_i$ versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$.
+- `residualPlots(model)`: dibuja una gráfica de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$. También entrega hace una prueba de hipótesis de curvatura para cada una de las gráficas agregando un término cuadrático y probando si se necesita el término cuadrático o no. 
+- `mmps` o `marginalModelPlots(model)`: dibuja una gráfica de la respuesta $y_i$ versus cada covariable cuantitativa y los valores ajustados $\hat{\mu}_i$, es una variación la propuesta de @cook_weisber97.
 
 
 ### Ejemplo {-}
@@ -177,13 +177,13 @@ En este ejemplo se desea ajustar un modelo de regresión para explicar la media 
 
 ```{r message=FALSE}
 library(car)
-prestige_mod <- lm (prestige ~ education + income + type, data=Prestige)
+prestige_mod1 <- lm (prestige ~ education + income + type, data=Prestige)
 ```
 
 Para construir los gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$ se usa la siguiente instrucción (`las=1` para poner los números vertical en el eje Y).
 
 ```{r resid_car01, fig.height=6, fig.width=6, fig.align='center'}
-residualPlots(prestige_mod, las=1)
+residualPlots(prestige_mod1, las=1)
 ```
 
 De la figura anterior se observa lo siguiente:
@@ -195,18 +195,25 @@ De la figura anterior se observa lo siguiente:
 
 La sospecha de que falta el término $Income^2$ se ve reforzada por la tabla que acompaña la salida de `residualPlots(prestige_mod)`. En la línea para la variable `income` se tiene la prueba de hipótesis $H_0:$ no se necesita $Income^2$ versus $H_A:$ si se necesita $Income^2$. El valor-P de esta prueba es 0.004854 y por lo tanto se justifica incluir $Income^2$.
 
-```{r}
-prestige_mod <- lm (prestige ~ education + income + I(income^2) + type, data=Prestige)
-```
+Para dibujar los gráficos marginales de $y_i$ versus cada covariable cuantitativa y los valores ajustados $\hat{\mu}_i$ se usa la siguiente instrucción.
 
 ```{r resid_car02, fig.height=6, fig.width=6, fig.align='center'}
-residualPlots(prestige_mod, las=1)
+marginalModelPlots(prestige_mod1, las=1)
 ```
 
+La línea de color azul es una regresión lowess entre $y_i$ y la variable que está en el eje horizontal. La línea de color rojo es una regresión lowess entre $\hat{\mu}_i$ y la variable que está en el eje horizontal. Según @fox2019, si el modelo se ajusta bien a los datos, las líneas (azul y roja) estarán próximas, por el contrario, si las líneas difieren demasiado, es evidencia de que el modelo no explica bien los datos.
 
+De la figura anterior se observa que las líneas (azul y roja) difieren un poco en el panel de $y_i$ versus income, eso refuerza lo observado antes de que sería bueno agregar un término `I(income^2)`.
 
 ```{r}
-marginalModelPlots(prestige_mod, las=1)
+prestige_mod2 <- lm (prestige ~ education + income + I(income^2) + type, data=Prestige)
 ```
 
+```{r resid_car03, fig.height=8, fig.width=6, fig.align='center'}
+residualPlots(prestige_mod2, las=1)
+```
+
+```{r}
+anova(prestige_mod1, prestige_mod2)
+```
 

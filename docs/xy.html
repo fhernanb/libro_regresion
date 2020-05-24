@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -362,11 +362,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es crear el marco de datos así:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Precio =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>),</a>
-<a class="sourceLine" id="cb292-2" title="2">                    <span class="dt">Area =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>), </a>
-<a class="sourceLine" id="cb292-3" title="3">                    <span class="dt">Pisci =</span> <span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
-<a class="sourceLine" id="cb292-4" title="4">                                   <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>)))</a>
-<a class="sourceLine" id="cb292-5" title="5">datos</a></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Precio =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb294-2" title="2">                    <span class="dt">Area =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb294-3" title="3">                    <span class="dt">Pisci =</span> <span class="kw">factor</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</a>
+<a class="sourceLine" id="cb294-4" title="4">                                   <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>)))</a>
+<a class="sourceLine" id="cb294-5" title="5">datos</a></code></pre></div>
 <pre><code>##   Precio Area   Pisci
 ## 1     12    3  Grande
 ## 2     15    4     Sin
@@ -375,9 +375,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5     16    5     Sin
 ## 6      7    3  Grande</code></pre>
 <p>Luego usamos la función <code>model.matrix</code> para obtener <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a>
-<a class="sourceLine" id="cb294-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="dt">object=</span>form, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb294-3" title="3">X</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci)</a>
+<a class="sourceLine" id="cb296-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="dt">object=</span>form, <span class="dt">data=</span>datos)</a>
+<a class="sourceLine" id="cb296-3" title="3">X</a></code></pre></div>
 <pre><code>##   (Intercept) Area Pisci1 Pisci2
 ## 1           1    3     -1     -1
 ## 2           1    4      1      0
@@ -391,9 +391,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## attr(,&quot;contrasts&quot;)$Pisci
 ## [1] &quot;contr.sum&quot;</code></pre>
 <p>Luego usamos las funciones <code>model.frame</code> y <code>model.extract</code> para obtener el vector <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">mf &lt;-<span class="st"> </span><span class="kw">model.frame</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb296-2" title="2">y &lt;-<span class="st"> </span><span class="kw">model.extract</span>(mf, <span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb296-3" title="3">y</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">mf &lt;-<span class="st"> </span><span class="kw">model.frame</span>(Precio <span class="op">~</span><span class="st"> </span>Area <span class="op">+</span><span class="st"> </span>Pisci, <span class="dt">data=</span>datos)</a>
+<a class="sourceLine" id="cb298-2" title="2">y &lt;-<span class="st"> </span><span class="kw">model.extract</span>(mf, <span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb298-3" title="3">y</a></code></pre></div>
 <pre><code>##  1  2  3  4  5  6 
 ## 12 15 25 11 16  7</code></pre>
 

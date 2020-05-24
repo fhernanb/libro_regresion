@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -356,19 +356,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered">
 <h2>¿Qué otras funciones hay en R para ajustar un modelo?</h2>
 <p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1"><span class="kw">lm</span>(formula, data, subset, weights, na.action,</a>
-<a class="sourceLine" id="cb298-2" title="2">   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb298-3" title="3">   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</a>
-<a class="sourceLine" id="cb298-4" title="4"></a>
-<a class="sourceLine" id="cb298-5" title="5"><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
-<a class="sourceLine" id="cb298-6" title="6">       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
-<a class="sourceLine" id="cb298-7" title="7"></a>
-<a class="sourceLine" id="cb298-8" title="8"><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
-<a class="sourceLine" id="cb298-9" title="9">        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
-<a class="sourceLine" id="cb298-10" title="10"></a>
-<a class="sourceLine" id="cb298-11" title="11"><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</a>
-<a class="sourceLine" id="cb298-12" title="12"></a>
-<a class="sourceLine" id="cb298-13" title="13"><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1"><span class="kw">lm</span>(formula, data, subset, weights, na.action,</a>
+<a class="sourceLine" id="cb300-2" title="2">   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb300-3" title="3">   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</a>
+<a class="sourceLine" id="cb300-4" title="4"></a>
+<a class="sourceLine" id="cb300-5" title="5"><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb300-6" title="6">       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb300-7" title="7"></a>
+<a class="sourceLine" id="cb300-8" title="8"><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</a>
+<a class="sourceLine" id="cb300-9" title="9">        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</a>
+<a class="sourceLine" id="cb300-10" title="10"></a>
+<a class="sourceLine" id="cb300-11" title="11"><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</a>
+<a class="sourceLine" id="cb300-12" title="12"></a>
+<a class="sourceLine" id="cb300-13" title="13"><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</a></code></pre></div>
 <p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Lo invito a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
 </div>
 <div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered">

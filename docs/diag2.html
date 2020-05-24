@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -393,29 +393,29 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <div id="ejemplo-25" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Calcular los valores <span class="math inline">\(h_{ii}\)</span> para un modelo de regresión <code>y ~ x + z</code> con los siguientes datos.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb158-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb158-3" title="3">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb160-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb160-3" title="3">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</a></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>A seguir se muestran las tres formas para obtener los valores <span class="math inline">\(h_{ii}\)</span>.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="co"># Forma 1</span></a>
-<a class="sourceLine" id="cb159-2" title="2">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</a>
-<a class="sourceLine" id="cb159-3" title="3">H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</a>
-<a class="sourceLine" id="cb159-4" title="4">H</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="co"># Forma 1</span></a>
+<a class="sourceLine" id="cb161-2" title="2">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</a>
+<a class="sourceLine" id="cb161-3" title="3">H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</a>
+<a class="sourceLine" id="cb161-4" title="4">H</a></code></pre></div>
 <pre><code>##               [,1]          [,2]          [,3]       [,4]
 ## [1,]  8.333333e-01  3.333333e-01 -3.552714e-15 -0.1666667
 ## [2,]  3.333333e-01  3.333333e-01 -9.992007e-16  0.3333333
 ## [3,] -2.664535e-15 -1.110223e-15  1.000000e+00  0.0000000
 ## [4,] -1.666667e-01  3.333333e-01 -1.332268e-15  0.8333333</code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">diag</span>(H)</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">diag</span>(H)</a></code></pre></div>
 <pre><code>## [1] 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co"># Forma 2</span></a>
-<a class="sourceLine" id="cb163-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</a>
-<a class="sourceLine" id="cb163-3" title="3"><span class="kw">hatvalues</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># Forma 2</span></a>
+<a class="sourceLine" id="cb165-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</a>
+<a class="sourceLine" id="cb165-3" title="3"><span class="kw">hatvalues</span>(mod)</a></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># Form3</span></a>
-<a class="sourceLine" id="cb165-2" title="2"><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co"># Form3</span></a>
+<a class="sourceLine" id="cb167-2" title="2"><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</a></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
 </div>
