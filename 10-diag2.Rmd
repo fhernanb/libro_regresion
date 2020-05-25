@@ -70,10 +70,192 @@ diag(H)
 mod <- lm(y ~ x + z)
 hatvalues(mod)
 
-# Form3
+# Forma 3
 lm.influence(mod)$hat
 ```
 
 ### Reto para el lector {-}
 Use la información del ejemplo anterior y determine si la observación con valores de $x=4$ y $z=1$ está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con $x=4$ y $z=1$.
+
+## Punto atípico y punto influyente {-}
+Los conceptos de atípico e influyente son diferentes y se definen así:
+
+- Punto atípico (outlier): es una observación que es numéricamente distante del resto de los datos.
+- Punto influyente: punto que tiene impacto en las estimativas del modelo.
+
+En la siguiente figura se ilustra la diferencia entre los conceptos de atípico e influyente.
+
+<p align="center">
+  <img src="images/atipico_influyente.png" width="500">
+</p>
+
+¿Cómo se puede saber si un punto es influyente?
+
+Para saber si un punto es influyente debemos tener una métrica o medida para determinar si él es influyente, una medida podría ser la Distancia de Cook.
+
+## Distancia de Cook {-}
+Es una medida de cómo influye la observación $i$-ésima sobre la estimación de $\boldsymbol{\beta}$ al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observación tiene un peso grande en la estimación de $\boldsymbol{\beta}$.
+
+$$
+D_i = \frac{\sum_{j=1}^{n} (\hat{y}_j - \hat{y}_{j(i)} )^2 }{p \hat{\sigma^2}},
+$$
+
+donde la notación $(i)$ significa "sin la observación $i$-ésima", eso quiere decir que $\hat{y}_{j(i)}$ es la estimación de $j$-ésima sin haber tenido en cuenta $i$-ésima observación en el ajuste del modelo. La cantidad $p$ se refiere a todos los $\beta$'s en el modelo ($\beta_0, \beta_1, \beta_2, \ldots, \beta_k$).
+
+<p align="center">
+  <img src="images/get_out.gif" width="200">
+</p>
+
+```{block2, type='rmdnote'}
+Son puntos influyentes las observaciones que presenten $D_i=\frac{4}{n-p-2}$.
+```
+
+### Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura? {-}
+En este ejemplo se usará una base de datos que contiene medidad corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.
+
+<p align="center">
+  <img src="images/medidas_cuerpo_upb.png" width="700">
+</p>
+
+El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posible estudiantes influyentes y el efecto de ellos en el modelos.
+
+__Solución__
+
+Lo primero es cargar los datos en nuestra sesión de R.
+
+```{r}
+url <- "https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2"
+datos <- read.table(file=url, sep="\t", header=TRUE)
+head(datos, n=5)
+```
+
+Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con `pairs`.
+
+```{r upb_01, fig.height=6, fig.width=6, fig.align='center'}
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...) {
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr=c(0, 1, 0, 1))
+  r <- cor(x, y)
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+  text(0.5, 0.5, txt, cex=cex.cor * r, col=gray(1-r))
+}
+
+# Creamos el grafico SOLO para las variables cuantitativas
+pairs(datos[, c("Peso", "Estatura", "circun_cuello", "circun_muneca")], 
+      pch=19, las=1,
+      upper.panel=panel.smooth, lower.panel=panel.cor)
+```
+
+De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.
+
+Vamos ahora a ajustar nuestro primer modelo.
+
+```{r}
+mod1 <- lm(Peso ~ Estatura + circun_cuello + circun_muneca, data=datos)
+summary(mod1)
+```
+
+Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete **mixlm** creado por @R-mixlm. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un $\alpha=0.04$.
+
+```{r}
+mod2 <- mixlm::backward(mod1, alpha=0.04)
+summary(mod2)
+```
+
+En la siguiente tabla se comparan los modelos 1 y 2 ajustados hasta ahora.
+
+<p align="center">
+  <img src="images/tabla_1_2_upb.png" width="400">
+</p>
+
+De la tabla anterior podemos destacar lo siguiente:
+
+- El intercepto estimado cambia bastante.
+- En el modelo 2 la variable cuello aumenta su efecto.
+- El R2 se mantiene constante.
+- La varianza de los errores disminuye, eso significa que el modelo 2 deja menos sin explicar.
+
+Vamos ahora a crear el diagrama de dispersión con el modelo ajustado.
+
+```{r upb_02, fig.height=4, fig.width=5, fig.align='center'}
+# Para construir el grafico de dispersion
+with(datos, 
+     plot(x=circun_cuello, y=Peso, pch=19, las=1,
+          xlab="Circunferencia cuello (cm)", ylab="Peso (Kg)"))
+# Ahora agregamos la linea de tendencia
+abline(mod2, lwd=3, col='blue2')
+# por ultimo un texto con la ecuacion o modelo ajustado
+text(x=34, y=95, expression(hat(Peso) == -44.61 + 3.10 * C.cuello), 
+     col='blue3' )
+```
+
+De la figura anterior vemos que hay un estudiante (el de 100 kilos de peso) que está muy alejado de la recta de regresión. 
+
+Vamos a calcular las distancia de Cook para las observaciones del modelo 2 así:
+
+```{r}
+cooks.distance(mod2)
+```
+
+Es mejor representar las distancias de Cook en forma gráfica para identificar los posible puntos influyentes así:
+
+```{r upb_03, fig.height=4, fig.width=5, fig.align='center'}
+cutoff <- 4 / (26-2-2)
+plot(mod2, which=4, cook.levels=cutoff, las=1)
+abline(h=cutoff, lty="dashed", col="springgreen3")
+```
+
+De esta figura es claro que las observaciones 11 y 8 tienen $D_i$ por encima de la cota y se consideran observaciones influyentes.
+
+Ahora vamos a revisar los residuales del modelo 2.
+
+```{r upb_04, fig.height=6, fig.width=6, fig.align='center'}
+par(mfrow=c(2, 2))
+plot(mod2, col='deepskyblue4')
+```
+
+De la anterior figura vemos que las observaciones 8, 11 y 13 fueron identificadas por tener valores de residuales grandes.
+
+Vamos ahora a identificar las observaciones 8, 11, 12 y 13 en un diagrama de dispersión.
+
+```{r upb_05, fig.height=4, fig.width=5, fig.align='center', echo=FALSE}
+with(datos, 
+     plot(x=circun_cuello, y=Peso, pch=19, las=1, xlim=c(29, 43), ylim=c(45, 110),
+          xlab="Circunferencia cuello (cm)", ylab="Peso (Kg)"))
+abline(mod2, lwd=3, col='blue2')
+text(x=34, y=95, expression(hat(Peso) == -44.61 + 3.10 * C.cuello), 
+     col='blue3')
+points(x=datos$circun_cuello[c(8, 11, 12, 13)],
+       y=datos$Peso[c(8, 11, 12, 13)], pch=21, col='red', cex=2)
+text(x=datos$circun_cuello[c(8, 11, 12, 13)] + 0.8,
+       y=datos$Peso[c(8, 11, 12, 13)], c(8, 11, 12, 13), col='red')
+```
+
+La observación 11 es un hombre que pesa más de 100 kilos y que solo mide 1.79 metros. Las observaciones 8, 12 y 13 son mujeres con las mayores diferencias entre $y_i$ y $\hat{y}_i$, para ellas el modelo sobreestima el peso corporal.
+
+En la siguiente tabla se muestran los resultados de ajustar nuevamente el modelo 2 bajo tres situaciones: con todas las observaciones, sin la observación 11 y sin las observaciones 8, 11, 12 y 13. De la tabla vemos que la observación 11 es muy influyente, al sacar esa observación el modelo aumenta su $R^2$ y disminuye su $\sigma^2$. De la última columna se observa el mismo comportamiento, $R^2$ aumenta y disminuye su $\sigma^2$ al sacar todas las observaciones sospechosas. 
+
+<p align="center">
+  <img src="images/tabla_2_sin_obs_inf_upb.png" width="400">
+</p>
+
+Pero, ¿cuál modelo debo usar como modelo final? ¿El modelo 2, el modelo 2 sin la obs 11 o el modelo 2 sin las obs 8, 11, 12 y 13?
+
+Lo que se recomienda es que el analista se asesore de un experto en el área de aplicación para que juntos estudien esas observaciones sospechosas. Si hay una razón de peso para considerarlas como observaciones atípicas, ellas deben salir del modelo. Si por el contrario, no hay nada raro con las observaciones ellas deben seguir en el modelo. 
+
+<p align="center">
+  <img src="images/revisar.png" width="200">
+</p>
+
+```{block2, type='rmdwarning'}
+Las observaciones sospechosas NO se deben sacar inmediatamente del modelo. Antes se deben estudiar para ver si hay algo raro con ellas, en caso afirmativo se sacan de la base y se ajusta nuevamente el modelo.
+```
+
+```{block2, type='rmdnote'}
+Una observación influyente NO es una observación mala en el modelo. Al contrario, ella es una observación clave en el ajuste porque "lidera" la estimación.
+
+Una observación que no es influyente es una observación que estando presente o no, el modelo ajustado no se ve afectado.
+```
 

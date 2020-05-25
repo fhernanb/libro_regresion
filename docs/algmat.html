@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-24" />
+<meta name="date" content="2020-05-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,8 +156,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="1.0.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.0.1</b> Estimación por mínimos cuadrados</a></li>
-<li class="chapter" data-level="1.0.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.0.2</b> Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -256,6 +256,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector-1"><i class="fa fa-check"></i>Reto para el lector</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico y punto influyente</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-cómo-se-relaciona-el-peso-corporal-con-la-circunferencia-de-la-muñeca-cuello-y-estatura"><i class="fa fa-check"></i>Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>11</b> Modelos polinomiales</a><ul>
@@ -360,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="images/matriz.png" width="400">
 </p>
 <p>La función para crear una matriz es <code>matrix</code>. A continuación se muestran los argumentos de la función.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">matrix</span>(<span class="dt">data=</span><span class="ot">NA</span>, <span class="dt">nrow=</span><span class="dv">1</span>, <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>, <span class="dt">dimnames=</span><span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="kw">matrix</span>(<span class="dt">data=</span><span class="ot">NA</span>, <span class="dt">nrow=</span><span class="dv">1</span>, <span class="dt">ncol=</span><span class="dv">1</span>, <span class="dt">byrow=</span><span class="ot">FALSE</span>, <span class="dt">dimnames=</span><span class="ot">NULL</span>)</a></code></pre></div>
 <div id="ejemplo-37" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Crear en R la matriz <span class="math inline">\(M\)</span> siguiente.</p>
@@ -372,9 +376,9 @@ M = \begin{pmatrix}
 \]</span></p>
 <p><strong>Solución</strong></p>
 <p>Para crear la matriz podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb270-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb270-3" title="3">M</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb284-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb284-3" title="3">M</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    1    5</code></pre>
@@ -481,21 +485,21 @@ M = \begin{pmatrix}
 \]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es crear la matriz <span class="math inline">\(M\)</span>.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb272-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb272-3" title="3">              <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb272-4" title="4">M</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1">M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb286-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb286-3" title="3">              <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb286-4" title="4">M</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    5
 ## [2,]    1    5    2
 ## [3,]    1    4    7</code></pre>
 <p>Una forma de obtener el rango es por medio de la función <code>qr</code> que hace una <a href="https://en.wikipedia.org/wiki/QR_decomposition">descomposición QR</a> de la matriz.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1"><span class="kw">qr</span>(M)<span class="op">$</span>rank</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1"><span class="kw">qr</span>(M)<span class="op">$</span>rank</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>De la salida anterior vemos que el rango de <span class="math inline">\(M\)</span> es 3, eso quiere decir que el número máximo de columnas linealmente independientes es 3.</p>
 <p>Otra forma para obtener el rango de la matriz es por medio de la función <code>rankMatrix</code> del paquete <strong>Matrix</strong> <span class="citation">(Bates and Maechler <a href="#ref-R-Matrix" role="doc-biblioref">2019</a>)</span> así:</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="kw">library</span>(Matrix)</a>
-<a class="sourceLine" id="cb276-2" title="2"><span class="kw">rankMatrix</span>(M)[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="kw">library</span>(Matrix)</a>
+<a class="sourceLine" id="cb290-2" title="2"><span class="kw">rankMatrix</span>(M)[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="ejemplo-39" class="section level3 unnumbered">
@@ -510,16 +514,16 @@ N = \begin{pmatrix}
 \]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es crear la matriz <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb278-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb278-3" title="3">              <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb278-4" title="4">N</a></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb292-2" title="2">              <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb292-3" title="3">              <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb292-4" title="4">N</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    3
 ## [2,]    1    5    6
 ## [3,]    1    7    8</code></pre>
 <p>Al mirar con calma las columnas de la matriz se observa un detalle, la tercera columna de <span class="math inline">\(N\)</span> se obtiene al sumar la primera y segunda columna de <span class="math inline">\(N\)</span>, eso significa que la tercera columna es combinación lineal de las dos primeras. Vamos a calcular el rango de <span class="math inline">\(N\)</span>.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="kw">qr</span>(N)<span class="op">$</span>rank</a></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="kw">qr</span>(N)<span class="op">$</span>rank</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>El valor de 2 obtenido no nos sorprende porque ya habíamos detectado que la tercera columna es combinación lineal de las dos primeras.</p>
 

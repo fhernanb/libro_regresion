@@ -21,13 +21,13 @@ Y_i &\sim N(\mu_i, \sigma^2), \\
 
 En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [mínimos cuadrados](#apend11) o [máxima verosimilitud](#apend12).
 
-La siguiente figura es tomada del libro [@neter2005] muestra con claridad el supuesto de normalidad de la variable $Y$, la dependencia de la media $\mu$ con $X$ y la varianza constante.
+La siguiente figura, tomada del libro @neter2005, muestra con claridad el supuesto de normalidad de la variable $Y$, la dependencia de la media $\mu$ con $X$ y la varianza constante.
 
 <p align="center">
   <img src="images/supuesto_lm1.png" width="600">
 </p>
 
-En la siguiente figura se muestran dos ilustraciones para donde los supuestos no se cumplen.
+En la siguiente figura se muestran dos ilustraciones para donde los supuestos no se cumplen. En el panel izquierdo se observa que la varianza de las distribuciones no es constante mientras que en el panel de la derecha la distribución no es la normal.
 
 <p align="center">
   <img src="images/supuesto_lm2.png" width="800">
@@ -48,7 +48,7 @@ A continuación se presenta una corta descripción de los parámetros más usado
 - `data`: es el marco de datos donde se buscarán las variables usadas en la fórmula. Si este parámetro queda vacío, R buscará las variables en el ambiente global.
 
 ### Ejemplo {-}
-Como ilustración vamos a usar los datos del ejemplo 2.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 2.1 los autores desean ajustar un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la soldadura.
+Como ilustración vamos a usar los datos del ejemplo 2.1 del libro @mpv06. En el ejemplo 2.1 los autores desean ajustar un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la soldadura.
 
 <p align="center">
   <img src="images/ilustracion_soldadura.png" width="400">
@@ -232,7 +232,7 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 
 ## Apéndice {-}
 
-### Estimación por mínimos cuadrados {#apend11}
+### Estimación por mínimos cuadrados {#apend11} {-}
 
 Para estimar $\beta_0$ y $\beta_1$ utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma  cuadrática del error:
 
@@ -249,9 +249,7 @@ donde
 $S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2$ &	$S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2$ & $S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})$	 \\
 
 
-### Estimación por máxima verosimilitud {#apend12}
-
-
+### Estimación por máxima verosimilitud {#apend12} {-}
 
 Sabemos que para nuestro modelo de regresión lineal simple, 
 

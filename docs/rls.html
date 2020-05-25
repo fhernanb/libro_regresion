@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-24" />
+<meta name="date" content="2020-05-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,8 +156,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="1.0.1" data-path="rls.html"><a href="rls.html#apend11"><i class="fa fa-check"></i><b>1.0.1</b> Estimación por mínimos cuadrados</a></li>
-<li class="chapter" data-level="1.0.2" data-path="rls.html"><a href="rls.html#apend12"><i class="fa fa-check"></i><b>1.0.2</b> Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -256,6 +256,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector-1"><i class="fa fa-check"></i>Reto para el lector</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico y punto influyente</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-cómo-se-relaciona-el-peso-corporal-con-la-circunferencia-de-la-muñeca-cuello-y-estatura"><i class="fa fa-check"></i>Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>11</b> Modelos polinomiales</a><ul>
@@ -371,12 +375,12 @@ Y_i &amp;\sim N(\mu_i, \sigma^2), \\
 \mu_i &amp;= \beta_0 + \beta_1 X_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
-<p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top\)</span>. Para estimar este vector de parámetros se suelen utilizar dos métodos: <a href="rls.html#apend11">mínimos cuadrados</a> o <a href="rls.html#apend12">máxima verosimilitud</a>.</p>
-<p>La siguiente figura es tomada del libro <span class="citation">(Kutner et al. <a href="#ref-neter2005" role="doc-biblioref">2005</a>)</span> muestra con claridad el supuesto de normalidad de la variable <span class="math inline">\(Y\)</span>, la dependencia de la media <span class="math inline">\(\mu\)</span> con <span class="math inline">\(X\)</span> y la varianza constante.</p>
+<p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top\)</span>. Para estimar este vector de parámetros se suelen utilizar dos métodos: <a href="#apend11">mínimos cuadrados</a> o <a href="#apend12">máxima verosimilitud</a>.</p>
+<p>La siguiente figura, tomada del libro <span class="citation">Kutner et al. (<a href="#ref-neter2005" role="doc-biblioref">2005</a>)</span>, muestra con claridad el supuesto de normalidad de la variable <span class="math inline">\(Y\)</span>, la dependencia de la media <span class="math inline">\(\mu\)</span> con <span class="math inline">\(X\)</span> y la varianza constante.</p>
 <p align="center">
 <img src="images/supuesto_lm1.png" width="600">
 </p>
-<p>En la siguiente figura se muestran dos ilustraciones para donde los supuestos no se cumplen.</p>
+<p>En la siguiente figura se muestran dos ilustraciones para donde los supuestos no se cumplen. En el panel izquierdo se observa que la varianza de las distribuciones no es constante mientras que en el panel de la derecha la distribución no es la normal.</p>
 <p align="center">
 <img src="images/supuesto_lm2.png" width="800">
 </p>
@@ -394,7 +398,7 @@ Y_i &amp;\sim N(\mu_i, \sigma^2), \\
 </ul>
 <div id="ejemplo" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Como ilustración vamos a usar los datos del ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores desean ajustar un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la soldadura.</p>
+<p>Como ilustración vamos a usar los datos del ejemplo 2.1 del libro <span class="citation">Montgomery (<a href="#ref-mpv06" role="doc-biblioref">2006</a>)</span>. En el ejemplo 2.1 los autores desean ajustar un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la soldadura.</p>
 <p align="center">
 <img src="images/ilustracion_soldadura.png" width="400">
 </p>
@@ -557,8 +561,8 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 </div>
 <div id="apéndice" class="section level2 unnumbered">
 <h2>Apéndice</h2>
-<div id="apend11" class="section level3">
-<h3><span class="header-section-number">1.0.1</span> Estimación por mínimos cuadrados</h3>
+<div id="estimación-por-mínimos-cuadrados-apend11" class="section level3 unnumbered">
+<h3>Estimación por mínimos cuadrados {#apend11}</h3>
 <p>Para estimar <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma cuadrática del error:</p>
 <p><span class="math display">\[\begin{eqnarray*}
 S(\beta_0, \beta_1)&amp;=&amp;\sum_{i=1}^ne_i^2\\
@@ -572,8 +576,8 @@ obtenemos que los estimadores para <span class="math inline">\(\beta_0\)</span> 
 donde
 <span class="math inline">\(S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2\)</span> &amp; <span class="math inline">\(S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2\)</span> &amp; <span class="math inline">\(S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})\)</span> \</p>
 </div>
-<div id="apend12" class="section level3">
-<h3><span class="header-section-number">1.0.2</span> Estimación por máxima verosimilitud</h3>
+<div id="estimación-por-máxima-verosimilitud-apend12" class="section level3 unnumbered">
+<h3>Estimación por máxima verosimilitud {#apend12}</h3>
 <p>Sabemos que para nuestro modelo de regresión lineal simple,</p>
 <p><span class="math display">\[Y_i\sim N\left(\beta_0+\beta_1X_i, \sigma^2\right),\quad \text{para todo $i=1, 2,  \ldots, n$}.\]</span>
 Y como los errores <span class="math inline">\(e_1, e_2, \ldots, e_n\)</span> son independientes, entonces <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> también son independientes.</p>
@@ -602,6 +606,9 @@ Derivando parcialmente con respecto a <span class="math inline">\(\beta_0\)</spa
 <div id="refs" class="references">
 <div id="ref-neter2005">
 <p>Kutner, M., C. Nachtsheim, J. Neter, and W. Li. 2005. <em>Applied Linear Statistical Models</em>. Fifth. McGraw Hill/Irwin.</p>
+</div>
+<div id="ref-mpv06">
+<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
 </div>
 </div>
             </section>

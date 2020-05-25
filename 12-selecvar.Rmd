@@ -207,7 +207,7 @@ addterm(mod1, scope=maximo)
 De la salida anterior se ve que ingresar `x1` mejoraría el modelo porque lo llevaría de un $AIC=79.974$ a uno con $AIC=73.319$.
 
 ## Paquete **olsrr** {-}
-El paquete **olsrr** [@R-olsrr] contiene varias funciones útiles para modelación, en particular se destaca la función `ols_step_all_possible` que se puede utilizar para obtener todas las regresiones posibles.
+El paquete **olsrr** creado por @R-olsrr contiene varias funciones útiles para modelación, en particular se destaca la función `ols_step_all_possible` que se puede utilizar para obtener todas las regresiones posibles.
 
 Si un modelo tiene inicialmente $k$ variables cuantitativas entonces se pueden construir $2^k$ modelos diferentes con subconjuntos de las variables originales. A continuación un ejemplo de cómo crece el número de todas las regresiones posibles en función del número $k$ de covariables.
 
@@ -243,7 +243,7 @@ plot(res)
 Se le recomienda al lector explorar las viñetas del paquete [olsrr](https://cran.r-project.org/web/packages/olsrr/index.html) para conocer todas las bondades del paquete.
 
 ## Paquete **mixlm** {-}
-El paquete **mixlm** [@R-mixlm] contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son `forward`, `backward`, `stepWise`.
+El paquete **mixlm** creado por @R-mixlm contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son `forward`, `backward`, `stepWise`.
 
 ```{block2, type='rmdwarning'}
 Este paquete contiene otras funciones `lm` y `glm` que se pueden confundir con las funciones `lm` y `glm` del paquete **stats**. Por esta razón el usuario debe tener cuidado de usar la apropiada, en estos casos se recomienda usar `stats::lm(y ~ x)` o `mixlm::lm(y ~ x)` para obligar a R a que use la que el usuario desea.
@@ -267,7 +267,7 @@ backward(modelo, alpha=0.04)
 De la salida anterior vemos que el modelo final es `y ~ x8 + x10`. Si comparamos este modelo con el obtenido al usar la función `stepAIC`, vemos que se eliminó la variable `x5` ya que su valor-P era 5.02%, superior al límite definido aquí del 4%.
 
 ## Paquete **leaps** {-}
-El paquete **leaps** [@R-leaps] creado por [Thomas Lumley](https://www.stat.auckland.ac.nz/people/tlum005) está basado en [Fortran](https://es.wikipedia.org/wiki/Fortran) y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.
+El paquete **leaps** creado por @R-leaps está basado en [Fortran](https://es.wikipedia.org/wiki/Fortran) y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.
 
 La función `regsubsets` realiza una búsqueda exhaustiva de los mejores subconjuntos de variables $x$ para explicar $y$. La búsqueda utiliza un algoritmo eficiente de ramificación y unión.
 
@@ -346,9 +346,8 @@ which(summary(model_subset)$bic == min(summary(model_subset)$bic))
 ```
 
 Para determinar la estructura del <span style="color:orange">modelo 3</span> identificado en la salida anterior usamos:
+
 ```{r}
 summary(model_subset)$which[3, ]
 ```
-
-
 

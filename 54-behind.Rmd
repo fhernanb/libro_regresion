@@ -20,7 +20,7 @@ lm.wfit(x, y, w, offset = NULL, method = "qr", tol = 1e-7,
 lsfit(x, y, wt = NULL, intercept = TRUE, tolerance = 1e-07, yname = NULL)
 ```
 
-De todas las anteriores funciones la más conocida y usada es `lm`. Lo invito a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.
+De todas las anteriores funciones la más conocida y usada es `lm`. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.
 
 ## Modelos de regresión con grandes conjuntos de datos {-}
 En ocasiones tenemos grandes bases de datos y cuando queremos ajustar un modelo de regresión se nos pueden presentar problemas porque saturamos la memoria de nuestro computador.
@@ -28,9 +28,7 @@ En ocasiones tenemos grandes bases de datos y cuando queremos ajustar un modelo 
 En [este enlace](https://statr.me/2011/10/large-regression/) usted podrá encontrar una publicación de Yixuan Qiu en el 2011 quien explica qué hacer para abordar este tipo de situaciones.
 
 ## Fast `lm` in R {-}
-Martin Maechler en 2015 escribió una publicación en [Rpubs](https://rpubs.com/maechler/fast_lm) en la cual compara el tiempo que tardan las funciones `lm`, `lsfit` y `.lm.fit` para ajustar un modelo de regresión. Martin Maechler creó 5 funciones basadas en `lm`, `lsfit` y `.lm.fit` para obtener los parámetros de un modelo.
-
-Abajo una figura con los resultados de la comparación de tiempos.
+Martin Maechler en 2015 escribió una publicación en [Rpubs](https://rpubs.com/maechler/fast_lm) en la cual compara el tiempo que tardan las funciones `lm`, `lsfit` y `.lm.fit` para ajustar un modelo de regresión. Martin Maechler creó 5 funciones basadas en `lm`, `lsfit` y `.lm.fit` para obtener los parámetros de un modelo y luego comparó los tiempos de procesamiento. Abajo una figura con los resultados de la comparación de tiempos.
 
 <p align="center">
   <img src="images/comparing_lm_fits.png" width="500">
