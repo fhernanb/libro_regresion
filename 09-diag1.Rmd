@@ -33,6 +33,42 @@ rstudent(model)
 
 Si un modelo lineal está correctamente especificado (ajustado), los residuos de Pearson serán independientes de los valores ajustados e independientes de los predictores, y estos gráficos deben ser "gráficos nulos", es decir, gráficos sin características sistemáticas, en el sentido de que la distribución condicional de los residuos (en el eje vertical del gráfico) no debe cambiar con los valores ajustados o con un predictor (en el eje horizontal) [@fox2019].
 
+## Ejemplo {-}
+Considere los datos mostrados abajo, ajuste un modelo de regresión lineal para explicar la media de $y$ en función de $x$ y usando como pesos los valores de $w$. Obtenga los residuales usando las definiciones y luego usando las funciones de R, compruebe que los resultados coinciden.
+
+```{r}
+x <- c(4, 6, 8, 7, 8, 5)
+y <- c(1, 2, 3, 4, 5, 4)
+w <- c(0.1, 0.1, 0.2, 0.1, 0.2, 0.9)
+```
+
+__Solución__
+
+Primero se van a calcular los residuales manualmente aplicando las definiciones.
+
+```{r}
+mod <- lm(y ~ x, weights=w)
+
+ei <- y - fitted(mod)
+pi <- ei * sqrt(mod$weights)
+hii <- lm.influence(mod)$hat
+di <- ei * sqrt(mod$weights) / sqrt(summary(mod)$sigma^2 * (1-hii))
+ri <- ei * sqrt(mod$weights) / sqrt(lm.influence(mod)$sigma^2 * (1-hii))
+
+cbind(ei=ei, pi=pi, di=di, ri=ri)
+```
+
+Ahora se van a calcular los residuales usando las funciones de R.
+
+```{r}
+cbind(ei=residuals(mod, type='working'),
+      pi=residuals(mod, type='pearson'),
+      di=rstandard(mod),
+      ri=rstudent(mod))
+```
+
+Estimado lector, __¿qué puede usted concluir de los resultados de este ejemplo?__
+
 ## Supuestos {-}
 Los supuestos en un modelo de regresión se pueden escribir de dos formas:
 
