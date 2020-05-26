@@ -19,7 +19,7 @@ A continuación se muestran los diferentes tipos de residuales que se pueden def
 
 La cantidad $w_i$ corresponde al peso o importancia de cada observación en el modelo, por defecto es $w_i=1$. 
 
-La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top$. 
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top$. 
 
 La varianza $\hat{\sigma}_{(i)}^{2}$ es la varianza estimada al __NO__ tener en cuenta la observación $i$-ésima. La cantidad $\hat{y}_{(i)}$ es la estimación de la $i$-ésima observación usando un modelo en el cual la observación $i$-ésima __NO__ fue usada en el ajuste del modelo.
 

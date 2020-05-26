@@ -5,7 +5,7 @@ En este capítulo se presentan otras herramientas útiles para realizar diagnós
 La matriz sombrero o matriz Hat se define así:
 
 $$
-\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}\boldsymbol{X}^\top)^{-1}\boldsymbol{X}^\top
+\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top
 $$
 
 Esta matriz contiene en su diagonal las distancias relativas desde el centroide de los datos hasta cada uno de los puntos. En la siguiente figura se ilustra el concepto de distancia relativa entre el centroide (color rojo) de las variables explicativas y cada uno de los puntos para un caso con tres variables explicativas $x_1$, $x_2$ y $x_3$.
