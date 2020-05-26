@@ -259,3 +259,70 @@ Una observación influyente NO es una observación mala en el modelo. Al contrar
 Una observación que no es influyente es una observación que estando presente o no, el modelo ajustado no se ve afectado.
 ```
 
+## DFFITS {-}
+Se puede investigar la influencia de eliminar la $i$-ésima observación sobre el valor predicho o ajustado.
+
+$$
+DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\sqrt{s_{(i)}^2 h_{ii}}}.
+$$
+
+Se sugiere que merece investigarse toda observación con $|DFFITS| > 2 \sqrt{p/n}$.
+
+La función en R para obtener los $DFFITS_i$ es `dffits`.
+
+## DFBETAS {-}
+Indica cuánto cambia el coeficiente de regresión, en unidades de desviación estándar, si se omitiera la 𝑖-ésima observación.
+
+$$
+DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}},
+$$
+
+donde $C_{jj}$ es $j$-ésimo elemento de la diagonal de $(\boldsymbol{X}^\top \boldsymbol{X})^{-1}$. Se sugiere que merece investigarse toda observación con $|DFBETAS| > 2 \sqrt{n}$.
+
+La función en R para obtener los $DFBETAS_{i,j}$ es `dfbetas`.
+
+### Ejemplo {-}
+En R se pueden encontrar las funciones `dfbeta` y `dfbetas`, esto puede generar alguna confusión y por esa razón vamos a explicar con detalle el asunto.
+
+__Solución__
+
+Vamos a crear unos datos para el ejemplo.
+
+```{r}
+# Creando unos datos de ejemplo
+datos <- data.frame(x=1:5, y=rnorm(5))
+mod <- lm(y ~ x, data=datos)
+```
+
+```{r}
+dfbeta(mod)
+```
+
+```{r}
+dfbetas(mod)
+```
+
+```{r}
+# DFBETAS para la pendiente manual para i=1
+mod1 <- lm(y ~ x, data=datos[-1, ])
+
+# Para obtener dfbeta de pendiente para i=1
+coef(mod)[2] - coef(mod1)[2]
+```
+
+```{r}
+# Para obtener dfbetas de pendiente para i=1
+numerator <- mod$coef[2] - mod1$coef[2]
+denominator <- sqrt(summary(mod1)$sigma^2 * 
+	         diag(summary(mod)$cov.unscaled)[2])
+DFBETAS <- numerator/denominator
+DFBETAS
+```
+
+En conclusión,
+
+1. La función `dfbeta` entrega $\hat{\beta}_j - \hat{\beta}_{j(i)}$.
+2. La función `dfbetas` entrega $\frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}}$.
+
+¿Cuál de las dos funciones se debe usar?
+
