@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-26" />
+<meta name="date" content="2020-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,12 +51,19 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -65,14 +72,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +90,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -304,7 +313,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>13</b> Algebra matricial con R</a><ul>
+<li class="chapter" data-level="13" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>13</b> Feature selection</a><ul>
+<li class="chapter" data-level="" data-path="feature-selec.html"><a href="feature-selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>14</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -314,20 +326,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>14</b> Notación de Wilkinson y Rogers</a><ul>
+<li class="chapter" data-level="15" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>15</b> Notación de Wilkinson y Rogers</a><ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>15</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="16" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>16</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
 <li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>16</b> Otros aspectos importantes</a><ul>
+<li class="chapter" data-level="17" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>17</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>17</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="18" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>18</b> Pasos para construir modelos</a><ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
@@ -395,29 +407,29 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <div id="ejemplo-26" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Calcular los valores <span class="math inline">\(h_{ii}\)</span> para un modelo de regresión <code>y ~ x + z</code> con los siguientes datos.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="diag2.html#cb165-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb165-2"><a href="diag2.html#cb165-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb165-3"><a href="diag2.html#cb165-3"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>A seguir se muestran las tres formas para obtener los valores <span class="math inline">\(h_{ii}\)</span>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Forma 1</span></a>
-<a class="sourceLine" id="cb2-2" title="2">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</a>
-<a class="sourceLine" id="cb2-3" title="3">H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</a>
-<a class="sourceLine" id="cb2-4" title="4">H</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="diag2.html#cb166-1"></a><span class="co"># Forma 1</span></span>
+<span id="cb166-2"><a href="diag2.html#cb166-2"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</span>
+<span id="cb166-3"><a href="diag2.html#cb166-3"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb166-4"><a href="diag2.html#cb166-4"></a>H</span></code></pre></div>
 <pre><code>##               [,1]          [,2]          [,3]       [,4]
 ## [1,]  8.333333e-01  3.333333e-01 -3.552714e-15 -0.1666667
 ## [2,]  3.333333e-01  3.333333e-01 -9.992007e-16  0.3333333
 ## [3,] -2.664535e-15 -1.110223e-15  1.000000e+00  0.0000000
 ## [4,] -1.666667e-01  3.333333e-01 -1.332268e-15  0.8333333</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">diag</span>(H)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="diag2.html#cb168-1"></a><span class="kw">diag</span>(H)</span></code></pre></div>
 <pre><code>## [1] 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># Forma 2</span></a>
-<a class="sourceLine" id="cb6-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="kw">hatvalues</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diag2.html#cb170-1"></a><span class="co"># Forma 2</span></span>
+<span id="cb170-2"><a href="diag2.html#cb170-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</span>
+<span id="cb170-3"><a href="diag2.html#cb170-3"></a><span class="kw">hatvalues</span>(mod)</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Forma 3</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diag2.html#cb172-1"></a><span class="co"># Forma 3</span></span>
+<span id="cb172-2"><a href="diag2.html#cb172-2"></a><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
 </div>
@@ -464,9 +476,9 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <p>El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posible estudiantes influyentes y el efecto de ellos en el modelos.</p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es cargar los datos en nuestra sesión de R.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></a>
-<a class="sourceLine" id="cb10-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>url, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="kw">head</span>(datos, <span class="dt">n=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="diag2.html#cb174-1"></a>url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
+<span id="cb174-2"><a href="diag2.html#cb174-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>url, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
+<span id="cb174-3"><a href="diag2.html#cb174-3"></a><span class="kw">head</span>(datos, <span class="dt">n=</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##   Peso Sexo Estatura circun_cuello circun_muneca
 ## 1 47.6    F     1.57          29.5          13.9
 ## 2 68.1    M     1.66          38.4          16.0
@@ -474,25 +486,25 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## 4 80.0    M     1.76          38.0          17.1
 ## 5 68.1    M     1.83          38.0          17.1</code></pre>
 <p>Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con <code>pairs</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">panel.cor &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, <span class="dt">digits=</span><span class="dv">2</span>, <span class="dt">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</a>
-<a class="sourceLine" id="cb12-2" title="2">  usr &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="kw">on.exit</span>(<span class="kw">par</span>(usr))</a>
-<a class="sourceLine" id="cb12-3" title="3">  <span class="kw">par</span>(<span class="dt">usr=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb12-4" title="4">  r &lt;-<span class="st"> </span><span class="kw">cor</span>(x, y)</a>
-<a class="sourceLine" id="cb12-5" title="5">  txt &lt;-<span class="st"> </span><span class="kw">format</span>(<span class="kw">c</span>(r, <span class="fl">0.123456789</span>), <span class="dt">digits=</span>digits)[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb12-6" title="6">  txt &lt;-<span class="st"> </span><span class="kw">paste</span>(prefix, txt, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb12-7" title="7">  <span class="cf">if</span>(<span class="kw">missing</span>(cex.cor)) cex.cor &lt;-<span class="st"> </span><span class="fl">0.8</span><span class="op">/</span><span class="kw">strwidth</span>(txt)</a>
-<a class="sourceLine" id="cb12-8" title="8">  <span class="kw">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="dt">cex=</span>cex.cor <span class="op">*</span><span class="st"> </span>r, <span class="dt">col=</span><span class="kw">gray</span>(<span class="dv">1</span><span class="op">-</span>r))</a>
-<a class="sourceLine" id="cb12-9" title="9">}</a>
-<a class="sourceLine" id="cb12-10" title="10"></a>
-<a class="sourceLine" id="cb12-11" title="11"><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="kw">pairs</span>(datos[, <span class="kw">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </a>
-<a class="sourceLine" id="cb12-13" title="13">      <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb12-14" title="14">      <span class="dt">upper.panel=</span>panel.smooth, <span class="dt">lower.panel=</span>panel.cor)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag2.html#cb176-1"></a>panel.cor &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, <span class="dt">digits=</span><span class="dv">2</span>, <span class="dt">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
+<span id="cb176-2"><a href="diag2.html#cb176-2"></a>  usr &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="kw">on.exit</span>(<span class="kw">par</span>(usr))</span>
+<span id="cb176-3"><a href="diag2.html#cb176-3"></a>  <span class="kw">par</span>(<span class="dt">usr=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb176-4"><a href="diag2.html#cb176-4"></a>  r &lt;-<span class="st"> </span><span class="kw">cor</span>(x, y)</span>
+<span id="cb176-5"><a href="diag2.html#cb176-5"></a>  txt &lt;-<span class="st"> </span><span class="kw">format</span>(<span class="kw">c</span>(r, <span class="fl">0.123456789</span>), <span class="dt">digits=</span>digits)[<span class="dv">1</span>]</span>
+<span id="cb176-6"><a href="diag2.html#cb176-6"></a>  txt &lt;-<span class="st"> </span><span class="kw">paste</span>(prefix, txt, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb176-7"><a href="diag2.html#cb176-7"></a>  <span class="cf">if</span>(<span class="kw">missing</span>(cex.cor)) cex.cor &lt;-<span class="st"> </span><span class="fl">0.8</span><span class="op">/</span><span class="kw">strwidth</span>(txt)</span>
+<span id="cb176-8"><a href="diag2.html#cb176-8"></a>  <span class="kw">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="dt">cex=</span>cex.cor <span class="op">*</span><span class="st"> </span>r, <span class="dt">col=</span><span class="kw">gray</span>(<span class="dv">1</span><span class="op">-</span>r))</span>
+<span id="cb176-9"><a href="diag2.html#cb176-9"></a>}</span>
+<span id="cb176-10"><a href="diag2.html#cb176-10"></a></span>
+<span id="cb176-11"><a href="diag2.html#cb176-11"></a><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></span>
+<span id="cb176-12"><a href="diag2.html#cb176-12"></a><span class="kw">pairs</span>(datos[, <span class="kw">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </span>
+<span id="cb176-13"><a href="diag2.html#cb176-13"></a>      <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb176-14"><a href="diag2.html#cb176-14"></a>      <span class="dt">upper.panel=</span>panel.smooth, <span class="dt">lower.panel=</span>panel.cor)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.</p>
 <p>Vamos ahora a ajustar nuestro primer modelo.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Peso <span class="op">~</span><span class="st"> </span>Estatura <span class="op">+</span><span class="st"> </span>circun_cuello <span class="op">+</span><span class="st"> </span>circun_muneca, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw">summary</span>(mod1)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag2.html#cb177-1"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Peso <span class="op">~</span><span class="st"> </span>Estatura <span class="op">+</span><span class="st"> </span>circun_cuello <span class="op">+</span><span class="st"> </span>circun_muneca, <span class="dt">data=</span>datos)</span>
+<span id="cb177-2"><a href="diag2.html#cb177-2"></a><span class="kw">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ Estatura + circun_cuello + circun_muneca, 
@@ -515,16 +527,16 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## Multiple R-squared:  0.7582, Adjusted R-squared:  0.7252 
 ## F-statistic: 22.99 on 3 and 22 DF,  p-value: 5.637e-07</code></pre>
 <p>Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete <strong>mixlm</strong> creado por <span class="citation">Liland (<a href="#ref-R-mixlm" role="doc-biblioref">2019</a>)</span>. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un <span class="math inline">\(\alpha=0.04\)</span>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">mod2 &lt;-<span class="st"> </span>mixlm<span class="op">::</span><span class="kw">backward</span>(mod1, <span class="dt">alpha=</span><span class="fl">0.04</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag2.html#cb179-1"></a>mod2 &lt;-<span class="st"> </span>mixlm<span class="op">::</span><span class="kw">backward</span>(mod1, <span class="dt">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
-## &lt;environment: 0x00000000390759c8&gt;
+## &lt;environment: 0x0000000037e01e50&gt;
 ## 
 ##               Step    RSS    AIC  R2pred     Cp F value Pr(&gt;F)
 ## Estatura         1 836.03 96.235 0.64981 2.2221  0.2221 0.6421
 ## circun_muneca    2 886.31 95.753 0.67223 1.5587  1.3833 0.2516</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">summary</span>(mod2)</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="diag2.html#cb181-1"></a><span class="kw">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ circun_cuello, data = datos)
@@ -556,19 +568,19 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <li>La varianza de los errores disminuye, eso significa que el modelo 2 deja menos sin explicar.</li>
 </ul>
 <p>Vamos ahora a crear el diagrama de dispersión con el modelo ajustado.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Para construir el grafico de dispersion</span></a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw">with</span>(datos, </a>
-<a class="sourceLine" id="cb19-3" title="3">     <span class="kw">plot</span>(<span class="dt">x=</span>circun_cuello, <span class="dt">y=</span>Peso, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb19-4" title="4">          <span class="dt">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="co"># Ahora agregamos la linea de tendencia</span></a>
-<a class="sourceLine" id="cb19-6" title="6"><span class="kw">abline</span>(mod2, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&#39;blue2&#39;</span>)</a>
-<a class="sourceLine" id="cb19-7" title="7"><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></a>
-<a class="sourceLine" id="cb19-8" title="8"><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">34</span>, <span class="dt">y=</span><span class="dv">95</span>, <span class="kw">expression</span>(<span class="kw">hat</span>(Peso) <span class="op">==</span><span class="st"> </span><span class="fl">-44.61</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.10</span> <span class="op">*</span><span class="st"> </span>C.cuello), </a>
-<a class="sourceLine" id="cb19-9" title="9">     <span class="dt">col=</span><span class="st">&#39;blue3&#39;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diag2.html#cb183-1"></a><span class="co"># Para construir el grafico de dispersion</span></span>
+<span id="cb183-2"><a href="diag2.html#cb183-2"></a><span class="kw">with</span>(datos, </span>
+<span id="cb183-3"><a href="diag2.html#cb183-3"></a>     <span class="kw">plot</span>(<span class="dt">x=</span>circun_cuello, <span class="dt">y=</span>Peso, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb183-4"><a href="diag2.html#cb183-4"></a>          <span class="dt">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</span>
+<span id="cb183-5"><a href="diag2.html#cb183-5"></a><span class="co"># Ahora agregamos la linea de tendencia</span></span>
+<span id="cb183-6"><a href="diag2.html#cb183-6"></a><span class="kw">abline</span>(mod2, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&#39;blue2&#39;</span>)</span>
+<span id="cb183-7"><a href="diag2.html#cb183-7"></a><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></span>
+<span id="cb183-8"><a href="diag2.html#cb183-8"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">34</span>, <span class="dt">y=</span><span class="dv">95</span>, <span class="kw">expression</span>(<span class="kw">hat</span>(Peso) <span class="op">==</span><span class="st"> </span><span class="fl">-44.61</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.10</span> <span class="op">*</span><span class="st"> </span>C.cuello), </span>
+<span id="cb183-9"><a href="diag2.html#cb183-9"></a>     <span class="dt">col=</span><span class="st">&#39;blue3&#39;</span> )</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_02-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior vemos que hay un estudiante (el de 100 kilos de peso) que está muy alejado de la recta de regresión.</p>
 <p>Vamos a calcular las distancia de Cook para las observaciones del modelo 2 así:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">cooks.distance</span>(mod2)</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag2.html#cb184-1"></a><span class="kw">cooks.distance</span>(mod2)</span></code></pre></div>
 <pre><code>##            1            2            3            4            5            6 
 ## 2.597726e-03 3.718175e-02 1.437645e-04 3.872482e-02 2.098520e-02 2.691879e-03 
 ##            7            8            9           10           11           12 
@@ -580,14 +592,14 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ##           25           26 
 ## 3.585844e-03 1.457791e-06</code></pre>
 <p>Es mejor representar las distancias de Cook en forma gráfica para identificar los posible puntos influyentes así:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">cutoff &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">26-2-2</span>)</a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="kw">plot</span>(mod2, <span class="dt">which=</span><span class="dv">4</span>, <span class="dt">cook.levels=</span>cutoff, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="kw">abline</span>(<span class="dt">h=</span>cutoff, <span class="dt">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">col=</span><span class="st">&quot;springgreen3&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag2.html#cb186-1"></a>cutoff &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">26-2-2</span>)</span>
+<span id="cb186-2"><a href="diag2.html#cb186-2"></a><span class="kw">plot</span>(mod2, <span class="dt">which=</span><span class="dv">4</span>, <span class="dt">cook.levels=</span>cutoff, <span class="dt">las=</span><span class="dv">1</span>)</span>
+<span id="cb186-3"><a href="diag2.html#cb186-3"></a><span class="kw">abline</span>(<span class="dt">h=</span>cutoff, <span class="dt">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">col=</span><span class="st">&quot;springgreen3&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_03-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De esta figura es claro que las observaciones 11 y 8 tienen <span class="math inline">\(D_i\)</span> por encima de la cota y se consideran observaciones influyentes.</p>
 <p>Ahora vamos a revisar los residuales del modelo 2.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="kw">plot</span>(mod2, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="diag2.html#cb187-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb187-2"><a href="diag2.html#cb187-2"></a><span class="kw">plot</span>(mod2, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_04-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la anterior figura vemos que las observaciones 8, 11 y 13 fueron identificadas por tener valores de residuales grandes.</p>
 <p>Vamos ahora a identificar las observaciones 8, 11, 12 y 13 en un diagrama de dispersión.</p>
@@ -637,38 +649,38 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 <p>En R se pueden encontrar las funciones <code>dfbeta</code> y <code>dfbetas</code>, esto puede generar alguna confusión y por esa razón vamos a explicar con detalle el asunto.</p>
 <p><strong>Solución</strong></p>
 <p>Vamos a crear unos datos para el ejemplo.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># Creando unos datos de ejemplo</span></a>
-<a class="sourceLine" id="cb24-2" title="2">datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y=</span><span class="kw">rnorm</span>(<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb24-3" title="3">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">dfbeta</span>(mod)</a></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag2.html#cb188-1"></a><span class="co"># Creando unos datos de ejemplo</span></span>
+<span id="cb188-2"><a href="diag2.html#cb188-2"></a>datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y=</span><span class="kw">rnorm</span>(<span class="dv">5</span>))</span>
+<span id="cb188-3"><a href="diag2.html#cb188-3"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="diag2.html#cb189-1"></a><span class="kw">dfbeta</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)             x
-## 1  -1.3221238  3.305310e-01
-## 2   0.5540403 -1.108081e-01
-## 3   0.1565594  2.748269e-17
-## 4   0.1335995 -1.335995e-01
-## 5  -0.1943646  9.718231e-02</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">dfbetas</span>(mod)</a></code></pre></div>
+## 1 -0.54763434  1.369086e-01
+## 2 -0.31052751  6.210550e-02
+## 3  0.25589773  4.492072e-17
+## 4 -0.05032892  5.032892e-02
+## 5  0.66733764 -3.336688e-01</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag2.html#cb191-1"></a><span class="kw">dfbetas</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)             x
-## 1  -1.5941063  1.321763e+00
-## 2   0.6133199 -4.068304e-01
-## 3   0.1550826  9.029002e-17
-## 4   0.1722504 -5.712900e-01
-## 5  -0.1747695  2.898225e-01</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># DFBETAS para la pendiente manual para i=1</span></a>
-<a class="sourceLine" id="cb29-2" title="2">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos[<span class="op">-</span><span class="dv">1</span>, ])</a>
-<a class="sourceLine" id="cb29-3" title="3"></a>
-<a class="sourceLine" id="cb29-4" title="4"><span class="co"># Para obtener dfbeta de pendiente para i=1</span></a>
-<a class="sourceLine" id="cb29-5" title="5"><span class="kw">coef</span>(mod)[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]</a></code></pre></div>
-<pre><code>##        x 
-## 0.330531</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># Para obtener dfbetas de pendiente para i=1</span></a>
-<a class="sourceLine" id="cb31-2" title="2">numerator &lt;-<span class="st"> </span>mod<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>mod1<span class="op">$</span>coef[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb31-3" title="3">denominator &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">summary</span>(mod1)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb31-4" title="4"><span class="st">             </span><span class="kw">diag</span>(<span class="kw">summary</span>(mod)<span class="op">$</span>cov.unscaled)[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb31-5" title="5">DFBETAS &lt;-<span class="st"> </span>numerator<span class="op">/</span>denominator</a>
-<a class="sourceLine" id="cb31-6" title="6">DFBETAS</a></code></pre></div>
-<pre><code>##        x 
-## 1.321763</code></pre>
+## 1 -0.56739749  4.704611e-01
+## 2 -0.32987380  2.188135e-01
+## 3  0.45643479  2.657390e-16
+## 4 -0.05198996  1.724312e-01
+## 5  1.02691550 -1.702947e+00</code></pre>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag2.html#cb193-1"></a><span class="co"># DFBETAS para la pendiente manual para i=1</span></span>
+<span id="cb193-2"><a href="diag2.html#cb193-2"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos[<span class="op">-</span><span class="dv">1</span>, ])</span>
+<span id="cb193-3"><a href="diag2.html#cb193-3"></a></span>
+<span id="cb193-4"><a href="diag2.html#cb193-4"></a><span class="co"># Para obtener dfbeta de pendiente para i=1</span></span>
+<span id="cb193-5"><a href="diag2.html#cb193-5"></a><span class="kw">coef</span>(mod)[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>##         x 
+## 0.1369086</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag2.html#cb195-1"></a><span class="co"># Para obtener dfbetas de pendiente para i=1</span></span>
+<span id="cb195-2"><a href="diag2.html#cb195-2"></a>numerator &lt;-<span class="st"> </span>mod<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>mod1<span class="op">$</span>coef[<span class="dv">2</span>]</span>
+<span id="cb195-3"><a href="diag2.html#cb195-3"></a>denominator &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">summary</span>(mod1)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span></span>
+<span id="cb195-4"><a href="diag2.html#cb195-4"></a><span class="st">             </span><span class="kw">diag</span>(<span class="kw">summary</span>(mod)<span class="op">$</span>cov.unscaled)[<span class="dv">2</span>])</span>
+<span id="cb195-5"><a href="diag2.html#cb195-5"></a>DFBETAS &lt;-<span class="st"> </span>numerator<span class="op">/</span>denominator</span>
+<span id="cb195-6"><a href="diag2.html#cb195-6"></a>DFBETAS</span></code></pre></div>
+<pre><code>##         x 
+## 0.4704611</code></pre>
 <p>En conclusión,</p>
 <ol style="list-style-type: decimal">
 <li>La función <code>dfbeta</code> entrega <span class="math inline">\(\hat{\beta}_j - \hat{\beta}_{j(i)}\)</span>.</li>

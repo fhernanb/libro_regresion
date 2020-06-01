@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-05-25" />
+<meta name="date" content="2020-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -61,9 +61,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -72,14 +72,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -88,9 +90,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -262,24 +264,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-cómo-se-relaciona-el-peso-corporal-con-la-circunferencia-de-la-muñeca-cuello-y-estatura"><i class="fa fa-check"></i>Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura?</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>11</b> Modelos polinomiales</a><ul>
 <li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
+<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
+<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
 <li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
@@ -288,49 +294,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
 <li><a href="selec.html#función-stepaic">Función <code>stepAIC</code></a><ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li><a href="selec.html#aplicación-del-método-backward">Aplicación del método <strong>backward</strong></a></li>
 <li><a href="selec.html#aplicación-del-método-forward">Aplicación del método <strong>forward</strong></a></li>
 <li><a href="selec.html#aplicación-del-método-both">Aplicación del método <strong>both</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
 </ul></li>
 <li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
+<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>13</b> Algebra matricial con R</a><ul>
+</ul></li>
+<li class="chapter" data-level="13" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>13</b> Feature selection</a><ul>
+<li class="chapter" data-level="" data-path="feature-selec.html"><a href="feature-selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>14</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>14</b> Notación de Wilkinson y Rogers</a><ul>
+<li class="chapter" data-level="15" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>15</b> Notación de Wilkinson y Rogers</a><ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>15</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="16" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>16</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>16</b> Otros aspectos importantes</a><ul>
+<li class="chapter" data-level="17" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>17</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>17</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="18" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>18</b> Pasos para construir modelos</a><ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
@@ -390,37 +399,37 @@ x_i &amp;\sim U(-5, 6) \\
 <p><strong>Solución</strong></p>
 <p>Todo modelo en lenguaje simbólico se lee de arriba hacia abajo <span class="math inline">\(\Downarrow\)</span> pero al escribirlo en R se hace de abajo hacia arriba <span class="math inline">\(\Uparrow\)</span>.</p>
 <p>A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb56-2" title="2">  varianza &lt;-<span class="st"> </span><span class="dv">16</span></a>
-<a class="sourceLine" id="cb56-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb56-4" title="4">  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb56-5" title="5">  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</a>
-<a class="sourceLine" id="cb56-6" title="6">  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</a>
-<a class="sourceLine" id="cb56-7" title="7">  <span class="kw">return</span>(marco_datos)</a>
-<a class="sourceLine" id="cb56-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simul.html#cb56-1"></a>gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
+<span id="cb56-2"><a href="simul.html#cb56-2"></a>  varianza &lt;-<span class="st"> </span><span class="dv">16</span></span>
+<span id="cb56-3"><a href="simul.html#cb56-3"></a>  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</span>
+<span id="cb56-4"><a href="simul.html#cb56-4"></a>  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb56-5"><a href="simul.html#cb56-5"></a>  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</span>
+<span id="cb56-6"><a href="simul.html#cb56-6"></a>  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</span>
+<span id="cb56-7"><a href="simul.html#cb56-7"></a>  <span class="kw">return</span>(marco_datos)</span>
+<span id="cb56-8"><a href="simul.html#cb56-8"></a>}</span></code></pre></div>
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb57-2" title="2">datos</a></code></pre></div>
-<pre><code>##           y         x
-## 1 -10.71121  3.089524
-## 2 -20.85293  3.810226
-## 3 -34.65086  5.689334
-## 4 -28.97416  4.955969
-## 5  18.05052 -2.178896</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simul.html#cb57-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</span>
+<span id="cb57-2"><a href="simul.html#cb57-2"></a>datos</span></code></pre></div>
+<pre><code>##            y          x
+## 1 -12.830470  1.3162147
+## 2 -30.909246  5.0799661
+## 3   8.874352 -0.4944105
+## 4 -32.816858  5.7618289
+## 5  26.272134 -2.7048802</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</a>
-<a class="sourceLine" id="cb59-2" title="2"></a>
-<a class="sourceLine" id="cb59-3" title="3"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="kw">ggplot</span>(datos, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb59-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simul.html#cb59-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</span>
+<span id="cb59-2"><a href="simul.html#cb59-2"></a></span>
+<span id="cb59-3"><a href="simul.html#cb59-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb59-4"><a href="simul.html#cb59-4"></a><span class="kw">ggplot</span>(datos, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb59-5"><a href="simul.html#cb59-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/simul01-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a <span class="math inline">\(\beta_1=-6\)</span>; la nube tiene la misma dispersión y eso de debe a que <span class="math inline">\(\sigma\)</span> es constante e igual a 4.</p>
 <p>Para estimar <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb60-2" title="2">theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</a>
-<a class="sourceLine" id="cb60-3" title="3">theta_hat</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</span>
+<span id="cb60-2"><a href="simul.html#cb60-2"></a>theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</span>
+<span id="cb60-3"><a href="simul.html#cb60-3"></a>theta_hat</span></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    4.332068   -6.016665    3.885762</code></pre>
+##    3.873418   -5.876268    4.105762</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
@@ -433,14 +442,14 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
 <div id="función-simulate" class="section level2 unnumbered">
 <h2>Función <code>simulate</code></h2>
 <p>La función <code>simulate</code> del paquete básico <strong>stats</strong> permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">simulate</span>(object, <span class="dt">nsim =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="ot">NULL</span>, ...)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="simul.html#cb62-1"></a><span class="kw">simulate</span>(object, <span class="dt">nsim =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="ot">NULL</span>, ...)</span></code></pre></div>
 <div id="ejemplo-7" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Use las 5 primeras observaciones base de datos <code>cars</code> y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.</p>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">datos &lt;-<span class="st"> </span>cars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</a>
-<a class="sourceLine" id="cb63-2" title="2">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>datos)</a>
-<a class="sourceLine" id="cb63-3" title="3"><span class="kw">simulate</span>(<span class="dt">object=</span>mod, <span class="dt">nsim=</span><span class="dv">1</span>, <span class="dt">seed=</span><span class="dv">1234</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simul.html#cb63-1"></a>datos &lt;-<span class="st"> </span>cars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</span>
+<span id="cb63-2"><a href="simul.html#cb63-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>datos)</span>
+<span id="cb63-3"><a href="simul.html#cb63-3"></a><span class="kw">simulate</span>(<span class="dt">object=</span>mod, <span class="dt">nsim=</span><span class="dv">1</span>, <span class="dt">seed=</span><span class="dv">1234</span>)</span></code></pre></div>
 <pre><code>##       sim_1
 ## 1 -3.769550
 ## 2  8.175135
