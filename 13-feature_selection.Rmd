@@ -1,0 +1,16 @@
+# Feature selection {#feature_selec}
+En este capítulo se muestra otra forma de seleccionar variables en la construcción de modelos.
+
+<p align="center">
+  <img src="images/feature_selection.jpg" width="300">
+</p>
+
+## Feature Selection with the Caret R Package {-}
+En este [enlace](https://machinelearningmastery.com/feature-selection-with-the-caret-r-package/) Jason Brownlee presenta un publicación muy interesante de como realizar feature selection por medio del paquete caret. En particular Jason muestra tres formas de seleccionar variables y son:
+
+1. Usando correlaciones.
+2. Organizando las variables por importancia en el modelo.
+3. Feature selection.
+
+Recomiendo al lector que visite el enlace, vea los ejemplos de Jason y que replique los ejemplos de su publicación.
+
