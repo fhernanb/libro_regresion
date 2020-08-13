@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-06-01" />
+<meta name="date" content="2020-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -370,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="función-confint" class="section level2 unnumbered">
 <h2>Función <code>confint</code></h2>
 <p>La función <code>confint</code> de R se usa para obtener intevalos de confianza de los parámetros de un modelo de regresión lineal, la estructura de esta función se muestra a continuación.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="ic.html#cb65-1"></a><span class="kw">confint</span>(object, parm, <span class="dt">level =</span> <span class="fl">0.95</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="ic.html#cb66-1"></a><span class="kw">confint</span>(object, parm, <span class="dt">level =</span> <span class="fl">0.95</span>, ...)</span></code></pre></div>
 <p>A continuación se presenta una corta descripción de los parámetros de la función.</p>
 <ul>
 <li><code>object</code>: es un objeto con el modelo ajustado.</li>
@@ -382,11 +382,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Como ilustración vamos a usar los datos del ejemplo mostrado en el capítulo <a href="rls.html#rls">1</a>. En ese ejemplo se ajustó un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma. El objetivo es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>A continuación el código para cargar los datos y ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="ic.html#cb66-1"></a>file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb66-2"><a href="ic.html#cb66-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
-<span id="cb66-3"><a href="ic.html#cb66-3"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ic.html#cb67-1"></a>file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb67-2"><a href="ic.html#cb67-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
+<span id="cb67-3"><a href="ic.html#cb67-3"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</span></code></pre></div>
 <p>El objetivo ahora es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>. La instrucción para obtener el intervalo de confianza se muestra a continuación.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ic.html#cb67-1"></a><span class="kw">confint</span>(<span class="dt">object=</span>mod1, <span class="dt">parm=</span><span class="st">&quot;Edad&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="ic.html#cb68-1"></a><span class="kw">confint</span>(<span class="dt">object=</span>mod1, <span class="dt">parm=</span><span class="st">&quot;Edad&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##          2.5 %   97.5 %
 ## Edad -43.22338 -31.0838</code></pre>
 </div>
@@ -394,15 +394,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="función-confint_sigma2" class="section level2 unnumbered">
 <h2>Función <code>confint_sigma2</code></h2>
 <p>La función <code>confint_sigma2</code> pertenece al paquete <strong>model</strong> y sirve para obtener un intervalo de confianza para el parámetro <span class="math inline">\(\sigma^2\)</span>. El paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span> está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ic.html#cb69-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
-<span id="cb69-2"><a href="ic.html#cb69-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ic.html#cb70-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb70-2"><a href="ic.html#cb70-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <div id="ejemplo-9" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Considere el ejemplo anterior pero ahora el interés es obtener un intervalo de confinaza del 95% para <span class="math inline">\(\sigma^2\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>Si deseamos construir un intervalo de confianza del 95% para <span class="math inline">\(\sigma^2\)</span> del ejemplo anterior se debe escribir el siguiente código.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ic.html#cb70-1"></a><span class="kw">library</span>(model)</span>
-<span id="cb70-2"><a href="ic.html#cb70-2"></a><span class="kw">confint_sigma2</span>(<span class="dt">object=</span>mod1, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="ic.html#cb71-1"></a><span class="kw">library</span>(model)</span>
+<span id="cb71-2"><a href="ic.html#cb71-2"></a><span class="kw">confint_sigma2</span>(<span class="dt">object=</span>mod1, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##           2.5 %   97.5 %
 ## Sigma2 5273.516 20199.24</code></pre>
 

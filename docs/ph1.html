@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-06-01" />
+<meta name="date" content="2020-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -401,10 +401,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
 <span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
 <p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ph1.html#cb94-1"></a>file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb94-2"><a href="ph1.html#cb94-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
-<span id="cb94-3"><a href="ph1.html#cb94-3"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</span>
-<span id="cb94-4"><a href="ph1.html#cb94-4"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="ph1.html#cb95-1"></a>file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb95-2"><a href="ph1.html#cb95-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
+<span id="cb95-3"><a href="ph1.html#cb95-3"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</span>
+<span id="cb95-4"><a href="ph1.html#cb95-4"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
@@ -429,10 +429,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <div id="función-beta_test-cuando-beta_k0-neq-0" class="section level2 unnumbered">
 <h2>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></h2>
 <p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ph1.html#cb96-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
-<span id="cb96-2"><a href="ph1.html#cb96-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ph1.html#cb97-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb97-2"><a href="ph1.html#cb97-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ph1.html#cb97-1"></a><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ph1.html#cb98-1"></a><span class="kw">beta_test</span>(object, <span class="dt">alternative =</span> <span class="kw">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</span></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -452,8 +452,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
 <span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
 <p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ph1.html#cb98-1"></a><span class="kw">library</span>(model)</span>
-<span id="cb98-2"><a href="ph1.html#cb98-2"></a><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="ph1.html#cb99-1"></a><span class="kw">library</span>(model)</span>
+<span id="cb99-2"><a href="ph1.html#cb99-2"></a><span class="kw">beta_test</span>(<span class="dt">object=</span>mod, <span class="dt">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="dt">ref.value=</span><span class="dv">2700</span>, <span class="dt">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</span></code></pre></div>
 <pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
 ## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
 <p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>

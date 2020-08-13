@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-06-01" />
+<meta name="date" content="2020-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -385,7 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="simulando-datos-de-un-modelo-lineal" class="section level2 unnumbered">
 <h2>Simulando datos de un modelo lineal</h2>
-<p>Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en <strong>forma simbólica</strong> el modelo, eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes.</p>
+<p>Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en <strong>forma simbólica</strong> ya que eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes.</p>
 <p>A continuación se muestra un ejemplo de como simular observaciones de un modelo lineal.</p>
 <div id="ejemplo-6" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
@@ -399,37 +399,37 @@ x_i &amp;\sim U(-5, 6) \\
 <p><strong>Solución</strong></p>
 <p>Todo modelo en lenguaje simbólico se lee de arriba hacia abajo <span class="math inline">\(\Downarrow\)</span> pero al escribirlo en R se hace de abajo hacia arriba <span class="math inline">\(\Uparrow\)</span>.</p>
 <p>A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simul.html#cb56-1"></a>gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
-<span id="cb56-2"><a href="simul.html#cb56-2"></a>  varianza &lt;-<span class="st"> </span><span class="dv">16</span></span>
-<span id="cb56-3"><a href="simul.html#cb56-3"></a>  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</span>
-<span id="cb56-4"><a href="simul.html#cb56-4"></a>  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</span>
-<span id="cb56-5"><a href="simul.html#cb56-5"></a>  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</span>
-<span id="cb56-6"><a href="simul.html#cb56-6"></a>  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</span>
-<span id="cb56-7"><a href="simul.html#cb56-7"></a>  <span class="kw">return</span>(marco_datos)</span>
-<span id="cb56-8"><a href="simul.html#cb56-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simul.html#cb57-1"></a>gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
+<span id="cb57-2"><a href="simul.html#cb57-2"></a>  varianza &lt;-<span class="st"> </span><span class="dv">16</span></span>
+<span id="cb57-3"><a href="simul.html#cb57-3"></a>  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">6</span>)</span>
+<span id="cb57-4"><a href="simul.html#cb57-4"></a>  media &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb57-5"><a href="simul.html#cb57-5"></a>  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span>media, <span class="dt">sd=</span><span class="kw">sqrt</span>(varianza))</span>
+<span id="cb57-6"><a href="simul.html#cb57-6"></a>  marco_datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>x)</span>
+<span id="cb57-7"><a href="simul.html#cb57-7"></a>  <span class="kw">return</span>(marco_datos)</span>
+<span id="cb57-8"><a href="simul.html#cb57-8"></a>}</span></code></pre></div>
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simul.html#cb57-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</span>
-<span id="cb57-2"><a href="simul.html#cb57-2"></a>datos</span></code></pre></div>
-<pre><code>##            y          x
-## 1 -12.830470  1.3162147
-## 2 -30.909246  5.0799661
-## 3   8.874352 -0.4944105
-## 4 -32.816858  5.7618289
-## 5  26.272134 -2.7048802</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="simul.html#cb58-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</span>
+<span id="cb58-2"><a href="simul.html#cb58-2"></a>datos</span></code></pre></div>
+<pre><code>##           y           x
+## 1 18.076766 -2.06290780
+## 2  5.774000  0.29651155
+## 3 19.319534 -3.42184829
+## 4 -2.346658 -0.02482461
+## 5 -7.894901  3.13160673</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simul.html#cb59-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</span>
-<span id="cb59-2"><a href="simul.html#cb59-2"></a></span>
-<span id="cb59-3"><a href="simul.html#cb59-3"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb59-4"><a href="simul.html#cb59-4"></a><span class="kw">ggplot</span>(datos, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
-<span id="cb59-5"><a href="simul.html#cb59-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</span>
+<span id="cb60-2"><a href="simul.html#cb60-2"></a></span>
+<span id="cb60-3"><a href="simul.html#cb60-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb60-4"><a href="simul.html#cb60-4"></a><span class="kw">ggplot</span>(datos, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb60-5"><a href="simul.html#cb60-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>()</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/simul01-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a <span class="math inline">\(\beta_1=-6\)</span>; la nube tiene la misma dispersión y eso de debe a que <span class="math inline">\(\sigma\)</span> es constante e igual a 4.</p>
 <p>Para estimar <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</span>
-<span id="cb60-2"><a href="simul.html#cb60-2"></a>theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</span>
-<span id="cb60-3"><a href="simul.html#cb60-3"></a>theta_hat</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="simul.html#cb61-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>datos)</span>
+<span id="cb61-2"><a href="simul.html#cb61-2"></a>theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</span>
+<span id="cb61-3"><a href="simul.html#cb61-3"></a>theta_hat</span></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    3.873418   -5.876268    4.105762</code></pre>
+##    3.993349   -6.069432    4.299474</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
@@ -442,14 +442,14 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
 <div id="función-simulate" class="section level2 unnumbered">
 <h2>Función <code>simulate</code></h2>
 <p>La función <code>simulate</code> del paquete básico <strong>stats</strong> permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="simul.html#cb62-1"></a><span class="kw">simulate</span>(object, <span class="dt">nsim =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="ot">NULL</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simul.html#cb63-1"></a><span class="kw">simulate</span>(object, <span class="dt">nsim =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="ot">NULL</span>, ...)</span></code></pre></div>
 <div id="ejemplo-7" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Use las 5 primeras observaciones base de datos <code>cars</code> y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.</p>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simul.html#cb63-1"></a>datos &lt;-<span class="st"> </span>cars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</span>
-<span id="cb63-2"><a href="simul.html#cb63-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>datos)</span>
-<span id="cb63-3"><a href="simul.html#cb63-3"></a><span class="kw">simulate</span>(<span class="dt">object=</span>mod, <span class="dt">nsim=</span><span class="dv">1</span>, <span class="dt">seed=</span><span class="dv">1234</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="simul.html#cb64-1"></a>datos &lt;-<span class="st"> </span>cars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</span>
+<span id="cb64-2"><a href="simul.html#cb64-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>datos)</span>
+<span id="cb64-3"><a href="simul.html#cb64-3"></a><span class="kw">simulate</span>(<span class="dt">object=</span>mod, <span class="dt">nsim=</span><span class="dv">1</span>, <span class="dt">seed=</span><span class="dv">1234</span>)</span></code></pre></div>
 <pre><code>##       sim_1
 ## 1 -3.769550
 ## 2  8.175135

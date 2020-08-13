@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-06-01" />
+<meta name="date" content="2020-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -379,21 +379,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
 </ul>
 <p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="WilRog.html#cb310-1"></a>my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</span>
-<span id="cb310-2"><a href="WilRog.html#cb310-2"></a>my_form</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="WilRog.html#cb311-1"></a>my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</span>
+<span id="cb311-2"><a href="WilRog.html#cb311-2"></a>my_form</span></code></pre></div>
 <pre><code>## precio ~ area + habit</code></pre>
 <p>Para conocer la clase de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="WilRog.html#cb312-1"></a><span class="kw">class</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="WilRog.html#cb313-1"></a><span class="kw">class</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Para conocer la longitud de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="WilRog.html#cb314-1"></a><span class="kw">length</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="WilRog.html#cb315-1"></a><span class="kw">length</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="WilRog.html#cb316-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="WilRog.html#cb317-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
 <pre><code>## `~`()</code></pre>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="WilRog.html#cb318-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="WilRog.html#cb319-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
 <pre><code>## precio()</code></pre>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="WilRog.html#cb320-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="WilRog.html#cb321-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
 <pre><code>## (area + habit)()</code></pre>
 </div>
 <div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered">

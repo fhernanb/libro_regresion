@@ -232,7 +232,7 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 
 ## Apéndice {-}
 
-### Estimación por mínimos cuadrados {#apend11} {-}
+### Estimación por mínimos cuadrados {-}
 
 Para estimar $\beta_0$ y $\beta_1$ utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma  cuadrática del error:
 
@@ -249,7 +249,7 @@ donde
 $S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2$ &	$S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2$ & $S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})$	 \\
 
 
-### Estimación por máxima verosimilitud {#apend12} {-}
+### Estimación por máxima verosimilitud {-}
 
 Sabemos que para nuestro modelo de regresión lineal simple, 
 

@@ -19,7 +19,7 @@ A continuación se muestran algunas de esas preguntas/respuestas hechas en Stack
 Las respuestas a cómo simular datos de un modelo lineal son muy variadas, algunas sencillas, otras un poco más complejas, y por esa razón en la siguiente sección se mostrará como simular datos de una forma didáctica.
 
 ## Simulando datos de un modelo lineal {-}
-Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en __forma simbólica__ el modelo, eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes. 
+Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en __forma simbólica__ ya que eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes. 
 
 A continuación se muestra un ejemplo de como simular observaciones de un modelo lineal.
 

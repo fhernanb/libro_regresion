@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-06-01" />
+<meta name="date" content="2020-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,8 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados-apend11"><i class="fa fa-check"></i>Estimación por mínimos cuadrados {#apend11}</a></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud-apend12"><i class="fa fa-check"></i>Estimación por máxima verosimilitud {#apend12}</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
@@ -370,19 +370,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered">
 <h2>¿Qué otras funciones hay en R para ajustar un modelo?</h2>
 <p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="important.html#cb328-1"></a><span class="kw">lm</span>(formula, data, subset, weights, na.action,</span>
-<span id="cb328-2"><a href="important.html#cb328-2"></a>   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb328-3"><a href="important.html#cb328-3"></a>   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</span>
-<span id="cb328-4"><a href="important.html#cb328-4"></a></span>
-<span id="cb328-5"><a href="important.html#cb328-5"></a><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb328-6"><a href="important.html#cb328-6"></a>       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</span>
-<span id="cb328-7"><a href="important.html#cb328-7"></a></span>
-<span id="cb328-8"><a href="important.html#cb328-8"></a><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb328-9"><a href="important.html#cb328-9"></a>        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</span>
-<span id="cb328-10"><a href="important.html#cb328-10"></a></span>
-<span id="cb328-11"><a href="important.html#cb328-11"></a><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</span>
-<span id="cb328-12"><a href="important.html#cb328-12"></a></span>
-<span id="cb328-13"><a href="important.html#cb328-13"></a><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="important.html#cb329-1"></a><span class="kw">lm</span>(formula, data, subset, weights, na.action,</span>
+<span id="cb329-2"><a href="important.html#cb329-2"></a>   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb329-3"><a href="important.html#cb329-3"></a>   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</span>
+<span id="cb329-4"><a href="important.html#cb329-4"></a></span>
+<span id="cb329-5"><a href="important.html#cb329-5"></a><span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</span>
+<span id="cb329-6"><a href="important.html#cb329-6"></a>       <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</span>
+<span id="cb329-7"><a href="important.html#cb329-7"></a></span>
+<span id="cb329-8"><a href="important.html#cb329-8"></a><span class="kw">lm.wfit</span>(x, y, w, <span class="dt">offset =</span> <span class="ot">NULL</span>, <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-7</span>,</span>
+<span id="cb329-9"><a href="important.html#cb329-9"></a>        <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, ...)</span>
+<span id="cb329-10"><a href="important.html#cb329-10"></a></span>
+<span id="cb329-11"><a href="important.html#cb329-11"></a><span class="kw">.lm.fit</span>(x, y, <span class="dt">tol =</span> <span class="fl">1e-7</span>)</span>
+<span id="cb329-12"><a href="important.html#cb329-12"></a></span>
+<span id="cb329-13"><a href="important.html#cb329-13"></a><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
 </div>
 <div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered">
