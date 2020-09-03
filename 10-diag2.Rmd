@@ -14,7 +14,12 @@ Esta matriz contiene en su diagonal las distancias relativas desde el centroide 
   <img src="images/ilustracion_hat.png" width="300">
 </p>
 
-La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero $\boldsymbol{H}$. Los valores de $h_{ii}$ siempre están entre 0 y 1. Si la observación $i$-ésima tiene un valor grande de $h_{ii}$ significa que ella tiene valores inusuales de $\boldsymbol{x}_i$, mientras que valores pequeños de $h_{ii}$ significa que la observación se encuentra cerca del centroide de los datos.
+La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero $\boldsymbol{H}$. Los valores de $h_{ii}$ cumplen lo siguiente:
+
+- siempre están entre $1/n$ y 1. 
+- la suma $\sum h_{ii}$ es igual al número de $\beta$'s del modelo (incluyendo $\beta_0$).
+
+Si la observación $i$-ésima tiene un valor grande de $h_{ii}$ significa que ella tiene valores inusuales de $\boldsymbol{x}_i$, mientras que valores pequeños de $h_{ii}$ significa que la observación se encuentra cerca del centroide de los datos.
 
 ```{block2, type='rmdwarning'}
 La distancia $h_{ii}$ no incluye información de la variable respuesta $y$, solo de las covariables, esto se nota claramente en la fórmula de $\boldsymbol{H}$ dada arriba.
@@ -77,7 +82,7 @@ lm.influence(mod)$hat
 ### Reto para el lector {-}
 Use la información del ejemplo anterior y determine si la observación con valores de $x=4$ y $z=1$ está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con $x=4$ y $z=1$.
 
-## Punto atípico y punto influyente {-}
+## Punto atípico (outlier) y punto influyente {-}
 Los conceptos de atípico e influyente son diferentes y se definen así:
 
 - Punto atípico (outlier): es una observación que es numéricamente distante del resto de los datos.
@@ -92,6 +97,46 @@ En la siguiente figura se ilustra la diferencia entre los conceptos de atípico 
 ¿Cómo se puede saber si un punto es influyente?
 
 Para saber si un punto es influyente debemos tener una métrica o medida para determinar si él es influyente, una medida podría ser la Distancia de Cook.
+
+## Prueba de Bonferroni para detectar outliers
+El paquete **car** [@R-car] tiene la función `outlierTest` para realizar una prueba de hipótesis con $H_0:$ la observación $i$-ésima NO es un outlier frente a $H_1:$ la observación $i$-ésima SI es un outlier. La estructura de la función `outlierTest` se muestra a continuación.
+
+```{r eval=FALSE}
+outlierTest(model, cutoff=0.05, n.max=10, order=TRUE, labels=names(rstudent), ...)
+```
+
+En la sección 11.3.1 del libro @fox2015applied están los detalles de la prueba, se invita al lector para que los consulte.
+
+### Ejemplo {-}
+En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.
+
+<p align="center">
+  <img src="images/medidas_cuerpo_upb.png" width="700">
+</p>
+
+El objetivo es determinar si hay alguna observación que se pueda considerar como outlier cuando se ajusta un modelo de regresión para explicar el peso corporal en función de las otras covariables.
+
+__Solución__
+
+Primero vamos a ajustar el modelo y luego vamos a aplicar la prueba de Bonferroni para detectar outliers.
+
+```{r}
+url <- "https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2"
+datos <- read.table(file=url, sep="\t", header=TRUE)
+
+mod <- lm(Peso ~ Estatura + circun_cuello + circun_muneca, data=datos)
+
+library(car)
+outlierTest(mod, cutoff=Inf, n.max=4)
+```
+
+En la salida de arriba vemos las cuatro observaciones (`n.max=4`) que tienen los mayores valores de residual estudentizado $r_i$. La observación ubicada en la línea 11 es la única con un valor-P muy pequeño y por lo tanto hay evidencias para considerar esa observación como un posible outlier.
+
+Es posible dibujar los resultados de la prueba para cada observación usando la función `influenceIndexPlot` del paquete **car**. En la siguiente figura se observa que sólo la observacion 11 es identificada como un posible outlier.
+
+```{r bonf_test_01, fig.height=6, fig.width=6, fig.align='center'}
+influenceIndexPlot(mod, vars="Bonf", las=1)
+```
 
 ## Distancia de Cook {-}
 Es una medida de cómo influye la observación $i$-ésima sobre la estimación de $\boldsymbol{\beta}$ al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observación tiene un peso grande en la estimación de $\boldsymbol{\beta}$.
@@ -111,7 +156,7 @@ Son puntos influyentes las observaciones que presenten $D_i=\frac{4}{n-p-2}$.
 ```
 
 ### Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura? {-}
-En este ejemplo se usará una base de datos que contiene medidad corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.
+En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.
 
 <p align="center">
   <img src="images/medidas_cuerpo_upb.png" width="700">
@@ -150,6 +195,14 @@ pairs(datos[, c("Peso", "Estatura", "circun_cuello", "circun_muneca")],
 
 De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.
 
+En la siguiente figura se muestran los valores de $h_{ii}$ para cada estudiante, esta figura se obtiene con la función `influenceIndexPlot` del paquete **car**.
+
+```{r hii_estudiantes_upb, fig.height=6, fig.width=6, fig.align='center'}
+influenceIndexPlot(mod, vars="hat")
+```
+
+De la figura anterior se observa que los estudiantes 3 y 17 fueron señalados por estár muy lejos del centroide de los datos. 
+
 Vamos ahora a ajustar nuestro primer modelo.
 
 ```{r}
@@ -174,7 +227,7 @@ De la tabla anterior podemos destacar lo siguiente:
 
 - El intercepto estimado cambia bastante.
 - En el modelo 2 la variable cuello aumenta su efecto.
-- El R2 se mantiene constante.
+- El $R^2$ se mantiene constante.
 - La varianza de los errores disminuye, eso significa que el modelo 2 deja menos sin explicar.
 
 Vamos ahora a crear el diagrama de dispersión con el modelo ajustado.

@@ -95,11 +95,11 @@ summary(mod)
 En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 4.687e-16 y por lo tanto podemos rechazar $H_0$ a un nivel de significancia usual del 5%, eso significa que al menos una de las dos covariables del modelo es significativa para explicar el tiempo medio.
 
 ```{block2, type='rmdnote'}
-El no rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_p = 0$ significa que ninguna de las variables aporta información para explicar la media de $Y$. Lo que se debe hacer luego es buscar nuevas covariables que sean significativas.
+El no rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0$ significa que ninguna de las variables aporta información para explicar la media de $Y$. Lo que se debe hacer luego es buscar nuevas covariables que sean significativas.
 ```
 
 ```{block2, type='rmdnote'}
-El rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_p = 0$ significa que una, o dos, o tres, o cuatro, ..., o que todas las $p$ covariables son significativas. Pero, ¿cómo saber cuales variables son significativas?
+El rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0$ significa que una, o dos, o tres, o cuatro, ..., o que todas las $k$ covariables son significativas. Pero, ¿cómo saber cuales variables son significativas?
 ```
 
 ## Prueba para comparar modelos anidados {-}
@@ -230,7 +230,7 @@ Los argumentos de esta función son:
 
 - `object`: un objeto de la clase `lm`.
 - `test`: una cadena de caracteres indicando el tipo de prueba, `F`, `Chisq` o `Cp`, el valor por defecto es `F`.
-- `scale`: valor de la estimación de $\sigma^2$. Cuando es igual a cero se usa el estimador del modelo con más parámetros (`m2`).
+- `scale`: valor de la estimación de $\sigma^2$. Cuando es igual a cero se usa el estimador del modelo con más parámetros.
 
 ```{block2, type='rmdnote'}
 La función `anova` se puede aplicar a un solo modelo y el resultado será una prueba de hipótesis secuencial en las variables.
