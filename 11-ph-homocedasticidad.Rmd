@@ -1,0 +1,100 @@
+# Homocedasticidad {#homo}
+En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de homocedasticidad en regresión lineal.
+
+En las prueba mostradas a continuación se estudian las siguientes hipótesis.
+
+\begin{align*} 
+H_0 &: \text{los residuales tienen varianza constante.} \\ 
+H_1 &: \text{los residuales no tienen varianza constante}
+\end{align*}
+
+## Breusch-Pagan Test {-}
+Esta prueba fue propuesta por @breusch1979 y consiste en ajustar un modelo de regresión lineal con variable respuesta dada por residuales del modelo original al cuadrado $e_i^2$ y como covariables las variables del modelo original.
+
+Por ejemplo, si se tienen $k=2$ covariables para explicar a $Y$, entonces el modelo de regresión para estudiar la homocedasticidad es:
+
+$$
+\hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + u
+$$
+
+Si se concluye que $\delta_1=\delta_2=0$, significa que los residuales no son función de las covariables del modelo. El estadístico en esta prueba está dado por $n \times R^2$ y bajo la hipótesis nula verdadera, el estadístico tiene distribución $\chi^2_k$.
+
+La función `bptest` del paquete **lmtest** @R-lmtest implementa esta prueba.
+
+### Ejemplo {-}
+Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los $e_i$ o de las $y_i$) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.
+
+__Solución__
+En el código mostrado a continuación se simulan observaciones en las cuales la varianza de $e_i$ no es constante ya que para generarlos se usa la instrucción `ei <- rnorm(n=n, sd=x2)`, es decir que la varianza depende de la variable $x_2$.
+
+```{r message=FALSE,}
+n <- 200
+x1 <- rpois(n, lambda=5)
+x2 <- rbinom(n, size=6, prob=0.4)
+ei <- rnorm(n=n, sd=x2)
+y <- -3 + 2 * x1 + 4 * x2 + ei
+mod <- lm(y ~ x1 + x2) # Modelo de interes
+```
+
+Vamos a aplicar la prueba de forma manual.
+
+```{r}
+ei <- resid(mod)
+fit <- lm(ei^2 ~ x1 + x2) # Modelando ei^2 ~ x1 + x2
+R2 <- summary(fit)$r.squared
+k <- 2
+estadistico <- n * R2
+valorP <- pchisq(q=estadistico, df=k, lower.tail=FALSE)
+cbind(estadistico, valorP)
+```
+
+Vamos a aplicar la prueba de forma automática con la función `bptest`.
+
+```{r message=FALSE}
+library(lmtest)
+bptest(mod)
+```
+
+De la salida anterior se observa que el valor-P es menor que el nivel de significancia usual de 5%, por lo tanto, hay evidencias para decir que no se cumple la homocedasticidad de los $e_i$.
+
+## White test {-}
+El test de Breusch-Pagan sólo detecta formas lineales de heterocedasticidad. Para resolverlo, el test de White, propuesto por @white1980hetero, permite contrastar no linealidades utilizando los cuadrados y los productos cruzados de todos los regresores. Si $k=2$ el test de White crea el siguiente modelo de regresión:
+
+$$
+\hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + \delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2 + u
+$$
+
+Este test se puede implementar por medio de la función `bptest` pero especificando los términos no lineales de la expresión anterior.
+
+### Ejemplo {-}
+Aplicar White test para los datos simulados del ejemplo anterior.
+
+__Solución__
+
+Para aplicar el test se usa el argumento `varformula` y se escribe la fórmula con los términos no lineales $\delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2$, los términos lineales están por defecto.
+
+```{r}
+bptest(mod, varformula = ~ x1 * x2 + I(x1^2) + I(x2^2))
+```
+
+Como el valor-P es pequeño entonces hay evidencias para rechazar la hipótesis de homocedasticidad.
+
+La prueba se puede también realizar de forma manual, a continuación se muestra el procedimiento.
+
+```{r}
+fit <- lm(resid(mod)^2 ~ x1 + x2 + x1 * x2 + I(x1^2) + I(x2^2)) 
+R2 <- summary(fit)$r.squared
+estadistico <- n * R2
+valorP <- pchisq(q=estadistico, df=5, lower.tail=FALSE)
+cbind(estadistico, valorP)
+```
+
+## Goldfeld-Quandt Test {-}
+Este test está implementado en la función `gqtest` del paquete **lmtest**.
+
+## Harrison-McCabe test {-}
+Este test está implementado en la función `hmctest` del paquete **lmtest**.
+
+
+
+

@@ -20,7 +20,8 @@ description: "Libro de Modelos de Regresión con R para los estudiantes de la Es
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'mixlm', 'MPV',
                 'stats', 'leaps', 'olsrr', 'MASS',
-                'model', 'Matrix', 'multcomp', 'Formula', 'car'), 'packages.bib')
+                'model', 'Matrix', 'multcomp', 'Formula', 'car',
+  'lmtest'), 'packages.bib')
 ```
 
 ```{r echo=FALSE, message=FALSE}
@@ -45,7 +46,7 @@ Este libro está destinado para estudiantes de ingeniería y estadística que de
 
 ## Estructura del libro {-}
 
-En el capítulo \@ref(rls) se presenta el modelo de regresión lineal simple y en el Capítulo \@ref(rlm) se generaliza el modelo básico con varias covariables. En los capítulos \@ref(ic) y \@ref(ph) se muestra como construir intervalos de confianza y como realizar pruebas de hipótesis, respectivamente.
+En el capítulo \@ref(rls) se presenta el modelo de regresión lineal simple y en el Capítulo \@ref(rlm) se generaliza el modelo básico con varias covariables. En los capítulos \@ref(ic), \@ref(ph1) y \@ref(ph2) se muestran como hacer inferencias, particular, se muestra como construir intervalos de confianza y como realizar pruebas de hipótesis.
 
 ## Software y convenciones {-}
 

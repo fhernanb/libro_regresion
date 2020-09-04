@@ -98,7 +98,7 @@ En la siguiente figura se ilustra la diferencia entre los conceptos de atípico 
 
 Para saber si un punto es influyente debemos tener una métrica o medida para determinar si él es influyente, una medida podría ser la Distancia de Cook.
 
-## Prueba de Bonferroni para detectar outliers
+## Prueba de Bonferroni para detectar outliers  {-}
 El paquete **car** [@R-car] tiene la función `outlierTest` para realizar una prueba de hipótesis con $H_0:$ la observación $i$-ésima NO es un outlier frente a $H_1:$ la observación $i$-ésima SI es un outlier. La estructura de la función `outlierTest` se muestra a continuación.
 
 ```{r eval=FALSE}

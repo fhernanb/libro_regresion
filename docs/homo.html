@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Intervalos de confianza | Modelos de Regresión con R</title>
+  <title>12 Homocedasticidad | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Intervalos de confianza | Modelos de Regresión con R" />
+  <meta property="og:title" content="12 Homocedasticidad | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Intervalos de confianza | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="12 Homocedasticidad | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="simul.html"/>
-<link rel="next" href="varcuali.html"/>
+<link rel="prev" href="mod-poli.html"/>
+<link rel="next" href="selec.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -381,55 +381,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ic" class="section level1">
-<h1><span class="header-section-number">5</span> Intervalos de confianza</h1>
-<p>En este capítulo se muestra como construir intervalos de confianza para los parámetros <span class="math inline">\(\beta\)</span> y <span class="math inline">\(\sigma\)</span> de un modelo de regresión lineal.</p>
-<div id="función-confint" class="section level2 unnumbered">
-<h2>Función <code>confint</code></h2>
-<p>La función <code>confint</code> de R se usa para obtener intevalos de confianza de los parámetros de un modelo de regresión lineal, la estructura de esta función se muestra a continuación.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="ic.html#cb66-1"></a><span class="kw">confint</span>(object, parm, <span class="dt">level =</span> <span class="fl">0.95</span>, ...)</span></code></pre></div>
-<p>A continuación se presenta una corta descripción de los parámetros de la función.</p>
-<ul>
-<li><code>object</code>: es un objeto con el modelo ajustado.</li>
-<li><code>parm</code>: es un vector con los nombres de las variables para los cuales nos interesa construir el intervalo de confianza. Si no se especifica ninguna variable se obtienen intervalos de confianza para todos los parámetros.</li>
-<li><code>level</code>: nivel de confianza.</li>
-</ul>
-<div id="ejemplo-8" class="section level3 unnumbered">
+<div id="homo" class="section level1">
+<h1><span class="header-section-number">12</span> Homocedasticidad</h1>
+<p>En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de homocedasticidad en regresión lineal.</p>
+<p>En las prueba mostradas a continuación se estudian las siguientes hipótesis.</p>
+<p><span class="math display">\[\begin{align*} 
+H_0 &amp;: \text{los residuales tienen varianza constante.} \\ 
+H_1 &amp;: \text{los residuales no tienen varianza constante}
+\end{align*}\]</span></p>
+<div id="breusch-pagan-test" class="section level2 unnumbered">
+<h2>Breusch-Pagan Test</h2>
+<p>Esta prueba fue propuesta por <span class="citation">Breusch and Pagan (<a href="#ref-breusch1979" role="doc-biblioref">1979</a>)</span> y consiste en ajustar un modelo de regresión lineal con variable respuesta dada por residuales del modelo original al cuadrado <span class="math inline">\(e_i^2\)</span> y como covariables las variables del modelo original.</p>
+<p>Por ejemplo, si se tienen <span class="math inline">\(k=2\)</span> covariables para explicar a <span class="math inline">\(Y\)</span>, entonces el modelo de regresión para estudiar la homocedasticidad es:</p>
+<p><span class="math display">\[
+\hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + u
+\]</span></p>
+<p>Si se concluye que <span class="math inline">\(\delta_1=\delta_2=0\)</span>, significa que los residuales no son función de las covariables del modelo. El estadístico en esta prueba está dado por <span class="math inline">\(n \times R^2\)</span> y bajo la hipótesis nula verdadera, el estadístico tiene distribución <span class="math inline">\(\chi^2_k\)</span>.</p>
+<p>La función <code>bptest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2019</a>)</span> implementa esta prueba.</p>
+<div id="ejemplo-36" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Como ilustración vamos a usar los datos del ejemplo mostrado en el capítulo <a href="rls.html#rls">1</a>. En ese ejemplo se ajustó un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma. El objetivo es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>.</p>
-<p><strong>Solución</strong></p>
-<p>A continuación el código para cargar los datos y ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ic.html#cb67-1"></a>file &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb67-2"><a href="ic.html#cb67-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
-<span id="cb67-3"><a href="ic.html#cb67-3"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Resistencia <span class="op">~</span><span class="st"> </span>Edad, <span class="dt">data=</span>datos)</span></code></pre></div>
-<p>El objetivo ahora es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>. La instrucción para obtener el intervalo de confianza se muestra a continuación.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="ic.html#cb68-1"></a><span class="kw">confint</span>(<span class="dt">object=</span>mod1, <span class="dt">parm=</span><span class="st">&quot;Edad&quot;</span>, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
-<pre><code>##          2.5 %   97.5 %
-## Edad -43.22338 -31.0838</code></pre>
+<p>Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los <span class="math inline">\(e_i\)</span> o de las <span class="math inline">\(y_i\)</span>) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.</p>
+<p><strong>Solución</strong>
+En el código mostrado a continuación se simulan observaciones en las cuales la varianza de <span class="math inline">\(e_i\)</span> no es constante ya que para generarlos se usa la instrucción <code>ei &lt;- rnorm(n=n, sd=x2)</code>, es decir que la varianza depende de la variable <span class="math inline">\(x_2\)</span>.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="homo.html#cb241-1"></a>n &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb241-2"><a href="homo.html#cb241-2"></a>x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(n, <span class="dt">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb241-3"><a href="homo.html#cb241-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size=</span><span class="dv">6</span>, <span class="dt">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb241-4"><a href="homo.html#cb241-4"></a>ei &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">sd=</span>x2)</span>
+<span id="cb241-5"><a href="homo.html#cb241-5"></a>y &lt;-<span class="st"> </span><span class="dv">-3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>ei</span>
+<span id="cb241-6"><a href="homo.html#cb241-6"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2) <span class="co"># Modelo de interes</span></span></code></pre></div>
+<p>Vamos a aplicar la prueba de forma manual.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="homo.html#cb242-1"></a>ei &lt;-<span class="st"> </span><span class="kw">resid</span>(mod)</span>
+<span id="cb242-2"><a href="homo.html#cb242-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(ei<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
+<span id="cb242-3"><a href="homo.html#cb242-3"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
+<span id="cb242-4"><a href="homo.html#cb242-4"></a>k &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb242-5"><a href="homo.html#cb242-5"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
+<span id="cb242-6"><a href="homo.html#cb242-6"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span>k, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
+<span id="cb242-7"><a href="homo.html#cb242-7"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<pre><code>##      estadistico       valorP
+## [1,]     34.1397 3.860634e-08</code></pre>
+<p>Vamos a aplicar la prueba de forma automática con la función <code>bptest</code>.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="homo.html#cb244-1"></a><span class="kw">library</span>(lmtest)</span>
+<span id="cb244-2"><a href="homo.html#cb244-2"></a><span class="kw">bptest</span>(mod)</span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  mod
+## BP = 34.14, df = 2, p-value = 3.861e-08</code></pre>
+<p>De la salida anterior se observa que el valor-P es menor que el nivel de significancia usual de 5%, por lo tanto, hay evidencias para decir que no se cumple la homocedasticidad de los <span class="math inline">\(e_i\)</span>.</p>
 </div>
 </div>
-<div id="función-confint_sigma2" class="section level2 unnumbered">
-<h2>Función <code>confint_sigma2</code></h2>
-<p>La función <code>confint_sigma2</code> pertenece al paquete <strong>model</strong> y sirve para obtener un intervalo de confianza para el parámetro <span class="math inline">\(\sigma^2\)</span>. El paquete <strong>model</strong> <span class="citation">(Hernandez and Usuga <a href="#ref-R-model" role="doc-biblioref">2020</a>)</span> está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ic.html#cb70-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
-<span id="cb70-2"><a href="ic.html#cb70-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<div id="ejemplo-9" class="section level3 unnumbered">
+<div id="white-test" class="section level2 unnumbered">
+<h2>White test</h2>
+<p>El test de Breusch-Pagan sólo detecta formas lineales de heterocedasticidad. Para resolverlo, el test de White, propuesto por <span class="citation">White (<a href="#ref-white1980hetero" role="doc-biblioref">1980</a>)</span>, permite contrastar no linealidades utilizando los cuadrados y los productos cruzados de todos los regresores. Si <span class="math inline">\(k=2\)</span> el test de White crea el siguiente modelo de regresión:</p>
+<p><span class="math display">\[
+\hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + \delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2 + u
+\]</span></p>
+<p>Este test se puede implementar por medio de la función <code>bptest</code> pero especificando los términos no lineales de la expresión anterior.</p>
+<div id="ejemplo-37" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Considere el ejemplo anterior pero ahora el interés es obtener un intervalo de confinaza del 95% para <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Aplicar White test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
-<p>Si deseamos construir un intervalo de confianza del 95% para <span class="math inline">\(\sigma^2\)</span> del ejemplo anterior se debe escribir el siguiente código.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="ic.html#cb71-1"></a><span class="kw">library</span>(model)</span>
-<span id="cb71-2"><a href="ic.html#cb71-2"></a><span class="kw">confint_sigma2</span>(<span class="dt">object=</span>mod1, <span class="dt">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
-<pre><code>##           2.5 %   97.5 %
-## Sigma2 5273.516 20199.24</code></pre>
+<p>Para aplicar el test se usa el argumento <code>varformula</code> y se escribe la fórmula con los términos no lineales <span class="math inline">\(\delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2\)</span>, los términos lineales están por defecto.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="homo.html#cb246-1"></a><span class="kw">bptest</span>(mod, <span class="dt">varformula =</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  mod
+## BP = 35.73, df = 5, p-value = 1.076e-06</code></pre>
+<p>Como el valor-P es pequeño entonces hay evidencias para rechazar la hipótesis de homocedasticidad.</p>
+<p>La prueba se puede también realizar de forma manual, a continuación se muestra el procedimiento.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="homo.html#cb248-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">resid</span>(mod)<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>)) </span>
+<span id="cb248-2"><a href="homo.html#cb248-2"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
+<span id="cb248-3"><a href="homo.html#cb248-3"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
+<span id="cb248-4"><a href="homo.html#cb248-4"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span><span class="dv">5</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
+<span id="cb248-5"><a href="homo.html#cb248-5"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<pre><code>##      estadistico      valorP
+## [1,]     35.7296 1.07574e-06</code></pre>
+</div>
+</div>
+<div id="goldfeld-quandt-test" class="section level2 unnumbered">
+<h2>Goldfeld-Quandt Test</h2>
+<p>Este test está implementado en la función <code>gqtest</code> del paquete <strong>lmtest</strong>.</p>
+</div>
+<div id="harrison-mccabe-test" class="section level2 unnumbered">
+<h2>Harrison-McCabe test</h2>
+<p>Este test está implementado en la función <code>hmctest</code> del paquete <strong>lmtest</strong>.</p>
 
-</div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-R-model">
-<p>Hernandez, Freddy, and Olga Usuga. 2020. <em>Model: Model Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.</p>
+<div id="ref-breusch1979">
+<p>Breusch, Trevor S, and Adrian R Pagan. 1979. “A Simple Test for Heteroscedasticity and Random Coefficient Variation.” <em>Econometrica: Journal of the Econometric Society</em>, 1287–94.</p>
+</div>
+<div id="ref-R-lmtest">
+<p>Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2019. <em>Lmtest: Testing Linear Regression Models</em>. <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>.</p>
+</div>
+<div id="ref-white1980hetero">
+<p>White, Halbert. 1980. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.” <em>Econometrica: Journal of the Econometric Society</em>, 817–38.</p>
 </div>
 </div>
             </section>
@@ -437,8 +486,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="simul.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="varcuali.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mod-poli.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="selec.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -469,7 +518,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/05-ic.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/11-ph-homocedasticidad.Rmd",
 "text": "Edit"
 },
 "history": {

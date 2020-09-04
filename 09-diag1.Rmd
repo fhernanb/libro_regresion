@@ -33,7 +33,7 @@ rstudent(object)
 
 Si un modelo lineal está correctamente especificado (ajustado), los residuos de Pearson serán independientes de los valores ajustados e independientes de los predictores, y estos gráficos deben ser "gráficos nulos", es decir, gráficos sin características sistemáticas, en el sentido de que la distribución condicional de los residuos (en el eje vertical del gráfico) no debe cambiar con los valores ajustados o con un predictor (en el eje horizontal) [@fox2019].
 
-## Ejemplo {-}
+### Ejemplo {-}
 Considere los datos mostrados abajo, ajuste un modelo de regresión lineal para explicar la media de $y$ en función de $x$ y usando como pesos los valores de $w$. Obtenga los residuales usando las definiciones y luego usando las funciones de R, compruebe que los resultados coinciden.
 
 ```{r}
@@ -105,7 +105,7 @@ En la siguiente figura se muestran los diferentes patrones que se pueden encontr
 Para determinar si los errores $e_i$ tienen una media cerca al valor de cero se puede usar la función `mean` sobre los residuales.
 
 ## Chequeando si los errores $e_i$ tiene varianza constante {-}
-En la siguiente figura se muestra el caso de varianza $\sigma^2$ constante u homocedasticidad y el caso de varianza $\sigma^2$ no constante o heterocedasticidad. La homocedasticidad es el supuesto exigido en modelos de regresión.
+En la siguiente figura se muestra el caso de varianza $\sigma^2$ constante (homocedasticidad) y el caso de varianza $\sigma^2$ no constante (heterocedasticidad). La homocedasticidad es el supuesto exigido en modelos de regresión.
 
 <p align="center">
   <img src="images/homo_hetero.png" width="500">
@@ -136,6 +136,24 @@ Otro gráfico útil para chequear el supuesto de homocedasticidad es dibujar un 
 </p>
 
 Al igual que en el gráfico de $e_i$ versus $\hat{\mu}_i$, se espera que no existan patrones claros en la nube de puntos.
+
+## Prueba de hipótesi para chequear si los errores $e_i$ tiene varianza constante {-}
+El paquete **lmtest** creado por @R-lmtest tiene varias funciones que nos permiten chequear la homocedasticidad de los errores. En las prueba mostradas a continuación la hipótesis nula $H_0:$ es que hay homocedasticidad frente a la hipótesis alterna $H_1:$ de que hay heterocedasticidad.
+
+Las funciones disponibles se listan a continuación.
+
+- `bptest`: Breusch-Pagan Test.
+- `gqtest`: Goldfeld-Quandt Test.
+- `hmctest`: Harrison-McCabe test.
+
+Se le recomienda al lector que consulte la ayuda de cada una de las funciones para que tenga más información de las pruebas mencionadas. A continuación un ejemplo de cómo usar las pruebas anteriores.
+
+### Ejemplo {-}
+Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los $e_i$ o de las $y_i$) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.
+
+__Solución__
+
+
 
 ## Chequeando si errores $e_i$ no están correlacionados {-}
 Para estudiar esta situación se debe tener la historia de los errores, es decir, el orden en que las observaciones fueron tomadas. Usando es información se puede dibujar un diagrama de dispersión del residual versus tiempo,  un gráfico similar al mostrado a continuación.
@@ -194,11 +212,10 @@ En este ejemplo se usó `plot(mod, which=1:3)` para obtener los tres primeros gr
 ### Reto para el lector {-}
 Use la información del ejemplo anterior y viole alguno de los supuestos dentro de la función `gen_dat` o al momento de ajustar el modelo con `lm`. Luego construya los gráficos de residuales y compruebe que los gráficos le indicarán que algo no está bien en el modelo ajustado.
 
-
 ## Gráficos de residuales usando car {-}
 El paquete **car** de @R-car, tiene unas funciones especiales para crear otro tipo de gráficos de residuales y que son útiles para identificar posibles anomalías en el modelo ajustado. A continuación las funciones para crear nuevos gráficos de residuales.
 
-- `residualPlots(model)`: dibuja una gráfica de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$. También entrega hace una prueba de hipótesis de curvatura para cada una de las gráficas agregando un término cuadrático y probando si se necesita el término cuadrático o no. 
+- `residualPlots(model)`: dibuja una gráfica de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$. También entrega los resultados de una prueba de hipótesis para saber si se debe agregar un término cuadrático de cada variable. 
 - `mmps` o `marginalModelPlots(model)`: dibuja una gráfica de la respuesta $y_i$ versus cada covariable cuantitativa y los valores ajustados $\hat{\mu}_i$, es una variación la propuesta de @cook_weisber97.
 
 
@@ -213,7 +230,7 @@ En este ejemplo se desea ajustar un modelo de regresión para explicar la media 
 
 ```{r message=FALSE}
 library(car)
-prestige_mod1 <- lm (prestige ~ education + income + type, data=Prestige)
+prestige_mod1 <- lm(prestige ~ education + income + type, data=Prestige)
 ```
 
 Para construir los gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados $\hat{\mu}_i$ se usa la siguiente instrucción (`las=1` para poner los números vertical en el eje Y).
@@ -227,9 +244,14 @@ De la figura anterior se observa lo siguiente:
 - El gráfico de residuales vs education se asemeja a un "gráfico nulo", en la que ningún patrón particular es aparente.
 - El gráfico de residuales vs income presenta una curvatura.
 - El gráfico de residuales vs type (var. cuali.) presenta una apariencia de un "gráfico nulo", todas las cajas con a proximadamente el mismo centro y extensión.
-- De las observaciones anteriores parece que falta el término $Income^2$ en el predictor lineal.
+- De los tres comentarios anteriores parece que falta el término $Income^2$ en el predictor lineal.
 
-La sospecha de que falta el término $Income^2$ se ve reforzada por la tabla que acompaña la salida de `residualPlots(prestige_mod)`. En la línea para la variable `income` se tiene la prueba de hipótesis $H_0:$ no se necesita $Income^2$ versus $H_A:$ si se necesita $Income^2$. El valor-P de esta prueba es 0.004854 y por lo tanto se justifica incluir $Income^2$.
+La sospecha de que falta el término $Income^2$ se ve reforzada por la tabla que acompaña la salida de `residualPlots(prestige_mod)`. En la línea para la variable `income` se tiene la prueba de hipótesis:
+
+- $H_0:$ no se necesita $Income^2$,
+- $H_A:$ si se necesita $Income^2$. 
+
+El valor-P de esta prueba es 0.004854 y por lo tanto se justifica incluir $Income^2$.
 
 Para dibujar los gráficos marginales de $y_i$ versus cada covariable cuantitativa y los valores ajustados $\hat{\mu}_i$ se usa la siguiente instrucción.
 
