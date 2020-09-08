@@ -1,0 +1,48 @@
+# Pruebas de independencia de los errores {#indep}
+En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de independencia de los errores en regresión lineal.
+
+En las prueba mostradas a continuación se estudian las siguientes hipótesis.
+
+\begin{align*} 
+H_0 &: \text{los errores son independientes.} \\ 
+H_1 &: \text{los errores no son independientes.}
+\end{align*}
+
+
+## Durbin-Watson test {-}
+La función `dwtest` del paquete **lmtest** @R-lmtest implementa esta prueba.
+
+[En esta publicación](https://stats.stackexchange.com/questions/14914/how-to-test-the-autocorrelation-of-the-residuals) de StackOverFlow hay una excelente discusión sobre la prueba, se invita al lector a explorar la publicación.
+
+### Ejemplo {-}
+El siguiente ejemplo fue tomado de la documentación de la función `dwtest`.
+
+```{r indep_errores_01}
+## generate regressor
+x <- rep(c(-1, 1), 50)
+
+## generate the AR(1) error terms with parameter rho = 0 (white noise)
+err1 <- rnorm(100)
+## generate dependent variable
+y1 <- 1 + x + err1
+library(lmtest)
+mod1 <- lm(y1 ~ x)
+dwtest(mod1) ## perform Durbin-Watson test
+
+plot(residuals(mod1), pch=19, col="deepskyblue1")
+```
+
+
+
+```{r}
+## generate the AR(1) error terms with parameter rho = 0.9 respectively
+err2 <- stats::filter(x=err1, filter=0.9, method="recursive")
+## generate dependent variable
+y2 <- 1 + x + err2
+
+mod2 <- lm(y2 ~ x)
+dwtest(mod2) ## perform Durbin-Watson test
+
+plot(residuals(mod2), pch=19, col="tomato")
+```
+

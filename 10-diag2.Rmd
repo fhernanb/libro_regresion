@@ -25,6 +25,11 @@ Si la observación $i$-ésima tiene un valor grande de $h_{ii}$ significa que el
 La distancia $h_{ii}$ no incluye información de la variable respuesta $y$, solo de las covariables, esto se nota claramente en la fórmula de $\boldsymbol{H}$ dada arriba.
 ```
 
+Los valores $h_{ii}$ se pueden obtener de dos formas:
+
+- Construyendo la matriz $\boldsymbol{H}$. 
+- Ajustando el modelo de regresión `mod` y luego usando la función `hatvalues(mod)` o `lm.influence(mod)` sobre el modelo.
+
 ¿Para qué se usan los $h_{ii}$ en la práctica?
 
 En el siguiente apartado se explicará el uso de los $h_{ii}$.
@@ -48,8 +53,6 @@ Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(x_1
 3. Identificar $h_{max} = max\{h_{11}, h_{22}, \ldots, h_{nn}\}$.
 4. Calcular $h_{00} = \boldsymbol{x}_0 (\boldsymbol{X}^\top \boldsymbol{X})^{-1} \boldsymbol{x}_0^\top$.
 5. Si $h_{00} > h_{max}$ el punto $\boldsymbol{x}_0$ está fuera del cascarón y se podría estár cometiendo extrapolación oculta.
-
-Los valores $h_{ii}$ se pueden obtener al calcular la matriz $\boldsymbol{H}$. Otra forma de obtener los $h_{ii}$ es ajustando el modelo de regresión y luego usando la función `hatvalues(model)` o `lm.influence(model)`.
 
 ### Ejemplo {-}
 Calcular los valores $h_{ii}$ para un modelo de regresión `y ~ x + z` con los siguientes datos.
@@ -94,9 +97,12 @@ En la siguiente figura se ilustra la diferencia entre los conceptos de atípico 
   <img src="images/atipico_influyente.png" width="500">
 </p>
 
-¿Cómo se puede saber si un punto es influyente?
+Dos preguntas que surgen al mirar la figura anterior son:
 
-Para saber si un punto es influyente debemos tener una métrica o medida para determinar si él es influyente, una medida podría ser la Distancia de Cook.
+- ¿Cómo saber si un punto es un outlier? 
+- ¿Cómo saber si un punto es influyente?
+
+Para saber si un punto es outlier se puede usar la prueba de Bonferroni y para saber si un punto es influyente se puede utilizar Distancia de Cook. En las siguientes secciones se mostrará identificar outliers y puntos influyentes.
 
 ## Prueba de Bonferroni para detectar outliers  {-}
 El paquete **car** [@R-car] tiene la función `outlierTest` para realizar una prueba de hipótesis con $H_0:$ la observación $i$-ésima NO es un outlier frente a $H_1:$ la observación $i$-ésima SI es un outlier. La estructura de la función `outlierTest` se muestra a continuación.
@@ -114,7 +120,7 @@ En este ejemplo se usará una base de datos que contiene medidas corporales para
   <img src="images/medidas_cuerpo_upb.png" width="700">
 </p>
 
-El objetivo es determinar si hay alguna observación que se pueda considerar como outlier cuando se ajusta un modelo de regresión para explicar el peso corporal en función de las otras covariables.
+El objetivo es determinar si hay alguna observación que se pueda considerar como outlier cuando se ajusta un modelo de regresión para explicar el peso corporal en función de la estatura, circunferencia del cuello y circunferencia de la muñeca.
 
 __Solución__
 
@@ -132,7 +138,7 @@ outlierTest(mod, cutoff=Inf, n.max=4)
 
 En la salida de arriba vemos las cuatro observaciones (`n.max=4`) que tienen los mayores valores de residual estudentizado $r_i$. La observación ubicada en la línea 11 es la única con un valor-P muy pequeño y por lo tanto hay evidencias para considerar esa observación como un posible outlier.
 
-Es posible dibujar los resultados de la prueba para cada observación usando la función `influenceIndexPlot` del paquete **car**. En la siguiente figura se observa que sólo la observacion 11 es identificada como un posible outlier.
+Es posible dibujar los resultados de la prueba para cada observación usando la función `influenceIndexPlot` del paquete **car**. En la siguiente figura se observa que sólo la observacion 11 es identificada como un posible outlier ya que su valor-P es muy pequeño.
 
 ```{r bonf_test_01, fig.height=6, fig.width=6, fig.align='center'}
 influenceIndexPlot(mod, vars="Bonf", las=1)
@@ -145,24 +151,34 @@ $$
 D_i = \frac{\sum_{j=1}^{n} (\hat{y}_j - \hat{y}_{j(i)} )^2 }{p \hat{\sigma^2}},
 $$
 
-donde la notación $(i)$ significa "sin la observación $i$-ésima", eso quiere decir que $\hat{y}_{j(i)}$ es la estimación de $j$-ésima sin haber tenido en cuenta $i$-ésima observación en el ajuste del modelo. La cantidad $p$ se refiere a todos los $\beta$'s en el modelo ($\beta_0, \beta_1, \beta_2, \ldots, \beta_k$).
+donde la notación $(i)$ significa "sin la observación $i$-ésima", eso quiere decir que $\hat{y}_{j(i)}$ es la estimación de $j$-ésima sin haber tenido en cuenta $i$-ésima observación en el ajuste del modelo. La cantidad $p=k+1$ se refiere a todos los $\beta$'s en el modelo ($\beta_0, \beta_1, \beta_2, \ldots, \beta_k$).
 
 <p align="center">
   <img src="images/get_out.gif" width="200">
 </p>
 
+Una forma sencilla de calcular los valores de la distancia de Cook $D_i$ es por medio de la expresión.
+
+$$
+D_i = \frac{d_i^2}{k+1} \times \frac{h_{ii}}{1-h_{ii}},
+$$
+
+donde $d_i$ corresponde al __residual estandarizado__.
+
+Otra forma de obtener las distancias de Cook $D_i$ es ajustando el modelo de interés `mod` y luego aplicar la función `cooks.distance(mod)` sobre el modelo.
+
 ```{block2, type='rmdnote'}
 Son puntos influyentes las observaciones que presenten $D_i=\frac{4}{n-p-2}$.
 ```
 
-### Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura? {-}
+### Ejemplo: {-}
 En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.
 
 <p align="center">
   <img src="images/medidas_cuerpo_upb.png" width="700">
 </p>
 
-El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posible estudiantes influyentes y el efecto de ellos en el modelos.
+El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posibles estudiantes influyentes y el efecto de ellos en el modelo.
 
 __Solución__
 
@@ -194,14 +210,6 @@ pairs(datos[, c("Peso", "Estatura", "circun_cuello", "circun_muneca")],
 ```
 
 De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.
-
-En la siguiente figura se muestran los valores de $h_{ii}$ para cada estudiante, esta figura se obtiene con la función `influenceIndexPlot` del paquete **car**.
-
-```{r hii_estudiantes_upb, fig.height=6, fig.width=6, fig.align='center'}
-influenceIndexPlot(mod, vars="hat")
-```
-
-De la figura anterior se observa que los estudiantes 3 y 17 fueron señalados por estár muy lejos del centroide de los datos. 
 
 Vamos ahora a ajustar nuestro primer modelo.
 
@@ -246,7 +254,7 @@ text(x=34, y=95, expression(hat(Peso) == -44.61 + 3.10 * C.cuello),
 
 De la figura anterior vemos que hay un estudiante (el de 100 kilos de peso) que está muy alejado de la recta de regresión. 
 
-Vamos a calcular las distancia de Cook para las observaciones del modelo 2 así:
+Vamos a calcular las distancias de Cook para las observaciones del modelo 2 así:
 
 ```{r}
 cooks.distance(mod2)
@@ -255,21 +263,28 @@ cooks.distance(mod2)
 Es mejor representar las distancias de Cook en forma gráfica para identificar los posible puntos influyentes así:
 
 ```{r upb_03, fig.height=4, fig.width=5, fig.align='center'}
-cutoff <- 4 / (26-2-2)
+cutoff <- 4 / (26-2-2)  # Cota
 plot(mod2, which=4, cook.levels=cutoff, las=1)
-abline(h=cutoff, lty="dashed", col="springgreen3")
+abline(h=cutoff, lty="dashed", col="dodgerblue2")
 ```
 
 De esta figura es claro que las observaciones 11 y 8 tienen $D_i$ por encima de la cota y se consideran observaciones influyentes.
+
+Otra forma de dibujar las distancias de Cook es por medio de la función `influenceIndexPlot` del paquete **car**.
+
+```{r cook_estudiantes_upb, fig.height=6, fig.width=6, fig.align='center'}
+library(car)
+influenceIndexPlot(mod2, vars="Cook")
+```
 
 Ahora vamos a revisar los residuales del modelo 2.
 
 ```{r upb_04, fig.height=6, fig.width=6, fig.align='center'}
 par(mfrow=c(2, 2))
-plot(mod2, col='deepskyblue4')
+plot(mod2, col='deepskyblue4', pch=19)
 ```
 
-De la anterior figura vemos que las observaciones 8, 11 y 13 fueron identificadas por tener valores de residuales grandes.
+De la anterior figura vemos que las observaciones 8, 11 y 13 son identificadas por tener valores de residuales grandes.
 
 Vamos ahora a identificar las observaciones 8, 11, 12 y 13 en un diagrama de dispersión.
 
@@ -296,10 +311,10 @@ En la siguiente tabla se muestran los resultados de ajustar nuevamente el modelo
 
 Pero, ¿cuál modelo debo usar como modelo final? ¿El modelo 2, el modelo 2 sin la obs 11 o el modelo 2 sin las obs 8, 11, 12 y 13?
 
-Lo que se recomienda es que el analista se asesore de un experto en el área de aplicación para que juntos estudien esas observaciones sospechosas. Si hay una razón de peso para considerarlas como observaciones atípicas, ellas deben salir del modelo. Si por el contrario, no hay nada raro con las observaciones ellas deben seguir en el modelo. 
+Lo que se recomienda es que el analista se asesore de un experto en el área de aplicación para que juntos estudien esas observaciones sospechosas. Si hay una razón de peso para considerarlas como observaciones atípicas, ellas deben salir del modelo. Si por el contrario, no hay nada raro con las observaciones, ellas deben seguir en el modelo. 
 
 <p align="center">
-  <img src="images/revisar.png" width="200">
+  <img src="images/revisar.png" width="300">
 </p>
 
 ```{block2, type='rmdwarning'}
@@ -313,69 +328,132 @@ Una observación que no es influyente es una observación que estando presente o
 ```
 
 ## DFFITS {-}
-Se puede investigar la influencia de eliminar la $i$-ésima observación sobre el valor predicho o ajustado.
+Es una medida de la influencia de la $i$-ésima observación sobre el valor predicho o ajustado, la expresión para calcularla es la siguiente:
 
 $$
 DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\sqrt{s_{(i)}^2 h_{ii}}}.
 $$
 
-Se sugiere que merece investigarse toda observación con $|DFFITS| > 2 \sqrt{p/n}$.
+Se sugiere investigar toda observación con $|DFFITS| > 2 \sqrt{p/n}$.
 
 La función en R para obtener los $DFFITS_i$ es `dffits`.
 
 ## DFBETAS {-}
-Indica cuánto cambia el coeficiente de regresión, en unidades de desviación estándar, si se omitiera la 𝑖-ésima observación.
+Es una medida que indica cuánto cambia el coeficiente de regresión, en unidades de desviación estándar, si se omitiera la $i$-ésima observación.
 
 $$
-DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}},
+DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}}, 
 $$
 
-donde $C_{jj}$ es $j$-ésimo elemento de la diagonal de $(\boldsymbol{X}^\top \boldsymbol{X})^{-1}$. Se sugiere que merece investigarse toda observación con $|DFBETAS| > 2 \sqrt{n}$.
+donde $C_{jj}$ es $j$-ésimo elemento de la diagonal de $(\boldsymbol{X}^\top \boldsymbol{X})^{-1}$. 
+
+Se sugiere investigar toda observación con $|DFBETAS| > 2 \sqrt{n}$.
 
 La función en R para obtener los $DFBETAS_{i,j}$ es `dfbetas`.
 
 ### Ejemplo {-}
-En R se pueden encontrar las funciones `dfbeta` y `dfbetas`, esto puede generar alguna confusión y por esa razón vamos a explicar con detalle el asunto.
+Considere los datos que se muestran a continuación y ajuste un modelo de regresión para explicar $y$ en función de $x$. Luego identifique las observaciones influyentes usando las medidas DFFITS y DFBETAS.
+
+```{r}
+x <- c(2, 5, 3, 4, 7)
+y <- c(5, 9, 8, 7, 19)
+```
 
 __Solución__
 
 Vamos a crear unos datos para el ejemplo.
 
-```{r}
-# Creando unos datos de ejemplo
-datos <- data.frame(x=1:5, y=rnorm(5))
-mod <- lm(y ~ x, data=datos)
+```{r ejem_dffits01}
+plot(x=x, y=y, pch=19, col="tomato", las=1)
+mod <- lm(y ~ x)
 ```
 
+Vamos a calcular DFFITS.
+
 ```{r}
-dfbeta(mod)
+dffits(mod)
 ```
+
+De la salida anterior vemos que la observación 5 es la que tiene el mayor valor de DFFITS.
+
+Vamos a calcular DFBETAS.
 
 ```{r}
 dfbetas(mod)
 ```
 
-```{r}
-# DFBETAS para la pendiente manual para i=1
-mod1 <- lm(y ~ x, data=datos[-1, ])
+De la salida anterior vemos nuevamente que la observación 5 tiene la mayor influencia sobre $\hat{\beta}_0$ y sobre $\hat{\beta}_1$.
 
-# Para obtener dfbeta de pendiente para i=1
-coef(mod)[2] - coef(mod1)[2]
-```
+Existe otra función llamda `dfbeta` sin la letra __s__, veamos para que sirve esta función.
 
 ```{r}
-# Para obtener dfbetas de pendiente para i=1
-numerator <- mod$coef[2] - mod1$coef[2]
-denominator <- sqrt(summary(mod1)$sigma^2 * 
-	         diag(summary(mod)$cov.unscaled)[2])
-DFBETAS <- numerator/denominator
-DFBETAS
+dfbeta(mod)
 ```
 
 En conclusión,
 
-1. La función `dfbeta` entrega $\hat{\beta}_j - \hat{\beta}_{j(i)}$.
-2. La función `dfbetas` entrega $\frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}}$.
+1. La función `dfbetas` entrega $\frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}}$.
+2. La función `dfbeta` entrega $\hat{\beta}_j - \hat{\beta}_{j(i)}$.
 
-¿Cuál de las dos funciones se debe usar?
+## Estadística PRESS y $R^2$ de predicción {-}
+Es una medida de lo BIEN que funciona el modelo para predecir nuevas observaciones.
 
+$$
+PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
+$$
+
+El $R^2$ de predicción es una medida del porcentaje de la variabilidad explicada por el modelo para nuevas observaciones. El El $R^2$ de predicción se define en función de la estadística PRESS así:
+
+$$
+R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
+$$
+
+Las funciones mostradas abajo fueron creadas por [Tom Hopper](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0) y sirve para obtener la estadística PRESS y el $R^2$ de predicción.
+
+```{r}
+PRESS <- function(linear.model) {
+  # calculate the predictive residuals
+  pr <- residuals(linear.model) / (1-lm.influence(linear.model)$hat)
+  # calculate the PRESS
+  PRESS <- sum(pr^2)
+  return(PRESS)
+}
+
+pred_r_squared <- function(linear.model) {
+  #' Use anova() to get the sum of squares for the linear model
+  lm.anova <- anova(linear.model)
+  #' Calculate the total sum of squares
+  tss <- sum(lm.anova$'Sum Sq')
+  # Calculate the predictive R^2
+  pred.r.squared <- 1-PRESS(linear.model)/(tss)
+  return(pred.r.squared)
+}
+```
+
+### Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
+
+<p align="center">
+  <img src="images/ilustracion_refrescos.png" width="600">
+</p>
+
+¿Cuál es el valor de la estadística PRESS y del $R^2$ de predicción?
+
+__Solución__
+
+Los datos del ejemplo están disponibles en el paquete **MPV**\index{MPV} (por los apellidos de los autores). A continuación el código para cargar los datos y ajustar el modelo de interés.
+
+```{r, message=FALSE}
+require(MPV)
+colnames(softdrink) <- c('tiempo', 'cantidad', 'distancia')
+mod <- lm(tiempo ~ cantidad + distancia, data=softdrink)
+```
+
+A continuación se muestran las dos medidas de interés.
+
+```{r}
+PRESS(mod)
+pred_r_squared(mod)
+```
+
+De la salida anterior se observa que el $R^2$ de predicción toma un valor de 0.9206, esto indica que el modelo `mod` tiene una buena capacidad de predicción para nuevas observaciones.

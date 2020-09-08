@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>12 Homocedasticidad | Modelos de Regresión con R</title>
+  <title>11 Pruebas de Homocedasticidad | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="12 Homocedasticidad | Modelos de Regresión con R" />
+  <meta property="og:title" content="11 Pruebas de Homocedasticidad | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="12 Homocedasticidad | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="11 Pruebas de Homocedasticidad | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -25,15 +25,15 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-09-04" />
+<meta name="date" content="2020-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mod-poli.html"/>
-<link rel="next" href="selec.html"/>
+<link rel="prev" href="diag2.html"/>
+<link rel="next" href="indep.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -247,116 +247,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="diag1.html#chequeando-normalidad-de-los-errores-e_i">Chequeando normalidad de los errores <span class="math inline">\(e_i\)</span></a></li>
 <li><a href="diag1.html#chequeando-si-errores-e_i-con-media-cero">Chequeando si errores <span class="math inline">\(e_i\)</span> con media cero</a></li>
 <li><a href="diag1.html#chequeando-si-los-errores-e_i-tiene-varianza-constante">Chequeando si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a></li>
-<li><a href="diag1.html#prueba-de-hipótesi-para-chequear-si-los-errores-e_i-tiene-varianza-constante">Prueba de hipótesi para chequear si los errores <span class="math inline">\(e_i\)</span> tiene varianza constante</a><ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
 <li><a href="diag1.html#chequeando-si-errores-e_i-no-están-correlacionados">Chequeando si errores <span class="math inline">\(e_i\)</span> no están correlacionados</a><ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-cumpliendo-los-supuestos"><i class="fa fa-check"></i>Ejemplo cumpliendo los supuestos</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a><ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector-1"><i class="fa fa-check"></i>Reto para el lector</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a><ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-cómo-se-relaciona-el-peso-corporal-con-la-circunferencia-de-la-muñeca-cuello-y-estatura"><i class="fa fa-check"></i>Ejemplo: ¿cómo se relaciona el peso corporal con la circunferencia de la muñeca, cuello y estatura?</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="diag2.html#estadística-press-y-r2-de-predicción">Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>11</b> Modelos polinomiales</a><ul>
-<li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
-<li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>12</b> Homocedasticidad</a><ul>
+<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a><ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a><ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a><ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a><ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#goldfeld-quandt-test"><i class="fa fa-check"></i>Goldfeld-Quandt Test</a></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#harrison-mccabe-test"><i class="fa fa-check"></i>Harrison-McCabe test</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>13</b> Selección de variables</a><ul>
+<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a><ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a><ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a><ul>
+<li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
+<li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a><ul>
 <li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
 <li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
 <li><a href="selec.html#función-stepaic">Función <code>stepAIC</code></a><ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li><a href="selec.html#aplicación-del-método-backward">Aplicación del método <strong>backward</strong></a></li>
 <li><a href="selec.html#aplicación-del-método-forward">Aplicación del método <strong>forward</strong></a></li>
 <li><a href="selec.html#aplicación-del-método-both">Aplicación del método <strong>both</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
 </ul></li>
 <li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
-</ul></li>
-<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>14</b> Feature selection</a><ul>
+<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a><ul>
 <li class="chapter" data-level="" data-path="feature-selec.html"><a href="feature-selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>15</b> Algebra matricial con R</a><ul>
+<li class="chapter" data-level="16" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>16</b> Algebra matricial con R</a><ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>16</b> Notación de Wilkinson y Rogers</a><ul>
+<li class="chapter" data-level="17" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>17</b> Notación de Wilkinson y Rogers</a><ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>17</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="18" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>18</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>18</b> Otros aspectos importantes</a><ul>
+<li class="chapter" data-level="19" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>19</b> Otros aspectos importantes</a><ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>19</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="20" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>20</b> Pasos para construir modelos</a><ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
@@ -382,13 +390,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="homo" class="section level1">
-<h1><span class="header-section-number">12</span> Homocedasticidad</h1>
-<p>En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de homocedasticidad en regresión lineal.</p>
+<h1><span class="header-section-number">11</span> Pruebas de Homocedasticidad</h1>
+<p>En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de homocedasticidad de los errores en regresión lineal.</p>
 <p>En las prueba mostradas a continuación se estudian las siguientes hipótesis.</p>
 <p><span class="math display">\[\begin{align*} 
-H_0 &amp;: \text{los residuales tienen varianza constante.} \\ 
-H_1 &amp;: \text{los residuales no tienen varianza constante}
+H_0 &amp;: \text{los errores tienen varianza constante.} \\ 
+H_1 &amp;: \text{los errores no tienen varianza constante}
 \end{align*}\]</span></p>
+<p align="center">
+<img src="images/homo_hetero.png" width="500">
+</p>
 <div id="breusch-pagan-test" class="section level2 unnumbered">
 <h2>Breusch-Pagan Test</h2>
 <p>Esta prueba fue propuesta por <span class="citation">Breusch and Pagan (<a href="#ref-breusch1979" role="doc-biblioref">1979</a>)</span> y consiste en ajustar un modelo de regresión lineal con variable respuesta dada por residuales del modelo original al cuadrado <span class="math inline">\(e_i^2\)</span> y como covariables las variables del modelo original.</p>
@@ -398,35 +409,40 @@ H_1 &amp;: \text{los residuales no tienen varianza constante}
 \]</span></p>
 <p>Si se concluye que <span class="math inline">\(\delta_1=\delta_2=0\)</span>, significa que los residuales no son función de las covariables del modelo. El estadístico en esta prueba está dado por <span class="math inline">\(n \times R^2\)</span> y bajo la hipótesis nula verdadera, el estadístico tiene distribución <span class="math inline">\(\chi^2_k\)</span>.</p>
 <p>La función <code>bptest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2019</a>)</span> implementa esta prueba.</p>
-<div id="ejemplo-36" class="section level3 unnumbered">
+<div id="ejemplo-30" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los <span class="math inline">\(e_i\)</span> o de las <span class="math inline">\(y_i\)</span>) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.</p>
 <p><strong>Solución</strong>
-En el código mostrado a continuación se simulan observaciones en las cuales la varianza de <span class="math inline">\(e_i\)</span> no es constante ya que para generarlos se usa la instrucción <code>ei &lt;- rnorm(n=n, sd=x2)</code>, es decir que la varianza depende de la variable <span class="math inline">\(x_2\)</span>.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="homo.html#cb241-1"></a>n &lt;-<span class="st"> </span><span class="dv">200</span></span>
-<span id="cb241-2"><a href="homo.html#cb241-2"></a>x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(n, <span class="dt">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb241-3"><a href="homo.html#cb241-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size=</span><span class="dv">6</span>, <span class="dt">prob=</span><span class="fl">0.4</span>)</span>
-<span id="cb241-4"><a href="homo.html#cb241-4"></a>ei &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">sd=</span>x2)</span>
-<span id="cb241-5"><a href="homo.html#cb241-5"></a>y &lt;-<span class="st"> </span><span class="dv">-3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>ei</span>
-<span id="cb241-6"><a href="homo.html#cb241-6"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2) <span class="co"># Modelo de interes</span></span></code></pre></div>
+En el código mostrado a continuación se simulan observaciones en las cuales la varianza de <span class="math inline">\(e_i\)</span> no es constante ya que para generar los datos se usa la instrucción <code>ei &lt;- rnorm(n=n, sd=x2)</code>, es decir que la varianza depende de la variable <span class="math inline">\(x_2\)</span>.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="homo.html#cb211-1"></a>gen_data &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
+<span id="cb211-2"><a href="homo.html#cb211-2"></a>  x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(n, <span class="dt">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb211-3"><a href="homo.html#cb211-3"></a>  x2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size=</span><span class="dv">6</span>, <span class="dt">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb211-4"><a href="homo.html#cb211-4"></a>  ei &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">sd=</span>x2)</span>
+<span id="cb211-5"><a href="homo.html#cb211-5"></a>  y &lt;-<span class="st"> </span><span class="dv">-3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>ei</span>
+<span id="cb211-6"><a href="homo.html#cb211-6"></a>  <span class="kw">data.frame</span>(y, x1, x2)</span>
+<span id="cb211-7"><a href="homo.html#cb211-7"></a>}</span>
+<span id="cb211-8"><a href="homo.html#cb211-8"></a></span>
+<span id="cb211-9"><a href="homo.html#cb211-9"></a>n &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb211-10"><a href="homo.html#cb211-10"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_data</span>(<span class="dt">n=</span>n)</span>
+<span id="cb211-11"><a href="homo.html#cb211-11"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos) <span class="co"># Modelo de interes</span></span></code></pre></div>
 <p>Vamos a aplicar la prueba de forma manual.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="homo.html#cb242-1"></a>ei &lt;-<span class="st"> </span><span class="kw">resid</span>(mod)</span>
-<span id="cb242-2"><a href="homo.html#cb242-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(ei<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
-<span id="cb242-3"><a href="homo.html#cb242-3"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
-<span id="cb242-4"><a href="homo.html#cb242-4"></a>k &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb242-5"><a href="homo.html#cb242-5"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
-<span id="cb242-6"><a href="homo.html#cb242-6"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span>k, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
-<span id="cb242-7"><a href="homo.html#cb242-7"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="homo.html#cb212-1"></a>ei &lt;-<span class="st"> </span><span class="kw">resid</span>(mod)</span>
+<span id="cb212-2"><a href="homo.html#cb212-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(ei<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
+<span id="cb212-3"><a href="homo.html#cb212-3"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
+<span id="cb212-4"><a href="homo.html#cb212-4"></a>k &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb212-5"><a href="homo.html#cb212-5"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
+<span id="cb212-6"><a href="homo.html#cb212-6"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span>k, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
+<span id="cb212-7"><a href="homo.html#cb212-7"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
 <pre><code>##      estadistico       valorP
-## [1,]     34.1397 3.860634e-08</code></pre>
+## [1,]    43.11996 4.331314e-10</code></pre>
 <p>Vamos a aplicar la prueba de forma automática con la función <code>bptest</code>.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="homo.html#cb244-1"></a><span class="kw">library</span>(lmtest)</span>
-<span id="cb244-2"><a href="homo.html#cb244-2"></a><span class="kw">bptest</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="homo.html#cb214-1"></a><span class="kw">library</span>(lmtest)</span>
+<span id="cb214-2"><a href="homo.html#cb214-2"></a><span class="kw">bptest</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
 ## data:  mod
-## BP = 34.14, df = 2, p-value = 3.861e-08</code></pre>
+## BP = 43.12, df = 2, p-value = 4.331e-10</code></pre>
 <p>De la salida anterior se observa que el valor-P es menor que el nivel de significancia usual de 5%, por lo tanto, hay evidencias para decir que no se cumple la homocedasticidad de los <span class="math inline">\(e_i\)</span>.</p>
 </div>
 </div>
@@ -437,26 +453,41 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 \hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + \delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2 + u
 \]</span></p>
 <p>Este test se puede implementar por medio de la función <code>bptest</code> pero especificando los términos no lineales de la expresión anterior.</p>
-<div id="ejemplo-37" class="section level3 unnumbered">
+<div id="ejemplo-31" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
 <p>Aplicar White test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
 <p>Para aplicar el test se usa el argumento <code>varformula</code> y se escribe la fórmula con los términos no lineales <span class="math inline">\(\delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2\)</span>, los términos lineales están por defecto.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="homo.html#cb246-1"></a><span class="kw">bptest</span>(mod, <span class="dt">varformula =</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="homo.html#cb216-1"></a><span class="kw">bptest</span>(mod, <span class="dt">varformula =</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>datos)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
 ## data:  mod
-## BP = 35.73, df = 5, p-value = 1.076e-06</code></pre>
+## BP = 60.325, df = 5, p-value = 1.041e-11</code></pre>
 <p>Como el valor-P es pequeño entonces hay evidencias para rechazar la hipótesis de homocedasticidad.</p>
 <p>La prueba se puede también realizar de forma manual, a continuación se muestra el procedimiento.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="homo.html#cb248-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">resid</span>(mod)<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>)) </span>
-<span id="cb248-2"><a href="homo.html#cb248-2"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
-<span id="cb248-3"><a href="homo.html#cb248-3"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
-<span id="cb248-4"><a href="homo.html#cb248-4"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span><span class="dv">5</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
-<span id="cb248-5"><a href="homo.html#cb248-5"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
-<pre><code>##      estadistico      valorP
-## [1,]     35.7296 1.07574e-06</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="homo.html#cb218-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">resid</span>(mod)<span class="op">^</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x2<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>datos) </span>
+<span id="cb218-2"><a href="homo.html#cb218-2"></a>R2 &lt;-<span class="st"> </span><span class="kw">summary</span>(fit)<span class="op">$</span>r.squared</span>
+<span id="cb218-3"><a href="homo.html#cb218-3"></a>estadistico &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>R2</span>
+<span id="cb218-4"><a href="homo.html#cb218-4"></a>valorP &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q=</span>estadistico, <span class="dt">df=</span><span class="dv">5</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</span>
+<span id="cb218-5"><a href="homo.html#cb218-5"></a><span class="kw">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<pre><code>##      estadistico       valorP
+## [1,]    60.32463 1.041473e-11</code></pre>
+</div>
+</div>
+<div id="score-test-for-nonconstant-error-variance" class="section level2 unnumbered">
+<h2>Score test for nonconstant error variance</h2>
+<p>Esta prueba sirve para estudiar la hipótesis nula de varianza constante de los errores frente a la hipótesis alternativa de que la varianza de los errores cambia con el nivel de la respuesta o con alguna combinación lineal de los predictores.</p>
+<p>La función <code>ncvTest</code> del paquete <strong>car</strong> <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span> implementa esta prueba.</p>
+<div id="ejemplo-32" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Aplicar Score test para los datos simulados del ejemplo anterior.</p>
+<p><strong>Solución</strong></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="homo.html#cb220-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb220-2"><a href="homo.html#cb220-2"></a><span class="kw">ncvTest</span>(mod)</span></code></pre></div>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 17.57293, Df = 1, p = 2.765e-05</code></pre>
 </div>
 </div>
 <div id="goldfeld-quandt-test" class="section level2 unnumbered">
@@ -474,6 +505,9 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 <div id="ref-breusch1979">
 <p>Breusch, Trevor S, and Adrian R Pagan. 1979. “A Simple Test for Heteroscedasticity and Random Coefficient Variation.” <em>Econometrica: Journal of the Econometric Society</em>, 1287–94.</p>
 </div>
+<div id="ref-R-car">
+<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
+</div>
 <div id="ref-R-lmtest">
 <p>Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2019. <em>Lmtest: Testing Linear Regression Models</em>. <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>.</p>
 </div>
@@ -486,8 +520,8 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
           </div>
         </div>
       </div>
-<a href="mod-poli.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="selec.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diag2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="indep.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -518,7 +552,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/11-ph-homocedasticidad.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/11-ph-homoce.Rmd",
 "text": "Edit"
 },
 "history": {
