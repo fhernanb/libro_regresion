@@ -1,6 +1,25 @@
 # Diagnósticos parte I {#diag1}
 En este capítulo se presentan varias herramientas útiles para hacer diagnósticos de un modelo ajustado.
 
+## Supuestos {-}
+Los supuestos en un modelo de regresión se pueden escribir de dos formas:
+
+__Forma I__
+
+1. Los errores tienen distribución normal.
+2. Los errores tienen media cero.
+3. Los errores tiene varianza constante.
+4. Los errores no están correlacionados.
+
+__Forma II__
+
+1. La respuesta $y$ tiene distribución normal.
+2. La varianza de la respuesta $y$ es constante.
+3. Las observaciones son independientes $y$.
+4. Relación lineal entre la variable respuesta y las covariables.
+
+Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los errores mientras que en la forma II está dirigida hacia los $y_i$.
+
 ## Residuales {-}
 Los residuales en los modelos de regresión nos ayuda a:
 
@@ -69,55 +88,36 @@ cbind(ei=residuals(mod, type='working'),
 
 Estimado lector, __¿qué puede usted concluir de los resultados de este ejemplo?__
 
-## Supuestos {-}
-Los supuestos en un modelo de regresión se pueden escribir de dos formas:
-
-__Forma I__
-
-1. Los errores $e_i$ tienen distribución normal.
-2. Los errores $e_i$ tienen media cero.
-3. Los errores $e_i$ tiene varianza constante.
-4. Los errores $e_i$ no están correlacionados.
-
-__Forma II__
-
-1. La respuesta $y$ tiene distribución normal.
-2. La varianza de la respuesta $y$ es constante.
-3. Las observaciones son independientes $y$.
-4. Relación lineal entre la variable respuesta y las covariables.
-
-Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los $e_i$ mientras que en la forma II está dirigida hacia los $y_i$.
-
-## Chequeando normalidad de los errores $e_i$ {-}
-Para estudiar si lo errores $e_i$ tienen una distribución aproximadamente normal se construyen los residuales estandarizados $d_i$. Una vez calculados los $d_i$ se construye un gráfico de normalidad o qqplot usando la función `qqnorm`, el resultado es un gráfico similar al mostrado a continuación.
+## Chequeando normalidad de los errores {-}
+Para estudiar si lo errores tienen una distribución aproximadamente normal se construyen los residuales estandarizados $d_i$. Una vez calculados los $d_i$ se construye un gráfico de normalidad o qqplot usando la función `qqnorm`, el resultado es un gráfico similar al mostrado a continuación.
 
 <p align="center">
   <img src="images/qq_residuales_estandarizados.png" width="450">
 </p>
 
-En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de normalidad para $d_i$. Para que se cumpla el supuesto de normalidad de los errores $e_i$ se necesita que los $d_i$ estén lo más alineados con la recta de referencia, alejamientos severos de esta recta significa que se viola el supuesto de normalidad de $e_i$.
+En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de normalidad para $d_i$. Para que se cumpla el supuesto de normalidad de los errores $e_i$ se necesita que los $d_i$ estén lo más alineados con la recta de referencia, alejamientos severos de esta recta significa que se viola el supuesto de normalidad de los errores.
 
 <p align="center">
   <img src="images/patrones_qqplot.png" width="450">
 </p>
 
-## Chequeando si errores $e_i$ con media cero {-}
-Para determinar si los errores $e_i$ tienen una media cerca al valor de cero se puede usar la función `mean` sobre los residuales.
+## Chequeando si errores con media cero {-}
+Para determinar si los errores tienen una media cerca al valor de cero se puede usar la función `mean` sobre los residuales $e_i$.
 
-## Chequeando si los errores $e_i$ tiene varianza constante {-}
+## Chequeando si los errores tiene varianza constante {-}
 En la siguiente figura se muestra el caso de varianza $\sigma^2$ constante (homocedasticidad) y el caso de varianza $\sigma^2$ no constante (heterocedasticidad). La homocedasticidad es el supuesto exigido en modelos de regresión.
 
 <p align="center">
   <img src="images/homo_hetero.png" width="500">
 </p>
 
-Para chequear si los errores $e_i$ tiene varianza constante se construye un gráfico de $e_i$ versus $\hat{\mu}_i$, un gráfico similar al mostrado a continuación.
+Para chequear si los errores tiene varianza constante se construye un gráfico de $e_i$ versus $\hat{\mu}_i$, un gráfico similar al mostrado a continuación.
 
 <p align="center">
   <img src="images/ei_versus_mui.png" width="450">
 </p>
 
-En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de $e_i$ versus $\hat{\mu}_i$. Para que se cumpla el supuesto de homocedasticidad se necesita que los puntos se ubiquen como una nube de puntos sin ningún patrón claro. Cualquier patrón que se observe es evidencia de que no se cumple el supuesto de homocedasticidad.
+En la siguiente figura se muestran los diferentes patrones que se pueden encontrar en el gráfico de $e_i$ versus $\hat{\mu}_i$. Para que se cumpla el supuesto de homocedasticidad de los errores se necesita que los puntos se ubiquen como una nube de puntos sin ningún patrón claro. Cualquier patrón que se observe es evidencia de que no se cumple el supuesto de homocedasticidad de los errores.
 
 <p align="center">
   <img src="images/patrones_ei_versus_mui.png" width="450">
@@ -137,7 +137,7 @@ Otro gráfico útil para chequear el supuesto de homocedasticidad es dibujar un 
 
 Al igual que en el gráfico de $e_i$ versus $\hat{\mu}_i$, se espera que no existan patrones claros en la nube de puntos.
 
-## Chequeando si errores $e_i$ no están correlacionados {-}
+## Chequeando si errores no están correlacionados {-}
 Para estudiar esta situación se debe tener la historia de los errores, es decir, el orden en que las observaciones fueron tomadas. Usando es información se puede dibujar un diagrama de dispersión del residual versus tiempo,  un gráfico similar al mostrado a continuación.
 
 <p align="center">

@@ -46,3 +46,19 @@ dwtest(mod2) ## perform Durbin-Watson test
 plot(residuals(mod2), pch=19, col="tomato")
 ```
 
+## Breusch-Godfrey Test {-}
+La función `bgtest` del paquete **lmtest** @R-lmtest implementa esta prueba.
+
+### Ejemplo {-}
+Usando los datos el ejemplo anterior aplicar la prueba Breusch-Godfrey.
+
+```{r}
+library(lmtest)
+mod1 <- lm(y1 ~ x)
+bgtest(mod1) ## perform Durbin-Watson test
+
+mod2 <- lm(y2 ~ x)
+bgtest(mod2) ## perform Durbin-Watson test
+```
+
+
