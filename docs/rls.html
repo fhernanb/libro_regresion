@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-09-08" />
+<meta name="date" content="2020-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -399,11 +399,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Modelo estadístico</h2>
 <p>El modelo estadístico en regresión lineal simple se puede escribir de dos formas como se muestra a continuación.</p>
 <ol style="list-style-type: decimal">
-<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> se expresa como una suma de <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span> y un error aleatorio <span class="math inline">\(e_i\)</span> el cual tiene distribución <span class="math inline">\(N(0, \sigma^2)\)</span>. El modelo en esta forma se puede expresar como sigue.</li>
+<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> se expresa como una suma de <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span> y un error aleatorio <span class="math inline">\(\epsilon_i\)</span> el cual tiene distribución <span class="math inline">\(N(0, \sigma^2)\)</span>. El modelo en esta forma se puede expresar como sigue.</li>
 </ol>
 <p><span class="math display">\[\begin{align} \label{mod1}
-Y_i &amp;= \beta_0 + \beta_1X_i + e_i,\\ 
-e_i &amp;\sim N(0, \sigma^2)
+Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
+\epsilon_i &amp;\sim N(0, \sigma^2)
 \end{align}\]</span></p>
 <ol start="2" style="list-style-type: decimal">
 <li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> tiene distribución normal con media que cambia en función de la variable <span class="math inline">\(x\)</span> pero con varianza constante. El modelo en esta forma se puede expresar como sigue.</li>
@@ -603,7 +603,7 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 <h3>Estimación por mínimos cuadrados</h3>
 <p>Para estimar <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma cuadrática del error:</p>
 <p><span class="math display">\[\begin{eqnarray*}
-S(\beta_0, \beta_1)&amp;=&amp;\sum_{i=1}^ne_i^2\\
+S(\beta_0, \beta_1)&amp;=&amp;\sum_{i=1}^n \epsilon_i^2\\
 &amp;=&amp;\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
 \end{eqnarray*}\]</span>
 Derivando e igualando a cero, es decir,
@@ -612,13 +612,13 @@ Derivando e igualando a cero, es decir,
 obtenemos que los estimadores para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> están dados por
 <span class="math display">\[\widehat{\beta}_0=\overline{Y}-\widehat{\beta}_1\overline{X}\quad \text{y}\quad \widehat{\beta}_1=\frac{S_{xy}}{S_{xx}}\]</span>
 donde
-<span class="math inline">\(S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2\)</span> &amp; <span class="math inline">\(S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2\)</span> &amp; <span class="math inline">\(S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})\)</span> \</p>
+<span class="math inline">\(S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2\)</span> &amp; <span class="math inline">\(S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2\)</span> &amp; <span class="math inline">\(S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})\)</span>.</p>
 </div>
 <div id="estimación-por-máxima-verosimilitud" class="section level3 unnumbered">
 <h3>Estimación por máxima verosimilitud</h3>
 <p>Sabemos que para nuestro modelo de regresión lineal simple,</p>
 <p><span class="math display">\[Y_i\sim N\left(\beta_0+\beta_1X_i, \sigma^2\right),\quad \text{para todo $i=1, 2,  \ldots, n$}.\]</span>
-Y como los errores <span class="math inline">\(e_1, e_2, \ldots, e_n\)</span> son independientes, entonces <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> también son independientes.</p>
+Y como los errores <span class="math inline">\(\epsilon_1, \epsilon_2, \ldots, \epsilon_n\)</span> son independientes, entonces <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> también son independientes.</p>
 <p>Así, la función de verosimilitud estaría dada por:
 <span class="math display">\[\begin{eqnarray*}
 L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)&amp;=&amp;\prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(Y_i-\beta_0-\beta_1X_i)^2\right\}\\

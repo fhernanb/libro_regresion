@@ -4,11 +4,11 @@ En este capítulo se presenta una descripción breve del modelo de regresión li
 ## Modelo estadístico {-}
 El modelo estadístico en regresión lineal simple se puede escribir de dos formas como se muestra a continuación.
 
-1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_i$ y un error aleatorio $e_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
+1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_i$ y un error aleatorio $\epsilon_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod1}
-Y_i &= \beta_0 + \beta_1X_i + e_i,\\ 
-e_i &\sim N(0, \sigma^2)
+Y_i &= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
+\epsilon_i &\sim N(0, \sigma^2)
 \end{align}
 
 2. En esta forma la variable respuesta $y$ tiene distribución normal con media que cambia en función de la variable $x$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
@@ -237,7 +237,7 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 Para estimar $\beta_0$ y $\beta_1$ utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma  cuadrática del error:
 
 \begin{eqnarray*}
-S(\beta_0, \beta_1)&=&\sum_{i=1}^ne_i^2\\
+S(\beta_0, \beta_1)&=&\sum_{i=1}^n \epsilon_i^2\\
 &=&\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
 \end{eqnarray*}
 Derivando e igualando a cero, es decir,
@@ -246,15 +246,14 @@ $$\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_1}=0$$
 obtenemos que los estimadores para $\beta_0$ y $\beta_1$ están dados por
 $$\widehat{\beta}_0=\overline{Y}-\widehat{\beta}_1\overline{X}\quad \text{y}\quad \widehat{\beta}_1=\frac{S_{xy}}{S_{xx}}$$
 donde 
-$S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2$ &	$S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2$ & $S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})$	 \\
-
+$S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2$ &	$S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2$ & $S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})$.
 
 ### Estimación por máxima verosimilitud {-}
 
 Sabemos que para nuestro modelo de regresión lineal simple, 
 
 $$Y_i\sim N\left(\beta_0+\beta_1X_i, \sigma^2\right),\quad \text{para todo $i=1, 2,  \ldots, n$}.$$
-Y como los errores $e_1, e_2, \ldots, e_n$ son independientes, entonces $Y_1, Y_2, \ldots, Y_n$ también son independientes.
+Y como los errores $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ son independientes, entonces $Y_1, Y_2, \ldots, Y_n$ también son independientes.
 
 Así, la función de verosimilitud estaría dada por:
 \begin{eqnarray*}

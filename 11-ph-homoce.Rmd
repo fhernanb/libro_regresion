@@ -5,7 +5,7 @@ En las prueba mostradas a continuación se estudian las siguientes hipótesis.
 
 \begin{align*} 
 H_0 &: \text{los errores tienen varianza constante.} \\ 
-H_1 &: \text{los errores no tienen varianza constante}
+H_1 &: \text{los errores no tienen varianza constante.}
 \end{align*}
 
 <p align="center">

@@ -7,8 +7,8 @@ El modelo estadístico en regresión lineal múltiple es una generalización del
 1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}$ y un error aleatorio $e_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod1}
-y_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + e_i, \\ 
-e_i &\sim N(0, \sigma^2)
+y_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + \epsilon_i, \\ 
+\epsilon_i &\sim N(0, \sigma^2)
 \end{align}
 
 2. En esta forma la variable respuesta $y$ tiene distribución normal con media que cambia en función de las variables $x_k$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.

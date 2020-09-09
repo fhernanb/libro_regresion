@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-09-08" />
+<meta name="date" content="2020-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -610,7 +610,7 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
-## &lt;environment: 0x000000003db23d78&gt;
+## &lt;environment: 0x0000000039c9ee40&gt;
 ## 
 ##               Step    RSS    AIC  R2pred     Cp F value Pr(&gt;F)
 ## Estatura         1 836.03 96.235 0.64981 2.2221  0.2221 0.6421
@@ -771,7 +771,7 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 <h2>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</h2>
 <p>Es una medida de lo BIEN que funciona el modelo para predecir nuevas observaciones.</p>
 <p><span class="math display">\[
-PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
+PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
 \]</span></p>
 <p>El <span class="math inline">\(R^2\)</span> de predicción es una medida del porcentaje de la variabilidad explicada por el modelo para nuevas observaciones. El El <span class="math inline">\(R^2\)</span> de predicción se define en función de la estadística PRESS así:</p>
 <p><span class="math display">\[

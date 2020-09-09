@@ -399,7 +399,7 @@ En conclusión,
 Es una medida de lo BIEN que funciona el modelo para predecir nuevas observaciones.
 
 $$
-PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
+PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
 $$
 
 El $R^2$ de predicción es una medida del porcentaje de la variabilidad explicada por el modelo para nuevas observaciones. El El $R^2$ de predicción se define en función de la estadística PRESS así:
