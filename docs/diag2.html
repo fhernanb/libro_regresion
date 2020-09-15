@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-09-09" />
+<meta name="date" content="2020-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -275,6 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="diag2.html#estadística-press-y-r2-de-predicción">Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a><ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#valores-de-corte-para-diagnósticos"><i class="fa fa-check"></i>Valores de corte para diagnósticos</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a><ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a><ul>
@@ -610,7 +611,7 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
-## &lt;environment: 0x0000000039c9ee40&gt;
+## &lt;environment: 0x0000000039bd3e68&gt;
 ## 
 ##               Step    RSS    AIC  R2pred     Cp F value Pr(&gt;F)
 ## Estatura         1 836.03 96.235 0.64981 2.2221  0.2221 0.6421
@@ -813,8 +814,20 @@ R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag2.html#cb209-1"></a><span class="kw">pred_r_squared</span>(mod)</span></code></pre></div>
 <pre><code>## [1] 0.9206438</code></pre>
 <p>De la salida anterior se observa que el <span class="math inline">\(R^2\)</span> de predicción toma un valor de 0.9206, esto indica que el modelo <code>mod</code> tiene una buena capacidad de predicción para nuevas observaciones.</p>
-
 </div>
+</div>
+<div id="valores-de-corte-para-diagnósticos" class="section level2 unnumbered">
+<h2>Valores de corte para diagnósticos</h2>
+<p><span class="citation">Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise <span class="citation">Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> y conozca unas recomendaciones adicionales sobre los puntos de corte.</p>
+<ul>
+<li>Observaciones con valores de <span class="math inline">\(h_{ii}\)</span> que excedan dos veces el valor <span class="math inline">\(\bar{h} = (k+1)/n\)</span> podrían ser observaciones atípicas o outliers. Este punto de corte se obtiene como una aproximación para identificar el 5% de las observaciones más extremas si las <span class="math inline">\(X\)</span>’s se distribuyen normal multivariada con <span class="math inline">\(k\)</span> y <span class="math inline">\(n-k-1\)</span> grandes (<span class="math inline">\(k\)</span> se refiere al número de <span class="math inline">\(\beta\)</span>’s diferentes al intercepto).</li>
+<li>Como los residuales estandarizados <span class="math inline">\(d_i\)</span>, tienen media cero y varianza aproximadamente unitaria, un residual estandarizado grande, <span class="math inline">\(|d_i| &gt; 3\)</span>, indica que se trata de un valor atípico potencial.</li>
+<li>Como los residuales studentizados <span class="math inline">\(r_i\)</span> tienen distribución <span class="math inline">\(t\)</span>-student, es decir, <span class="math inline">\(t_{n-k-2}\)</span>, se podrían considerar como posibles residual atípico aquel cuyo valor cumpla <span class="math inline">\(|r_i| &gt; 2\)</span>.</li>
+<li>Una observación con un residual PRESS grande se puede considerar como una observación influyente.</li>
+<li>Una observación se puede considerar como influyente si su distancia de Cook cumple que <span class="math inline">\(D_i &gt; 4/(n-k-1)\)</span>, donde <span class="math inline">\(k\)</span> se refiere al número de <span class="math inline">\(\beta\)</span>’s diferentes al intercepto.</li>
+<li>Una observación se puede considerar como influyente si valor de DFFITS cumple que <span class="math inline">\(|DFFITS_i| &gt; 2 \sqrt{\frac{k+1}{n-k-1}}\)</span>.</li>
+</ul>
+
 </div>
 </div>
 <h3>References</h3>

@@ -52,7 +52,6 @@ rstudent(object)
 
 Si un modelo lineal está correctamente especificado (ajustado), los residuos de Pearson serán independientes de los valores ajustados e independientes de los predictores, y estos gráficos deben ser "gráficos nulos", es decir, gráficos sin características sistemáticas, en el sentido de que la distribución condicional de los residuos (en el eje vertical del gráfico) no debe cambiar con los valores ajustados o con un predictor (en el eje horizontal) [@fox2019].
 
-
 ```{block2, type='rmdwarning'}
 Los errores del modelo se denotan como $\epsilon_i$ mientras que los residuales usuales se denotan como $e_i$, no los confunda.
 ```

@@ -457,3 +457,13 @@ pred_r_squared(mod)
 ```
 
 De la salida anterior se observa que el $R^2$ de predicción toma un valor de 0.9206, esto indica que el modelo `mod` tiene una buena capacidad de predicción para nuevas observaciones.
+
+## Valores de corte para diagnósticos {-}
+@fox2015applied en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise @fox2015applied y conozca unas recomendaciones adicionales sobre los puntos de corte.
+
+- Observaciones con valores de $h_{ii}$ que excedan dos veces el valor $\bar{h} = (k+1)/n$ podrían ser observaciones atípicas o outliers. Este punto de corte se obtiene como una aproximación para identificar el 5% de las observaciones más extremas si las $X$'s se distribuyen normal multivariada con $k$ y $n-k-1$ grandes ($k$ se refiere al número de $\beta$'s diferentes al intercepto).
+- Como los residuales estandarizados $d_i$, tienen media cero y varianza aproximadamente unitaria, un residual estandarizado grande, $|d_i| > 3$, indica que se trata de un valor atípico potencial.
+- Como los residuales studentizados $r_i$ tienen distribución $t$-student, es decir, $t_{n-k-2}$, se podrían considerar como posibles residual atípico aquel cuyo valor cumpla $|r_i| > 2$.
+- Una observación con un residual PRESS grande se puede considerar como una observación influyente.
+- Una observación se puede considerar como influyente si su distancia de Cook cumple que $D_i > 4/(n-k-1)$, donde $k$ se refiere al número de $\beta$'s diferentes al intercepto.
+- Una observación se puede considerar como influyente si valor de DFFITS cumple que $|DFFITS_i| > 2 \sqrt{\frac{k+1}{n-k-1}}$.
