@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-09-15" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -434,7 +434,7 @@ La distancia <span class="math inline">\(h_{ii}\)</span> no incluye información
 <p>Una vez se tenga el modelo ajustado podríamos usar valores de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> para estimar la media de <span class="math inline">\(y\)</span>. Lo ideal es usar el modelo para predecir la media de <span class="math inline">\(y\)</span> con valores de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> que se encuentren dentro del cascarón.</p>
 <p>Si tratamos de estimar la media de <span class="math inline">\(y\)</span> para valores de las covariables fuera del cascarón, como en el caso del punto rojo, no podemos garantizar que el modelo tenga un buen desempeño debido a que el modelo no se entrenó con ese tipo de ejemplos.</p>
 <p>El problema de <strong>extrapolación oculta</strong> se presenta cuando tratamos de predecir información de <span class="math inline">\(y\)</span> con covariables fuera del cascarón. La extrapolación oculta es fácil de identificarla cuando sólo se tiene dos covariables, pero, ¿cómo saber si se está haciendo extrapolación oculta cuando se tienen varias covariables.
-Supongamos que queremos saber si el vector de covariables <span class="math inline">\(\boldsymbol{x}_0=(x_1, x_2, \ldots, x_p)^\top\)</span> está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando <span class="math inline">\(\boldsymbol{x}_0\)</span>?. Los pasos para determinar si <span class="math inline">\(\boldsymbol{x}_0\)</span> está o no dentro del cascarón son:</p>
+Supongamos que queremos saber si el vector de covariables <span class="math inline">\(\boldsymbol{x}_0=(1, x_1, x_2, \ldots, x_p)^\top\)</span> está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando <span class="math inline">\(\boldsymbol{x}_0\)</span>?. Los pasos para determinar si <span class="math inline">\(\boldsymbol{x}_0\)</span> está o no dentro del cascarón son:</p>
 <ol style="list-style-type: decimal">
 <li>Calcular la matriz <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
 <li>Obtener los valores <span class="math inline">\(h_{ii}\)</span> de la matriz <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
@@ -611,7 +611,7 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
-## &lt;environment: 0x0000000039bd3e68&gt;
+## &lt;environment: 0x00000000393a9208&gt;
 ## 
 ##               Step    RSS    AIC  R2pred     Cp F value Pr(&gt;F)
 ## Estatura         1 836.03 96.235 0.64981 2.2221  0.2221 0.6421

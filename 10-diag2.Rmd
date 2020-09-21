@@ -46,7 +46,7 @@ Una vez se tenga el modelo ajustado podríamos usar valores de $x_1$ y $x_2$ par
 Si tratamos de estimar la media de $y$ para valores de las covariables fuera del cascarón, como en el caso del punto rojo, no podemos garantizar que el modelo tenga un buen desempeño debido a que el modelo no se entrenó con ese tipo de ejemplos.
 
 El problema de __extrapolación oculta__ se presenta cuando tratamos de predecir información de $y$ con covariables fuera del cascarón. La extrapolación oculta es fácil de identificarla cuando sólo se tiene dos covariables, pero, ¿cómo saber si se está haciendo extrapolación oculta cuando se tienen varias covariables. 
-Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(x_1, x_2, \ldots, x_p)^\top$ está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando $\boldsymbol{x}_0$?. Los pasos para determinar si $\boldsymbol{x}_0$ está o no dentro del cascarón son:
+Supongamos que queremos saber si el vector de covariables $\boldsymbol{x}_0=(1, x_1, x_2, \ldots, x_p)^\top$ está o no dentro del cascarón, dicho de otra manera, ¿se cometería extrapolación oculta usando $\boldsymbol{x}_0$?. Los pasos para determinar si $\boldsymbol{x}_0$ está o no dentro del cascarón son:
 
 1. Calcular la matriz $\boldsymbol{H}$.
 2. Obtener los valores $h_{ii}$ de la matriz $\boldsymbol{H}$.
