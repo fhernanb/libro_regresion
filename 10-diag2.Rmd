@@ -396,19 +396,19 @@ En conclusión,
 2. La función `dfbeta` entrega $\hat{\beta}_j - \hat{\beta}_{j(i)}$.
 
 ## Estadística PRESS y $R^2$ de predicción {-}
-Es una medida de lo BIEN que funciona el modelo para predecir nuevas observaciones.
+Es una medida de lo BIEN que el modelo logra predecir $\hat{y}$ para nuevas observaciones.
 
 $$
 PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
 $$
 
-El $R^2$ de predicción es una medida del porcentaje de la variabilidad explicada por el modelo para nuevas observaciones. El El $R^2$ de predicción se define en función de la estadística PRESS así:
+El $R^2$ de predicción es una medida del porcentaje de la variabilidad explicada por el modelo para nuevas observaciones. El $R^2$ de predicción se define en función de la estadística PRESS así:
 
 $$
 R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 $$
 
-Las funciones mostradas abajo fueron creadas por [Tom Hopper](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0) y sirve para obtener la estadística PRESS y el $R^2$ de predicción.
+Las funciones mostradas abajo fueron creadas por [Tom Hopper](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0) y sirven para obtener la estadística PRESS y el $R^2$ de predicción.
 
 ```{r}
 PRESS <- function(linear.model) {

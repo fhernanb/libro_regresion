@@ -1,22 +1,29 @@
 # Modelos polinomiales {#mod_poli}
 En este capítulo se presenta una descripción breve de como ajustar modelos polinomiales con R.
 
+## Modelos polinomiales de una o varias variables {-}
+Cuando se construyen modelos para explicar la media de una variable respuesta $Y$, a veces no basta con incluir las covariables $X_1, \ldots, X_k$ sino que es necesario incluir potencias de esas variables para mejorar el modelo. En las siguientes secciones se muestra como incluir potencias de las covariables en un modelo.
+
+```{block2, type='rmdnote'}
+Al incluir en un modelo lineal una potencia de una variables $X$ el modelo sigue siendo lineal. El término lineal se refiere a los parámetros $\beta$ y no a las covariables.
+```
+
 ## Funciones `I()` y `poly()` {-}
 Las funciones `I()` y `poly()` son utilizadas para incluir elementos polinomiales en un modelo de regresión.
 
 - Use `I()` para incluir un término específico en un modelo, por ejemplo, `I(x^3)` indica que queremos solo el término $x^3$.
 - Use `poly()` para incluir __todos__ los términos de un polinomio hasta cierto grado, por ejemplo, `poly(x, degree=3)` indica que queremos incluir $x$, $x^2$ y $x^3$.
 
-### Ejemplo {-}
+#### Ejemplo {-}
 Como ilustración vamos a usar los datos del ejemplo 7.1 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 7.1 se busca crear un modelo que explique la resistencia a la tensión de una bolsa en función del porcentaje de madera dura.
 
 A continuación se muestran los datos usados en el ejemplo.
 
 ```{r}
-datos <- structure(list(concentracion = c(1, 1.5, 2, 3, 4, 4.5, 5, 5.5, 
-    6, 6.5, 7, 8, 9, 10, 11, 12, 13, 14, 15), resistencia = c(6.3, 11.1, 
-    20, 24, 26.1, 30, 33.8, 34, 38.1, 39.9, 42, 46.1, 53.1, 52, 52.5, 48, 
-    42.8, 27.8, 21.9)), class = "data.frame", row.names = c(NA, -19L))
+conc <- c(1, 1.5, 2, 3, 4, 4.5, 5, 5.5, 6, 6.5, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+resis <- c(6.3, 11.1, 20, 24, 26.1, 30, 33.8, 34, 38.1, 39.9, 42, 46.1, 53.1, 
+           52, 52.5, 48, 42.8, 27.8, 21.9)
+datos <- data.frame(concentracion=conc, resistencia=resis)
 ```
 
 El siguiente código es usado para construir el diagrama de dispersión entre las variables resistencia y concentración.
@@ -48,7 +55,6 @@ ggplot(datos, aes(x=concentracion, y=resistencia)) +
 
 De la figura anterior se observa claramente que el modelo lineal no es capaz de explicar los datos, se observan zonas donde el `mod1` siempre sub-estima y otras zonas donde siempre sobre-estima.
 
-
 Vamos a comparar ahora los modelos por medio de un análisis de varianza, el código para hacer esto es el siguiente.
 
 ```{r}
@@ -73,15 +79,39 @@ De lo anterior se concluye que es mejor el modelo cuadrático para explicar la r
 
 \begin{align}
 {Resi}_i &\sim N(\hat{\mu}_i, \sigma^2), \\ 
-\hat{\mu}_i &= -6.674 + 11.764 Conc - 0.635 Conc^2, \\
+\hat{\mu}_i &= -6.674 + 11.764 \times Conc - 0.635 \times Conc^2, \\
 \hat{\sigma} &= 4.42
 \end{align}
 
+## Modelos polinomiales con splines {-}
+Los splines ofrecen una forma útil de ajustar un modelo cuando los datos se comportan en forma distinta en diferentes partes del rango de las $X´s$.
+
+Los splines son polinomios de orden $k$ por segmentos y los puntos de unión se llaman nodos o knots. En la siguiente figura se muestra un spline hecho de un listón de madera y con nodos de hierro para lograr una curvatura deseada.
+
+<p align="center">
+  <img src="images/spline_fisico.png" width="400">
+</p>
+
+Un spline cúbico básico con $h$ nodos en los puntos $t_1, t_2, \ldots, t_h$ se puede escribir como:
+
+$$
+E(Y) = \sum_{j=0}^{3} \beta_{0j} x^j + \sum_{i=1}^{h} \beta_{i} (x-t_i)^3_{+}
+$$
+
+donde
+
+$$
+(x-t_i)^3_+ = \begin{cases} 
+(x-t_i)^3 &\mbox{if } x > t_i \\
+0 & \mbox{if } x \leq t_i 
+\end{cases}
+$$
+
 ### Ejemplo {-}
-Como ilustración vamos a usar los datos del ejemplo 7.2 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278). En el ejemplo 7.2 se busca crear un modelo que explique la caída de voltaje en función del tiempo por medio dos posibles modelos:
+Como ilustración vamos a usar los datos del ejemplo 7.2 del libro de @mpv06. En el ejemplo 7.2 se busca crear un modelo que explique la caída de voltaje en función del tiempo por medio dos modelos:
 
 - un modelo polinomial de grado tres.
-- un spline cúbico con 2 nodos en $t=6.5$ y $t=13$.
+- un spline cúbico con dos nodos en $t=6.5$ y $t=13$.
 
 Los datos utilizados en el ejemplo se muestran a continuación.
 
@@ -98,7 +128,7 @@ datos <- data.frame(time=time, drop=drop)
 Usando los datos anteriores podemos construir un diagrama de dispersión para entender la relación de las variables y la ubicación de los posibles nodos (sitios donde hay cambio de curvatura).
 
 ```{r poly04, fig.height=4, fig.width=5, fig.align='center'}
-plot(datos, ylab="Voltage drop", xlab="Time (seconds)", pch=19, ylim=c(0, 15))
+plot(datos, ylab="Voltage drop", xlab="Time (seconds)", pch=19, ylim=c(0, 15), las=1)
 abline(v=6.5, lty="dotted", col='tomato')
 abline(v=13, lty="dotted", col='tomato')
 text(x=6.5, y=0.3, 't=6.5', col='tomato')
@@ -123,9 +153,9 @@ Ahora vamos a ajustar el modelo spline cúbico con 2 nodos en $t=6.5$ y $t=13$, 
 
 ```{r}
 xplus <- function(x) ifelse(x >= 0, x, 0)  # Auxiliar function
-time6.5 <- xplus(time - 6.5)
-time13 <- xplus(time - 13)
-mod2 <- lm(drop ~ time + I(time^2) + I(time^3) + I(time6.5^3) + I(time13^3), data=datos)
+time65 <- xplus(time - 6.5)               # New variable 1
+time13 <- xplus(time - 13)                 # New variable 2
+mod2 <- lm(drop ~ time + I(time^2) + I(time^3) + I(time65^3) + I(time13^3), data=datos)
 summary(mod2)
 ```
 
@@ -139,7 +169,7 @@ De la anterior salida se pueden destacar los siguientes resultados:
 Para hacer una comparación visual de ambos modelos vamos a construir nuevamente el diagrama de dispersión original y agregaremos las curvas ajustadas de ambos modelos. El código para hacer esto se muestra a continuación.
 
 ```{r poly05, fig.height=4, fig.width=5, fig.align='center'}
-plot(datos, ylab="Voltage drop", xlab="Time (seconds)", pch=19, ylim=c(0, 15))
+plot(datos, ylab="Voltage drop", xlab="Time (seconds)", pch=19, ylim=c(0, 15), las=1)
 i <- order(time)
 lines(time[i], fitted(mod1)[i], col=2, lwd=3)
 lines(time[i], fitted(mod2)[i], col=4, lwd=3)
@@ -152,13 +182,13 @@ Al observar la figura anterior se nota con claridad que el modelo cubic spline (
 Usando la tabla de resumen obtenida con `summary(mod2)` se puede escribir el modelo cubic spline ajustado así:
 
 \begin{align}
-{Drop}_i &\sim N(\hat{\mu}_i, \sigma^2), \\ 
+{Drop}_i &\sim N(\hat{\mu}_i, \hat{\sigma}^2), \\ 
 \hat{\mu}_i &= 8.4657 -1.4531 t + 0.4899 t^2 -0.0295 t^3 + 0.0247 (t-6.5)^3_{+} + 0.0271 (t-13)^3_{+}, \\
 \hat{\sigma} &= 0.2678
 \end{align}
 
 ## Función `bs` {-}
-La función `bs` del paquete `splines` se puede utilizar para incluir splines básicos en un modelo de regresión, la estructura básica de la función se muestra a continuación.
+La función `bs` del paquete `splines` se puede utilizar para incluir *basic splines* en un modelo de regresión, la estructura básica de la función se muestra a continuación.
 
 ```{r, eval=FALSE}
 bs(x, df = NULL, knots = NULL, degree = 3, intercept = FALSE,
@@ -173,7 +203,7 @@ Los argumentos básicos de la función son:
 - `degree`: degree of the piecewise polynomial—default is 3 for cubic splines.
 
 ### Ejemplo {-}
-En este ejemplo vamos a retomar el ejemplo 7.2 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278) y que fue explicado anteriormente. El objetivo es repetir el modelo `mod2` pero con la ayuda de la función `bs`, a ese nuevo modelo lo vamos a llamar `mod3`. El código necesario se muestra a continuación.
+En este ejemplo vamos a retomar el ejemplo 7.2 del libro de @mpv06 y que fue explicado anteriormente. El objetivo es repetir el modelo `mod2` pero con la ayuda de la función `bs`, a ese nuevo modelo lo vamos a llamar `mod3`. El código necesario se muestra a continuación.
 
 ```{r, message=FALSE}
 require(splines)
@@ -199,12 +229,62 @@ abline(v=c(6.5, 13), lty='dotted', col="tomato") # adding cutpoints
 
 De la figura anterior se observa que el modelo `mod3` coincide con el modelo `mod2`. 
 
+### Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de @mpv06. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
+
+El objetivo de este ejemplo es crear los siguientes modelos para compararlos con el MSE (mean squared error).
+
+- modelo lineal con cantidad y distancia.
+- modelo lineal con splines cúbicos de cantidad y distancia.
+
+<p align="center">
+  <img src="images/ilustracion_refrescos.png" width="600">
+</p>
+
+__Solución__
+
+Los datos del ejemplo están disponibles en el paquete **MPV**\index{MPV} (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.
+
+El siguiente código sirve para construir los dos modelos solicitados.
+
+```{r}
+library(MPV)
+colnames(softdrink) <- c('tiempo', 'cantidad', 'distancia')
+
+library(splines)
+
+mod1 <- lm(tiempo ~ cantidad + distancia, data=softdrink)
+mod2 <- lm(tiempo ~ bs(cantidad) + bs(distancia), data=softdrink)
+```
+
+Para obtener los valores del MSE con ambos modelos hacemos lo siguiente:
+
+```{r}
+y_true <- softdrink$tiempo
+y_hat1 <- predict(mod1, newdata=softdrink)
+y_hat2 <- predict(mod2, newdata=softdrink)
+
+mse1 <- mean((y_true - y_hat1)^2)
+mse2 <- mean((y_true - y_hat2)^2)
+cbind(mse1, mse2)
+```
+
+De la salida anterior vemos que el MSE del modelo `mod2` que tiene splines cúbicos es menor (no necesariamente mejor) que el modelo `mod1`.
+
+```{block2, type='rmdnote'}
+El MSE en este ejemplo se pudo haber obtenido usando directamente los residuales.
+```
+
+```{block2, type='rmdwarning'}
+¿Será que el modelo `mod2` está sobre parametrizado?
+```
+
 ## Función `lowess`  {-}
 La función `lowess` (LOcally WEighted Scatterplot Smoothing) permite constuir una curva suavizada a partir de muchas regresiones de orden __uno__ localizadas, usando una ventana que incluye un porcentaje `f` de puntos. A continuación se muestra una figura ilustrativa para entender lo que hace `lowess`.
 
-```{r animacion_lowess, echo=F, fig.cap='Ilustración de lowess.', dpi=250, fig.align='center'}
-knitr::include_graphics("images/lowess.gif")
-```
+<p align="center">
+  <img src="images/lowess.gif" width="400">
+</p>
 
 La estructura de la función `lowess` se muestra a continuación.
 
@@ -247,9 +327,9 @@ De la figura anterior vemos que la curva suavizada logra capturar el patrón de 
 
 El efecto de `f` se puede ver con claridad en la siguiente figura. Cuando `f` es pequeño la curva es muy rugosa, para valores altos de `f` la curva se suaviza.
 
-```{r effect_of_f, echo=F, fig.cap='Efecto de f en lowess.', dpi=150, fig.align='center'}
-knitr::include_graphics("images/animation_lowess_Prestige.gif")
-```
+<p align="center">
+  <img src="images/animation_lowess_Prestige.gif" width="400">
+</p>
 
 ## Función `loess`  {-}
 La función `loess` (LOcally Estimated Scatterplot Smoothing) permite constuir una curva o superficie suavizada a partir de muchas regresiones de orden __uno__ o __dos__ localizadas, usando una ventana que incluye un porcentaje `span` de puntos. La función `loess` es una generalización de `lowess`.
@@ -326,9 +406,9 @@ scatter3D(x=Prestige$income,
 
 El efecto de `span` se puede ver con claridad en la siguiente figura. Cuando `span` es pequeño la superficie es muy rugosa, para valores altos de `span` la suferficie se suaviza.
 
-```{r effect_of_span, echo=F, fig.cap='Efecto de span en loess.', dpi=150, fig.align='center'}
-knitr::include_graphics("images/animation_loess_Prestige.gif")
-```
+<p align="center">
+  <img src="images/animation_loess_Prestige.gif" width="400">
+</p>
 
 ## Optimización con superficies de respuesta  {-}
 Cuando se tiene una superficie de respuesta, obtenida por métodos paramétricos o no paramétricos, dos preguntas posibles son:
