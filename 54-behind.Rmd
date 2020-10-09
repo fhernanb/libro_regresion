@@ -22,6 +22,34 @@ lsfit(x, y, wt = NULL, intercept = TRUE, tolerance = 1e-07, yname = NULL)
 
 De todas las anteriores funciones la más conocida y usada es `lm`. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.
 
+### Ejemplo {-}
+Invéntese un problema de regresión lineal simple y use la función `lm.fit` para encontrar los parámetros del modelo.
+
+__Solución__
+
+Supongamos que tenemos las variables que se muestran a continuación.
+
+```{r}
+y <- c(4, 2, 3, 1, 5)
+x <- c(2, 5, 7, 9, 1)
+```
+
+Para usar la función `lm.fit` es necesario que el argumento `x` sea una matriz, por esa razón vamos a construir la matriz `X` usando el vector `x`.
+
+```{r}
+X <- cbind(intercepto=1, variable=x)
+X
+```
+
+Ahora ya podemos usar la función `lm.fit` de la siguiente forma.
+
+```{r}
+fit <- lm.fit(x=X, y=y)
+coef(fit)
+```
+
+De la salida anterior tenemos que $\hat{\beta}_0=5.036$ y $\hat{\beta}_1=-0.424$.
+
 ## Modelos de regresión con grandes conjuntos de datos {-}
 En ocasiones tenemos grandes bases de datos y cuando queremos ajustar un modelo de regresión se nos pueden presentar problemas porque saturamos la memoria de nuestro computador.
 

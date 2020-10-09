@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2020-10-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -366,7 +366,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>19</b> Otros aspectos importantes</a><ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a><ul>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
 </ul></li>
@@ -415,6 +417,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb366-12"><a href="important.html#cb366-12"></a></span>
 <span id="cb366-13"><a href="important.html#cb366-13"></a><span class="kw">lsfit</span>(x, y, <span class="dt">wt =</span> <span class="ot">NULL</span>, <span class="dt">intercept =</span> <span class="ot">TRUE</span>, <span class="dt">tolerance =</span> <span class="fl">1e-07</span>, <span class="dt">yname =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
+<div id="ejemplo-51" class="section level3 unnumbered">
+<h3>Ejemplo</h3>
+<p>Invéntese un problema de regresión lineal simple y use la función <code>lm.fit</code> para encontrar los parámetros del modelo.</p>
+<p><strong>Solución</strong></p>
+<p>Supongamos que tenemos las variables que se muestran a continuación.</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="important.html#cb367-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb367-2"><a href="important.html#cb367-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p>Para usar la función <code>lm.fit</code> es necesario que el argumento <code>x</code> sea una matriz, por esa razón vamos a construir la matriz <code>X</code> usando el vector <code>x</code>.</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="important.html#cb368-1"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">intercepto=</span><span class="dv">1</span>, <span class="dt">variable=</span>x)</span>
+<span id="cb368-2"><a href="important.html#cb368-2"></a>X</span></code></pre></div>
+<pre><code>##      intercepto variable
+## [1,]          1        2
+## [2,]          1        5
+## [3,]          1        7
+## [4,]          1        9
+## [5,]          1        1</code></pre>
+<p>Ahora ya podemos usar la función <code>lm.fit</code> de la siguiente forma.</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="important.html#cb370-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">x=</span>X, <span class="dt">y=</span>y)</span>
+<span id="cb370-2"><a href="important.html#cb370-2"></a><span class="kw">coef</span>(fit)</span></code></pre></div>
+<pre><code>## intercepto   variable 
+##  5.0357143 -0.4241071</code></pre>
+<p>De la salida anterior tenemos que <span class="math inline">\(\hat{\beta}_0=5.036\)</span> y <span class="math inline">\(\hat{\beta}_1=-0.424\)</span>.</p>
+</div>
 </div>
 <div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered">
 <h2>Modelos de regresión con grandes conjuntos de datos</h2>
