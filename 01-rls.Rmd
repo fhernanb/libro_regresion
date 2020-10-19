@@ -220,7 +220,7 @@ legend('topleft', legend=c('Sin pesos', 'Con pesos'),
        col=c('seagreen', 'dodgerblue1'), bty='n', lwd=1)
 ```
 
-De la anterior figura podemos ver que los ajustes son muy diferentes. La recta de color azul tiene menor pendiente y un mayor punto de corte. Esta recta azul tiende a estar más cerca del punto (5, 4) porque este tiene un peso de 0.9, el mayor de todos los pesos. El efecto de este punto en el modelo es que él jala la recta de regresión hacia él debido a su gran peso de 0.9.
+De la anterior figura podemos ver que los ajustes son muy diferentes. La recta de color azul tiene menor pendiente y un mayor punto de corte. Esta recta azul tiende a estar más cerca del punto (5, 4) porque este tiene un peso de 0.9, el mayor de todos los pesos. El efecto de este punto en el modelo es que él hala la recta de regresión hacia él debido a su gran peso de 0.9.
 
 <p align="center">
   <img src="images/tirando_cuerda.png" width="400">
