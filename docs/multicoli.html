@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>12 Pruebas de independencia de los errores | Modelos de Regresión con R</title>
+  <title>16 Multicolinealidad | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="12 Pruebas de independencia de los errores | Modelos de Regresión con R" />
+  <meta property="og:title" content="16 Multicolinealidad | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="12 Pruebas de independencia de los errores | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="16 Multicolinealidad | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="homo.html"/>
-<link rel="next" href="mod-poli.html"/>
+<link rel="prev" href="feature-selec.html"/>
+<link rel="next" href="algmat.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -408,85 +408,197 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="indep" class="section level1">
-<h1><span class="header-section-number">12</span> Pruebas de independencia de los errores</h1>
-<p>En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de independencia de los errores en regresión lineal.</p>
-<p>En las prueba mostradas a continuación se estudian las siguientes hipótesis.</p>
-<p><span class="math display">\[\begin{align*} 
-H_0 &amp;: \text{los errores son independientes.} \\ 
-H_1 &amp;: \text{los errores no son independientes.}
-\end{align*}\]</span></p>
-<div id="durbin-watson-test" class="section level2 unnumbered">
-<h2>Durbin-Watson test</h2>
-<p>La función <code>dwtest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2019</a>)</span> implementa esta prueba.</p>
-<p><a href="https://stats.stackexchange.com/questions/14914/how-to-test-the-autocorrelation-of-the-residuals">En esta publicación</a> de StackOverFlow hay una excelente discusión sobre la prueba, se invita al lector a explorar la publicación.</p>
-<div id="ejemplo-33" class="section level3 unnumbered">
+<div id="multicoli" class="section level1">
+<h1><span class="header-section-number">16</span> Multicolinealidad</h1>
+<p>En este capítulo se presenta el problema de multicolinealidad y algunas formas de detectarla.</p>
+<div id="qué-es-multicolinealidad" class="section level2 unnumbered">
+<h2>¿Qué es multicolinealidad?</h2>
+<p>Si no hay relación lineal entre los regresores, se dice que éstos son ortogonales, sin embargo, en la mayor parte de las aplicaciones de regresión los regresores no son ortogonales. A veces no es grave la falta de ortogonalidad, pero en algunos casos, los regresores tienen una relación lineal casi perfecta y las inferencias basadas en el modelo de regresión pueden ser engañosas o erróneas.</p>
+<p>Cuando hay dependencias casi lineales entre los regresores, se dice que existe el problema de <strong>colinealidad</strong>.</p>
+<p>Hay cuatro fuentes de multicolinealidad principales:</p>
+<ol style="list-style-type: decimal">
+<li>El método de recolección de datos que se empleó (subespacios).</li>
+<li>Restricciones en el modelo o en la población (variables correlacionadas de hecho).</li>
+<li>Especificación del modelo (polinomios).</li>
+<li>Un modelo sobredefinido (más variables que observaciones).</li>
+</ol>
+<p>¿Cuáles son los problemas de la multicolinealidad?</p>
+<ul>
+<li>Grandes varianzas y covarianzas de los estimadores.</li>
+<li>Estimaciones para los coeficientes demasiado grandes.</li>
+<li>Pequeños cambios en los datos o en la especificación provocan grandes cambios en las estimaciones de los coeficientes.</li>
+<li>La estimaciones de los coeficientes suelen presentar signos distintos a los esperados y magnitudes poco razonables.</li>
+</ul>
+</div>
+<div id="multicolinealidad-inducida" class="section level2 unnumbered">
+<h2>Multicolinealidad inducida</h2>
+<p>La mejor forma de comprender el efecto de la multicolinealidad es crear un conjunto de datos donde exista el problema y ver los efectos que ella tiene.</p>
+<p>La función que se muestra a continuación simula datos de un modelo de regresión lineal en el cual la variable <span class="math inline">\(X_2\)</span> es múltiplo de la variable <span class="math inline">\(X_1\)</span>. El vector de parámetros en la simulación es <span class="math inline">\(\boldsymbol{\theta}=(-3, 2, -4, \sigma=2)^\top\)</span>.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="multicoli.html#cb335-1"></a>gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
+<span id="cb335-2"><a href="multicoli.html#cb335-2"></a>  x1 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">10</span>)</span>
+<span id="cb335-3"><a href="multicoli.html#cb335-3"></a>  x2 &lt;-<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">sd=</span><span class="fl">0.01</span>) <span class="co"># x2 es el doble de x1 + ruido</span></span>
+<span id="cb335-4"><a href="multicoli.html#cb335-4"></a>  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span> <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">-</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x2, <span class="dt">sd=</span><span class="dv">2</span>)</span>
+<span id="cb335-5"><a href="multicoli.html#cb335-5"></a>  <span class="kw">data.frame</span>(y, x1, x2)</span>
+<span id="cb335-6"><a href="multicoli.html#cb335-6"></a>}</span></code></pre></div>
+<p>Vamos a simular dos conjuntos de datos con <span class="math inline">\(n=20\)</span> observaciones cada uno. Se fija la semilla en el valor 12345 para que usted pueda replicar el ejemplo y obtener los mismo resultados.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="multicoli.html#cb336-1"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb336-2"><a href="multicoli.html#cb336-2"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">40</span>)</span>
+<span id="cb336-3"><a href="multicoli.html#cb336-3"></a>datos1 &lt;-<span class="st"> </span>datos[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, ]</span>
+<span id="cb336-4"><a href="multicoli.html#cb336-4"></a>datos2 &lt;-<span class="st"> </span>datos[<span class="dv">21</span><span class="op">:</span><span class="dv">40</span>, ]</span></code></pre></div>
+<p>Ahora vamos a ajustar un modelo con <code>datos1</code>.</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="multicoli.html#cb337-1"></a>mod1 &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos1)</span>
+<span id="cb337-2"><a href="multicoli.html#cb337-2"></a><span class="kw">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## stats::lm(formula = y ~ x1 + x2, data = datos1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9549 -1.7802  0.5549  1.5669  4.0319 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   -1.560      1.135  -1.374    0.187
+## x1           100.994     94.085   1.073    0.298
+## x2           -53.574     47.073  -1.138    0.271
+## 
+## Residual standard error: 2.341 on 17 degrees of freedom
+## Multiple R-squared:  0.9864, Adjusted R-squared:  0.9848 
+## F-statistic: 617.5 on 2 and 17 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Ahora los resultados con el segundo conjunto de datos.</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="multicoli.html#cb339-1"></a>mod2 &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data=</span>datos2)</span>
+<span id="cb339-2"><a href="multicoli.html#cb339-2"></a><span class="kw">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## stats::lm(formula = y ~ x1 + x2, data = datos2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7246 -1.8012  0.2883  1.2949  3.9046 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   -2.402      1.140  -2.107   0.0503 .
+## x1           -36.608     81.561  -0.449   0.6592  
+## x2            15.323     40.776   0.376   0.7117  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.303 on 17 degrees of freedom
+## Multiple R-squared:  0.9819, Adjusted R-squared:  0.9798 
+## F-statistic: 461.3 on 2 and 17 DF,  p-value: 1.545e-15</code></pre>
+<p>Al observar las salidas anterior se tiene que <span class="math inline">\(\hat{\boldsymbol{\theta}}_1=(-1.56, 100.99, -53.57, 2.34)^\top\)</span> y que <span class="math inline">\(\hat{\boldsymbol{\theta}}_2=(-2.40, -36.31, 15.32, 2.30)^\top\)</span>. Al comparar con el vector verdadero <span class="math inline">\(\boldsymbol{\theta}=(-3, 2, -4, \sigma=2)^\top\)</span> se observa que las estimaciones son muy diferentes.</p>
+<p>De las tablas de resumen también se observa que los errores estándar son muy grandes y por lo tanto los resultados de las pruebas de hipótesis individuales (<span class="math inline">\(H_0: \beta_j=0\)</span> vs <span class="math inline">\(H_A: \beta_j \neq 0\)</span>) no se rechaza <span class="math inline">\(H_0\)</span> por los valores-P grandes.</p>
+<p>De las tablas de resumen se observan <span class="math inline">\(R^2_{Adj}\)</span> grandes, ¿qué opina de esto.</p>
+
+<div class="rmdtip">
+En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la función <code>lm</code> usual del paquete <code>stats</code>.
+</div>
+
+</div>
+<div id="cómo-identificar-la-multicolinealidad" class="section level2 unnumbered">
+<h2>¿Cómo identificar la multicolinealidad?</h2>
+<p>Se puede realizar de dos manera:</p>
+<p align="center">
+<img src="images/formas_ident_multicoli.PNG" width="600">
+</p>
+</div>
+<div id="matriz-de-correlaciones" class="section level2 unnumbered">
+<h2>Matriz de correlaciones</h2>
+<p>Una primera aproximación consiste en obtener los coeficientes de correlación muestral simples para cada par de variables explicativas y ver si el grado de correlación entre estas variables es alto.</p>
+<div id="ejemplo-47" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>El siguiente ejemplo fue tomado de la documentación de la función <code>dwtest</code>.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="indep.html#cb222-1"></a><span class="co">## generate regressor</span></span>
-<span id="cb222-2"><a href="indep.html#cb222-2"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dv">50</span>)</span>
-<span id="cb222-3"><a href="indep.html#cb222-3"></a></span>
-<span id="cb222-4"><a href="indep.html#cb222-4"></a><span class="co">## generate the AR(1) error terms with parameter rho = 0 (white noise)</span></span>
-<span id="cb222-5"><a href="indep.html#cb222-5"></a>err1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb222-6"><a href="indep.html#cb222-6"></a><span class="co">## generate dependent variable</span></span>
-<span id="cb222-7"><a href="indep.html#cb222-7"></a>y1 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>err1</span>
-<span id="cb222-8"><a href="indep.html#cb222-8"></a><span class="kw">library</span>(lmtest)</span>
-<span id="cb222-9"><a href="indep.html#cb222-9"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1 <span class="op">~</span><span class="st"> </span>x)</span>
-<span id="cb222-10"><a href="indep.html#cb222-10"></a><span class="kw">dwtest</span>(mod1) <span class="co">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Durbin-Watson test
-## 
-## data:  mod1
-## DW = 2.2427, p-value = 0.9078
-## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="indep.html#cb224-1"></a><span class="kw">plot</span>(<span class="kw">residuals</span>(mod1), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;deepskyblue1&quot;</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/indep_errores_01-1.png" width="672" /></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="indep.html#cb225-1"></a><span class="co">## generate the AR(1) error terms with parameter rho = 0.9 respectively</span></span>
-<span id="cb225-2"><a href="indep.html#cb225-2"></a>err2 &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">filter</span>(<span class="dt">x=</span>err1, <span class="dt">filter=</span><span class="fl">0.9</span>, <span class="dt">method=</span><span class="st">&quot;recursive&quot;</span>)</span>
-<span id="cb225-3"><a href="indep.html#cb225-3"></a><span class="co">## generate dependent variable</span></span>
-<span id="cb225-4"><a href="indep.html#cb225-4"></a>y2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>err2</span>
-<span id="cb225-5"><a href="indep.html#cb225-5"></a></span>
-<span id="cb225-6"><a href="indep.html#cb225-6"></a>mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y2 <span class="op">~</span><span class="st"> </span>x)</span>
-<span id="cb225-7"><a href="indep.html#cb225-7"></a><span class="kw">dwtest</span>(mod2) <span class="co">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Durbin-Watson test
-## 
-## data:  mod2
-## DW = 0.31774, p-value &lt; 2.2e-16
-## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="indep.html#cb227-1"></a><span class="kw">plot</span>(<span class="kw">residuals</span>(mod2), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p>Usando la base de datos <code>mtcars</code> explore las variables que están fuertemente correlacionadas.</p>
+<p><strong>Solución</strong></p>
+<p>Primero exploremos la base de datos.</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="multicoli.html#cb341-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb341-2"><a href="multicoli.html#cb341-2"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 32
+## Columns: 11
+## $ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17...
+## $ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4,...
+## $ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 140.8,...
+## $ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, ...
+## $ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3....
+## $ wt   &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.150,...
+## $ qsec &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 22.90,...
+## $ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,...
+## $ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,...
+## $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3,...
+## $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1,...</code></pre>
+<p>Ahora vamos a calcular la matriz de correlaciones.</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="multicoli.html#cb343-1"></a>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>(<span class="dt">method=</span><span class="st">&quot;pearson&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits=</span><span class="dv">2</span>) -&gt;<span class="st"> </span>mat_cor</span>
+<span id="cb343-2"><a href="multicoli.html#cb343-2"></a>mat_cor</span></code></pre></div>
+<pre><code>##        mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+## mpg   1.00 -0.85 -0.85 -0.78  0.68 -0.87  0.42  0.66  0.60  0.48 -0.55
+## cyl  -0.85  1.00  0.90  0.83 -0.70  0.78 -0.59 -0.81 -0.52 -0.49  0.53
+## disp -0.85  0.90  1.00  0.79 -0.71  0.89 -0.43 -0.71 -0.59 -0.56  0.39
+## hp   -0.78  0.83  0.79  1.00 -0.45  0.66 -0.71 -0.72 -0.24 -0.13  0.75
+## drat  0.68 -0.70 -0.71 -0.45  1.00 -0.71  0.09  0.44  0.71  0.70 -0.09
+## wt   -0.87  0.78  0.89  0.66 -0.71  1.00 -0.17 -0.55 -0.69 -0.58  0.43
+## qsec  0.42 -0.59 -0.43 -0.71  0.09 -0.17  1.00  0.74 -0.23 -0.21 -0.66
+## vs    0.66 -0.81 -0.71 -0.72  0.44 -0.55  0.74  1.00  0.17  0.21 -0.57
+## am    0.60 -0.52 -0.59 -0.24  0.71 -0.69 -0.23  0.17  1.00  0.79  0.06
+## gear  0.48 -0.49 -0.56 -0.13  0.70 -0.58 -0.21  0.21  0.79  1.00  0.27
+## carb -0.55  0.53  0.39  0.75 -0.09  0.43 -0.66 -0.57  0.06  0.27  1.00</code></pre>
+<p>Mirar la matriz para encontrar las variables que tienen mayor correlación (positiva o negativa) es difícil, lo mejor es usar herramientas gráficas.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="multicoli.html#cb345-1"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
+<pre><code>## corrplot 0.84 loaded</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="multicoli.html#cb347-1"></a><span class="kw">corrplot</span>(mat_cor, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">order=</span><span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
+<p>Combinando los resultados de la matriz anterior y el conocimiento de las variables es posible identificar variables que podrían generar el problema de multicolinealidad.</p>
 </div>
 </div>
-<div id="breusch-godfrey-test" class="section level2 unnumbered">
-<h2>Breusch-Godfrey Test</h2>
-<p>La función <code>bgtest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2019</a>)</span> implementa esta prueba.</p>
-<div id="ejemplo-34" class="section level3 unnumbered">
+<div id="factor-de-inflación-de-la-varianza-vif" class="section level2 unnumbered">
+<h2>Factor de Inflación de la Varianza (VIF)</h2>
+<p>El Factor de Inflación de la Varianza se define así:</p>
+<p><span class="math display">\[
+VIF = \frac{1}{1 - {R}^{2}_{k}},
+\]</span></p>
+<p>siendo <span class="math inline">\(R^2_k\)</span> el coeficiente de determinación de la regresión auxiliar de la varaible <span class="math inline">\(X_k\)</span> sobre el resto de las variables explicativas. El <span class="math inline">\(VIF\)</span> toma valores entre 1 e <span class="math inline">\(\infty\)</span>.</p>
+<p>El <span class="math inline">\(VIF\)</span> para cada término del modelo mide el efecto combinado que tienen las dependencias entre los regresores sobre la varianza de ese término. Si hay uno o más <span class="math inline">\(VIF\)</span> grandes, hay multicolinealidad. La experiencia indica que si cualquiera de los <span class="math inline">\(VIF\)</span> es mayor que 5 o 10, es indicio de que los coeficientes asociados de regresión están mal estimados debido a la multicolinealidad <span class="citation">(Montgomery <a href="#ref-mpv06" role="doc-biblioref">2006</a>)</span>.</p>
+<div id="ejemplo-48" class="section level3 unnumbered">
 <h3>Ejemplo</h3>
-<p>Usando los datos el ejemplo anterior aplicar la prueba Breusch-Godfrey.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="indep.html#cb228-1"></a><span class="kw">library</span>(lmtest)</span>
-<span id="cb228-2"><a href="indep.html#cb228-2"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1 <span class="op">~</span><span class="st"> </span>x)</span>
-<span id="cb228-3"><a href="indep.html#cb228-3"></a><span class="kw">bgtest</span>(mod1) <span class="co">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Breusch-Godfrey test for serial correlation of order up to 1
-## 
-## data:  mod1
-## LM test = 1.6941, df = 1, p-value = 0.1931</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="indep.html#cb230-1"></a>mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y2 <span class="op">~</span><span class="st"> </span>x)</span>
-<span id="cb230-2"><a href="indep.html#cb230-2"></a><span class="kw">bgtest</span>(mod2) <span class="co">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Breusch-Godfrey test for serial correlation of order up to 1
-## 
-## data:  mod2
-## LM test = 69.937, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p>Simular un conjunto de datos en el cual existan variables que sean combinación lineal de otras variables. Usar el <span class="math inline">\(VIF\)</span> para identificar las posibles variables colineales y luego comprobar los resultados con la matriz de correlaciones.</p>
+<p><strong>Solución</strong></p>
+<p>Vamos a crear una función para generar datos de un modelo lineal donde algunas de las variables que son combinación de otras. Mire el siguiente código e identifique las líneas donde se indujo la colinealidad.</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="multicoli.html#cb348-1"></a>gen_dat &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</span>
+<span id="cb348-2"><a href="multicoli.html#cb348-2"></a>  x1 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">size=</span>n, <span class="dt">replace=</span><span class="ot">TRUE</span>)</span>
+<span id="cb348-3"><a href="multicoli.html#cb348-3"></a>  x2 &lt;-<span class="st"> </span><span class="kw">rpois</span>(n, <span class="dt">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb348-4"><a href="multicoli.html#cb348-4"></a>  x3 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb348-5"><a href="multicoli.html#cb348-5"></a>  x4 &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dt">n=</span>n, <span class="dt">shape1=</span><span class="fl">0.5</span>, <span class="dt">shape2=</span><span class="fl">0.7</span>)</span>
+<span id="cb348-6"><a href="multicoli.html#cb348-6"></a>  ruido1 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>)</span>
+<span id="cb348-7"><a href="multicoli.html#cb348-7"></a>  ruido2 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n=</span>n, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>)</span>
+<span id="cb348-8"><a href="multicoli.html#cb348-8"></a>  x5 &lt;-<span class="st"> </span>x1 <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>ruido1</span>
+<span id="cb348-9"><a href="multicoli.html#cb348-9"></a>  x6 &lt;-<span class="st"> </span>x2 <span class="op">-</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x3 <span class="op">+</span><span class="st"> </span>ruido2</span>
+<span id="cb348-10"><a href="multicoli.html#cb348-10"></a>  y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span>n, <span class="dt">mean=</span> <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">-</span><span class="st"> </span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>x2, <span class="dt">sd=</span><span class="dv">2</span>)</span>
+<span id="cb348-11"><a href="multicoli.html#cb348-11"></a>  <span class="kw">data.frame</span>(y, x1, x2, x3, x4, x5, x6)</span>
+<span id="cb348-12"><a href="multicoli.html#cb348-12"></a>}</span></code></pre></div>
+<p>Ahora vamos a generar una base de datos, luego vamos a ajustar el un modelo de regresión para explicar la media de la variable <span class="math inline">\(Y\)</span> en función de las otras variables y por último vamos a calcular los <span class="math inline">\(VIF\)</span> para cada variable explicativa usando la función <code>vif</code> de paquete <code>car</code> <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>.</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="multicoli.html#cb349-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">30</span>)</span>
+<span id="cb349-2"><a href="multicoli.html#cb349-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>datos)</span>
+<span id="cb349-3"><a href="multicoli.html#cb349-3"></a>car<span class="op">::</span><span class="kw">vif</span>(mod)</span></code></pre></div>
+<pre><code>##         x1         x2         x3         x4         x5         x6 
+##  540.50557 1408.06675  298.35108    1.05934 1979.04151  292.87883</code></pre>
+<p>De la salida anterior vemos que los <span class="math inline">\(VIF\)</span> de todas las variables, excepto <span class="math inline">\(X_4\)</span>, son muy grandes, eso indica que hay un problema de colinealidad entre esas variables.</p>
+<p>El <span class="math inline">\(VIF\)</span> para la variable <span class="math inline">\(X_4\)</span> fue pequeño porque en la generación de los datos esa variable no tuvo nada que ver con las restantes.</p>
+<p>Vamos ahora a dibujar la matriz de correlaciones de Pearson así:</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="multicoli.html#cb351-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb351-2"><a href="multicoli.html#cb351-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>(<span class="dt">method=</span><span class="st">&quot;pearson&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits=</span><span class="dv">2</span>) -&gt;<span class="st"> </span>mat_cor</span>
+<span id="cb351-3"><a href="multicoli.html#cb351-3"></a><span class="kw">library</span>(corrplot)</span>
+<span id="cb351-4"><a href="multicoli.html#cb351-4"></a><span class="kw">corrplot</span>(mat_cor, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-208-1.png" width="672" /></p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-R-lmtest">
-<p>Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2019. <em>Lmtest: Testing Linear Regression Models</em>. <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>.</p>
+<div id="ref-R-car">
+<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
+</div>
+<div id="ref-mpv06">
+<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
 </div>
 </div>
             </section>
@@ -494,8 +606,8 @@ H_1 &amp;: \text{los errores no son independientes.}
           </div>
         </div>
       </div>
-<a href="homo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mod-poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="feature-selec.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="algmat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -526,7 +638,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/11-ph-indep.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/14-multicoli.Rmd",
 "text": "Edit"
 },
 "history": {

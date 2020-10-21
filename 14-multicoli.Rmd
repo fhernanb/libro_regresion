@@ -1,0 +1,168 @@
+# Multicolinealidad {#multicoli}
+En este capítulo se presenta el problema de multicolinealidad y algunas formas de detectarla.
+
+## ¿Qué es multicolinealidad? {-}
+Si no hay relación lineal entre los regresores, se dice que éstos son ortogonales, sin embargo, en la mayor parte de las aplicaciones de regresión los regresores no son ortogonales. A veces no es grave la falta de ortogonalidad, pero en algunos casos, los regresores tienen una relación lineal casi perfecta y las inferencias basadas en el modelo de regresión pueden ser engañosas o erróneas.
+
+Cuando hay dependencias casi lineales entre los regresores, se dice que existe el problema de __colinealidad__.
+
+Hay cuatro fuentes de multicolinealidad principales:
+
+1. El método de recolección de datos que se empleó (subespacios).
+2. Restricciones en el modelo o en la población (variables correlacionadas de hecho).
+3. Especificación del modelo (polinomios).
+4. Un modelo sobredefinido (más variables que observaciones).
+
+¿Cuáles son los problemas de la multicolinealidad?
+
+- Grandes varianzas y covarianzas de los estimadores.
+- Estimaciones para los coeficientes demasiado grandes.
+- Pequeños cambios en los datos o en la especificación provocan grandes cambios en las estimaciones de los coeficientes.
+- La estimaciones de los coeficientes suelen presentar signos distintos a los esperados y magnitudes poco razonables.
+
+## Multicolinealidad inducida {-}
+La mejor forma de comprender el efecto de la multicolinealidad es crear un conjunto de datos donde exista el problema y ver los efectos que ella tiene.
+
+La función que se muestra a continuación simula datos de un modelo de regresión lineal en el cual la variable $X_2$ es múltiplo de la variable $X_1$. El vector de parámetros en la simulación es $\boldsymbol{\theta}=(-3, 2, -4, \sigma=2)^\top$.
+
+```{r}
+gen_dat <- function(n) {
+  x1 <- runif(n=n, min=0, max=10)
+  x2 <- x1 * 2 + rnorm(n=n, sd=0.01) # x2 es el doble de x1 + ruido
+  y <- rnorm(n=n, mean= - 3 + 2 * x1 - 4 * x2, sd=2)
+  data.frame(y, x1, x2)
+}
+```
+
+Vamos a simular dos conjuntos de datos con $n=20$ observaciones cada uno. Se fija la semilla en el valor 12345 para que usted pueda replicar el ejemplo y obtener los mismo resultados.
+
+```{r}
+set.seed(12345)
+datos <- gen_dat(n=40)
+datos1 <- datos[1:20, ]
+datos2 <- datos[21:40, ]
+```
+
+Ahora vamos a ajustar un modelo con `datos1`.
+
+```{r}
+mod1 <- stats::lm(y ~ x1 + x2, data=datos1)
+summary(mod1)
+```
+
+Ahora los resultados con el segundo conjunto de datos.
+
+```{r}
+mod2 <- stats::lm(y ~ x1 + x2, data=datos2)
+summary(mod2)
+```
+
+Al observar las salidas anterior se tiene que $\hat{\boldsymbol{\theta}}_1=(-1.56, 100.99, -53.57, 2.34)^\top$ y que $\hat{\boldsymbol{\theta}}_2=(-2.40, -36.31, 15.32, 2.30)^\top$. Al comparar con el vector verdadero $\boldsymbol{\theta}=(-3, 2, -4, \sigma=2)^\top$ se observa que las estimaciones son muy diferentes.
+
+De las tablas de resumen también se observa que los errores estándar son muy grandes y por lo tanto los resultados de las pruebas de hipótesis individuales ($H_0: \beta_j=0$ vs $H_A: \beta_j \neq 0$) no se rechaza $H_0$ por los valores-P grandes.
+
+De las tablas de resumen se observan $R^2_{Adj}$ grandes, ¿qué opina de esto.
+
+```{block2, type='rmdtip'}
+En este ejemplo se usó `stats::lm` para indicar que queremos la función `lm` usual del paquete `stats`.
+```
+
+## ¿Cómo identificar la multicolinealidad? {-}
+Se puede realizar de dos manera:
+
+<p align="center">
+  <img src="images/formas_ident_multicoli.png" width="600">
+</p>
+
+## Matriz de correlaciones {-}
+Una primera aproximación consiste en obtener los coeficientes de correlación muestral simples para cada par de variables explicativas y ver si el grado de correlación entre estas variables es alto.
+
+### Ejemplo {-}
+Usando la base de datos `mtcars` explore las variables que están fuertemente correlacionadas.
+
+__Solución__
+
+Primero exploremos la base de datos.
+
+```{r message=FALSE}
+library(dplyr)
+mtcars %>% glimpse()
+```
+
+Ahora vamos a calcular la matriz de correlaciones.
+
+```{r}
+mtcars %>% cor(method="pearson") %>% round(digits=2) -> mat_cor
+mat_cor
+```
+
+Mirar la matriz para encontrar las variables que tienen mayor correlación (positiva o negativa) es difícil, lo mejor es usar herramientas gráficas.
+
+```{r}
+library(corrplot)
+corrplot(mat_cor, type="upper", order="hclust", tl.col="black", tl.srt=45)
+```
+
+Combinando los resultados de la matriz anterior y el conocimiento de las variables es posible identificar variables que podrían generar el problema de multicolinealidad.
+
+## Factor de Inflación de la Varianza (VIF) {-}
+El Factor de Inflación de la Varianza se define así:
+
+$$
+VIF = \frac{1}{1 - {R}^{2}_{k}},
+$$
+
+siendo $R^2_k$ el coeficiente de determinación de la regresión auxiliar de la varaible $X_k$ sobre el resto de las variables explicativas. El $VIF$ toma valores entre 1 e $\infty$.
+
+El $VIF$ para cada término del modelo mide el efecto combinado que tienen las dependencias entre los regresores sobre la varianza de ese término. Si hay uno o más $VIF$ grandes, hay multicolinealidad. La experiencia indica que si cualquiera de los $VIF$ es mayor que 5 o 10, es indicio de que los coeficientes asociados de regresión están mal estimados debido a la multicolinealidad [@mpv06].
+
+### Ejemplo {-}
+Simular un conjunto de datos en el cual existan variables que sean combinación lineal de otras variables. Usar el $VIF$ para identificar las posibles variables colineales y luego comprobar los resultados con la matriz de correlaciones.
+
+__Solución__
+
+Vamos a crear una función para generar datos de un modelo lineal donde algunas de las variables que son combinación de otras. Mire el siguiente código e identifique las líneas donde se indujo la colinealidad.
+
+```{r}
+gen_dat <- function(n) {
+  x1 <- sample(5:25, size=n, replace=TRUE)
+  x2 <- rpois(n, lambda=5)
+  x3 <- rbinom(n, size=10, prob=0.4)
+  x4 <- rbeta(n=n, shape1=0.5, shape2=0.7)
+  ruido1 <- runif(n=n, min=-0.5, max=0.5)
+  ruido2 <- runif(n=n, min=-0.5, max=0.5)
+  x5 <- x1 - 3 * x2 + ruido1
+  x6 <- x2 - 4 * x3 + ruido2
+  y <- rnorm(n=n, mean= - 3 + 2 * x1 - 4 * x2, sd=2)
+  data.frame(y, x1, x2, x3, x4, x5, x6)
+}
+```
+
+Ahora vamos a generar una base de datos, luego vamos a ajustar el un modelo de regresión para explicar la media de la variable $Y$ en función de las otras variables y por último vamos a calcular los $VIF$ para cada variable explicativa usando la función `vif` de paquete `car` @R-car.
+
+```{r}
+datos <- gen_dat(n=30)
+mod <- lm(y ~ ., data=datos)
+car::vif(mod)
+```
+
+De la salida anterior vemos que los $VIF$ de todas las variables, excepto $X_4$, son muy grandes, eso indica que hay un problema de colinealidad entre esas variables.
+
+El $VIF$ para la variable $X_4$ fue pequeño porque en la generación de los datos esa variable no tuvo nada que ver con las restantes.
+
+Vamos ahora a dibujar la matriz de correlaciones de Pearson así:
+
+```{r}
+library(dplyr)
+datos %>% select(-y) %>% cor(method="pearson") %>% round(digits=2) -> mat_cor
+library(corrplot)
+corrplot(mat_cor, type="upper", tl.col="black", tl.srt=45)
+```
+
+
+
+
+
+
+
+
