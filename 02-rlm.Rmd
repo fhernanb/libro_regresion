@@ -93,7 +93,7 @@ Con los resultados anteriores se puede expresar el modelo ajustado como se muest
 ¿Cómo se pueden interpretar los efectos $\hat{\beta}$?
   
 - Si el camión queda un pie más lejos (30.48 cm) de la máquina, se espera que el __tiempo promedio__ de mantenimineto aumente en 0.014 minutos.
-- Si el camión queda 100 pies más lejos (30.48 mt) de la máquina, se espera que el __tiempo promedio__ de mantenimiento aumente en 14 minutos.
+- Si el camión queda 100 pies más lejos (30.48 mt) de la máquina, se espera que el __tiempo promedio__ de mantenimiento aumente en 1.4 minutos.
 - Por cada caja adicional de refresco que se deba llevar, se espera que el __tiempo promedio__ aumente en 1.616 minutos.
 - Si el camión quedó a 0 pies de distancia y no hay que llevar cajas de refresco, se espera que el __tiempo promedio__ de mantenimiento sea de 2.341 minutos.
 ```

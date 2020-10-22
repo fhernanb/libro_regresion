@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-21" />
+<meta name="date" content="2020-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -454,12 +454,12 @@ x_i &amp;\sim U(-5, 6) \\
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="simul.html#cb58-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">5</span>)</span>
 <span id="cb58-2"><a href="simul.html#cb58-2"></a>datos</span></code></pre></div>
-<pre><code>##           y          x
-## 1 25.994543 -3.5559218
-## 2 35.271524 -4.8093013
-## 3 -2.226416  2.1284478
-## 4 14.079498 -0.1744461
-## 5 -4.770533  2.8071917</code></pre>
+<pre><code>##             y         x
+## 1  -4.1820531  2.023632
+## 2  21.4309582 -1.745510
+## 3 -33.3825137  5.545136
+## 4   0.4443736  1.127624
+## 5  23.6009334 -1.917446</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1"></a>datos &lt;-<span class="st"> </span><span class="kw">gen_dat</span>(<span class="dt">n=</span><span class="dv">200</span>)</span>
 <span id="cb60-2"><a href="simul.html#cb60-2"></a></span>
@@ -473,7 +473,7 @@ x_i &amp;\sim U(-5, 6) \\
 <span id="cb61-2"><a href="simul.html#cb61-2"></a>theta_hat &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mod), <span class="dt">sigma=</span><span class="kw">summary</span>(mod)<span class="op">$</span>sigma)</span>
 <span id="cb61-3"><a href="simul.html#cb61-3"></a>theta_hat</span></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    4.537151   -6.064028    4.168935</code></pre>
+##    3.824236   -5.905107    3.606171</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
