@@ -4,14 +4,14 @@ En este capítulo se presenta una descripción breve del modelo de regresión li
 ## Modelo estadístico {-}
 El modelo estadístico en regresión lineal simple se puede escribir de dos formas como se muestra a continuación.
 
-1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_i$ y un error aleatorio $\epsilon_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
+1. En esta forma la variable respuesta $Y$ se expresa como una suma de $\beta_0 + \beta_1 X_i$ y un error aleatorio $\epsilon_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod1}
 Y_i &= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
 \epsilon_i &\sim N(0, \sigma^2)
 \end{align}
 
-2. En esta forma la variable respuesta $y$ tiene distribución normal con media que cambia en función de la variable $x$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
+2. En esta forma la variable respuesta $Y$ tiene distribución normal con media que cambia en función de la variable $X$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod2}
 Y_i &\sim N(\mu_i, \sigma^2), \\ 
@@ -19,7 +19,7 @@ Y_i &\sim N(\mu_i, \sigma^2), \\
 \sigma^2 &= \text{constante}
 \end{align}
 
-En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [mínimos cuadrados](#apend11) o [máxima verosimilitud](#apend12).
+En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [Estimación por mínimos cuadrados] y [Estimación por máxima verosimilitud].
 
 La siguiente figura, tomada del libro @neter2005, muestra con claridad el supuesto de normalidad de la variable $Y$, la dependencia de la media $\mu$ con $X$ y la varianza constante.
 
@@ -34,7 +34,7 @@ En la siguiente figura se muestran dos ilustraciones para donde los supuestos no
 </p>
 
 ## Función `lm` {-}
-La función `lm` de R se usa para ajustar un modelo de regresión lineal simple, la estructura de esta función se muestra a continuación.
+La función `lm` (linear model) de R se usa para ajustar un modelo de regresión lineal simple, la estructura de esta función se muestra a continuación.
 
 ```{r, eval=FALSE}
 lm(formula, data, subset, weights, na.action,
@@ -231,21 +231,26 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 ```
 
 ## Apéndice {-}
+Abajo están los apéndices que complementan.
 
 ### Estimación por mínimos cuadrados {-}
 
 Para estimar $\beta_0$ y $\beta_1$ utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma  cuadrática del error:
 
-\begin{eqnarray*}
+\begin{eqnarray}
 S(\beta_0, \beta_1)&=&\sum_{i=1}^n \epsilon_i^2\\
 &=&\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
-\end{eqnarray*}
+\end{eqnarray}
+
 Derivando e igualando a cero, es decir,
+
 $$\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_0}=0$$
 $$\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_1}=0$$
 obtenemos que los estimadores para $\beta_0$ y $\beta_1$ están dados por
+
 $$\widehat{\beta}_0=\overline{Y}-\widehat{\beta}_1\overline{X}\quad \text{y}\quad \widehat{\beta}_1=\frac{S_{xy}}{S_{xx}}$$
 donde 
+
 $S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2$ &	$S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2$ & $S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})$.
 
 ### Estimación por máxima verosimilitud {-}
@@ -256,20 +261,28 @@ $$Y_i\sim N\left(\beta_0+\beta_1X_i, \sigma^2\right),\quad \text{para todo $i=1,
 Y como los errores $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ son independientes, entonces $Y_1, Y_2, \ldots, Y_n$ también son independientes.
 
 Así, la función de verosimilitud estaría dada por:
+
 \begin{eqnarray*}
 L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)&=&\prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(Y_i-\beta_0-\beta_1X_i)^2\right\}\\
 &=&\frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right\}
 \end{eqnarray*}
+
 Tomando logaritmo natural a ambos lados y denotando la log-verosimilitud por
-$$\ln \left[L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)\right]=l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right),$$
+
+$$\ln \left[L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)\right]=l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)=l,$$
 tenemos que
-\begin{eqnarray*}
-l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)
-&=&-\left(\frac{n}{2}\right)\ln(2\pi)-\left(\frac{n}{2}\right)\ln\left(\sigma^2\right)-\left(\frac{1}{2\sigma^2}\right)\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
-\end{eqnarray*}
+
+$$
+l =-\left(\frac{n}{2}\right)\ln(2\pi)-\left(\frac{n}{2}\right)\ln\left(\sigma^2\right)-\left(\frac{1}{2\sigma^2}\right)\sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2
+$$
+
 Derivando parcialmente con respecto a $\beta_0$, $\beta_1$ y $\sigma^2$ e igualando a cero, obtenemos los estimadores de máxima verosimilitud:
+
 $$\widetilde{\beta}_0=\overline{Y}-\widetilde{\beta}_1\overline{X}$$
 $$\widetilde{\beta}_1=\frac{S_{xy}}{S_{xx}}$$
 $$\widetilde{\sigma}^2=\frac{\sum_{i=1}^n(Y_i-\widetilde{\beta}_0-\widetilde{\beta}_1X_i)^2}{n}.$$
-\textbf{Nota:} Los estimadores de máxima verosimilitud para regresión lineal simple, pueden ser obtenidos mediante la optimización directa de la función de log-verosimilitud.
+
+```{block2, type='rmdnote'}
+Los estimadores de máxima verosimilitud para regresión lineal simple, pueden ser obtenidos mediante la optimización directa de la función de log-verosimilitud.
+```
 

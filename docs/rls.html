@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -415,21 +415,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Modelo estadístico</h2>
 <p>El modelo estadístico en regresión lineal simple se puede escribir de dos formas como se muestra a continuación.</p>
 <ol style="list-style-type: decimal">
-<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> se expresa como una suma de <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span> y un error aleatorio <span class="math inline">\(\epsilon_i\)</span> el cual tiene distribución <span class="math inline">\(N(0, \sigma^2)\)</span>. El modelo en esta forma se puede expresar como sigue.</li>
+<li>En esta forma la variable respuesta <span class="math inline">\(Y\)</span> se expresa como una suma de <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span> y un error aleatorio <span class="math inline">\(\epsilon_i\)</span> el cual tiene distribución <span class="math inline">\(N(0, \sigma^2)\)</span>. El modelo en esta forma se puede expresar como sigue.</li>
 </ol>
 <p><span class="math display">\[\begin{align} \label{mod1}
 Y_i &amp;= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
 \epsilon_i &amp;\sim N(0, \sigma^2)
 \end{align}\]</span></p>
 <ol start="2" style="list-style-type: decimal">
-<li>En esta forma la variable respuesta <span class="math inline">\(y\)</span> tiene distribución normal con media que cambia en función de la variable <span class="math inline">\(x\)</span> pero con varianza constante. El modelo en esta forma se puede expresar como sigue.</li>
+<li>En esta forma la variable respuesta <span class="math inline">\(Y\)</span> tiene distribución normal con media que cambia en función de la variable <span class="math inline">\(X\)</span> pero con varianza constante. El modelo en esta forma se puede expresar como sigue.</li>
 </ol>
 <p><span class="math display">\[\begin{align} \label{mod2}
 Y_i &amp;\sim N(\mu_i, \sigma^2), \\ 
 \mu_i &amp;= \beta_0 + \beta_1 X_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
-<p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top\)</span>. Para estimar este vector de parámetros se suelen utilizar dos métodos: <a href="#apend11">mínimos cuadrados</a> o <a href="#apend12">máxima verosimilitud</a>.</p>
+<p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top\)</span>. Para estimar este vector de parámetros se suelen utilizar dos métodos: <a href="rls.html#estimación-por-mínimos-cuadrados">Estimación por mínimos cuadrados</a> y <a href="rls.html#estimación-por-máxima-verosimilitud">Estimación por máxima verosimilitud</a>.</p>
 <p>La siguiente figura, tomada del libro <span class="citation">Kutner et al. (<a href="#ref-neter2005" role="doc-biblioref">2005</a>)</span>, muestra con claridad el supuesto de normalidad de la variable <span class="math inline">\(Y\)</span>, la dependencia de la media <span class="math inline">\(\mu\)</span> con <span class="math inline">\(X\)</span> y la varianza constante.</p>
 <p align="center">
 <img src="images/supuesto_lm1.png" width="600">
@@ -441,7 +441,7 @@ Y_i &amp;\sim N(\mu_i, \sigma^2), \\
 </div>
 <div id="función-lm" class="section level2 unnumbered">
 <h2>Función <code>lm</code></h2>
-<p>La función <code>lm</code> de R se usa para ajustar un modelo de regresión lineal simple, la estructura de esta función se muestra a continuación.</p>
+<p>La función <code>lm</code> (linear model) de R se usa para ajustar un modelo de regresión lineal simple, la estructura de esta función se muestra a continuación.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="rls.html#cb5-1"></a><span class="kw">lm</span>(formula, data, subset, weights, na.action,</span>
 <span id="cb5-2"><a href="rls.html#cb5-2"></a>   <span class="dt">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="dt">model =</span> <span class="ot">TRUE</span>, <span class="dt">x =</span> <span class="ot">FALSE</span>, <span class="dt">y =</span> <span class="ot">FALSE</span>, <span class="dt">qr =</span> <span class="ot">TRUE</span>,</span>
 <span id="cb5-3"><a href="rls.html#cb5-3"></a>   <span class="dt">singular.ok =</span> <span class="ot">TRUE</span>, <span class="dt">contrasts =</span> <span class="ot">NULL</span>, offset, ...)</span></code></pre></div>
@@ -615,43 +615,47 @@ El método de mínimos cuadrados ponderados se usa cuando queremos hacer una reg
 </div>
 <div id="apéndice" class="section level2 unnumbered">
 <h2>Apéndice</h2>
+<p>Abajo están los apéndices que complementan.</p>
 <div id="estimación-por-mínimos-cuadrados" class="section level3 unnumbered">
 <h3>Estimación por mínimos cuadrados</h3>
 <p>Para estimar <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> utilizamos el método de mínimos cuadrados ordinarios, minimizando la suma cuadrática del error:</p>
-<p><span class="math display">\[\begin{eqnarray*}
+<p><span class="math display">\[\begin{eqnarray}
 S(\beta_0, \beta_1)&amp;=&amp;\sum_{i=1}^n \epsilon_i^2\\
 &amp;=&amp;\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
-\end{eqnarray*}\]</span>
-Derivando e igualando a cero, es decir,
-<span class="math display">\[\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_0}=0\]</span>
+\end{eqnarray}\]</span></p>
+<p>Derivando e igualando a cero, es decir,</p>
+<p><span class="math display">\[\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_0}=0\]</span>
 <span class="math display">\[\frac{\partial S(\beta_0, \beta_1)}{\partial \beta_1}=0\]</span>
-obtenemos que los estimadores para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> están dados por
-<span class="math display">\[\widehat{\beta}_0=\overline{Y}-\widehat{\beta}_1\overline{X}\quad \text{y}\quad \widehat{\beta}_1=\frac{S_{xy}}{S_{xx}}\]</span>
-donde
-<span class="math inline">\(S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2\)</span> &amp; <span class="math inline">\(S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2\)</span> &amp; <span class="math inline">\(S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})\)</span>.</p>
+obtenemos que los estimadores para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> están dados por</p>
+<p><span class="math display">\[\widehat{\beta}_0=\overline{Y}-\widehat{\beta}_1\overline{X}\quad \text{y}\quad \widehat{\beta}_1=\frac{S_{xy}}{S_{xx}}\]</span>
+donde</p>
+<p><span class="math inline">\(S_{xx}=\sum_{i=1}^n(X_i-\overline{X})^2\)</span> &amp; <span class="math inline">\(S_{yy}=\sum_{i=1}^n(Y_i-\overline{Y})^2\)</span> &amp; <span class="math inline">\(S_{xy}=S_{yx}=\sum_{i=1}^n(X_i-\overline{X})(Y_i-\overline{Y})\)</span>.</p>
 </div>
 <div id="estimación-por-máxima-verosimilitud" class="section level3 unnumbered">
 <h3>Estimación por máxima verosimilitud</h3>
 <p>Sabemos que para nuestro modelo de regresión lineal simple,</p>
 <p><span class="math display">\[Y_i\sim N\left(\beta_0+\beta_1X_i, \sigma^2\right),\quad \text{para todo $i=1, 2,  \ldots, n$}.\]</span>
 Y como los errores <span class="math inline">\(\epsilon_1, \epsilon_2, \ldots, \epsilon_n\)</span> son independientes, entonces <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span> también son independientes.</p>
-<p>Así, la función de verosimilitud estaría dada por:
-<span class="math display">\[\begin{eqnarray*}
+<p>Así, la función de verosimilitud estaría dada por:</p>
+<p><span class="math display">\[\begin{eqnarray*}
 L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)&amp;=&amp;\prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{-\frac{1}{2\sigma^2}(Y_i-\beta_0-\beta_1X_i)^2\right\}\\
 &amp;=&amp;\frac{1}{(2\pi\sigma^2)^{n/2}}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right\}
-\end{eqnarray*}\]</span>
-Tomando logaritmo natural a ambos lados y denotando la log-verosimilitud por
-<span class="math display">\[\ln \left[L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)\right]=l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right),\]</span>
-tenemos que
-<span class="math display">\[\begin{eqnarray*}
-l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)
-&amp;=&amp;-\left(\frac{n}{2}\right)\ln(2\pi)-\left(\frac{n}{2}\right)\ln\left(\sigma^2\right)-\left(\frac{1}{2\sigma^2}\right)\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2
-\end{eqnarray*}\]</span>
-Derivando parcialmente con respecto a <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\sigma^2\)</span> e igualando a cero, obtenemos los estimadores de máxima verosimilitud:
-<span class="math display">\[\widetilde{\beta}_0=\overline{Y}-\widetilde{\beta}_1\overline{X}\]</span>
+\end{eqnarray*}\]</span></p>
+<p>Tomando logaritmo natural a ambos lados y denotando la log-verosimilitud por</p>
+<p><span class="math display">\[\ln \left[L\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)\right]=l\left(\beta_0, \beta_1, \sigma^2 | X_1, \ldots, X_n, Y_1, \ldots, Y_n \right)=l,\]</span>
+tenemos que</p>
+<p><span class="math display">\[
+l =-\left(\frac{n}{2}\right)\ln(2\pi)-\left(\frac{n}{2}\right)\ln\left(\sigma^2\right)-\left(\frac{1}{2\sigma^2}\right)\sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_i)^2
+\]</span></p>
+<p>Derivando parcialmente con respecto a <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\sigma^2\)</span> e igualando a cero, obtenemos los estimadores de máxima verosimilitud:</p>
+<p><span class="math display">\[\widetilde{\beta}_0=\overline{Y}-\widetilde{\beta}_1\overline{X}\]</span>
 <span class="math display">\[\widetilde{\beta}_1=\frac{S_{xy}}{S_{xx}}\]</span>
-<span class="math display">\[\widetilde{\sigma}^2=\frac{\sum_{i=1}^n(Y_i-\widetilde{\beta}_0-\widetilde{\beta}_1X_i)^2}{n}.\]</span>
- Los estimadores de máxima verosimilitud para regresión lineal simple, pueden ser obtenidos mediante la optimización directa de la función de log-verosimilitud.</p>
+<span class="math display">\[\widetilde{\sigma}^2=\frac{\sum_{i=1}^n(Y_i-\widetilde{\beta}_0-\widetilde{\beta}_1X_i)^2}{n}.\]</span></p>
+
+<div class="rmdnote">
+Los estimadores de máxima verosimilitud para regresión lineal simple, pueden ser obtenidos mediante la optimización directa de la función de log-verosimilitud.
+</div>
+
 
 </div>
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -545,7 +545,7 @@ En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la func
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="multicoli.html#cb345-1"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
 <pre><code>## corrplot 0.84 loaded</code></pre>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="multicoli.html#cb347-1"></a><span class="kw">corrplot</span>(mat_cor, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">order=</span><span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-205-1.png" width="672" /></p>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
 <p>Combinando los resultados de la matriz anterior y el conocimiento de las variables es posible identificar variables que podrían generar el problema de multicolinealidad.</p>
 </div>
 </div>
@@ -587,7 +587,7 @@ VIF = \frac{1}{1 - {R}^{2}_{k}},
 <span id="cb351-2"><a href="multicoli.html#cb351-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>(<span class="dt">method=</span><span class="st">&quot;pearson&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits=</span><span class="dv">2</span>) -&gt;<span class="st"> </span>mat_cor</span>
 <span id="cb351-3"><a href="multicoli.html#cb351-3"></a><span class="kw">library</span>(corrplot)</span>
 <span id="cb351-4"><a href="multicoli.html#cb351-4"></a><span class="kw">corrplot</span>(mat_cor, <span class="dt">type=</span><span class="st">&quot;upper&quot;</span>, <span class="dt">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-208-1.png" width="672" /></p>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-209-1.png" width="672" /></p>
 
 </div>
 </div>

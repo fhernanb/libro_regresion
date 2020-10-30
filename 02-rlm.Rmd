@@ -4,18 +4,18 @@ En este capítulo se presenta una descripción breve del modelo de regresión li
 ## Modelo estadístico {-}
 El modelo estadístico en regresión lineal múltiple es una generalización del regresión lineal simple para $k$ covariables. El modelo en este caso se puede escribir de dos formas como se muestra a continuación.
 
-1. En esta forma la variable respuesta $y$ se expresa como una suma de $\beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}$ y un error aleatorio $e_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
+1. En esta forma la variable respuesta $Y$ se expresa como una suma de $\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki}$ y un error aleatorio $e_i$ el cual tiene distribución $N(0, \sigma^2)$. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod1}
-y_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + \epsilon_i, \\ 
+Y_i &= \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + \epsilon_i, \\ 
 \epsilon_i &\sim N(0, \sigma^2)
 \end{align}
 
 2. En esta forma la variable respuesta $y$ tiene distribución normal con media que cambia en función de las variables $x_k$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
 
 \begin{align} \label{mod2}
-y_i &\sim N(\mu_i, \sigma^2), \\ 
-\mu_i &= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \\
+Y_i &\sim N(\mu_i, \sigma^2), \\ 
+\mu_i &= \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki}, \\
 \sigma^2 &= \text{constante}
 \end{align}
 
@@ -112,6 +112,4 @@ mi_3d <- scatterplot3d(x=cantidad, y=distancia, z=tiempo, pch=16, cex.lab=1,
 # Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado
 mi_3d$plane3d(mod, lty.box="solid", col='mediumblue')
 ```
-
-
 
