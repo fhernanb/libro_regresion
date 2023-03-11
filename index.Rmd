@@ -1,6 +1,6 @@
 --- 
 title: "Modelos de Regresión con R"
-author: ["Freddy Hernández", "Mauricio Mazo"]
+author: ["Freddy Hernández", "Olga Usuga", "Mauricio Mazo"]
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -42,7 +42,8 @@ knitr::include_graphics("images/cover.png")
 Este libro está destinado para estudiantes de ingeniería y estadística que deseen aprender sobre modelos de regresión y la forma de aplicarlos por medio del lenguaje de programación R.
 
 [Freddy Hernández](https://fhernanb.github.io/)  
-[Mauricio Mazo](http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001417591)
+[Olga Usuga](https://www.udea.edu.co/)  
+[Mauricio Mazo](https://unal.edu.co/)
 
 ## Estructura del libro {-}
 
