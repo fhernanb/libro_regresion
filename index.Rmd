@@ -15,7 +15,7 @@ description: "Libro de Modelos de Regresión con R para los estudiantes de la Es
 
 # Bienvenido {-}
 
-```{r include=FALSE}
+```{r include=FALSE, message=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'mixlm', 'MPV',
