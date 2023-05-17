@@ -1,3 +1,8 @@
+fig:summary01
+fig:unnamed-chunk-54
+fig:cuali02
+fig:selection01
+fig:selection02
 rls
 rlm
 predict
@@ -19,3 +24,4 @@ WilRog
 xy
 important
 pasos
+misspecification

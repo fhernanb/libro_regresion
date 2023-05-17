@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Diagnósticos parte II | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Diagnósticos parte II | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
@@ -19,13 +18,14 @@
   <meta name="twitter:title" content="10 Diagnósticos parte II | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="twitter:image" content="images/cover.png" />
+  <meta name="twitter:image" content="/images/cover.png" />
 
 <meta name="author" content="Freddy Hernández" />
+<meta name="author" content="Olga Usuga" />
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-30" />
+<meta name="date" content="2023-05-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,7 +34,8 @@
   
 <link rel="prev" href="diag1.html"/>
 <link rel="next" href="homo.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,29 +51,31 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -92,13 +95,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -111,7 +114,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -123,6 +126,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -141,252 +167,325 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modelos de Regresión con R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-libro"><i class="fa fa-check"></i>Estructura del libro</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-y-convenciones"><i class="fa fa-check"></i>Software y convenciones</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#bloques-informativos"><i class="fa fa-check"></i>Bloques informativos</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a><ul>
+<li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#modelo-estadístico"><i class="fa fa-check"></i>Modelo estadístico</a></li>
-<li><a href="rls.html#función-lm">Función <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#función-lm"><i class="fa fa-check"></i>Función <code>lm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#clase-lm"><i class="fa fa-check"></i>Clase <code>lm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#mínimos-cuadrados-ponderados"><i class="fa fa-check"></i>Mínimos cuadrados ponderados</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#mínimos-cuadrados-ponderados"><i class="fa fa-check"></i>Mínimos cuadrados ponderados</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
-<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a><ul>
+<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a>
+<ul>
 <li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a><ul>
-<li><a href="predict.html#función-predict">Función <code>predict</code></a><ul>
+<li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a>
+<ul>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#función-predict"><i class="fa fa-check"></i>Función <code>predict</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0">Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a><ul>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0"><i class="fa fa-check"></i>Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a>
+<ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a><ul>
+<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#preguntas-sobre-simulación-en-stackoverflow"><i class="fa fa-check"></i>Preguntas sobre simulación en StackOverFlow</a></li>
-<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#simulando-datos-de-un-modelo-lineal"><i class="fa fa-check"></i>Simulando datos de un modelo lineal</a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#simulando-datos-de-un-modelo-lineal"><i class="fa fa-check"></i>Simulando datos de un modelo lineal</a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="simul.html#función-simulate">Función <code>simulate</code></a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#función-simulate"><i class="fa fa-check"></i>Función <code>simulate</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#otras-herramientas-para-simular"><i class="fa fa-check"></i>Otras herramientas para simular</a></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#videos-sugeridos"><i class="fa fa-check"></i>Videos sugeridos</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
-<li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
+<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint"><i class="fa fa-check"></i>Función <code>confint</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ic.html#función-confint_sigma2">Función <code>confint_sigma2</code></a><ul>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint_sigma2"><i class="fa fa-check"></i>Función <code>confint_sigma2</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-13"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a><ul>
-<li><a href="ph1.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph1.html#función-summary-cuando-beta_j0-0">Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span></a><ul>
+<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a>
+<ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#pruebas-sobre-los-coeficientes-beta"><i class="fa fa-check"></i>Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-summary-cuando-beta_j0-0"><i class="fa fa-check"></i>Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0">Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0"><i class="fa fa-check"></i>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a><ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a><ul>
+<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a>
+<ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph2.html#función-anova">Función <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#función-anova"><i class="fa fa-check"></i>Función <code>anova</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph2.html#summary-versus-anova"><code>summary</code> versus <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#summary-versus-anova"><i class="fa fa-check"></i><code>summary</code> versus <code>anova</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a><ul>
+<li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-normalidad-de-los-errores"><i class="fa fa-check"></i>Chequeando normalidad de los errores</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-con-media-cero"><i class="fa fa-check"></i>Chequeando si errores con media cero</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-los-errores-tiene-varianza-constante"><i class="fa fa-check"></i>Chequeando si los errores tiene varianza constante</a></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-no-están-correlacionados"><i class="fa fa-check"></i>Chequeando si errores no están correlacionados</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-no-están-correlacionados"><i class="fa fa-check"></i>Chequeando si errores no están correlacionados</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-cumpliendo-los-supuestos"><i class="fa fa-check"></i>Ejemplo cumpliendo los supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a><ul>
+<li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="diag2.html#estadística-press-y-r2-de-predicción">Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#estadística-press-y-r2-de-predicción"><i class="fa fa-check"></i>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#valores-de-corte-para-diagnósticos"><i class="fa fa-check"></i>Valores de corte para diagnósticos</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a><ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a><ul>
+<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a><ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a><ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#goldfeld-quandt-test"><i class="fa fa-check"></i>Goldfeld-Quandt Test</a></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#harrison-mccabe-test"><i class="fa fa-check"></i>Harrison-McCabe test</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a><ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a><ul>
+<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a>
+<ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a>
+<ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a><ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a>
+<ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#modelos-polinomiales-de-una-o-varias-variables"><i class="fa fa-check"></i>Modelos polinomiales de una o varias variables</a></li>
-<li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="13" data-path="mod_poli.html"><a href="mod_poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-de-una-o-varias-variables"><i class="fa fa-check"></i>Modelos polinomiales de una o varias variables</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#funciones-i-y-poly"><i class="fa fa-check"></i>Funciones <code>I()</code> y <code>poly()</code></a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-bs"><i class="fa fa-check"></i>Función <code>bs</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-lowess"><i class="fa fa-check"></i>Función <code>lowess</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-loess"><i class="fa fa-check"></i>Función <code>loess</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
-<li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-nlminb"><i class="fa fa-check"></i>Función <code>nlminb</code></a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a><ul>
-<li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
-<li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
+<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-loglik-y-aic"><i class="fa fa-check"></i>Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
-<li><a href="selec.html#función-stepaic">Función <code>stepAIC</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#función-stepaic"><i class="fa fa-check"></i>Función <code>stepAIC</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li><a href="selec.html#aplicación-del-método-backward">Aplicación del método <strong>backward</strong></a></li>
-<li><a href="selec.html#aplicación-del-método-forward">Aplicación del método <strong>forward</strong></a></li>
-<li><a href="selec.html#aplicación-del-método-both">Aplicación del método <strong>both</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-backward"><i class="fa fa-check"></i>Aplicación del método <strong>backward</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-forward"><i class="fa fa-check"></i>Aplicación del método <strong>forward</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-both"><i class="fa fa-check"></i>Aplicación del método <strong>both</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
 </ul></li>
-<li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-addterm-y-dropterm"><i class="fa fa-check"></i>Funciones <code>addterm</code> y <code>dropterm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-olsrr"><i class="fa fa-check"></i>Paquete <strong>olsrr</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-mixlm"><i class="fa fa-check"></i>Paquete <strong>mixlm</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-leaps"><i class="fa fa-check"></i>Paquete <strong>leaps</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a><ul>
-<li class="chapter" data-level="" data-path="feature-selec.html"><a href="feature-selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
+<li class="chapter" data-level="15" data-path="feature_selec.html"><a href="feature_selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a>
+<ul>
+<li class="chapter" data-level="" data-path="feature_selec.html"><a href="feature_selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>16</b> Multicolinealidad</a><ul>
+<li class="chapter" data-level="16" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>16</b> Multicolinealidad</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#qué-es-multicolinealidad"><i class="fa fa-check"></i>¿Qué es multicolinealidad?</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#multicolinealidad-inducida"><i class="fa fa-check"></i>Multicolinealidad inducida</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#cómo-identificar-la-multicolinealidad"><i class="fa fa-check"></i>¿Cómo identificar la multicolinealidad?</a></li>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a><ul>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a><ul>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
+<li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a>
+<ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a>
+<ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a><ul>
+<li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a>
+<ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
+<ul>
 <li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a><ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a><ul>
+<li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a>
+<ul>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a>
+<ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
-<li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#fast-lm-in-r"><i class="fa fa-check"></i>Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>21</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="21" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>21</b> Pasos para construir modelos</a>
+<ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
+<li class="chapter" data-level="22" data-path="misspecification.html"><a href="misspecification.html"><i class="fa fa-check"></i><b>22</b> Mala especificación</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -408,11 +507,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="diag2" class="section level1">
-<h1><span class="header-section-number">10</span> Diagnósticos parte II</h1>
+<div id="diag2" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">10</span> Diagnósticos parte II<a href="diag2.html#diag2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En este capítulo se presentan otras herramientas útiles para realizar diagnósticos.</p>
-<div id="matriz-sombrero-o-hat" class="section level2 unnumbered">
-<h2>Matriz sombrero o hat</h2>
+<div id="matriz-sombrero-o-hat" class="section level2 unnumbered hasAnchor">
+<h2>Matriz sombrero o hat<a href="diag2.html#matriz-sombrero-o-hat" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La matriz sombrero o matriz Hat se define así:</p>
 <p><span class="math display">\[
 \boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top
@@ -431,7 +530,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="rmdwarning">
 La distancia <span class="math inline">\(h_{ii}\)</span> no incluye información de la variable respuesta <span class="math inline">\(y\)</span>, solo de las covariables, esto se nota claramente en la fórmula de <span class="math inline">\(\boldsymbol{H}\)</span> dada arriba.
 </div>
-
 <p>Los valores <span class="math inline">\(h_{ii}\)</span> se pueden obtener de dos formas:</p>
 <ul>
 <li>Construyendo la matriz <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
@@ -440,8 +538,8 @@ La distancia <span class="math inline">\(h_{ii}\)</span> no incluye información
 <p>¿Para qué se usan los <span class="math inline">\(h_{ii}\)</span> en la práctica?</p>
 <p>En el siguiente apartado se explicará el uso de los <span class="math inline">\(h_{ii}\)</span>.</p>
 </div>
-<div id="qué-es-extrapolación-oculta" class="section level2 unnumbered">
-<h2>¿Qué es extrapolación oculta?</h2>
+<div id="qué-es-extrapolación-oculta" class="section level2 unnumbered hasAnchor">
+<h2>¿Qué es extrapolación oculta?<a href="diag2.html#qué-es-extrapolación-oculta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suponga tenemos un modelo de regresión una variable respuesta y dos covariables <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>. En la siguiente figura se ilustra los posibles datos desde una vista superior (sin ver los valores de <span class="math inline">\(y\)</span>). Esa elipse o forma se llama Regressor Variable Hull (RVH) o cascarón de los datos.</p>
 <p align="center">
 <img src="images/extrapolacion_oculta.png" width="500">
@@ -457,42 +555,42 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <li>Calcular <span class="math inline">\(h_{00} = \boldsymbol{x}_0 (\boldsymbol{X}^\top \boldsymbol{X})^{-1} \boldsymbol{x}_0^\top\)</span>.</li>
 <li>Si <span class="math inline">\(h_{00} &gt; h_{max}\)</span> el punto <span class="math inline">\(\boldsymbol{x}_0\)</span> está fuera del cascarón y se podría estár cometiendo extrapolación oculta.</li>
 </ol>
-<div id="ejemplo-25" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
+<div id="ejemplo-25" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="diag2.html#ejemplo-25" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Calcular los valores <span class="math inline">\(h_{ii}\)</span> para un modelo de regresión <code>y ~ x + z</code> con los siguientes datos.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="diag2.html#cb168-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
-<span id="cb168-2"><a href="diag2.html#cb168-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb168-3"><a href="diag2.html#cb168-3"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="diag2.html#cb167-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb167-2"><a href="diag2.html#cb167-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb167-3"><a href="diag2.html#cb167-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>A seguir se muestran las tres formas para obtener los valores <span class="math inline">\(h_{ii}\)</span>.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="diag2.html#cb169-1"></a><span class="co"># Forma 1</span></span>
-<span id="cb169-2"><a href="diag2.html#cb169-2"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x, z)</span>
-<span id="cb169-3"><a href="diag2.html#cb169-3"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
-<span id="cb169-4"><a href="diag2.html#cb169-4"></a>H</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="diag2.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 1</span></span>
+<span id="cb168-2"><a href="diag2.html#cb168-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, z)</span>
+<span id="cb168-3"><a href="diag2.html#cb168-3" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb168-4"><a href="diag2.html#cb168-4" aria-hidden="true" tabindex="-1"></a>H</span></code></pre></div>
 <pre><code>##               [,1]          [,2]          [,3]       [,4]
 ## [1,]  8.333333e-01  3.333333e-01 -3.552714e-15 -0.1666667
 ## [2,]  3.333333e-01  3.333333e-01 -9.992007e-16  0.3333333
 ## [3,] -2.664535e-15 -1.110223e-15  1.000000e+00  0.0000000
 ## [4,] -1.666667e-01  3.333333e-01 -1.332268e-15  0.8333333</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="diag2.html#cb171-1"></a><span class="kw">diag</span>(H)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diag2.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(H)</span></code></pre></div>
 <pre><code>## [1] 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="diag2.html#cb173-1"></a><span class="co"># Forma 2</span></span>
-<span id="cb173-2"><a href="diag2.html#cb173-2"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>z)</span>
-<span id="cb173-3"><a href="diag2.html#cb173-3"></a><span class="kw">hatvalues</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diag2.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 2</span></span>
+<span id="cb172-2"><a href="diag2.html#cb172-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z)</span>
+<span id="cb172-3"><a href="diag2.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hatvalues</span>(mod)</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="diag2.html#cb175-1"></a><span class="co"># Forma 3</span></span>
-<span id="cb175-2"><a href="diag2.html#cb175-2"></a><span class="kw">lm.influence</span>(mod)<span class="op">$</span>hat</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="diag2.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 3</span></span>
+<span id="cb174-2"><a href="diag2.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.influence</span>(mod)<span class="sc">$</span>hat</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
 </div>
-<div id="reto-para-el-lector" class="section level3 unnumbered">
-<h3>Reto para el lector</h3>
+<div id="reto-para-el-lector" class="section level3 unnumbered hasAnchor">
+<h3>Reto para el lector<a href="diag2.html#reto-para-el-lector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use la información del ejemplo anterior y determine si la observación con valores de <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span> está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span>.</p>
 </div>
 </div>
-<div id="punto-atípico-outlier-y-punto-influyente" class="section level2 unnumbered">
-<h2>Punto atípico (outlier) y punto influyente</h2>
+<div id="punto-atípico-outlier-y-punto-influyente" class="section level2 unnumbered hasAnchor">
+<h2>Punto atípico (outlier) y punto influyente<a href="diag2.html#punto-atípico-outlier-y-punto-influyente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Los conceptos de atípico e influyente son diferentes y se definen así:</p>
 <ul>
 <li>Punto atípico (outlier): es una observación que es numéricamente distante del resto de los datos.</li>
@@ -509,13 +607,13 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 </ul>
 <p>Para saber si un punto es outlier se puede usar la prueba de Bonferroni y para saber si un punto es influyente se puede utilizar Distancia de Cook. En las siguientes secciones se mostrará identificar outliers y puntos influyentes.</p>
 </div>
-<div id="prueba-de-bonferroni-para-detectar-outliers" class="section level2 unnumbered">
-<h2>Prueba de Bonferroni para detectar outliers</h2>
-<p>El paquete <strong>car</strong> <span class="citation">(Fox, Weisberg, and Price <a href="#ref-R-car" role="doc-biblioref">2020</a>)</span> tiene la función <code>outlierTest</code> para realizar una prueba de hipótesis con <span class="math inline">\(H_0:\)</span> la observación <span class="math inline">\(i\)</span>-ésima NO es un outlier frente a <span class="math inline">\(H_1:\)</span> la observación <span class="math inline">\(i\)</span>-ésima SI es un outlier. La estructura de la función <code>outlierTest</code> se muestra a continuación.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag2.html#cb177-1"></a><span class="kw">outlierTest</span>(model, <span class="dt">cutoff=</span><span class="fl">0.05</span>, <span class="dt">n.max=</span><span class="dv">10</span>, <span class="dt">order=</span><span class="ot">TRUE</span>, <span class="dt">labels=</span><span class="kw">names</span>(rstudent), ...)</span></code></pre></div>
-<p>En la sección 11.3.1 del libro <span class="citation">Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> están los detalles de la prueba, se invita al lector para que los consulte.</p>
-<div id="ejemplo-26" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
+<div id="prueba-de-bonferroni-para-detectar-outliers" class="section level2 unnumbered hasAnchor">
+<h2>Prueba de Bonferroni para detectar outliers<a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El paquete <strong>car</strong> <span class="citation">(<a href="#ref-R-car" role="doc-biblioref">John Fox, Weisberg, and Price 2022</a>)</span> tiene la función <code>outlierTest</code> para realizar una prueba de hipótesis con <span class="math inline">\(H_0:\)</span> la observación <span class="math inline">\(i\)</span>-ésima NO es un outlier frente a <span class="math inline">\(H_1:\)</span> la observación <span class="math inline">\(i\)</span>-ésima SI es un outlier. La estructura de la función <code>outlierTest</code> se muestra a continuación.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag2.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(model, <span class="at">cutoff=</span><span class="fl">0.05</span>, <span class="at">n.max=</span><span class="dv">10</span>, <span class="at">order=</span><span class="cn">TRUE</span>, <span class="at">labels=</span><span class="fu">names</span>(rstudent), ...)</span></code></pre></div>
+<p>En la sección 11.3.1 del libro <span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> están los detalles de la prueba, se invita al lector para que los consulte.</p>
+<div id="ejemplo-26" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="diag2.html#ejemplo-26" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.</p>
 <p align="center">
 <img src="images/medidas_cuerpo_upb.png" width="700">
@@ -523,26 +621,26 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <p>El objetivo es determinar si hay alguna observación que se pueda considerar como outlier cuando se ajusta un modelo de regresión para explicar el peso corporal en función de la estatura, circunferencia del cuello y circunferencia de la muñeca.</p>
 <p><strong>Solución</strong></p>
 <p>Primero vamos a ajustar el modelo y luego vamos a aplicar la prueba de Bonferroni para detectar outliers.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="diag2.html#cb178-1"></a>url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
-<span id="cb178-2"><a href="diag2.html#cb178-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>url, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
-<span id="cb178-3"><a href="diag2.html#cb178-3"></a></span>
-<span id="cb178-4"><a href="diag2.html#cb178-4"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Peso <span class="op">~</span><span class="st"> </span>Estatura <span class="op">+</span><span class="st"> </span>circun_cuello <span class="op">+</span><span class="st"> </span>circun_muneca, <span class="dt">data=</span>datos)</span>
-<span id="cb178-5"><a href="diag2.html#cb178-5"></a></span>
-<span id="cb178-6"><a href="diag2.html#cb178-6"></a><span class="kw">library</span>(car)</span>
-<span id="cb178-7"><a href="diag2.html#cb178-7"></a><span class="kw">outlierTest</span>(mod, <span class="dt">cutoff=</span><span class="ot">Inf</span>, <span class="dt">n.max=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag2.html#cb177-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
+<span id="cb177-2"><a href="diag2.html#cb177-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb177-3"><a href="diag2.html#cb177-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-4"><a href="diag2.html#cb177-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
+<span id="cb177-5"><a href="diag2.html#cb177-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-6"><a href="diag2.html#cb177-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb177-7"><a href="diag2.html#cb177-7" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(mod, <span class="at">cutoff=</span><span class="cn">Inf</span>, <span class="at">n.max=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##     rstudent unadjusted p-value Bonferroni p
-## 11  5.406231         2.3118e-05   0.00060107
-## 8  -1.970903         6.2058e-02           NA
-## 13 -1.571692         1.3097e-01           NA
-## 5  -1.233646         2.3096e-01           NA</code></pre>
+## 11  4.206280         0.00011567     0.006015
+## 52 -2.221747         0.03115300           NA
+## 40  2.146046         0.03706400           NA
+## 28 -2.043770         0.04660300           NA</code></pre>
 <p>En la salida de arriba vemos las cuatro observaciones (<code>n.max=4</code>) que tienen los mayores valores de residual estudentizado <span class="math inline">\(r_i\)</span>. La observación ubicada en la línea 11 es la única con un valor-P muy pequeño y por lo tanto hay evidencias para considerar esa observación como un posible outlier.</p>
 <p>Es posible dibujar los resultados de la prueba para cada observación usando la función <code>influenceIndexPlot</code> del paquete <strong>car</strong>. En la siguiente figura se observa que sólo la observacion 11 es identificada como un posible outlier ya que su valor-P es muy pequeño.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag2.html#cb180-1"></a><span class="kw">influenceIndexPlot</span>(mod, <span class="dt">vars=</span><span class="st">&quot;Bonf&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag2.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod, <span class="at">vars=</span><span class="st">&quot;Bonf&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/bonf_test_01-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="distancia-de-cook" class="section level2 unnumbered">
-<h2>Distancia de Cook</h2>
+<div id="distancia-de-cook" class="section level2 unnumbered hasAnchor">
+<h2>Distancia de Cook<a href="diag2.html#distancia-de-cook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Es una medida de cómo influye la observación <span class="math inline">\(i\)</span>-ésima sobre la estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span> al ser retirada del conjunto de datos. Una distancia de Cook grande significa que una observación tiene un peso grande en la estimación de <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
 <p><span class="math display">\[
 D_i = \frac{\sum_{j=1}^{n} (\hat{y}_j - \hat{y}_{j(i)} )^2 }{p \hat{\sigma^2}},
@@ -561,9 +659,8 @@ D_i = \frac{d_i^2}{k+1} \times \frac{h_{ii}}{1-h_{ii}},
 <div class="rmdnote">
 Son puntos influyentes las observaciones que presenten <span class="math inline">\(D_i=\frac{4}{n-p-2}\)</span>.
 </div>
-
-<div id="ejemplo-27" class="section level3 unnumbered">
-<h3>Ejemplo:</h3>
+<div id="ejemplo-27" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo:<a href="diag2.html#ejemplo-27" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.</p>
 <p align="center">
 <img src="images/medidas_cuerpo_upb.png" width="700">
@@ -571,35 +668,46 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <p>El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posibles estudiantes influyentes y el efecto de ellos en el modelo.</p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es cargar los datos en nuestra sesión de R.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="diag2.html#cb181-1"></a>url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
-<span id="cb181-2"><a href="diag2.html#cb181-2"></a>datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>url, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</span>
-<span id="cb181-3"><a href="diag2.html#cb181-3"></a><span class="kw">head</span>(datos, <span class="dt">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>##   Peso Sexo Estatura circun_cuello circun_muneca
-## 1 47.6    F     1.57          29.5          13.9
-## 2 68.1    M     1.66          38.4          16.0
-## 3 68.0    M     1.90          36.5          16.6
-## 4 80.0    M     1.76          38.0          17.1
-## 5 68.1    M     1.83          38.0          17.1</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag2.html#cb180-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
+<span id="cb180-2"><a href="diag2.html#cb180-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb180-3"><a href="diag2.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##    Ano Semestre Peso Sexo Estatura circun_cuello circun_muneca
+## 1 2020        1 47.6    F     1.57          29.5          13.9
+## 2 2020        1 68.1    M     1.66          38.4          16.0
+## 3 2020        1 68.0    M     1.90          36.5          16.6
+## 4 2020        1 80.0    M     1.76          38.0          17.1
+## 5 2020        1 68.1    M     1.83          38.0          17.1</code></pre>
 <p>Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con <code>pairs</code>.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diag2.html#cb183-1"></a>panel.cor &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, <span class="dt">digits=</span><span class="dv">2</span>, <span class="dt">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
-<span id="cb183-2"><a href="diag2.html#cb183-2"></a>  usr &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="kw">on.exit</span>(<span class="kw">par</span>(usr))</span>
-<span id="cb183-3"><a href="diag2.html#cb183-3"></a>  <span class="kw">par</span>(<span class="dt">usr=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb183-4"><a href="diag2.html#cb183-4"></a>  r &lt;-<span class="st"> </span><span class="kw">cor</span>(x, y)</span>
-<span id="cb183-5"><a href="diag2.html#cb183-5"></a>  txt &lt;-<span class="st"> </span><span class="kw">format</span>(<span class="kw">c</span>(r, <span class="fl">0.123456789</span>), <span class="dt">digits=</span>digits)[<span class="dv">1</span>]</span>
-<span id="cb183-6"><a href="diag2.html#cb183-6"></a>  txt &lt;-<span class="st"> </span><span class="kw">paste</span>(prefix, txt, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb183-7"><a href="diag2.html#cb183-7"></a>  <span class="cf">if</span>(<span class="kw">missing</span>(cex.cor)) cex.cor &lt;-<span class="st"> </span><span class="fl">0.8</span><span class="op">/</span><span class="kw">strwidth</span>(txt)</span>
-<span id="cb183-8"><a href="diag2.html#cb183-8"></a>  <span class="kw">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="dt">cex=</span>cex.cor <span class="op">*</span><span class="st"> </span>r, <span class="dt">col=</span><span class="kw">gray</span>(<span class="dv">1</span><span class="op">-</span>r))</span>
-<span id="cb183-9"><a href="diag2.html#cb183-9"></a>}</span>
-<span id="cb183-10"><a href="diag2.html#cb183-10"></a></span>
-<span id="cb183-11"><a href="diag2.html#cb183-11"></a><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></span>
-<span id="cb183-12"><a href="diag2.html#cb183-12"></a><span class="kw">pairs</span>(datos[, <span class="kw">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </span>
-<span id="cb183-13"><a href="diag2.html#cb183-13"></a>      <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
-<span id="cb183-14"><a href="diag2.html#cb183-14"></a>      <span class="dt">upper.panel=</span>panel.smooth, <span class="dt">lower.panel=</span>panel.cor)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diag2.html#cb182-1" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits=</span><span class="dv">2</span>, <span class="at">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
+<span id="cb182-2"><a href="diag2.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
+<span id="cb182-3"><a href="diag2.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">usr=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb182-4"><a href="diag2.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb182-5"><a href="diag2.html#cb182-5" aria-hidden="true" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits=</span>digits)[<span class="dv">1</span>]</span>
+<span id="cb182-6"><a href="diag2.html#cb182-6" aria-hidden="true" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">paste</span>(prefix, txt, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb182-7"><a href="diag2.html#cb182-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">missing</span>(cex.cor)) cex.cor <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">/</span><span class="fu">strwidth</span>(txt)</span>
+<span id="cb182-8"><a href="diag2.html#cb182-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex=</span>cex.cor <span class="sc">*</span> r, <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">1</span><span class="sc">-</span>r))</span>
+<span id="cb182-9"><a href="diag2.html#cb182-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb182-10"><a href="diag2.html#cb182-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-11"><a href="diag2.html#cb182-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></span>
+<span id="cb182-12"><a href="diag2.html#cb182-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </span>
+<span id="cb182-13"><a href="diag2.html#cb182-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb182-14"><a href="diag2.html#cb182-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper.panel=</span>panel.smooth, <span class="at">lower.panel=</span>panel.cor)</span></code></pre></div>
+<pre><code>## Warning in par(usr): argument 1 does not name a graphical parameter
+
+## Warning in par(usr): argument 1 does not name a graphical parameter
+
+## Warning in par(usr): argument 1 does not name a graphical parameter
+
+## Warning in par(usr): argument 1 does not name a graphical parameter
+
+## Warning in par(usr): argument 1 does not name a graphical parameter
+
+## Warning in par(usr): argument 1 does not name a graphical parameter</code></pre>
 <p><img src="Regresion_con_R_files/figure-html/upb_01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.</p>
 <p>Vamos ahora a ajustar nuestro primer modelo.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag2.html#cb184-1"></a>mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(Peso <span class="op">~</span><span class="st"> </span>Estatura <span class="op">+</span><span class="st"> </span>circun_cuello <span class="op">+</span><span class="st"> </span>circun_muneca, <span class="dt">data=</span>datos)</span>
-<span id="cb184-2"><a href="diag2.html#cb184-2"></a><span class="kw">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag2.html#cb184-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
+<span id="cb184-2"><a href="diag2.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ Estatura + circun_cuello + circun_muneca, 
@@ -607,50 +715,51 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -9.8842 -3.3779 -0.8704  2.5255 19.5692 
+## -12.277  -3.141  -0.364   2.980  20.065 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)   -62.0183    21.2383  -2.920  0.00793 **
-## Estatura        9.4404    20.0299   0.471  0.64206   
-## circun_cuello   2.2587     0.8452   2.672  0.01391 * 
-## circun_muneca   1.9891     2.7458   0.724  0.47644   
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    -57.109     14.176  -4.029 0.000199 ***
+## Estatura        10.773     10.492   1.027 0.309674    
+## circun_cuello    2.302      0.387   5.949    3e-07 ***
+## circun_muneca    1.428      1.048   1.362 0.179546    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 6.134 on 22 degrees of freedom
-## Multiple R-squared:  0.7582, Adjusted R-squared:  0.7252 
-## F-statistic: 22.99 on 3 and 22 DF,  p-value: 5.637e-07</code></pre>
-<p>Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete <strong>mixlm</strong> creado por <span class="citation">Liland (<a href="#ref-R-mixlm" role="doc-biblioref">2019</a>)</span>. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un <span class="math inline">\(\alpha=0.04\)</span>.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag2.html#cb186-1"></a>mod2 &lt;-<span class="st"> </span>mixlm<span class="op">::</span><span class="kw">backward</span>(mod1, <span class="dt">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
+## Residual standard error: 5.822 on 48 degrees of freedom
+## Multiple R-squared:  0.7692, Adjusted R-squared:  0.7548 
+## F-statistic: 53.32 on 3 and 48 DF,  p-value: 2.585e-15</code></pre>
+<p>Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete <strong>mixlm</strong> creado por <span class="citation">Liland (<a href="#ref-R-mixlm" role="doc-biblioref">2022</a>)</span>. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un <span class="math inline">\(\alpha=0.04\)</span>.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag2.html#cb186-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> mixlm<span class="sc">::</span><span class="fu">backward</span>(mod1, <span class="at">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
-## &lt;environment: 0x000000003e174698&gt;
 ## 
-##               Step    RSS    AIC  R2pred     Cp F value Pr(&gt;F)
-## Estatura         1 836.03 96.235 0.64981 2.2221  0.2221 0.6421
-## circun_muneca    2 886.31 95.753 0.67223 1.5587  1.3833 0.2516</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag2.html#cb188-1"></a><span class="kw">summary</span>(mod2)</span></code></pre></div>
+##               Step    RSS    AIC  R2pred     Cp F value  Pr(&gt;F)  
+## Estatura         1 1662.6 186.17 0.71720 3.0543  1.0543 0.30967  
+## circun_muneca    2 1761.7 187.18 0.71701 3.9787  2.9212 0.09375 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag2.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ circun_cuello, data = datos)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -11.6933  -3.3996  -0.2729   2.6448  18.2076 
+## -11.4526  -3.7980  -0.5279   3.6603  18.9962 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -44.6178    13.4939  -3.307  0.00296 ** 
-## circun_cuello   3.0990     0.3739   8.288 1.68e-08 ***
+## (Intercept)   -37.1552     8.4079  -4.419 5.33e-05 ***
+## circun_cuello   2.9002     0.2368  12.250  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## s: 6.077 on 24 degrees of freedom
-## Multiple R-squared: 0.7411,
-## Adjusted R-squared: 0.7303 
-## F-statistic: 68.69 on 1 and 24 DF,  p-value: 1.678e-08</code></pre>
+## s: 5.936 on 50 degrees of freedom
+## Multiple R-squared: 0.7501,
+## Adjusted R-squared: 0.7451 
+## F-statistic: 150.1 on 1 and 50 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>En la siguiente tabla se comparan los modelos 1 y 2 ajustados hasta ahora.</p>
 <p align="center">
 <img src="images/tabla_1_2_upb.png" width="400">
@@ -663,42 +772,50 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <li>La varianza de los errores disminuye, eso significa que el modelo 2 deja menos sin explicar.</li>
 </ul>
 <p>Vamos ahora a crear el diagrama de dispersión con el modelo ajustado.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag2.html#cb190-1"></a><span class="co"># Para construir el grafico de dispersion</span></span>
-<span id="cb190-2"><a href="diag2.html#cb190-2"></a><span class="kw">with</span>(datos, </span>
-<span id="cb190-3"><a href="diag2.html#cb190-3"></a>     <span class="kw">plot</span>(<span class="dt">x=</span>circun_cuello, <span class="dt">y=</span>Peso, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
-<span id="cb190-4"><a href="diag2.html#cb190-4"></a>          <span class="dt">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</span>
-<span id="cb190-5"><a href="diag2.html#cb190-5"></a><span class="co"># Ahora agregamos la linea de tendencia</span></span>
-<span id="cb190-6"><a href="diag2.html#cb190-6"></a><span class="kw">abline</span>(mod2, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&#39;blue2&#39;</span>)</span>
-<span id="cb190-7"><a href="diag2.html#cb190-7"></a><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></span>
-<span id="cb190-8"><a href="diag2.html#cb190-8"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">34</span>, <span class="dt">y=</span><span class="dv">95</span>, <span class="kw">expression</span>(<span class="kw">hat</span>(Peso) <span class="op">==</span><span class="st"> </span><span class="fl">-44.61</span> <span class="op">+</span><span class="st"> </span><span class="fl">3.10</span> <span class="op">*</span><span class="st"> </span>C.cuello), </span>
-<span id="cb190-9"><a href="diag2.html#cb190-9"></a>     <span class="dt">col=</span><span class="st">&#39;blue3&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag2.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para construir el grafico de dispersion</span></span>
+<span id="cb190-2"><a href="diag2.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos, </span>
+<span id="cb190-3"><a href="diag2.html#cb190-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">plot</span>(<span class="at">x=</span>circun_cuello, <span class="at">y=</span>Peso, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb190-4"><a href="diag2.html#cb190-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</span>
+<span id="cb190-5"><a href="diag2.html#cb190-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ahora agregamos la linea de tendencia</span></span>
+<span id="cb190-6"><a href="diag2.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod2, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue2&#39;</span>)</span>
+<span id="cb190-7"><a href="diag2.html#cb190-7" aria-hidden="true" tabindex="-1"></a><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></span>
+<span id="cb190-8"><a href="diag2.html#cb190-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">34</span>, <span class="at">y=</span><span class="dv">95</span>, <span class="fu">expression</span>(<span class="fu">hat</span>(Peso) <span class="sc">==</span> <span class="sc">-</span><span class="fl">44.61</span> <span class="sc">+</span> <span class="fl">3.10</span> <span class="sc">*</span> C.cuello), </span>
+<span id="cb190-9"><a href="diag2.html#cb190-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">&#39;blue3&#39;</span> )</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_02-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior vemos que hay un estudiante (el de 100 kilos de peso) que está muy alejado de la recta de regresión.</p>
 <p>Vamos a calcular las distancias de Cook para las observaciones del modelo 2 así:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag2.html#cb191-1"></a><span class="kw">cooks.distance</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag2.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cooks.distance</span>(mod2)</span></code></pre></div>
 <pre><code>##            1            2            3            4            5            6 
-## 2.597726e-03 3.718175e-02 1.437645e-04 3.872482e-02 2.098520e-02 2.691879e-03 
+## 7.804662e-04 1.938685e-02 1.563287e-04 2.219833e-02 1.128458e-02 2.524701e-03 
 ##            7            8            9           10           11           12 
-## 4.858671e-03 2.777286e-01 1.098212e-03 2.062656e-03 9.764606e-01 7.749089e-02 
+## 4.092417e-03 1.222835e-01 7.151786e-04 1.149054e-03 4.808540e-01 3.722745e-02 
 ##           13           14           15           16           17           18 
-## 7.199329e-02 1.118988e-03 1.743413e-02 8.336090e-04 2.922296e-02 6.289646e-04 
+## 3.938290e-02 1.849408e-04 1.029180e-02 6.228690e-04 1.681916e-02 9.700850e-06 
 ##           19           20           21           22           23           24 
-## 3.650759e-02 1.223109e-02 1.940319e-02 2.854936e-02 7.612115e-03 3.328311e-02 
-##           25           26 
-## 3.585844e-03 1.457791e-06</code></pre>
+## 7.536443e-03 1.538284e-03 6.643811e-03 7.225225e-03 3.624830e-03 1.331368e-02 
+##           25           26           27           28           29           30 
+## 1.895684e-03 8.745440e-05 4.836285e-04 2.002813e-02 1.742378e-03 4.885748e-03 
+##           31           32           33           34           35           36 
+## 6.336181e-04 1.163887e-02 1.529500e-02 5.686460e-04 7.534900e-03 1.800503e-02 
+##           37           38           39           40           41           42 
+## 1.347941e-02 6.164670e-04 9.932676e-03 5.753702e-02 3.519145e-02 2.780173e-04 
+##           43           44           45           46           47           48 
+## 5.921498e-03 4.435951e-03 2.649280e-03 2.559527e-02 3.105562e-02 2.775930e-04 
+##           49           50           51           52 
+## 3.554232e-03 4.082713e-03 6.130210e-01 3.859845e-02</code></pre>
 <p>Es mejor representar las distancias de Cook en forma gráfica para identificar los posible puntos influyentes así:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag2.html#cb193-1"></a>cutoff &lt;-<span class="st"> </span><span class="dv">4</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">26-2-2</span>)  <span class="co"># Cota</span></span>
-<span id="cb193-2"><a href="diag2.html#cb193-2"></a><span class="kw">plot</span>(mod2, <span class="dt">which=</span><span class="dv">4</span>, <span class="dt">cook.levels=</span>cutoff, <span class="dt">las=</span><span class="dv">1</span>)</span>
-<span id="cb193-3"><a href="diag2.html#cb193-3"></a><span class="kw">abline</span>(<span class="dt">h=</span>cutoff, <span class="dt">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">col=</span><span class="st">&quot;dodgerblue2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag2.html#cb193-1" aria-hidden="true" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">/</span> (<span class="dv">26-2-2</span>)  <span class="co"># Cota</span></span>
+<span id="cb193-2"><a href="diag2.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">which=</span><span class="dv">4</span>, <span class="at">cook.levels=</span>cutoff, <span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb193-3"><a href="diag2.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>cutoff, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;dodgerblue2&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_03-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De esta figura es claro que las observaciones 11 y 8 tienen <span class="math inline">\(D_i\)</span> por encima de la cota y se consideran observaciones influyentes.</p>
 <p>Otra forma de dibujar las distancias de Cook es por medio de la función <code>influenceIndexPlot</code> del paquete <strong>car</strong>.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diag2.html#cb194-1"></a><span class="kw">library</span>(car)</span>
-<span id="cb194-2"><a href="diag2.html#cb194-2"></a><span class="kw">influenceIndexPlot</span>(mod2, <span class="dt">vars=</span><span class="st">&quot;Cook&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diag2.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb194-2"><a href="diag2.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod2, <span class="at">vars=</span><span class="st">&quot;Cook&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/cook_estudiantes_upb-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Ahora vamos a revisar los residuales del modelo 2.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag2.html#cb195-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb195-2"><a href="diag2.html#cb195-2"></a><span class="kw">plot</span>(mod2, <span class="dt">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag2.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb195-2"><a href="diag2.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_04-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la anterior figura vemos que las observaciones 8, 11 y 13 son identificadas por tener valores de residuales grandes.</p>
 <p>Vamos ahora a identificar las observaciones 8, 11, 12 y 13 en un diagrama de dispersión.</p>
@@ -718,16 +835,14 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 Las observaciones sospechosas NO se deben sacar inmediatamente del modelo. Antes se deben estudiar para ver si hay algo raro con ellas, en caso afirmativo se sacan de la base y se ajusta nuevamente el modelo.
 </div>
 
-
 <div class="rmdnote">
 <p>Una observación influyente NO es una observación mala en el modelo. Al contrario, ella es una observación clave en el ajuste porque “lidera” la estimación.</p>
 Una observación que no es influyente es una observación que estando presente o no, el modelo ajustado no se ve afectado.
 </div>
-
 </div>
 </div>
-<div id="dffits" class="section level2 unnumbered">
-<h2>DFFITS</h2>
+<div id="dffits" class="section level2 unnumbered hasAnchor">
+<h2>DFFITS<a href="diag2.html#dffits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Es una medida de la influencia de la <span class="math inline">\(i\)</span>-ésima observación sobre el valor predicho o ajustado, la expresión para calcularla es la siguiente:</p>
 <p><span class="math display">\[
 DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\sqrt{s_{(i)}^2 h_{ii}}}.
@@ -735,32 +850,32 @@ DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\sqrt{s_{(i)}^2 h_{ii}}}.
 <p>Se sugiere investigar toda observación con <span class="math inline">\(|DFFITS| &gt; 2 \sqrt{p/n}\)</span>.</p>
 <p>La función en R para obtener los <span class="math inline">\(DFFITS_i\)</span> es <code>dffits</code>.</p>
 </div>
-<div id="dfbetas" class="section level2 unnumbered">
-<h2>DFBETAS</h2>
+<div id="dfbetas" class="section level2 unnumbered hasAnchor">
+<h2>DFBETAS<a href="diag2.html#dfbetas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Es una medida que indica cuánto cambia el coeficiente de regresión, en unidades de desviación estándar, si se omitiera la <span class="math inline">\(i\)</span>-ésima observación.</p>
 <p><span class="math display">\[
-DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}}, 
+DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}}},
 \]</span></p>
 <p>donde <span class="math inline">\(C_{jj}\)</span> es <span class="math inline">\(j\)</span>-ésimo elemento de la diagonal de <span class="math inline">\((\boldsymbol{X}^\top \boldsymbol{X})^{-1}\)</span>.</p>
 <p>Se sugiere investigar toda observación con <span class="math inline">\(|DFBETAS| &gt; 2 \sqrt{n}\)</span>.</p>
 <p>La función en R para obtener los <span class="math inline">\(DFBETAS_{i,j}\)</span> es <code>dfbetas</code>.</p>
-<div id="ejemplo-28" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
+<div id="ejemplo-28" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="diag2.html#ejemplo-28" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considere los datos que se muestran a continuación y ajuste un modelo de regresión para explicar <span class="math inline">\(y\)</span> en función de <span class="math inline">\(x\)</span>. Luego identifique las observaciones influyentes usando las medidas DFFITS y DFBETAS.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="diag2.html#cb196-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>)</span>
-<span id="cb196-2"><a href="diag2.html#cb196-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="diag2.html#cb196-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>)</span>
+<span id="cb196-2"><a href="diag2.html#cb196-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">19</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>Vamos a crear unos datos para el ejemplo.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag2.html#cb197-1"></a><span class="kw">plot</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;tomato&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag2.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/ejem_dffits01-1.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diag2.html#cb198-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diag2.html#cb198-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>Vamos a calcular DFFITS.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag2.html#cb199-1"></a><span class="kw">dffits</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag2.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dffits</span>(mod)</span></code></pre></div>
 <pre><code>##          1          2          3          4          5 
 ##  0.5838725 -0.7757081  0.4112718 -0.4420348  5.8081955</code></pre>
 <p>De la salida anterior vemos que la observación 5 es la que tiene el mayor valor de DFFITS.</p>
 <p>Vamos a calcular DFBETAS.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag2.html#cb201-1"></a><span class="kw">dfbetas</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag2.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfbetas</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)           x
 ## 1  0.56194908 -0.45993179
 ## 2  0.03603076 -0.32706727
@@ -769,7 +884,7 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 ## 5 -3.42671836  4.94865731</code></pre>
 <p>De la salida anterior vemos nuevamente que la observación 5 tiene la mayor influencia sobre <span class="math inline">\(\hat{\beta}_0\)</span> y sobre <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 <p>Existe otra función llamda <code>dfbeta</code> sin la letra <strong>s</strong>, veamos para que sirve esta función.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag2.html#cb203-1"></a><span class="kw">dfbeta</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag2.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfbeta</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)           x
 ## 1  1.93127413 -0.34826255
 ## 2  0.09555985 -0.19111969
@@ -783,8 +898,8 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 </ol>
 </div>
 </div>
-<div id="estadística-press-y-r2-de-predicción" class="section level2 unnumbered">
-<h2>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</h2>
+<div id="estadística-press-y-r2-de-predicción" class="section level2 unnumbered hasAnchor">
+<h2>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción<a href="diag2.html#estadística-press-y-r2-de-predicción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Es una medida de lo BIEN que el modelo logra predecir <span class="math inline">\(\hat{y}\)</span> para nuevas observaciones.</p>
 <p><span class="math display">\[
 PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum_{i=1}^{n} \left( \frac{e_i}{1-h_{ii}} \right)^2
@@ -794,46 +909,46 @@ PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum
 R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 \]</span></p>
 <p>Las funciones mostradas abajo fueron creadas por <a href="https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0">Tom Hopper</a> y sirven para obtener la estadística PRESS y el <span class="math inline">\(R^2\)</span> de predicción.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag2.html#cb205-1"></a>PRESS &lt;-<span class="st"> </span><span class="cf">function</span>(linear.model) {</span>
-<span id="cb205-2"><a href="diag2.html#cb205-2"></a>  <span class="co"># calculate the predictive residuals</span></span>
-<span id="cb205-3"><a href="diag2.html#cb205-3"></a>  pr &lt;-<span class="st"> </span><span class="kw">residuals</span>(linear.model) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">lm.influence</span>(linear.model)<span class="op">$</span>hat)</span>
-<span id="cb205-4"><a href="diag2.html#cb205-4"></a>  <span class="co"># calculate the PRESS</span></span>
-<span id="cb205-5"><a href="diag2.html#cb205-5"></a>  PRESS &lt;-<span class="st"> </span><span class="kw">sum</span>(pr<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb205-6"><a href="diag2.html#cb205-6"></a>  <span class="kw">return</span>(PRESS)</span>
-<span id="cb205-7"><a href="diag2.html#cb205-7"></a>}</span>
-<span id="cb205-8"><a href="diag2.html#cb205-8"></a></span>
-<span id="cb205-9"><a href="diag2.html#cb205-9"></a>pred_r_squared &lt;-<span class="st"> </span><span class="cf">function</span>(linear.model) {</span>
-<span id="cb205-10"><a href="diag2.html#cb205-10"></a>  <span class="co">#&#39; Use anova() to get the sum of squares for the linear model</span></span>
-<span id="cb205-11"><a href="diag2.html#cb205-11"></a>  lm.anova &lt;-<span class="st"> </span><span class="kw">anova</span>(linear.model)</span>
-<span id="cb205-12"><a href="diag2.html#cb205-12"></a>  <span class="co">#&#39; Calculate the total sum of squares</span></span>
-<span id="cb205-13"><a href="diag2.html#cb205-13"></a>  tss &lt;-<span class="st"> </span><span class="kw">sum</span>(lm.anova<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span>)</span>
-<span id="cb205-14"><a href="diag2.html#cb205-14"></a>  <span class="co"># Calculate the predictive R^2</span></span>
-<span id="cb205-15"><a href="diag2.html#cb205-15"></a>  pred.r.squared &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">PRESS</span>(linear.model)<span class="op">/</span>(tss)</span>
-<span id="cb205-16"><a href="diag2.html#cb205-16"></a>  <span class="kw">return</span>(pred.r.squared)</span>
-<span id="cb205-17"><a href="diag2.html#cb205-17"></a>}</span></code></pre></div>
-<div id="ejemplo-29" class="section level3 unnumbered">
-<h3>Ejemplo</h3>
-<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">(Montgomery <a href="#ref-mpv06" role="doc-biblioref">2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag2.html#cb205-1" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
+<span id="cb205-2"><a href="diag2.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate the predictive residuals</span></span>
+<span id="cb205-3"><a href="diag2.html#cb205-3" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(linear.model) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">lm.influence</span>(linear.model)<span class="sc">$</span>hat)</span>
+<span id="cb205-4"><a href="diag2.html#cb205-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate the PRESS</span></span>
+<span id="cb205-5"><a href="diag2.html#cb205-5" aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(pr<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb205-6"><a href="diag2.html#cb205-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(PRESS)</span>
+<span id="cb205-7"><a href="diag2.html#cb205-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb205-8"><a href="diag2.html#cb205-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-9"><a href="diag2.html#cb205-9" aria-hidden="true" tabindex="-1"></a>pred_r_squared <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
+<span id="cb205-10"><a href="diag2.html#cb205-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#&#39; Use anova() to get the sum of squares for the linear model</span></span>
+<span id="cb205-11"><a href="diag2.html#cb205-11" aria-hidden="true" tabindex="-1"></a>  lm.anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(linear.model)</span>
+<span id="cb205-12"><a href="diag2.html#cb205-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#&#39; Calculate the total sum of squares</span></span>
+<span id="cb205-13"><a href="diag2.html#cb205-13" aria-hidden="true" tabindex="-1"></a>  tss <span class="ot">&lt;-</span> <span class="fu">sum</span>(lm.anova<span class="sc">$</span><span class="st">&#39;Sum Sq&#39;</span>)</span>
+<span id="cb205-14"><a href="diag2.html#cb205-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the predictive R^2</span></span>
+<span id="cb205-15"><a href="diag2.html#cb205-15" aria-hidden="true" tabindex="-1"></a>  pred.r.squared <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">PRESS</span>(linear.model)<span class="sc">/</span>(tss)</span>
+<span id="cb205-16"><a href="diag2.html#cb205-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pred.r.squared)</span>
+<span id="cb205-17"><a href="diag2.html#cb205-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div id="ejemplo-29" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="diag2.html#ejemplo-29" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">(<a href="#ref-mpv06" role="doc-biblioref">E. &amp;. V. Montgomery D. &amp; Peck 2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
 <p align="center">
 <img src="images/ilustracion_refrescos.png" width="600">
 </p>
 <p>¿Cuál es el valor de la estadística PRESS y del <span class="math inline">\(R^2\)</span> de predicción?</p>
 <p><strong>Solución</strong></p>
 <p>Los datos del ejemplo están disponibles en el paquete <strong>MPV</strong> (por los apellidos de los autores). A continuación el código para cargar los datos y ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag2.html#cb206-1"></a><span class="kw">require</span>(MPV)</span>
-<span id="cb206-2"><a href="diag2.html#cb206-2"></a><span class="kw">colnames</span>(softdrink) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
-<span id="cb206-3"><a href="diag2.html#cb206-3"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(tiempo <span class="op">~</span><span class="st"> </span>cantidad <span class="op">+</span><span class="st"> </span>distancia, <span class="dt">data=</span>softdrink)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag2.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb206-2"><a href="diag2.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
+<span id="cb206-3"><a href="diag2.html#cb206-3" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink)</span></code></pre></div>
 <p>A continuación se muestran las dos medidas de interés.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag2.html#cb207-1"></a><span class="kw">PRESS</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag2.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod)</span></code></pre></div>
 <pre><code>## [1] 459.0393</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag2.html#cb209-1"></a><span class="kw">pred_r_squared</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag2.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pred_r_squared</span>(mod)</span></code></pre></div>
 <pre><code>## [1] 0.9206438</code></pre>
 <p>De la salida anterior se observa que el <span class="math inline">\(R^2\)</span> de predicción toma un valor de 0.9206, esto indica que el modelo <code>mod</code> tiene una buena capacidad de predicción para nuevas observaciones.</p>
 </div>
 </div>
-<div id="valores-de-corte-para-diagnósticos" class="section level2 unnumbered">
-<h2>Valores de corte para diagnósticos</h2>
-<p><span class="citation">Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise <span class="citation">Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> y conozca unas recomendaciones adicionales sobre los puntos de corte.</p>
+<div id="valores-de-corte-para-diagnósticos" class="section level2 unnumbered hasAnchor">
+<h2>Valores de corte para diagnósticos<a href="diag2.html#valores-de-corte-para-diagnósticos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise <span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> y conozca unas recomendaciones adicionales sobre los puntos de corte.</p>
 <ul>
 <li>Observaciones con valores de <span class="math inline">\(h_{ii}\)</span> que excedan dos veces el valor <span class="math inline">\(\bar{h} = (k+1)/n\)</span> podrían ser observaciones atípicas o outliers. Este punto de corte se obtiene como una aproximación para identificar el 5% de las observaciones más extremas si las <span class="math inline">\(X\)</span>’s se distribuyen normal multivariada con <span class="math inline">\(k\)</span> y <span class="math inline">\(n-k-1\)</span> grandes (<span class="math inline">\(k\)</span> se refiere al número de <span class="math inline">\(\beta\)</span>’s diferentes al intercepto).</li>
 <li>Como los residuales estandarizados <span class="math inline">\(d_i\)</span>, tienen media cero y varianza aproximadamente unitaria, un residual estandarizado grande, <span class="math inline">\(|d_i| &gt; 3\)</span>, indica que se trata de un valor atípico potencial.</li>
@@ -845,19 +960,19 @@ R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 
 </div>
 </div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-fox2015applied">
-<p>Fox, John. 2015. <em>Applied Regression Analysis and Generalized Linear Models</em>. Sage Publications.</p>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-fox2015applied" class="csl-entry">
+Fox, John. 2015. <em>Applied Regression Analysis and Generalized Linear Models</em>. Sage Publications.
 </div>
-<div id="ref-R-car">
-<p>Fox, John, Sanford Weisberg, and Brad Price. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.</p>
+<div id="ref-R-car" class="csl-entry">
+Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
 </div>
-<div id="ref-R-mixlm">
-<p>Liland, Kristian Hovde. 2019. <em>Mixlm: Mixed Model Anova and Statistics for Education</em>. <a href="https://CRAN.R-project.org/package=mixlm">https://CRAN.R-project.org/package=mixlm</a>.</p>
+<div id="ref-R-mixlm" class="csl-entry">
+Liland, Kristian Hovde. 2022. <em>Mixlm: Mixed Model ANOVA and Statistics for Education</em>. <a href="https://github.com/khliland/mixlm/">https://github.com/khliland/mixlm/</a>.
 </div>
-<div id="ref-mpv06">
-<p>Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.</p>
+<div id="ref-mpv06" class="csl-entry">
+Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.
 </div>
 </div>
             </section>
@@ -870,7 +985,6 @@ R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -889,6 +1003,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -909,6 +1024,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -922,7 +1041,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

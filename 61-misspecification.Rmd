@@ -1,0 +1,4 @@
+# Mala especificación {#misspecification}
+En este capítulo se muestra consignan algunas estrategias a usar para evitar el efecto de una mala especificación en un modelo lineal.
+
+@vgherard2023model nos presenta una publicación corta de cómo proceder cuando se violan algunos de los supuestos de un modelo lineal.

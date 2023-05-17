@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>12 Pruebas de independencia de los errores | Modelos de Regresión con R</title>
+  <title>22 Mala especificación | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="12 Pruebas de independencia de los errores | Modelos de Regresión con R" />
+  <meta property="og:title" content="22 Mala especificación | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="12 Pruebas de independencia de los errores | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="22 Mala especificación | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="homo.html"/>
-<link rel="next" href="mod_poli.html"/>
+<link rel="prev" href="pasos.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -507,85 +507,16 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="indep" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">12</span> Pruebas de independencia de los errores<a href="indep.html#indep" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En este capítulo se presentan varias pruebas para explorar si se cumple el supuesto de independencia de los errores en regresión lineal.</p>
-<p>En las prueba mostradas a continuación se estudian las siguientes hipótesis.</p>
-<p><span class="math display">\[\begin{align*}
-H_0 &amp;: \text{los errores son independientes.} \\
-H_1 &amp;: \text{los errores no son independientes.}
-\end{align*}\]</span></p>
-<div id="durbin-watson-test" class="section level2 unnumbered hasAnchor">
-<h2>Durbin-Watson test<a href="indep.html#durbin-watson-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La función <code>dwtest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2022</a>)</span> implementa esta prueba.</p>
-<p><a href="https://stats.stackexchange.com/questions/14914/how-to-test-the-autocorrelation-of-the-residuals">En esta publicación</a> de StackOverFlow hay una excelente discusión sobre la prueba, se invita al lector a explorar la publicación.</p>
-<div id="ejemplo-33" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="indep.html#ejemplo-33" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El siguiente ejemplo fue tomado de la documentación de la función <code>dwtest</code>.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="indep.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate regressor</span></span>
-<span id="cb222-2"><a href="indep.html#cb222-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dv">50</span>)</span>
-<span id="cb222-3"><a href="indep.html#cb222-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-4"><a href="indep.html#cb222-4" aria-hidden="true" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0 (white noise)</span></span>
-<span id="cb222-5"><a href="indep.html#cb222-5" aria-hidden="true" tabindex="-1"></a>err1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb222-6"><a href="indep.html#cb222-6" aria-hidden="true" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
-<span id="cb222-7"><a href="indep.html#cb222-7" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err1</span>
-<span id="cb222-8"><a href="indep.html#cb222-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb222-9"><a href="indep.html#cb222-9" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
-<span id="cb222-10"><a href="indep.html#cb222-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Durbin-Watson test
-## 
-## data:  mod1
-## DW = 2.2427, p-value = 0.9078
-## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="indep.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;deepskyblue1&quot;</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/indep_errores_01-1.png" width="672" /></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="indep.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0.9 respectively</span></span>
-<span id="cb225-2"><a href="indep.html#cb225-2" aria-hidden="true" tabindex="-1"></a>err2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">filter</span>(<span class="at">x=</span>err1, <span class="at">filter=</span><span class="fl">0.9</span>, <span class="at">method=</span><span class="st">&quot;recursive&quot;</span>)</span>
-<span id="cb225-3"><a href="indep.html#cb225-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
-<span id="cb225-4"><a href="indep.html#cb225-4" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err2</span>
-<span id="cb225-5"><a href="indep.html#cb225-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb225-6"><a href="indep.html#cb225-6" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
-<span id="cb225-7"><a href="indep.html#cb225-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Durbin-Watson test
-## 
-## data:  mod2
-## DW = 0.31774, p-value &lt; 2.2e-16
-## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="indep.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod2), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
-</div>
-</div>
-<div id="breusch-godfrey-test" class="section level2 unnumbered hasAnchor">
-<h2>Breusch-Godfrey Test<a href="indep.html#breusch-godfrey-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La función <code>bgtest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2022</a>)</span> implementa esta prueba.</p>
-<div id="ejemplo-34" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="indep.html#ejemplo-34" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Usando los datos el ejemplo anterior aplicar la prueba Breusch-Godfrey.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="indep.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb228-2"><a href="indep.html#cb228-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
-<span id="cb228-3"><a href="indep.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Breusch-Godfrey test for serial correlation of order up to 1
-## 
-## data:  mod1
-## LM test = 1.6941, df = 1, p-value = 0.1931</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="indep.html#cb230-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
-<span id="cb230-2"><a href="indep.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
-<pre><code>## 
-##  Breusch-Godfrey test for serial correlation of order up to 1
-## 
-## data:  mod2
-## LM test = 69.937, df = 1, p-value &lt; 2.2e-16</code></pre>
+<div id="misspecification" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">22</span> Mala especificación<a href="misspecification.html#misspecification" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este capítulo se muestra consignan algunas estrategias a usar para evitar el efecto de una mala especificación en un modelo lineal.</p>
+<p><span class="citation">Gherardi (<a href="#ref-vgherard2023model" role="doc-biblioref">2023</a>)</span> nos presenta una publicación corta de cómo proceder cuando se violan algunos de los supuestos de un modelo lineal.</p>
 
-</div>
-</div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-R-lmtest" class="csl-entry">
-Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2022. <em>Lmtest: Testing Linear Regression Models</em>. <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>.
+<div id="ref-vgherard2023model" class="csl-entry">
+Gherardi, Valerio. 2023. <span>“Valerio Gherardi: Model Misspecification and Linear Sandwiches.”</span> <a href="https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/">https://vgherard.github.io/posts/2023-05-14-model-misspecification-and-linear-sandwiches/</a>.
 </div>
 </div>
             </section>
@@ -593,8 +524,8 @@ Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2022
           </div>
         </div>
       </div>
-<a href="homo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mod_poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="pasos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -625,7 +556,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/11-ph-indep.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/61-misspecification.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>18 Notación de Wilkinson y Rogers | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="18 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
@@ -19,13 +18,14 @@
   <meta name="twitter:title" content="18 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="twitter:image" content="images/cover.png" />
+  <meta name="twitter:image" content="/images/cover.png" />
 
 <meta name="author" content="Freddy Hernández" />
+<meta name="author" content="Olga Usuga" />
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2020-10-30" />
+<meta name="date" content="2023-05-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,7 +34,8 @@
   
 <link rel="prev" href="algmat.html"/>
 <link rel="next" href="xy.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,29 +51,31 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -92,13 +95,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -111,7 +114,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -123,6 +126,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -141,252 +167,325 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Modelos de Regresión con R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Bienvenido</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-libro"><i class="fa fa-check"></i>Estructura del libro</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-y-convenciones"><i class="fa fa-check"></i>Software y convenciones</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#bloques-informativos"><i class="fa fa-check"></i>Bloques informativos</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a><ul>
+<li class="chapter" data-level="1" data-path="rls.html"><a href="rls.html"><i class="fa fa-check"></i><b>1</b> Regresión lineal simple</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#modelo-estadístico"><i class="fa fa-check"></i>Modelo estadístico</a></li>
-<li><a href="rls.html#función-lm">Función <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#función-lm"><i class="fa fa-check"></i>Función <code>lm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="rls.html#clase-lm">Clase <code>lm</code></a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#clase-lm"><i class="fa fa-check"></i>Clase <code>lm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-1"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#mínimos-cuadrados-ponderados"><i class="fa fa-check"></i>Mínimos cuadrados ponderados</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#mínimos-cuadrados-ponderados"><i class="fa fa-check"></i>Mínimos cuadrados ponderados</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#ejemplo-2"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a><ul>
+<li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#apéndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-mínimos-cuadrados"><i class="fa fa-check"></i>Estimación por mínimos cuadrados</a></li>
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a><ul>
-<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a><ul>
+<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a>
+<ul>
 <li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a><ul>
-<li><a href="predict.html#función-predict">Función <code>predict</code></a><ul>
+<li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a>
+<ul>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#función-predict"><i class="fa fa-check"></i>Función <code>predict</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0">Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a><ul>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0"><i class="fa fa-check"></i>Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a>
+<ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a><ul>
+<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#preguntas-sobre-simulación-en-stackoverflow"><i class="fa fa-check"></i>Preguntas sobre simulación en StackOverFlow</a></li>
-<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#simulando-datos-de-un-modelo-lineal"><i class="fa fa-check"></i>Simulando datos de un modelo lineal</a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#simulando-datos-de-un-modelo-lineal"><i class="fa fa-check"></i>Simulando datos de un modelo lineal</a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="simul.html#función-simulate">Función <code>simulate</code></a><ul>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#función-simulate"><i class="fa fa-check"></i>Función <code>simulate</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#otras-herramientas-para-simular"><i class="fa fa-check"></i>Otras herramientas para simular</a></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#videos-sugeridos"><i class="fa fa-check"></i>Videos sugeridos</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a><ul>
-<li><a href="ic.html#función-confint">Función <code>confint</code></a><ul>
+<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint"><i class="fa fa-check"></i>Función <code>confint</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ic.html#función-confint_sigma2">Función <code>confint_sigma2</code></a><ul>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint_sigma2"><i class="fa fa-check"></i>Función <code>confint_sigma2</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a><ul>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a>
+<ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-13"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a><ul>
-<li><a href="ph1.html#pruebas-sobre-los-coeficientes-beta">Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
-<li><a href="ph1.html#función-summary-cuando-beta_j0-0">Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span></a><ul>
+<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a>
+<ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#pruebas-sobre-los-coeficientes-beta"><i class="fa fa-check"></i>Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-summary-cuando-beta_j0-0"><i class="fa fa-check"></i>Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0">Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></a><ul>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0"><i class="fa fa-check"></i>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a><ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a><ul>
+<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a>
+<ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph2.html#función-anova">Función <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#función-anova"><i class="fa fa-check"></i>Función <code>anova</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="ph2.html#summary-versus-anova"><code>summary</code> versus <code>anova</code></a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#summary-versus-anova"><i class="fa fa-check"></i><code>summary</code> versus <code>anova</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a><ul>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a>
+<ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a><ul>
+<li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-normalidad-de-los-errores"><i class="fa fa-check"></i>Chequeando normalidad de los errores</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-con-media-cero"><i class="fa fa-check"></i>Chequeando si errores con media cero</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-los-errores-tiene-varianza-constante"><i class="fa fa-check"></i>Chequeando si los errores tiene varianza constante</a></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-no-están-correlacionados"><i class="fa fa-check"></i>Chequeando si errores no están correlacionados</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-no-están-correlacionados"><i class="fa fa-check"></i>Chequeando si errores no están correlacionados</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-cumpliendo-los-supuestos"><i class="fa fa-check"></i>Ejemplo cumpliendo los supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a><ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a><ul>
+<li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="diag2.html#estadística-press-y-r2-de-predicción">Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a><ul>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#estadística-press-y-r2-de-predicción"><i class="fa fa-check"></i>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a>
+<ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#valores-de-corte-para-diagnósticos"><i class="fa fa-check"></i>Valores de corte para diagnósticos</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a><ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a><ul>
+<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a><ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a><ul>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a>
+<ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#goldfeld-quandt-test"><i class="fa fa-check"></i>Goldfeld-Quandt Test</a></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#harrison-mccabe-test"><i class="fa fa-check"></i>Harrison-McCabe test</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a><ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a><ul>
+<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a>
+<ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a>
+<ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a><ul>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a>
+<ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="mod-poli.html"><a href="mod-poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#modelos-polinomiales-de-una-o-varias-variables"><i class="fa fa-check"></i>Modelos polinomiales de una o varias variables</a></li>
-<li><a href="mod-poli.html#funciones-i-y-poly">Funciones <code>I()</code> y <code>poly()</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="13" data-path="mod_poli.html"><a href="mod_poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-de-una-o-varias-variables"><i class="fa fa-check"></i>Modelos polinomiales de una o varias variables</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#funciones-i-y-poly"><i class="fa fa-check"></i>Funciones <code>I()</code> y <code>poly()</code></a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-bs">Función <code>bs</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-bs"><i class="fa fa-check"></i>Función <code>bs</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-lowess">Función <code>lowess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-lowess"><i class="fa fa-check"></i>Función <code>lowess</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="mod-poli.html#función-loess">Función <code>loess</code></a><ul>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-loess"><i class="fa fa-check"></i>Función <code>loess</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a><ul>
-<li><a href="mod-poli.html#función-nlminb">Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a>
+<ul>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-nlminb"><i class="fa fa-check"></i>Función <code>nlminb</code></a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mod-poli.html"><a href="mod-poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a><ul>
-<li><a href="selec.html#akaike-information-criterion-aic">Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
-<li><a href="selec.html#funciones-loglik-y-aic">Funciones <code>logLik</code> y <code>AIC</code></a></li>
+<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a>
+<ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-loglik-y-aic"><i class="fa fa-check"></i>Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
-<li><a href="selec.html#función-stepaic">Función <code>stepAIC</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#función-stepaic"><i class="fa fa-check"></i>Función <code>stepAIC</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
-<li><a href="selec.html#aplicación-del-método-backward">Aplicación del método <strong>backward</strong></a></li>
-<li><a href="selec.html#aplicación-del-método-forward">Aplicación del método <strong>forward</strong></a></li>
-<li><a href="selec.html#aplicación-del-método-both">Aplicación del método <strong>both</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-backward"><i class="fa fa-check"></i>Aplicación del método <strong>backward</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-forward"><i class="fa fa-check"></i>Aplicación del método <strong>forward</strong></a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-both"><i class="fa fa-check"></i>Aplicación del método <strong>both</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejercicios"><i class="fa fa-check"></i>Ejercicios</a></li>
 </ul></li>
-<li><a href="selec.html#funciones-addterm-y-dropterm">Funciones <code>addterm</code> y <code>dropterm</code></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-addterm-y-dropterm"><i class="fa fa-check"></i>Funciones <code>addterm</code> y <code>dropterm</code></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-olsrr">Paquete <strong>olsrr</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-olsrr"><i class="fa fa-check"></i>Paquete <strong>olsrr</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-mixlm">Paquete <strong>mixlm</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-mixlm"><i class="fa fa-check"></i>Paquete <strong>mixlm</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li><a href="selec.html#paquete-leaps">Paquete <strong>leaps</strong></a><ul>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-leaps"><i class="fa fa-check"></i>Paquete <strong>leaps</strong></a>
+<ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="feature-selec.html"><a href="feature-selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a><ul>
-<li class="chapter" data-level="" data-path="feature-selec.html"><a href="feature-selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
+<li class="chapter" data-level="15" data-path="feature_selec.html"><a href="feature_selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a>
+<ul>
+<li class="chapter" data-level="" data-path="feature_selec.html"><a href="feature_selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>16</b> Multicolinealidad</a><ul>
+<li class="chapter" data-level="16" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>16</b> Multicolinealidad</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#qué-es-multicolinealidad"><i class="fa fa-check"></i>¿Qué es multicolinealidad?</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#multicolinealidad-inducida"><i class="fa fa-check"></i>Multicolinealidad inducida</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#cómo-identificar-la-multicolinealidad"><i class="fa fa-check"></i>¿Cómo identificar la multicolinealidad?</a></li>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a><ul>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a><ul>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a>
+<ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a><ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a><ul>
+<li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a>
+<ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a><ul>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a>
+<ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a><ul>
+<li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a>
+<ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a><ul>
+<li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
+<ul>
 <li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a><ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a><ul>
+<li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a>
+<ul>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a>
+<ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
-<li><a href="important.html#fast-lm-in-r">Fast <code>lm</code> in R</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#fast-lm-in-r"><i class="fa fa-check"></i>Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>21</b> Pasos para construir modelos</a><ul>
+<li class="chapter" data-level="21" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>21</b> Pasos para construir modelos</a>
+<ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
+<li class="chapter" data-level="22" data-path="misspecification.html"><a href="misspecification.html"><i class="fa fa-check"></i><b>22</b> Mala especificación</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -408,14 +507,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="WilRog" class="section level1">
-<h1><span class="header-section-number">18</span> Notación de Wilkinson y Rogers</h1>
+<div id="WilRog" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">18</span> Notación de Wilkinson y Rogers<a href="WilRog.html#WilRog" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En este capítulo se muestra la notación de <a href="https://www.jstor.org/stable/2346786?seq=1">Wilkinson y Rogers (1973)</a> para escribir fórmulas que representan modelos de regresión.</p>
 <p align="center">
 <img src="images/einstein.png" width="300">
 </p>
-<div id="qué-es-una-fórmula-en-r" class="section level2 unnumbered">
-<h2>¿Qué es una fórmula en R?</h2>
+<div id="qué-es-una-fórmula-en-r" class="section level2 unnumbered hasAnchor">
+<h2>¿Qué es una fórmula en R?<a href="WilRog.html#qué-es-una-fórmula-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Una fórmula es un objeto especial de R para representar un modelo de regresión y se construye usando la función <code>formula</code>. Una fórmula básica tiene tres elementos:</p>
 <ul>
 <li>La <a href="https://dle.rae.es/virgulilla">virgulilla</a> <code>~</code> que actua como separador.</li>
@@ -423,25 +522,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
 </ul>
 <p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="WilRog.html#cb365-1"></a>my_form &lt;-<span class="st"> </span><span class="kw">formula</span>(precio <span class="op">~</span><span class="st"> </span>area <span class="op">+</span><span class="st"> </span>habit)</span>
-<span id="cb365-2"><a href="WilRog.html#cb365-2"></a>my_form</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="WilRog.html#cb366-1" aria-hidden="true" tabindex="-1"></a>my_form <span class="ot">&lt;-</span> <span class="fu">formula</span>(precio <span class="sc">~</span> area <span class="sc">+</span> habit)</span>
+<span id="cb366-2"><a href="WilRog.html#cb366-2" aria-hidden="true" tabindex="-1"></a>my_form</span></code></pre></div>
 <pre><code>## precio ~ area + habit</code></pre>
 <p>Para conocer la clase de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="WilRog.html#cb367-1"></a><span class="kw">class</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="WilRog.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Para conocer la longitud de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="WilRog.html#cb369-1"></a><span class="kw">length</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="WilRog.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="WilRog.html#cb371-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="WilRog.html#cb372-1" aria-hidden="true" tabindex="-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
 <pre><code>## `~`()</code></pre>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="WilRog.html#cb373-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="WilRog.html#cb374-1" aria-hidden="true" tabindex="-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
 <pre><code>## precio()</code></pre>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="WilRog.html#cb375-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="WilRog.html#cb376-1" aria-hidden="true" tabindex="-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
 <pre><code>## (area + habit)()</code></pre>
 </div>
-<div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered">
-<h2>¿Para qué sirve la notación de Wilkinson y Rogers?</h2>
+<div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered hasAnchor">
+<h2>¿Para qué sirve la notación de Wilkinson y Rogers?<a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La notación de Wilkinson y Rogers (1973) permite representar la fórmula algebraica que define un modelo estadístico en una fórmula de R usando unas instrucciones sencillas. A continuación se muestra una tabla en la cual aparecen los símbolos que ayudan a escribir fórmulas para representar modelos estadísticos, la tabla fue tomada <a href="https://jerous.org/att/2016/05/11/wilkinson-rogers/wilkinson2formula.html">de este enlace</a>.</p>
 <p align="center">
 <img src="images/wil_rog.PNG" width="500">
@@ -498,16 +597,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="paquete-formula-de-r" class="section level2 unnumbered">
-<h2>Paquete Formula de R</h2>
-<p>El manejo de fórmulas es un aspecto importante y por esa razón existe el paquete <strong>Formula</strong> <span class="citation">(Zeileis and Croissant <a href="#ref-R-Formula" role="doc-biblioref">2018</a>)</span>. El lector podrá encontrar una explicación detallada del paquete <a href="https://cran.r-project.org/web/packages/Formula/index.html">en este enlace</a>.</p>
+<div id="paquete-formula-de-r" class="section level2 unnumbered hasAnchor">
+<h2>Paquete Formula de R<a href="WilRog.html#paquete-formula-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El manejo de fórmulas es un aspecto importante y por esa razón existe el paquete <strong>Formula</strong> <span class="citation">(<a href="#ref-R-Formula" role="doc-biblioref">Zeileis and Croissant 2020</a>)</span>. El lector podrá encontrar una explicación detallada del paquete <a href="https://cran.r-project.org/web/packages/Formula/index.html">en este enlace</a>.</p>
 
 </div>
 </div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-R-Formula">
-<p>Zeileis, Achim, and Yves Croissant. 2018. <em>Formula: Extended Model Formulas</em>. <a href="https://CRAN.R-project.org/package=Formula">https://CRAN.R-project.org/package=Formula</a>.</p>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-Formula" class="csl-entry">
+Zeileis, Achim, and Yves Croissant. 2020. <em>Formula: Extended Model Formulas</em>. <a href="https://CRAN.R-project.org/package=Formula">https://CRAN.R-project.org/package=Formula</a>.
 </div>
 </div>
             </section>
@@ -520,7 +619,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -539,6 +637,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -559,6 +658,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -572,7 +675,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
