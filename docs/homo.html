@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11 Pruebas de Homocedasticidad | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11 Pruebas de Homocedasticidad | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,11 +54,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
@@ -128,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -520,42 +524,42 @@ H_1 &amp;: \text{los errores no tienen varianza constante.}
 </p>
 <div id="breusch-pagan-test" class="section level2 unnumbered hasAnchor">
 <h2>Breusch-Pagan Test<a href="homo.html#breusch-pagan-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Esta prueba fue propuesta por <span class="citation">Breusch and Pagan (<a href="#ref-breusch1979" role="doc-biblioref">1979</a>)</span> y consiste en ajustar un modelo de regresión lineal con variable respuesta dada por residuales del modelo original al cuadrado <span class="math inline">\(e_i^2\)</span> y como covariables las variables del modelo original.</p>
+<p>Esta prueba fue propuesta por <span class="citation">Breusch and Pagan (<a href="#ref-breusch1979">1979</a>)</span> y consiste en ajustar un modelo de regresión lineal con variable respuesta dada por residuales del modelo original al cuadrado <span class="math inline">\(e_i^2\)</span> y como covariables las variables del modelo original.</p>
 <p>Por ejemplo, si se tienen <span class="math inline">\(k=2\)</span> covariables para explicar a <span class="math inline">\(Y\)</span>, entonces el modelo de regresión para estudiar la homocedasticidad es:</p>
 <p><span class="math display">\[
 \hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + u
 \]</span></p>
 <p>Si se concluye que <span class="math inline">\(\delta_1=\delta_2=0\)</span>, significa que los residuales no son función de las covariables del modelo. El estadístico en esta prueba está dado por <span class="math inline">\(n \times R^2\)</span> y bajo la hipótesis nula verdadera, el estadístico tiene distribución <span class="math inline">\(\chi^2_k\)</span>.</p>
-<p>La función <code>bptest</code> del paquete <strong>lmtest</strong> <span class="citation">Hothorn et al. (<a href="#ref-R-lmtest" role="doc-biblioref">2022</a>)</span> implementa esta prueba.</p>
+<p>La función <code>bptest</code> del paquete <strong>lmtest</strong> <span class="citation">(<a href="#ref-R-lmtest"><strong>R-lmtest?</strong></a>)</span> implementa esta prueba.</p>
 <div id="ejemplo-30" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="homo.html#ejemplo-30" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los <span class="math inline">\(e_i\)</span> o de las <span class="math inline">\(y_i\)</span>) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.</p>
 <p><strong>Solución</strong>
 En el código mostrado a continuación se simulan observaciones en las cuales la varianza de <span class="math inline">\(e_i\)</span> no es constante ya que para generar los datos se usa la instrucción <code>ei &lt;- rnorm(n=n, sd=x2)</code>, es decir que la varianza depende de la variable <span class="math inline">\(x_2\)</span>.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="homo.html#cb211-1" aria-hidden="true" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb211-2"><a href="homo.html#cb211-2" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb211-3"><a href="homo.html#cb211-3" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">6</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
-<span id="cb211-4"><a href="homo.html#cb211-4" aria-hidden="true" tabindex="-1"></a>  ei <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span>x2)</span>
-<span id="cb211-5"><a href="homo.html#cb211-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x2 <span class="sc">+</span> ei</span>
-<span id="cb211-6"><a href="homo.html#cb211-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb211-7"><a href="homo.html#cb211-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb211-8"><a href="homo.html#cb211-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb211-9"><a href="homo.html#cb211-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb211-10"><a href="homo.html#cb211-10" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_data</span>(<span class="at">n=</span>n)</span>
-<span id="cb211-11"><a href="homo.html#cb211-11" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelo de interes</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="homo.html#cb211-1" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb211-2"><a href="homo.html#cb211-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb211-3"><a href="homo.html#cb211-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">6</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb211-4"><a href="homo.html#cb211-4" tabindex="-1"></a>  ei <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span>x2)</span>
+<span id="cb211-5"><a href="homo.html#cb211-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x2 <span class="sc">+</span> ei</span>
+<span id="cb211-6"><a href="homo.html#cb211-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb211-7"><a href="homo.html#cb211-7" tabindex="-1"></a>}</span>
+<span id="cb211-8"><a href="homo.html#cb211-8" tabindex="-1"></a></span>
+<span id="cb211-9"><a href="homo.html#cb211-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb211-10"><a href="homo.html#cb211-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_data</span>(<span class="at">n=</span>n)</span>
+<span id="cb211-11"><a href="homo.html#cb211-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelo de interes</span></span></code></pre></div>
 <p>Vamos a aplicar la prueba de forma manual.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="homo.html#cb212-1" aria-hidden="true" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">resid</span>(mod)</span>
-<span id="cb212-2"><a href="homo.html#cb212-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ei<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
-<span id="cb212-3"><a href="homo.html#cb212-3" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
-<span id="cb212-4"><a href="homo.html#cb212-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb212-5"><a href="homo.html#cb212-5" aria-hidden="true" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
-<span id="cb212-6"><a href="homo.html#cb212-6" aria-hidden="true" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span>k, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb212-7"><a href="homo.html#cb212-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="homo.html#cb212-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">resid</span>(mod)</span>
+<span id="cb212-2"><a href="homo.html#cb212-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ei<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
+<span id="cb212-3"><a href="homo.html#cb212-3" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
+<span id="cb212-4"><a href="homo.html#cb212-4" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb212-5"><a href="homo.html#cb212-5" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
+<span id="cb212-6"><a href="homo.html#cb212-6" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span>k, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb212-7"><a href="homo.html#cb212-7" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
 <pre><code>##      estadistico       valorP
 ## [1,]    43.11996 4.331314e-10</code></pre>
 <p>Vamos a aplicar la prueba de forma automática con la función <code>bptest</code>.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="homo.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb214-2"><a href="homo.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="homo.html#cb214-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb214-2"><a href="homo.html#cb214-2" tabindex="-1"></a><span class="fu">bptest</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -566,7 +570,7 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 </div>
 <div id="white-test" class="section level2 unnumbered hasAnchor">
 <h2>White test<a href="homo.html#white-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El test de Breusch-Pagan sólo detecta formas lineales de heterocedasticidad. Para resolverlo, el test de White, propuesto por <span class="citation">White (<a href="#ref-white1980hetero" role="doc-biblioref">1980</a>)</span>, permite contrastar no linealidades utilizando los cuadrados y los productos cruzados de todos los regresores. Si <span class="math inline">\(k=2\)</span> el test de White crea el siguiente modelo de regresión:</p>
+<p>El test de Breusch-Pagan sólo detecta formas lineales de heterocedasticidad. Para resolverlo, el test de White, propuesto por <span class="citation">White (<a href="#ref-white1980hetero">1980</a>)</span>, permite contrastar no linealidades utilizando los cuadrados y los productos cruzados de todos los regresores. Si <span class="math inline">\(k=2\)</span> el test de White crea el siguiente modelo de regresión:</p>
 <p><span class="math display">\[
 \hat{e}_i^2 = \delta_0 + \delta_1 x_1 + \delta_2 x_2 + \delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2 + u
 \]</span></p>
@@ -576,7 +580,7 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 <p>Aplicar White test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
 <p>Para aplicar el test se usa el argumento <code>varformula</code> y se escribe la fórmula con los términos no lineales <span class="math inline">\(\delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2\)</span>, los términos lineales están por defecto.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="homo.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(mod, <span class="at">varformula =</span> <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="homo.html#cb216-1" tabindex="-1"></a><span class="fu">bptest</span>(mod, <span class="at">varformula =</span> <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -584,11 +588,11 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 ## BP = 60.325, df = 5, p-value = 1.041e-11</code></pre>
 <p>Como el valor-P es pequeño entonces hay evidencias para rechazar la hipótesis de homocedasticidad.</p>
 <p>La prueba se puede también realizar de forma manual, a continuación se muestra el procedimiento.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="homo.html#cb218-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">resid</span>(mod)<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos) </span>
-<span id="cb218-2"><a href="homo.html#cb218-2" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
-<span id="cb218-3"><a href="homo.html#cb218-3" aria-hidden="true" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
-<span id="cb218-4"><a href="homo.html#cb218-4" aria-hidden="true" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb218-5"><a href="homo.html#cb218-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="homo.html#cb218-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">resid</span>(mod)<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos) </span>
+<span id="cb218-2"><a href="homo.html#cb218-2" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
+<span id="cb218-3"><a href="homo.html#cb218-3" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
+<span id="cb218-4"><a href="homo.html#cb218-4" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb218-5"><a href="homo.html#cb218-5" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
 <pre><code>##      estadistico       valorP
 ## [1,]    60.32463 1.041473e-11</code></pre>
 </div>
@@ -596,13 +600,13 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 <div id="score-test-for-nonconstant-error-variance" class="section level2 unnumbered hasAnchor">
 <h2>Score test for nonconstant error variance<a href="homo.html#score-test-for-nonconstant-error-variance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Esta prueba sirve para estudiar la hipótesis nula de varianza constante de los errores frente a la hipótesis alternativa de que la varianza de los errores cambia con el nivel de la respuesta o con alguna combinación lineal de los predictores.</p>
-<p>La función <code>ncvTest</code> del paquete <strong>car</strong> <span class="citation">John Fox, Weisberg, and Price (<a href="#ref-R-car" role="doc-biblioref">2022</a>)</span> implementa esta prueba.</p>
+<p>La función <code>ncvTest</code> del paquete <strong>car</strong> <span class="citation">John Fox, Weisberg, and Price (<a href="#ref-R-car">2023</a>)</span> implementa esta prueba.</p>
 <div id="ejemplo-32" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="homo.html#ejemplo-32" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Aplicar Score test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="homo.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb220-2"><a href="homo.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="homo.html#cb220-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb220-2"><a href="homo.html#cb220-2" tabindex="-1"></a><span class="fu">ncvTest</span>(mod)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 17.57293, Df = 1, p = 2.765e-05</code></pre>
@@ -624,10 +628,7 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 Breusch, Trevor S, and Adrian R Pagan. 1979. <span>“A Simple Test for Heteroscedasticity and Random Coefficient Variation.”</span> <em>Econometrica: Journal of the Econometric Society</em>, 1287–94.
 </div>
 <div id="ref-R-car" class="csl-entry">
-Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
-</div>
-<div id="ref-R-lmtest" class="csl-entry">
-Hothorn, Torsten, Achim Zeileis, Richard W. Farebrother, and Clint Cummins. 2022. <em>Lmtest: Testing Linear Regression Models</em>. <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>.
+Fox, John, Sanford Weisberg, and Brad Price. 2023. <em>Car: Companion to Applied Regression</em>. <a href="https://r-forge.r-project.org/projects/car/">https://r-forge.r-project.org/projects/car/</a>.
 </div>
 <div id="ref-white1980hetero" class="csl-entry">
 White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.”</span> <em>Econometrica: Journal of the Econometric Society</em>, 817–38.

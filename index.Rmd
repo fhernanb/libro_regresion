@@ -28,7 +28,7 @@ knitr::write_bib(c(
 # lista de paquetes necesarios para compilar el libro
 list.of.packages <- c('plot3D', 'MPV', 'scatterplot3d',
                       'leaps', 'olsrr', 'MASS', 'psych',
-                      'multcomp')
+                      'multcomp', 'mixlm')
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) 
   install.packages(new.packages,

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,11 +54,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
@@ -128,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -512,7 +516,7 @@ div.csl-indent {
 <p class="author"><em>Freddy Hernández</em></p>
 <p class="author"><em>Olga Usuga</em></p>
 <p class="author"><em>Mauricio Mazo</em></p>
-<p class="date"><em>2023-05-17</em></p>
+<p class="date"><em>2024-02-12</em></p>
 </div>
 <div id="bienvenido" class="section level1 unnumbered hasAnchor">
 <h1>Bienvenido<a href="index.html#bienvenido" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -527,12 +531,12 @@ div.csl-indent {
 </div>
 <div id="software-y-convenciones" class="section level2 unnumbered hasAnchor">
 <h2>Software y convenciones<a href="index.html#software-y-convenciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para realizar este libro usamos los paquetes <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> y <strong>bookdown</strong> <span class="citation">(<a href="#ref-R-bookdown" role="doc-biblioref">Xie 2023</a>)</span> que permiten unir la ventajas de LaTeX y R en un mismo archivo.</p>
+<p>Para realizar este libro usamos los paquetes <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> y <strong>bookdown</strong> <span class="citation">(<a href="#ref-R-bookdown">Xie 2023</a>)</span> que permiten unir la ventajas de LaTeX y R en un mismo archivo.</p>
 <p>En todo el libro se presentarán códigos que el lector puede copiar y pegar en su consola de R para obtener los mismos resultados aquí del libro. Los códigos se destacan en una caja de color similar a la mostrada a continuación.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span></span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb1-3"><a href="index.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> a</span>
-<span id="cb1-4"><a href="index.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> a</span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
 <p>Los resultados o salidas obtenidos de cualquier código se destacan con dos símbolos de númeral (<code>##</code>) al inicio de cada línea o renglón, esto quiere decir que todo lo que inicie con <code>##</code> son resultados obtenidos y <strong>NO</strong> los debe copiar. Abajo se muestran los resultados obtenidos luego de correr el código anterior.</p>
 <pre><code>## [1] 10</code></pre>
 <pre><code>## [1]  5 25 30</code></pre>
@@ -562,7 +566,7 @@ Advertencia.
 Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
 </div>
 <div id="ref-R-bookdown" class="csl-entry">
-———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
+———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
 </div>
 </div>
             </section>

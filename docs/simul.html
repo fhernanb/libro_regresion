@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Simulación | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Simulación | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,11 +54,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
@@ -128,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -542,37 +546,37 @@ x_i &amp;\sim U(-5, 6) \\
 <p><strong>Solución</strong></p>
 <p>Todo modelo en lenguaje simbólico se lee de arriba hacia abajo <span class="math inline">\(\Downarrow\)</span> pero al escribirlo en R se hace de abajo hacia arriba <span class="math inline">\(\Uparrow\)</span>.</p>
 <p>A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simul.html#cb56-1" aria-hidden="true" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb56-2"><a href="simul.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
-<span id="cb56-3"><a href="simul.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
-<span id="cb56-4"><a href="simul.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
-<span id="cb56-5"><a href="simul.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
-<span id="cb56-6"><a href="simul.html#cb56-6" aria-hidden="true" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb56-7"><a href="simul.html#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
-<span id="cb56-8"><a href="simul.html#cb56-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simul.html#cb56-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb56-2"><a href="simul.html#cb56-2" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb56-3"><a href="simul.html#cb56-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
+<span id="cb56-4"><a href="simul.html#cb56-4" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
+<span id="cb56-5"><a href="simul.html#cb56-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
+<span id="cb56-6"><a href="simul.html#cb56-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb56-7"><a href="simul.html#cb56-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
+<span id="cb56-8"><a href="simul.html#cb56-8" tabindex="-1"></a>}</span></code></pre></div>
 <p>Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simul.html#cb57-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">5</span>)</span>
-<span id="cb57-2"><a href="simul.html#cb57-2" aria-hidden="true" tabindex="-1"></a>datos</span></code></pre></div>
-<pre><code>##            y          x
-## 1  -7.732370  3.1467488
-## 2 -29.014331  5.2154689
-## 3   1.564567  0.9719887
-## 4 -30.190740  5.6553962
-## 5  24.346528 -4.3662914</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simul.html#cb57-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">5</span>)</span>
+<span id="cb57-2"><a href="simul.html#cb57-2" tabindex="-1"></a>datos</span></code></pre></div>
+<pre><code>##           y          x
+## 1  35.84328 -4.7856374
+## 2  18.17681 -3.6404971
+## 3 -12.44323  2.3261866
+## 4   8.05369 -0.7004622
+## 5 -17.53680  3.2202114</code></pre>
 <p>Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simul.html#cb59-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">200</span>)</span>
-<span id="cb59-2"><a href="simul.html#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="simul.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb59-4"><a href="simul.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
-<span id="cb59-5"><a href="simul.html#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simul.html#cb59-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">200</span>)</span>
+<span id="cb59-2"><a href="simul.html#cb59-2" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="simul.html#cb59-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb59-4"><a href="simul.html#cb59-4" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb59-5"><a href="simul.html#cb59-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/simul01-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a <span class="math inline">\(\beta_1=-6\)</span>; la nube tiene la misma dispersión y eso de debe a que <span class="math inline">\(\sigma\)</span> es constante e igual a 4.</p>
 <p>Para estimar <span class="math inline">\(\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top\)</span> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span>
-<span id="cb60-2"><a href="simul.html#cb60-2" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">coef</span>(mod), <span class="at">sigma=</span><span class="fu">summary</span>(mod)<span class="sc">$</span>sigma)</span>
-<span id="cb60-3"><a href="simul.html#cb60-3" aria-hidden="true" tabindex="-1"></a>theta_hat</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simul.html#cb60-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span>
+<span id="cb60-2"><a href="simul.html#cb60-2" tabindex="-1"></a>theta_hat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">coef</span>(mod), <span class="at">sigma=</span><span class="fu">summary</span>(mod)<span class="sc">$</span>sigma)</span>
+<span id="cb60-3"><a href="simul.html#cb60-3" tabindex="-1"></a>theta_hat</span></code></pre></div>
 <pre><code>## (Intercept)           x       sigma 
-##    3.643643   -5.939932    3.804480</code></pre>
+##    3.985619   -6.091275    4.151291</code></pre>
 <p>De la salida anterior vemos que el vector estimado <span class="math inline">\(\hat{\boldsymbol{\Theta}}\)</span> está muy cerca del vector de parámetros <span class="math inline">\(\boldsymbol{\Theta}\)</span></p>
 
 <div class="rmdwarning">
@@ -584,14 +588,14 @@ Este código NO es un código óptimo desde el punto de vista computacional. Muy
 <div id="función-simulate" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>simulate</code><a href="simul.html#función-simulate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>simulate</code> del paquete básico <strong>stats</strong> permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="simul.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate</span>(object, <span class="at">nsim =</span> <span class="dv">1</span>, <span class="at">seed =</span> <span class="cn">NULL</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="simul.html#cb62-1" tabindex="-1"></a><span class="fu">simulate</span>(object, <span class="at">nsim =</span> <span class="dv">1</span>, <span class="at">seed =</span> <span class="cn">NULL</span>, ...)</span></code></pre></div>
 <div id="ejemplo-7" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="simul.html#ejemplo-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use las 5 primeras observaciones base de datos <code>cars</code> y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.</p>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simul.html#cb63-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> cars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]</span>
-<span id="cb63-2"><a href="simul.html#cb63-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data=</span>datos)</span>
-<span id="cb63-3"><a href="simul.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate</span>(<span class="at">object=</span>mod, <span class="at">nsim=</span><span class="dv">1</span>, <span class="at">seed=</span><span class="dv">1234</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simul.html#cb63-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> cars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]</span>
+<span id="cb63-2"><a href="simul.html#cb63-2" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data=</span>datos)</span>
+<span id="cb63-3"><a href="simul.html#cb63-3" tabindex="-1"></a><span class="fu">simulate</span>(<span class="at">object=</span>mod, <span class="at">nsim=</span><span class="dv">1</span>, <span class="at">seed=</span><span class="dv">1234</span>)</span></code></pre></div>
 <pre><code>##       sim_1
 ## 1 -3.769550
 ## 2  8.175135

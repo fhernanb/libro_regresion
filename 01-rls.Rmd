@@ -97,7 +97,7 @@ summary(mod1)
 
 La siguiente figura muestra el resultado del código anterior. En la figura se resalta la información sobre los residuales y las estimaciones de $\beta_0$, $\beta_1$ y $\sigma$.
 
-```{r summary01, echo=F, fig.cap='Tabla de resumen para un modelo lineal.', dpi=80, fig.align='center'}
+```{r summary01, echo=F, fig.cap='Tabla de resumen para un modelo lineal.', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/summary01.png")
 ```
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Diagnósticos parte II | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Diagnósticos parte II | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2024-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,11 +54,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
@@ -128,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -558,29 +562,29 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <div id="ejemplo-25" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="diag2.html#ejemplo-25" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Calcular los valores <span class="math inline">\(h_{ii}\)</span> para un modelo de regresión <code>y ~ x + z</code> con los siguientes datos.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="diag2.html#cb167-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
-<span id="cb167-2"><a href="diag2.html#cb167-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb167-3"><a href="diag2.html#cb167-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="diag2.html#cb167-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb167-2"><a href="diag2.html#cb167-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb167-3"><a href="diag2.html#cb167-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>A seguir se muestran las tres formas para obtener los valores <span class="math inline">\(h_{ii}\)</span>.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="diag2.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 1</span></span>
-<span id="cb168-2"><a href="diag2.html#cb168-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, z)</span>
-<span id="cb168-3"><a href="diag2.html#cb168-3" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb168-4"><a href="diag2.html#cb168-4" aria-hidden="true" tabindex="-1"></a>H</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="diag2.html#cb168-1" tabindex="-1"></a><span class="co"># Forma 1</span></span>
+<span id="cb168-2"><a href="diag2.html#cb168-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, z)</span>
+<span id="cb168-3"><a href="diag2.html#cb168-3" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb168-4"><a href="diag2.html#cb168-4" tabindex="-1"></a>H</span></code></pre></div>
 <pre><code>##               [,1]          [,2]          [,3]       [,4]
 ## [1,]  8.333333e-01  3.333333e-01 -3.552714e-15 -0.1666667
 ## [2,]  3.333333e-01  3.333333e-01 -9.992007e-16  0.3333333
 ## [3,] -2.664535e-15 -1.110223e-15  1.000000e+00  0.0000000
 ## [4,] -1.666667e-01  3.333333e-01 -1.332268e-15  0.8333333</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diag2.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(H)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diag2.html#cb170-1" tabindex="-1"></a><span class="fu">diag</span>(H)</span></code></pre></div>
 <pre><code>## [1] 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diag2.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 2</span></span>
-<span id="cb172-2"><a href="diag2.html#cb172-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z)</span>
-<span id="cb172-3"><a href="diag2.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hatvalues</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diag2.html#cb172-1" tabindex="-1"></a><span class="co"># Forma 2</span></span>
+<span id="cb172-2"><a href="diag2.html#cb172-2" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z)</span>
+<span id="cb172-3"><a href="diag2.html#cb172-3" tabindex="-1"></a><span class="fu">hatvalues</span>(mod)</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="diag2.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma 3</span></span>
-<span id="cb174-2"><a href="diag2.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.influence</span>(mod)<span class="sc">$</span>hat</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="diag2.html#cb174-1" tabindex="-1"></a><span class="co"># Forma 3</span></span>
+<span id="cb174-2"><a href="diag2.html#cb174-2" tabindex="-1"></a><span class="fu">lm.influence</span>(mod)<span class="sc">$</span>hat</span></code></pre></div>
 <pre><code>##         1         2         3         4 
 ## 0.8333333 0.3333333 1.0000000 0.8333333</code></pre>
 </div>
@@ -609,9 +613,9 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 </div>
 <div id="prueba-de-bonferroni-para-detectar-outliers" class="section level2 unnumbered hasAnchor">
 <h2>Prueba de Bonferroni para detectar outliers<a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El paquete <strong>car</strong> <span class="citation">(<a href="#ref-R-car" role="doc-biblioref">John Fox, Weisberg, and Price 2022</a>)</span> tiene la función <code>outlierTest</code> para realizar una prueba de hipótesis con <span class="math inline">\(H_0:\)</span> la observación <span class="math inline">\(i\)</span>-ésima NO es un outlier frente a <span class="math inline">\(H_1:\)</span> la observación <span class="math inline">\(i\)</span>-ésima SI es un outlier. La estructura de la función <code>outlierTest</code> se muestra a continuación.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag2.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(model, <span class="at">cutoff=</span><span class="fl">0.05</span>, <span class="at">n.max=</span><span class="dv">10</span>, <span class="at">order=</span><span class="cn">TRUE</span>, <span class="at">labels=</span><span class="fu">names</span>(rstudent), ...)</span></code></pre></div>
-<p>En la sección 11.3.1 del libro <span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> están los detalles de la prueba, se invita al lector para que los consulte.</p>
+<p>El paquete <strong>car</strong> <span class="citation">(<a href="#ref-R-car">John Fox, Weisberg, and Price 2023</a>)</span> tiene la función <code>outlierTest</code> para realizar una prueba de hipótesis con <span class="math inline">\(H_0:\)</span> la observación <span class="math inline">\(i\)</span>-ésima NO es un outlier frente a <span class="math inline">\(H_1:\)</span> la observación <span class="math inline">\(i\)</span>-ésima SI es un outlier. La estructura de la función <code>outlierTest</code> se muestra a continuación.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag2.html#cb176-1" tabindex="-1"></a><span class="fu">outlierTest</span>(model, <span class="at">cutoff=</span><span class="fl">0.05</span>, <span class="at">n.max=</span><span class="dv">10</span>, <span class="at">order=</span><span class="cn">TRUE</span>, <span class="at">labels=</span><span class="fu">names</span>(rstudent), ...)</span></code></pre></div>
+<p>En la sección 11.3.1 del libro <span class="citation">John Fox (<a href="#ref-fox2015applied">2015</a>)</span> están los detalles de la prueba, se invita al lector para que los consulte.</p>
 <div id="ejemplo-26" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="diag2.html#ejemplo-26" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo se usará una base de datos que contiene medidas corporales para un grupo de estudiantes universitarios que vieron el curso de modelos de regresión en el año 2013. Abajo se muestra una figura ilustrativa de los datos.</p>
@@ -621,13 +625,13 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <p>El objetivo es determinar si hay alguna observación que se pueda considerar como outlier cuando se ajusta un modelo de regresión para explicar el peso corporal en función de la estatura, circunferencia del cuello y circunferencia de la muñeca.</p>
 <p><strong>Solución</strong></p>
 <p>Primero vamos a ajustar el modelo y luego vamos a aplicar la prueba de Bonferroni para detectar outliers.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag2.html#cb177-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
-<span id="cb177-2"><a href="diag2.html#cb177-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb177-3"><a href="diag2.html#cb177-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-4"><a href="diag2.html#cb177-4" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
-<span id="cb177-5"><a href="diag2.html#cb177-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-6"><a href="diag2.html#cb177-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb177-7"><a href="diag2.html#cb177-7" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(mod, <span class="at">cutoff=</span><span class="cn">Inf</span>, <span class="at">n.max=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag2.html#cb177-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
+<span id="cb177-2"><a href="diag2.html#cb177-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb177-3"><a href="diag2.html#cb177-3" tabindex="-1"></a></span>
+<span id="cb177-4"><a href="diag2.html#cb177-4" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
+<span id="cb177-5"><a href="diag2.html#cb177-5" tabindex="-1"></a></span>
+<span id="cb177-6"><a href="diag2.html#cb177-6" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb177-7"><a href="diag2.html#cb177-7" tabindex="-1"></a><span class="fu">outlierTest</span>(mod, <span class="at">cutoff=</span><span class="cn">Inf</span>, <span class="at">n.max=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##     rstudent unadjusted p-value Bonferroni p
 ## 11  4.206280         0.00011567     0.006015
 ## 52 -2.221747         0.03115300           NA
@@ -635,7 +639,7 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 ## 28 -2.043770         0.04660300           NA</code></pre>
 <p>En la salida de arriba vemos las cuatro observaciones (<code>n.max=4</code>) que tienen los mayores valores de residual estudentizado <span class="math inline">\(r_i\)</span>. La observación ubicada en la línea 11 es la única con un valor-P muy pequeño y por lo tanto hay evidencias para considerar esa observación como un posible outlier.</p>
 <p>Es posible dibujar los resultados de la prueba para cada observación usando la función <code>influenceIndexPlot</code> del paquete <strong>car</strong>. En la siguiente figura se observa que sólo la observacion 11 es identificada como un posible outlier ya que su valor-P es muy pequeño.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag2.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod, <span class="at">vars=</span><span class="st">&quot;Bonf&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag2.html#cb179-1" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod, <span class="at">vars=</span><span class="st">&quot;Bonf&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/bonf_test_01-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -668,9 +672,9 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <p>El objetivo es ajustar un modelo de regresión para explicar el peso promedio en función de la circunferencia de la muñeca, cuello y estatura. Luego de ajustar el modelo se deben identificar los posibles estudiantes influyentes y el efecto de ellos en el modelo.</p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es cargar los datos en nuestra sesión de R.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag2.html#cb180-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
-<span id="cb180-2"><a href="diag2.html#cb180-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb180-3"><a href="diag2.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag2.html#cb180-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2&quot;</span></span>
+<span id="cb180-2"><a href="diag2.html#cb180-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>url, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb180-3"><a href="diag2.html#cb180-3" tabindex="-1"></a><span class="fu">head</span>(datos, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##    Ano Semestre Peso Sexo Estatura circun_cuello circun_muneca
 ## 1 2020        1 47.6    F     1.57          29.5          13.9
 ## 2 2020        1 68.1    M     1.66          38.4          16.0
@@ -678,20 +682,20 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## 4 2020        1 80.0    M     1.76          38.0          17.1
 ## 5 2020        1 68.1    M     1.83          38.0          17.1</code></pre>
 <p>Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con <code>pairs</code>.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diag2.html#cb182-1" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits=</span><span class="dv">2</span>, <span class="at">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
-<span id="cb182-2"><a href="diag2.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
-<span id="cb182-3"><a href="diag2.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">usr=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb182-4"><a href="diag2.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
-<span id="cb182-5"><a href="diag2.html#cb182-5" aria-hidden="true" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits=</span>digits)[<span class="dv">1</span>]</span>
-<span id="cb182-6"><a href="diag2.html#cb182-6" aria-hidden="true" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">paste</span>(prefix, txt, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb182-7"><a href="diag2.html#cb182-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">missing</span>(cex.cor)) cex.cor <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">/</span><span class="fu">strwidth</span>(txt)</span>
-<span id="cb182-8"><a href="diag2.html#cb182-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex=</span>cex.cor <span class="sc">*</span> r, <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">1</span><span class="sc">-</span>r))</span>
-<span id="cb182-9"><a href="diag2.html#cb182-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb182-10"><a href="diag2.html#cb182-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb182-11"><a href="diag2.html#cb182-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></span>
-<span id="cb182-12"><a href="diag2.html#cb182-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </span>
-<span id="cb182-13"><a href="diag2.html#cb182-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
-<span id="cb182-14"><a href="diag2.html#cb182-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper.panel=</span>panel.smooth, <span class="at">lower.panel=</span>panel.cor)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diag2.html#cb182-1" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits=</span><span class="dv">2</span>, <span class="at">prefix=</span><span class="st">&quot;&quot;</span>, cex.cor, ...) {</span>
+<span id="cb182-2"><a href="diag2.html#cb182-2" tabindex="-1"></a>  usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>); <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
+<span id="cb182-3"><a href="diag2.html#cb182-3" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">usr=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb182-4"><a href="diag2.html#cb182-4" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb182-5"><a href="diag2.html#cb182-5" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits=</span>digits)[<span class="dv">1</span>]</span>
+<span id="cb182-6"><a href="diag2.html#cb182-6" tabindex="-1"></a>  txt <span class="ot">&lt;-</span> <span class="fu">paste</span>(prefix, txt, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb182-7"><a href="diag2.html#cb182-7" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">missing</span>(cex.cor)) cex.cor <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">/</span><span class="fu">strwidth</span>(txt)</span>
+<span id="cb182-8"><a href="diag2.html#cb182-8" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex=</span>cex.cor <span class="sc">*</span> r, <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">1</span><span class="sc">-</span>r))</span>
+<span id="cb182-9"><a href="diag2.html#cb182-9" tabindex="-1"></a>}</span>
+<span id="cb182-10"><a href="diag2.html#cb182-10" tabindex="-1"></a></span>
+<span id="cb182-11"><a href="diag2.html#cb182-11" tabindex="-1"></a><span class="co"># Creamos el grafico SOLO para las variables cuantitativas</span></span>
+<span id="cb182-12"><a href="diag2.html#cb182-12" tabindex="-1"></a><span class="fu">pairs</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Peso&quot;</span>, <span class="st">&quot;Estatura&quot;</span>, <span class="st">&quot;circun_cuello&quot;</span>, <span class="st">&quot;circun_muneca&quot;</span>)], </span>
+<span id="cb182-13"><a href="diag2.html#cb182-13" tabindex="-1"></a>      <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb182-14"><a href="diag2.html#cb182-14" tabindex="-1"></a>      <span class="at">upper.panel=</span>panel.smooth, <span class="at">lower.panel=</span>panel.cor)</span></code></pre></div>
 <pre><code>## Warning in par(usr): argument 1 does not name a graphical parameter
 
 ## Warning in par(usr): argument 1 does not name a graphical parameter
@@ -706,8 +710,8 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <p><img src="Regresion_con_R_files/figure-html/upb_01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.</p>
 <p>Vamos ahora a ajustar nuestro primer modelo.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag2.html#cb184-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
-<span id="cb184-2"><a href="diag2.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag2.html#cb184-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Peso <span class="sc">~</span> Estatura <span class="sc">+</span> circun_cuello <span class="sc">+</span> circun_muneca, <span class="at">data=</span>datos)</span>
+<span id="cb184-2"><a href="diag2.html#cb184-2" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ Estatura + circun_cuello + circun_muneca, 
@@ -729,8 +733,8 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## Residual standard error: 5.822 on 48 degrees of freedom
 ## Multiple R-squared:  0.7692, Adjusted R-squared:  0.7548 
 ## F-statistic: 53.32 on 3 and 48 DF,  p-value: 2.585e-15</code></pre>
-<p>Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete <strong>mixlm</strong> creado por <span class="citation">Liland (<a href="#ref-R-mixlm" role="doc-biblioref">2022</a>)</span>. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un <span class="math inline">\(\alpha=0.04\)</span>.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag2.html#cb186-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> mixlm<span class="sc">::</span><span class="fu">backward</span>(mod1, <span class="at">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
+<p>Como en la tabla anterior aparecen variables que nos son significativas vamos a realizar una selección de variables usando el paquete <strong>mixlm</strong> creado por <span class="citation">Liland (<a href="#ref-R-mixlm">2023</a>)</span>. Vamos a realizar una selección de variables de manera que sólo queden variables significativas con un <span class="math inline">\(\alpha=0.04\)</span>.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag2.html#cb186-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> mixlm<span class="sc">::</span><span class="fu">backward</span>(mod1, <span class="at">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: Peso ~ Estatura + circun_cuello + circun_muneca
@@ -740,7 +744,7 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ## circun_muneca    2 1761.7 187.18 0.71701 3.9787  2.9212 0.09375 .
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag2.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag2.html#cb188-1" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Peso ~ circun_cuello, data = datos)
@@ -772,19 +776,19 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 <li>La varianza de los errores disminuye, eso significa que el modelo 2 deja menos sin explicar.</li>
 </ul>
 <p>Vamos ahora a crear el diagrama de dispersión con el modelo ajustado.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag2.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para construir el grafico de dispersion</span></span>
-<span id="cb190-2"><a href="diag2.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos, </span>
-<span id="cb190-3"><a href="diag2.html#cb190-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">plot</span>(<span class="at">x=</span>circun_cuello, <span class="at">y=</span>Peso, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
-<span id="cb190-4"><a href="diag2.html#cb190-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</span>
-<span id="cb190-5"><a href="diag2.html#cb190-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ahora agregamos la linea de tendencia</span></span>
-<span id="cb190-6"><a href="diag2.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod2, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue2&#39;</span>)</span>
-<span id="cb190-7"><a href="diag2.html#cb190-7" aria-hidden="true" tabindex="-1"></a><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></span>
-<span id="cb190-8"><a href="diag2.html#cb190-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">34</span>, <span class="at">y=</span><span class="dv">95</span>, <span class="fu">expression</span>(<span class="fu">hat</span>(Peso) <span class="sc">==</span> <span class="sc">-</span><span class="fl">44.61</span> <span class="sc">+</span> <span class="fl">3.10</span> <span class="sc">*</span> C.cuello), </span>
-<span id="cb190-9"><a href="diag2.html#cb190-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">&#39;blue3&#39;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag2.html#cb190-1" tabindex="-1"></a><span class="co"># Para construir el grafico de dispersion</span></span>
+<span id="cb190-2"><a href="diag2.html#cb190-2" tabindex="-1"></a><span class="fu">with</span>(datos, </span>
+<span id="cb190-3"><a href="diag2.html#cb190-3" tabindex="-1"></a>     <span class="fu">plot</span>(<span class="at">x=</span>circun_cuello, <span class="at">y=</span>Peso, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb190-4"><a href="diag2.html#cb190-4" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">&quot;Circunferencia cuello (cm)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Peso (Kg)&quot;</span>))</span>
+<span id="cb190-5"><a href="diag2.html#cb190-5" tabindex="-1"></a><span class="co"># Ahora agregamos la linea de tendencia</span></span>
+<span id="cb190-6"><a href="diag2.html#cb190-6" tabindex="-1"></a><span class="fu">abline</span>(mod2, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;blue2&#39;</span>)</span>
+<span id="cb190-7"><a href="diag2.html#cb190-7" tabindex="-1"></a><span class="co"># por ultimo un texto con la ecuacion o modelo ajustado</span></span>
+<span id="cb190-8"><a href="diag2.html#cb190-8" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span><span class="dv">34</span>, <span class="at">y=</span><span class="dv">95</span>, <span class="fu">expression</span>(<span class="fu">hat</span>(Peso) <span class="sc">==</span> <span class="sc">-</span><span class="fl">44.61</span> <span class="sc">+</span> <span class="fl">3.10</span> <span class="sc">*</span> C.cuello), </span>
+<span id="cb190-9"><a href="diag2.html#cb190-9" tabindex="-1"></a>     <span class="at">col=</span><span class="st">&#39;blue3&#39;</span> )</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_02-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior vemos que hay un estudiante (el de 100 kilos de peso) que está muy alejado de la recta de regresión.</p>
 <p>Vamos a calcular las distancias de Cook para las observaciones del modelo 2 así:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag2.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cooks.distance</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diag2.html#cb191-1" tabindex="-1"></a><span class="fu">cooks.distance</span>(mod2)</span></code></pre></div>
 <pre><code>##            1            2            3            4            5            6 
 ## 7.804662e-04 1.938685e-02 1.563287e-04 2.219833e-02 1.128458e-02 2.524701e-03 
 ##            7            8            9           10           11           12 
@@ -804,18 +808,18 @@ Son puntos influyentes las observaciones que presenten <span class="math inline"
 ##           49           50           51           52 
 ## 3.554232e-03 4.082713e-03 6.130210e-01 3.859845e-02</code></pre>
 <p>Es mejor representar las distancias de Cook en forma gráfica para identificar los posible puntos influyentes así:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag2.html#cb193-1" aria-hidden="true" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">/</span> (<span class="dv">26-2-2</span>)  <span class="co"># Cota</span></span>
-<span id="cb193-2"><a href="diag2.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">which=</span><span class="dv">4</span>, <span class="at">cook.levels=</span>cutoff, <span class="at">las=</span><span class="dv">1</span>)</span>
-<span id="cb193-3"><a href="diag2.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>cutoff, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;dodgerblue2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag2.html#cb193-1" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">/</span> (<span class="dv">26-2-2</span>)  <span class="co"># Cota</span></span>
+<span id="cb193-2"><a href="diag2.html#cb193-2" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">which=</span><span class="dv">4</span>, <span class="at">cook.levels=</span>cutoff, <span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb193-3"><a href="diag2.html#cb193-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>cutoff, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;dodgerblue2&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_03-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De esta figura es claro que las observaciones 11 y 8 tienen <span class="math inline">\(D_i\)</span> por encima de la cota y se consideran observaciones influyentes.</p>
 <p>Otra forma de dibujar las distancias de Cook es por medio de la función <code>influenceIndexPlot</code> del paquete <strong>car</strong>.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diag2.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb194-2"><a href="diag2.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod2, <span class="at">vars=</span><span class="st">&quot;Cook&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diag2.html#cb194-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb194-2"><a href="diag2.html#cb194-2" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(mod2, <span class="at">vars=</span><span class="st">&quot;Cook&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/cook_estudiantes_upb-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Ahora vamos a revisar los residuales del modelo 2.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag2.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb195-2"><a href="diag2.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag2.html#cb195-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb195-2"><a href="diag2.html#cb195-2" tabindex="-1"></a><span class="fu">plot</span>(mod2, <span class="at">col=</span><span class="st">&#39;deepskyblue4&#39;</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/upb_04-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De la anterior figura vemos que las observaciones 8, 11 y 13 son identificadas por tener valores de residuales grandes.</p>
 <p>Vamos ahora a identificar las observaciones 8, 11, 12 y 13 en un diagrama de dispersión.</p>
@@ -862,20 +866,20 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 <div id="ejemplo-28" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="diag2.html#ejemplo-28" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considere los datos que se muestran a continuación y ajuste un modelo de regresión para explicar <span class="math inline">\(y\)</span> en función de <span class="math inline">\(x\)</span>. Luego identifique las observaciones influyentes usando las medidas DFFITS y DFBETAS.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="diag2.html#cb196-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>)</span>
-<span id="cb196-2"><a href="diag2.html#cb196-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="diag2.html#cb196-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>)</span>
+<span id="cb196-2"><a href="diag2.html#cb196-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">19</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>Vamos a crear unos datos para el ejemplo.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag2.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag2.html#cb197-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/ejem_dffits01-1.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diag2.html#cb198-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diag2.html#cb198-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>Vamos a calcular DFFITS.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag2.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dffits</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag2.html#cb199-1" tabindex="-1"></a><span class="fu">dffits</span>(mod)</span></code></pre></div>
 <pre><code>##          1          2          3          4          5 
 ##  0.5838725 -0.7757081  0.4112718 -0.4420348  5.8081955</code></pre>
 <p>De la salida anterior vemos que la observación 5 es la que tiene el mayor valor de DFFITS.</p>
 <p>Vamos a calcular DFBETAS.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag2.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfbetas</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag2.html#cb201-1" tabindex="-1"></a><span class="fu">dfbetas</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)           x
 ## 1  0.56194908 -0.45993179
 ## 2  0.03603076 -0.32706727
@@ -884,7 +888,7 @@ DFBETAS_{i,j} = \frac{\hat{\beta}_j - \hat{\beta}_{j(i)}}{\sqrt{s_{(i)}^2 C_{jj}
 ## 5 -3.42671836  4.94865731</code></pre>
 <p>De la salida anterior vemos nuevamente que la observación 5 tiene la mayor influencia sobre <span class="math inline">\(\hat{\beta}_0\)</span> y sobre <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 <p>Existe otra función llamda <code>dfbeta</code> sin la letra <strong>s</strong>, veamos para que sirve esta función.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag2.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dfbeta</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag2.html#cb203-1" tabindex="-1"></a><span class="fu">dfbeta</span>(mod)</span></code></pre></div>
 <pre><code>##   (Intercept)           x
 ## 1  1.93127413 -0.34826255
 ## 2  0.09555985 -0.19111969
@@ -909,46 +913,46 @@ PRESS = \sum_{i=1}^{n} e_{(i)}^2 = \sum_{i=1}^{n} (y_i - \hat{y}_{(i)})^2 = \sum
 R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 \]</span></p>
 <p>Las funciones mostradas abajo fueron creadas por <a href="https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0">Tom Hopper</a> y sirven para obtener la estadística PRESS y el <span class="math inline">\(R^2\)</span> de predicción.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag2.html#cb205-1" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
-<span id="cb205-2"><a href="diag2.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate the predictive residuals</span></span>
-<span id="cb205-3"><a href="diag2.html#cb205-3" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(linear.model) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">lm.influence</span>(linear.model)<span class="sc">$</span>hat)</span>
-<span id="cb205-4"><a href="diag2.html#cb205-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate the PRESS</span></span>
-<span id="cb205-5"><a href="diag2.html#cb205-5" aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(pr<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb205-6"><a href="diag2.html#cb205-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(PRESS)</span>
-<span id="cb205-7"><a href="diag2.html#cb205-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb205-8"><a href="diag2.html#cb205-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb205-9"><a href="diag2.html#cb205-9" aria-hidden="true" tabindex="-1"></a>pred_r_squared <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
-<span id="cb205-10"><a href="diag2.html#cb205-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#&#39; Use anova() to get the sum of squares for the linear model</span></span>
-<span id="cb205-11"><a href="diag2.html#cb205-11" aria-hidden="true" tabindex="-1"></a>  lm.anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(linear.model)</span>
-<span id="cb205-12"><a href="diag2.html#cb205-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#&#39; Calculate the total sum of squares</span></span>
-<span id="cb205-13"><a href="diag2.html#cb205-13" aria-hidden="true" tabindex="-1"></a>  tss <span class="ot">&lt;-</span> <span class="fu">sum</span>(lm.anova<span class="sc">$</span><span class="st">&#39;Sum Sq&#39;</span>)</span>
-<span id="cb205-14"><a href="diag2.html#cb205-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the predictive R^2</span></span>
-<span id="cb205-15"><a href="diag2.html#cb205-15" aria-hidden="true" tabindex="-1"></a>  pred.r.squared <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">PRESS</span>(linear.model)<span class="sc">/</span>(tss)</span>
-<span id="cb205-16"><a href="diag2.html#cb205-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pred.r.squared)</span>
-<span id="cb205-17"><a href="diag2.html#cb205-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag2.html#cb205-1" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
+<span id="cb205-2"><a href="diag2.html#cb205-2" tabindex="-1"></a>  <span class="co"># calculate the predictive residuals</span></span>
+<span id="cb205-3"><a href="diag2.html#cb205-3" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(linear.model) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span><span class="fu">lm.influence</span>(linear.model)<span class="sc">$</span>hat)</span>
+<span id="cb205-4"><a href="diag2.html#cb205-4" tabindex="-1"></a>  <span class="co"># calculate the PRESS</span></span>
+<span id="cb205-5"><a href="diag2.html#cb205-5" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(pr<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb205-6"><a href="diag2.html#cb205-6" tabindex="-1"></a>  <span class="fu">return</span>(PRESS)</span>
+<span id="cb205-7"><a href="diag2.html#cb205-7" tabindex="-1"></a>}</span>
+<span id="cb205-8"><a href="diag2.html#cb205-8" tabindex="-1"></a></span>
+<span id="cb205-9"><a href="diag2.html#cb205-9" tabindex="-1"></a>pred_r_squared <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
+<span id="cb205-10"><a href="diag2.html#cb205-10" tabindex="-1"></a>  <span class="co">#&#39; Use anova() to get the sum of squares for the linear model</span></span>
+<span id="cb205-11"><a href="diag2.html#cb205-11" tabindex="-1"></a>  lm.anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(linear.model)</span>
+<span id="cb205-12"><a href="diag2.html#cb205-12" tabindex="-1"></a>  <span class="co">#&#39; Calculate the total sum of squares</span></span>
+<span id="cb205-13"><a href="diag2.html#cb205-13" tabindex="-1"></a>  tss <span class="ot">&lt;-</span> <span class="fu">sum</span>(lm.anova<span class="sc">$</span><span class="st">&#39;Sum Sq&#39;</span>)</span>
+<span id="cb205-14"><a href="diag2.html#cb205-14" tabindex="-1"></a>  <span class="co"># Calculate the predictive R^2</span></span>
+<span id="cb205-15"><a href="diag2.html#cb205-15" tabindex="-1"></a>  pred.r.squared <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">PRESS</span>(linear.model)<span class="sc">/</span>(tss)</span>
+<span id="cb205-16"><a href="diag2.html#cb205-16" tabindex="-1"></a>  <span class="fu">return</span>(pred.r.squared)</span>
+<span id="cb205-17"><a href="diag2.html#cb205-17" tabindex="-1"></a>}</span></code></pre></div>
 <div id="ejemplo-29" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="diag2.html#ejemplo-29" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">(<a href="#ref-mpv06" role="doc-biblioref">E. &amp;. V. Montgomery D. &amp; Peck 2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
+<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">(<a href="#ref-mpv06">E. &amp;. V. Montgomery D. &amp; Peck 2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
 <p align="center">
 <img src="images/ilustracion_refrescos.png" width="600">
 </p>
 <p>¿Cuál es el valor de la estadística PRESS y del <span class="math inline">\(R^2\)</span> de predicción?</p>
 <p><strong>Solución</strong></p>
 <p>Los datos del ejemplo están disponibles en el paquete <strong>MPV</strong> (por los apellidos de los autores). A continuación el código para cargar los datos y ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag2.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb206-2"><a href="diag2.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
-<span id="cb206-3"><a href="diag2.html#cb206-3" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag2.html#cb206-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb206-2"><a href="diag2.html#cb206-2" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
+<span id="cb206-3"><a href="diag2.html#cb206-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink)</span></code></pre></div>
 <p>A continuación se muestran las dos medidas de interés.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag2.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag2.html#cb207-1" tabindex="-1"></a><span class="fu">PRESS</span>(mod)</span></code></pre></div>
 <pre><code>## [1] 459.0393</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag2.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pred_r_squared</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag2.html#cb209-1" tabindex="-1"></a><span class="fu">pred_r_squared</span>(mod)</span></code></pre></div>
 <pre><code>## [1] 0.9206438</code></pre>
 <p>De la salida anterior se observa que el <span class="math inline">\(R^2\)</span> de predicción toma un valor de 0.9206, esto indica que el modelo <code>mod</code> tiene una buena capacidad de predicción para nuevas observaciones.</p>
 </div>
 </div>
 <div id="valores-de-corte-para-diagnósticos" class="section level2 unnumbered hasAnchor">
 <h2>Valores de corte para diagnósticos<a href="diag2.html#valores-de-corte-para-diagnósticos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise <span class="citation">John Fox (<a href="#ref-fox2015applied" role="doc-biblioref">2015</a>)</span> y conozca unas recomendaciones adicionales sobre los puntos de corte.</p>
+<p><span class="citation">John Fox (<a href="#ref-fox2015applied">2015</a>)</span> en la sección 11.5 hace una recopilación de los puntos de corte que se podrían usar para identificar observaciones con alguna anomalía al ajustar un modelo de regresión. En el siguiente listado se muestran esos puntos de corte pero se recomienda al lector para que revise <span class="citation">John Fox (<a href="#ref-fox2015applied">2015</a>)</span> y conozca unas recomendaciones adicionales sobre los puntos de corte.</p>
 <ul>
 <li>Observaciones con valores de <span class="math inline">\(h_{ii}\)</span> que excedan dos veces el valor <span class="math inline">\(\bar{h} = (k+1)/n\)</span> podrían ser observaciones atípicas o outliers. Este punto de corte se obtiene como una aproximación para identificar el 5% de las observaciones más extremas si las <span class="math inline">\(X\)</span>’s se distribuyen normal multivariada con <span class="math inline">\(k\)</span> y <span class="math inline">\(n-k-1\)</span> grandes (<span class="math inline">\(k\)</span> se refiere al número de <span class="math inline">\(\beta\)</span>’s diferentes al intercepto).</li>
 <li>Como los residuales estandarizados <span class="math inline">\(d_i\)</span>, tienen media cero y varianza aproximadamente unitaria, un residual estandarizado grande, <span class="math inline">\(|d_i| &gt; 3\)</span>, indica que se trata de un valor atípico potencial.</li>
@@ -966,10 +970,10 @@ R^2 \, \text{de predicción} = 1 - \frac{PRESS}{SST}
 Fox, John. 2015. <em>Applied Regression Analysis and Generalized Linear Models</em>. Sage Publications.
 </div>
 <div id="ref-R-car" class="csl-entry">
-Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
+Fox, John, Sanford Weisberg, and Brad Price. 2023. <em>Car: Companion to Applied Regression</em>. <a href="https://r-forge.r-project.org/projects/car/">https://r-forge.r-project.org/projects/car/</a>.
 </div>
 <div id="ref-R-mixlm" class="csl-entry">
-Liland, Kristian Hovde. 2022. <em>Mixlm: Mixed Model ANOVA and Statistics for Education</em>. <a href="https://github.com/khliland/mixlm/">https://github.com/khliland/mixlm/</a>.
+Liland, Kristian Hovde. 2023. <em>Mixlm: Mixed Model ANOVA and Statistics for Education</em>. <a href="https://github.com/khliland/mixlm/">https://github.com/khliland/mixlm/</a>.
 </div>
 <div id="ref-mpv06" class="csl-entry">
 Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.
