@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-12" />
+<meta name="date" content="2024-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,13 +54,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -211,7 +204,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0"><i class="fa fa-check"></i>Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span></a></li>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0"><i class="fa fa-check"></i>Intervalo de confianza para la respuesta media <span class="math inline">\(E(Y|x_0)\)</span></a></li>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a>
 <ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
@@ -517,11 +510,11 @@ div.csl-indent {
 <div id="función-predict" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>predict</code><a href="predict.html#función-predict" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>predict</code> es una función genérica de clase S3 que se puede aplicar a un modelo ajustado para obtener los valores de <span class="math inline">\(\hat{y}\)</span>. Abajo se muestra la estructura de la función <code>predict</code> con la lista de sus argumentos.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="predict.html#cb41-1" tabindex="-1"></a><span class="fu">predict.lm</span>(object, newdata, <span class="at">se.fit =</span> <span class="cn">FALSE</span>, <span class="at">scale =</span> <span class="cn">NULL</span>, <span class="at">df =</span> <span class="cn">Inf</span>, </span>
-<span id="cb41-2"><a href="predict.html#cb41-2" tabindex="-1"></a>    <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;confidence&quot;</span>, <span class="st">&quot;prediction&quot;</span>), </span>
-<span id="cb41-3"><a href="predict.html#cb41-3" tabindex="-1"></a>    <span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;response&quot;</span>, <span class="st">&quot;terms&quot;</span>), </span>
-<span id="cb41-4"><a href="predict.html#cb41-4" tabindex="-1"></a>    <span class="at">terms =</span> <span class="cn">NULL</span>, <span class="at">na.action =</span> na.pass, <span class="at">pred.var =</span> res.var<span class="sc">/</span>weights, </span>
-<span id="cb41-5"><a href="predict.html#cb41-5" tabindex="-1"></a>    <span class="at">weights =</span> <span class="dv">1</span>, ...) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="predict.html#cb1-1" tabindex="-1"></a><span class="fu">predict.lm</span>(object, newdata, <span class="at">se.fit =</span> <span class="cn">FALSE</span>, <span class="at">scale =</span> <span class="cn">NULL</span>, <span class="at">df =</span> <span class="cn">Inf</span>, </span>
+<span id="cb1-2"><a href="predict.html#cb1-2" tabindex="-1"></a>    <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;confidence&quot;</span>, <span class="st">&quot;prediction&quot;</span>), </span>
+<span id="cb1-3"><a href="predict.html#cb1-3" tabindex="-1"></a>    <span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;response&quot;</span>, <span class="st">&quot;terms&quot;</span>), </span>
+<span id="cb1-4"><a href="predict.html#cb1-4" tabindex="-1"></a>    <span class="at">terms =</span> <span class="cn">NULL</span>, <span class="at">na.action =</span> na.pass, <span class="at">pred.var =</span> res.var<span class="sc">/</span>weights, </span>
+<span id="cb1-5"><a href="predict.html#cb1-5" tabindex="-1"></a>    <span class="at">weights =</span> <span class="dv">1</span>, ...) </span></code></pre></div>
 <div id="ejemplo-4" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="predict.html#ejemplo-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos <code>longley</code>. Luego de ajustar el modelo queremos predecir el valor de <span class="math inline">\(E(Employed|x=x_0)\)</span> en dos situaciones:</p>
@@ -531,10 +524,10 @@ div.csl-indent {
 </ul>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es ajustar el modelo así.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="predict.html#cb42-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Employed <span class="sc">~</span> Unemployed <span class="sc">+</span> Armed.Forces <span class="sc">+</span> Year, <span class="at">data=</span>longley)</span>
-<span id="cb42-2"><a href="predict.html#cb42-2" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="predict.html#cb42-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb42-4"><a href="predict.html#cb42-4" tabindex="-1"></a><span class="fu">tidy</span>(mod, <span class="at">quick=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="predict.html#cb2-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Employed <span class="sc">~</span> Unemployed <span class="sc">+</span> Armed.Forces <span class="sc">+</span> Year, <span class="at">data=</span>longley)</span>
+<span id="cb2-2"><a href="predict.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="predict.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb2-4"><a href="predict.html#cb2-4" tabindex="-1"></a><span class="fu">tidy</span>(mod, <span class="at">quick=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   term            estimate std.error statistic  p.value
 ##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -548,15 +541,15 @@ div.csl-indent {
 \]</span></p>
 <p>Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular <span class="math inline">\(E(Employed|x=x_0)\)</span>. Sin embargo, aquí lo vamos a realizar usando la función <code>predict</code>.</p>
 <p>Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="predict.html#cb44-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year=</span><span class="fu">c</span>(<span class="dv">1963</span>, <span class="dv">1964</span>),</span>
-<span id="cb44-2"><a href="predict.html#cb44-2" tabindex="-1"></a>                    <span class="at">Unemployed=</span><span class="fu">c</span>(<span class="dv">420</span>, <span class="dv">430</span>),</span>
-<span id="cb44-3"><a href="predict.html#cb44-3" tabindex="-1"></a>                    <span class="at">Armed.Forces=</span><span class="fu">c</span>(<span class="dv">270</span>, <span class="dv">250</span>))</span>
-<span id="cb44-4"><a href="predict.html#cb44-4" tabindex="-1"></a>nuevo</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="predict.html#cb4-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year=</span><span class="fu">c</span>(<span class="dv">1963</span>, <span class="dv">1964</span>),</span>
+<span id="cb4-2"><a href="predict.html#cb4-2" tabindex="-1"></a>                    <span class="at">Unemployed=</span><span class="fu">c</span>(<span class="dv">420</span>, <span class="dv">430</span>),</span>
+<span id="cb4-3"><a href="predict.html#cb4-3" tabindex="-1"></a>                    <span class="at">Armed.Forces=</span><span class="fu">c</span>(<span class="dv">270</span>, <span class="dv">250</span>))</span>
+<span id="cb4-4"><a href="predict.html#cb4-4" tabindex="-1"></a>nuevo</span></code></pre></div>
 <pre><code>##   Year Unemployed Armed.Forces
 ## 1 1963        420          270
 ## 2 1964        430          250</code></pre>
 <p>Ahora ya podemos usar la función <code>predict</code> para obtener lo solicitado.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="predict.html#cb46-1" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod, <span class="at">newdata=</span>nuevo)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="predict.html#cb6-1" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod, <span class="at">newdata=</span>nuevo)</span></code></pre></div>
 <pre><code>##        1        2 
 ## 71.89467 72.85853</code></pre>
 <p>De la salida anterior tenemos los valores de <span class="math inline">\(\widehat{Employed}\)</span>.</p>
@@ -568,17 +561,17 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 </div>
 </div>
 <div id="intervalo-de-confianza-para-la-respuesta-media-eyx_0" class="section level2 unnumbered hasAnchor">
-<h2>Intervalo de confianza para la respuesta media <span class="math inline">\(E(y|x_0)\)</span><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En regresión lineal simple, Si <span class="math inline">\(\hat{\mu}_{y|x_0}\)</span> es la media estimada para la variable respuesta cuando <span class="math inline">\(x=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(E(y|x_0)\)</span>_0) está dado por:</p>
+<h2>Intervalo de confianza para la respuesta media <span class="math inline">\(E(Y|x_0)\)</span><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En regresión lineal simple, Si <span class="math inline">\(\hat{\mu}_{Y|x_0}\)</span> es la media estimada para la variable respuesta cuando <span class="math inline">\(X=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(E(Y|x_0)\)</span> está dado por:</p>
 <p><span class="math display">\[
-\hat{\mu}_{y|x_0} \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{\mu}_{Y|x_0} \pm t_{\alpha / 2, n - p} \, \sqrt{MS_{Res} \left(\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x})^2} \right)}
 \]</span></p>
 </div>
 <div id="intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones" class="section level2 unnumbered hasAnchor">
 <h2>Intervalo de confianza para la predicción de nuevas observaciones<a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En regresión lineal simple, Si <span class="math inline">\(\hat{y}_0\)</span> es el valor estimado para la variable respuesta cuando <span class="math inline">\(x=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(y_0\)</span>está dado por:</p>
+<p>En regresión lineal simple, si <span class="math inline">\(\hat{Y}_0\)</span> es el valor estimado para la variable respuesta cuando <span class="math inline">\(X=x_0\)</span>, entonces un IC del <span class="math inline">\((1−\alpha⁄2)\)</span>×100% para <span class="math inline">\(Y_0\)</span> está dado por:</p>
 <p><span class="math display">\[
-\hat{y}_0 \pm t_{\alpha / 2, n - p} \, \sqrt{MSE \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x}^2)} \right)}
+\hat{Y}_0 \pm t_{\alpha / 2, n - p} \, \sqrt{MS_{Res} \left(1 +\frac{1}{n} + \frac{(x_0 - \bar{x})^2}{\sum(x_i - \bar{x})^2} \right)}
 \]</span></p>
 <div id="ejemplo-5" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="predict.html#ejemplo-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -588,43 +581,45 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 </p>
 <p>El objetivo es obtener:</p>
 <ul>
-<li>IC del 95% para <span class="math inline">\(E(y|x_0)\)</span> cuando <span class="math inline">\(x_0=\overline{Edad}=13.3625\)</span> semanas.</li>
-<li>IC del 95% para <span class="math inline">\(\hat{y}_0\)</span> cuando <span class="math inline">\(x_0=10\)</span> semanas.</li>
-<li>Crear el histograma de dispersión agregando las líneas de los IC para <span class="math inline">\(E(y|x_0)\)</span> y <span class="math inline">\(\hat{y}_0\)</span>.</li>
+<li>IC del 95% para <span class="math inline">\(E(Y|x_0)\)</span> cuando <span class="math inline">\(x_0=13\)</span> semanas.</li>
+<li>IC del 95% para <span class="math inline">\(E(Y|x_0)\)</span> cuando <span class="math inline">\(x_0=2\)</span> semanas.</li>
+<li>IC del 90% para <span class="math inline">\(\hat{Y}_0\)</span> cuando <span class="math inline">\(x_0=10\)</span> semanas.</li>
+<li>Crear el diagrama de dispersión agregando las líneas de los IC de 95% para <span class="math inline">\(E(Y|x_0)\)</span> y <span class="math inline">\(\hat{Y}_0\)</span>.</li>
 </ul>
 <p><strong>Solución</strong></p>
 <p>Lo primero es disponer los datos.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="predict.html#cb48-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb48-2"><a href="predict.html#cb48-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="predict.html#cb8-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb8-2"><a href="predict.html#cb8-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Luego se ajusta el modelo.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="predict.html#cb49-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
-<p>Para obtener el IC del 95% para <span class="math inline">\(E(y|x_0)\)</span> cuando <span class="math inline">\(x_0=\overline{Edad}=13.3625\)</span> semanas se usa el siguiente código.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="predict.html#cb50-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="fl">13.3625</span>)</span>
-<span id="cb50-2"><a href="predict.html#cb50-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>nuevo, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="predict.html#cb9-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
+<p>Para obtener el IC del 95% para <span class="math inline">\(E(Y|x_0)\)</span> para <span class="math inline">\(x_0=13\)</span> y <span class="math inline">\(x_0=2\)</span> se usa el siguiente código.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="predict.html#cb10-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">2</span>))</span>
+<span id="cb10-2"><a href="predict.html#cb10-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
-## 1 2131.357 2086.209 2176.506</code></pre>
-<p>Para obtener el IC del 95% para <span class="math inline">\(\hat{y}_0\)</span> cuando <span class="math inline">\(x_0=10\)</span> semanas se usa el siguiente código.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="predict.html#cb52-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="dv">10</span>)</span>
-<span id="cb52-2"><a href="predict.html#cb52-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>nuevo, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+## 1 2144.826 2099.623 2190.028
+## 2 2553.515 2471.083 2635.947</code></pre>
+<p>Para obtener el IC del 90% para <span class="math inline">\(\hat{Y}_0\)</span> cuando <span class="math inline">\(x_0=10\)</span> semanas se usa el siguiente código.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="predict.html#cb12-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="dv">10</span>)</span>
+<span id="cb12-2"><a href="predict.html#cb12-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.90</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
-## 1 2256.286 2048.385 2464.188</code></pre>
+## 1 2256.286 2084.688 2427.885</code></pre>
 
 <div class="rmdnote">
 Observe que en el primer caso se usó <code>interval="confidence"</code> mientras que en el segundo se usó <code>interval="prediction"</code>.
 </div>
-<p>Ahora vamos a obtener todos los IC <span class="math inline">\(\hat{y}_0\)</span> y los vamos a almacenar en el objeto <code>future_y</code> que luego luego vamos a agregar al marco de datos original.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="predict.html#cb54-1" tabindex="-1"></a>future_y <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
-<span id="cb54-2"><a href="predict.html#cb54-2" tabindex="-1"></a>nuevos_datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(datos, future_y)</span></code></pre></div>
-<p>Con el código mostrado a continuación se construye el diagrama de dispersión y se agrega la línea de regresión (en azul) y los IC para <span class="math inline">\(E(y|x_0)\)</span> (en rosado) por medio de <code>geom_smooth</code>. Los IC para <span class="math inline">\(\hat{y}_0\)</span> (en rojo) se agregan por medio de <code>geom_line.</code></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="predict.html#cb55-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb55-2"><a href="predict.html#cb55-2" tabindex="-1"></a><span class="fu">ggplot</span>(nuevos_datos, <span class="fu">aes</span>(<span class="at">x=</span>Edad, <span class="at">y=</span>Resistencia))<span class="sc">+</span></span>
-<span id="cb55-3"><a href="predict.html#cb55-3" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb55-4"><a href="predict.html#cb55-4" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-5"><a href="predict.html#cb55-5" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb55-6"><a href="predict.html#cb55-6" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">formula=</span>y<span class="sc">~</span>x, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;pink2&#39;</span>) <span class="sc">+</span></span>
-<span id="cb55-7"><a href="predict.html#cb55-7" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code></pre></div>
+<p>Ahora vamos a obtener todos los IC <span class="math inline">\(\hat{Y}_0\)</span> y los vamos a almacenar en el objeto <code>future_y</code> que luego luego vamos a agregar al marco de datos original.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="predict.html#cb14-1" tabindex="-1"></a>future_y <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
+<span id="cb14-2"><a href="predict.html#cb14-2" tabindex="-1"></a>nuevos_datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(datos, future_y)</span></code></pre></div>
+<p>Con el código mostrado a continuación se construye el diagrama de dispersión y se agrega la línea de regresión (en azul) y los IC para <span class="math inline">\(E(Y|x_0)\)</span> (en rosado) por medio de <code>geom_smooth</code>. Los IC para <span class="math inline">\(\hat{Y}_0\)</span> (en rojo) se agregan por medio de <code>geom_line.</code></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="predict.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="predict.html#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(nuevos_datos, <span class="fu">aes</span>(<span class="at">x=</span>Edad, <span class="at">y=</span>Resistencia))<span class="sc">+</span></span>
+<span id="cb15-3"><a href="predict.html#cb15-3" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-4"><a href="predict.html#cb15-4" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="predict.html#cb15-5" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="predict.html#cb15-6" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">formula=</span>y<span class="sc">~</span>x, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;pink2&#39;</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="predict.html#cb15-7" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/predict_sold_1-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>De la figura anterior se observa claramente que los IC para <span class="math inline">\(\hat{y}_0\)</span> son siempre más anchos que los IC para <span class="math inline">\(E(y|x_0)\)</span>.</p>
+<p>De la figura anterior se observa claramente que los IC para <span class="math inline">\(\hat{Y}_0\)</span> son siempre más anchos que los IC para <span class="math inline">\(E(Y|x_0)\)</span>.</p>
 
 </div>
 </div>

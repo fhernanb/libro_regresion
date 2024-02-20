@@ -10,7 +10,7 @@ H_1 &: \text{los errores no son independientes.}
 
 
 ## Durbin-Watson test {-}
-La función `dwtest` del paquete **lmtest** @R-lmtest implementa esta prueba.
+La función `dwtest` del paquete **lmtest** [@R-lmtest] implementa esta prueba.
 
 [En esta publicación](https://stats.stackexchange.com/questions/14914/how-to-test-the-autocorrelation-of-the-residuals) de StackOverFlow hay una excelente discusión sobre la prueba, se invita al lector a explorar la publicación.
 

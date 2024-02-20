@@ -18,24 +18,27 @@ description: "Libro de Modelos de Regresión con R para los estudiantes de la Es
 ```{r include=FALSE, message=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'mixlm', 'MPV',
-                'stats', 'leaps', 'olsrr', 'MASS',
-                'model', 'Matrix', 'multcomp', 'Formula', 'car',
-  'lmtest'), 'packages.bib')
+  .packages(), "bookdown", "knitr", "rmarkdown", 
+  "mixlm", "MPV",
+  "stats", "leaps", "olsrr", "MASS",
+  "model", "Matrix", "multcomp", 
+  "Formula", "car",
+  "lmtest"), 
+  "packages.bib")
 ```
 
 ```{r echo=FALSE, message=FALSE}
 # lista de paquetes necesarios para compilar el libro
-list.of.packages <- c('plot3D', 'MPV', 'scatterplot3d',
-                      'leaps', 'olsrr', 'MASS', 'psych',
-                      'multcomp', 'mixlm')
+list.of.packages <- c("plot3D", "MPV", "scatterplot3d",
+                      "leaps", "olsrr", "MASS", "psych",
+                      "multcomp", "mixlm")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) 
   install.packages(new.packages,
                    repos="https://cloud.r-project.org")
 ```
 
-```{r echo=FALSE, out.width="33%", fig.align='center'}
+```{r echo=FALSE, out.width="33%", fig.align="center"}
 knitr::include_graphics("images/cover.png")
 ```
 
@@ -74,15 +77,15 @@ a <- c(1, 5, 6)
 ## Bloques informativos {-}
 En varias partes del libro usaremos bloques informativos para resaltar algún aspecto importante. Abajo se encuentra un ejemplo de los bloques y su significado.
 
-```{block2, type='rmdnote'}
+```{block2, type="rmdnote"}
 Nota aclaratoria.
 ```
 
-```{block2, type='rmdtip'}
+```{block2, type="rmdtip"}
 Sugerencia.
 ```
 
-```{block2, type='rmdwarning'}
+```{block2, type="rmdwarning"}
 Advertencia.
 ```
 

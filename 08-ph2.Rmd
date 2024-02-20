@@ -38,6 +38,56 @@ En esta prueba la idea es determinar si la variabilidad explicada por la Regresi
 Asumiendo $H_0$ verdadera, la distribución del estadístico $F_0$ es $F_{k, n-k-1}$.
 
 ### Ejemplo {-}
+Como ilustración vamos a usar los datos del ejemplo sobre la resistencia de piezas soldadas en función de la edad de la soldadura. ¿Será que la variable edad si ayuda a explicar la resistencia?, ¿será que la variable edad es significativa para el modelo? 
+
+<p align="center">
+  <img src="images/ilustracion_soldadura.png" width="400">
+</p>
+
+__Solución__
+
+En este problema nos interesa estudiar el siguiente conjunto de hipótesis.
+
+\begin{align}
+H_0 &: \beta_{edad}=0 \\ 
+H_1 &: \beta_{edad} \neq 0
+\end{align}
+
+Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.
+
+```{r}
+file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
+datos <- read.table(file=file, header=TRUE)
+
+mod1 <- lm(Resistencia ~ Edad, data=datos)
+```
+
+Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función `anova_table_lm` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
+
+```{r eval=FALSE}
+if (!require('devtools')) install.packages('devtools')
+devtools::install_github('fhernanb/model', force=TRUE)
+```
+
+Luego de esto ya podemos usar la función `anova_table_lm` así:
+
+```{r}
+library(model)
+anova_table_lm(mod1)
+```
+
+De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar $H_0: \beta_{edad}=0$, eso significa que la variable edad si ayuda a explicar la media de la variable respuesta.
+
+Otra forma de aplicar la prueba de significancia de la regresión es usando la función `summary` la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).
+
+```{r}
+summary(mod1)
+```
+
+En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 1.643e-10 y por lo tanto podemos rechazar $H_0$ a un nivel de significancia usual del 5%, eso significa que la variable edad si ayuda a explicar la resistencia.
+
+
+### Ejemplo {-}
 Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
 
 ¿Será que las variables __Número de Cajas__ y __Distancia__ son significativas en el modelo?
@@ -60,28 +110,13 @@ Para responder esta pregunta vamos a aplicar la prueba de significancia de la re
 ```{r, message=FALSE}
 require(MPV)
 colnames(softdrink) <- c('tiempo', 'cantidad', 'distancia')
-mod <- lm(tiempo ~ cantidad + distancia, data=softdrink, x=TRUE)
+mod2 <- lm(tiempo ~ cantidad + distancia, data=softdrink, x=TRUE)
 ```
 
 Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso usamos el siguiente código.
 
 ```{r}
-y <- softdrink$tiempo
-n <- length(y)
-ss_t <- sum(y^2) - sum(y)^2 / n
-ss_r <- matrix(coef(mod), nrow=1) %*% t(mod$x) %*% matrix(y, ncol=1) - sum(y)^2 / n
-ss_res <- ss_t - ss_r
-ms_r <- ss_r / (length(coef(mod))-1)
-ms_res <- ss_res / (n-length(coef(mod)))
-F0 <- ms_r / ms_res
-valorP <- pf(F0, df1=length(coef(mod))-1, df2=(n-length(coef(mod))), lower.tail=FALSE)
-tabla <- matrix(NA, ncol=5, nrow=3)
-tabla[1, ] <- c(ss_r, length(coef(mod))-1, ms_r, F0, valorP)
-tabla[2, 1:3] <- c(ss_res, n-length(coef(mod)), ms_res)
-tabla[3, 1:2] <- c(ss_t, n-1)
-colnames(tabla) <- c('Suma Cuadrados', 'gl', 'Cuadrado medio', 'F0', 'Valor-P')
-rownames(tabla) <- c('Reg', 'Resid', 'Total')
-tabla
+anova_table_lm(mod2)
 ```
 
 De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar $H_0: \beta_{cant}=\beta_{dis}=0$, eso significa que al menos una (o ambas) de las variables si ayudan a explicar la media de la variable respuesta.
@@ -89,7 +124,7 @@ De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay 
 Otra forma de aplicar la prueba de significancia de la regresión es usando la función `summary` la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).
 
 ```{r}
-summary(mod)
+summary(mod2)
 ```
 
 En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 4.687e-16 y por lo tanto podemos rechazar $H_0$ a un nivel de significancia usual del 5%, eso significa que al menos una de las dos covariables del modelo es significativa para explicar el tiempo medio.
