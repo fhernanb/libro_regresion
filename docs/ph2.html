@@ -54,6 +54,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -308,10 +315,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-cumpliendo-los-supuestos"><i class="fa fa-check"></i>Ejemplo cumpliendo los supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos-1"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a>
 <ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#prueba-de-falta-de-ajuste"><i class="fa fa-check"></i>Prueba de falta de ajuste</a>
+<ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-1-1"><i class="fa fa-check"></i>Ejemplo 1</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-2-1"><i class="fa fa-check"></i>Ejemplo 2</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
@@ -548,16 +561,16 @@ H_0 &amp;: \beta_{edad}=0 \\
 H_1 &amp;: \beta_{edad} \neq 0
 \end{align}\]</span></p>
 <p>Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ph2.html#cb1-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb1-2"><a href="ph2.html#cb1-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="ph2.html#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="ph2.html#cb1-4" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ph2.html#cb100-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb100-2"><a href="ph2.html#cb100-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb100-3"><a href="ph2.html#cb100-3" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="ph2.html#cb100-4" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función <code>anova_table_lm</code> del paquete <strong>model</strong>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ph2.html#cb2-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="fu">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
-<span id="cb2-2"><a href="ph2.html#cb2-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="ph2.html#cb101-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="fu">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb101-2"><a href="ph2.html#cb101-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Luego de esto ya podemos usar la función <code>anova_table_lm</code> así:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ph2.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb3-2"><a href="ph2.html#cb3-2" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ph2.html#cb102-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb102-2"><a href="ph2.html#cb102-2" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod1)</span></code></pre></div>
 <pre><code>## Anova Table
 ##             Sum Sq Df Mean Sq F value    Pr(&gt;F)    
 ## Regression 1527483  1 1527483  165.38 1.643e-10 ***
@@ -567,7 +580,7 @@ H_1 &amp;: \beta_{edad} \neq 0
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar <span class="math inline">\(H_0: \beta_{edad}=0\)</span>, eso significa que la variable edad si ayuda a explicar la media de la variable respuesta.</p>
 <p>Otra forma de aplicar la prueba de significancia de la regresión es usando la función <code>summary</code> la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ph2.html#cb5-1" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="ph2.html#cb104-1" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
@@ -602,11 +615,11 @@ H_0 &amp;: \beta_{cant}=\beta_{dis}=0 \\
 H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{cant} \, \text{o} \, \beta_{dis} \, \text{es diferente de cero}
 \end{align}\]</span></p>
 <p>Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ph2.html#cb7-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb7-2"><a href="ph2.html#cb7-2" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
-<span id="cb7-3"><a href="ph2.html#cb7-3" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="ph2.html#cb106-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb106-2"><a href="ph2.html#cb106-2" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
+<span id="cb106-3"><a href="ph2.html#cb106-3" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso usamos el siguiente código.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ph2.html#cb8-1" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="ph2.html#cb107-1" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod2)</span></code></pre></div>
 <pre><code>## Anova Table
 ##            Sum Sq Df Mean Sq F value    Pr(&gt;F)    
 ## Regression 5550.8  2 2775.41  261.24 4.687e-16 ***
@@ -616,7 +629,7 @@ H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{cant} \, \text{o}
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar <span class="math inline">\(H_0: \beta_{cant}=\beta_{dis}=0\)</span>, eso significa que al menos una (o ambas) de las variables si ayudan a explicar la media de la variable respuesta.</p>
 <p>Otra forma de aplicar la prueba de significancia de la regresión es usando la función <code>summary</code> la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ph2.html#cb10-1" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="ph2.html#cb109-1" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tiempo ~ cantidad + distancia, data = softdrink, 
@@ -693,48 +706,48 @@ donde <span class="math inline">\(SS_R(complete)\)</span> es la suma de cuadrado
 </p>
 <p><strong>Solución</strong></p>
 <p>Primero veamos los datos.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ph2.html#cb12-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb12-2"><a href="ph2.html#cb12-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
-<span id="cb12-3"><a href="ph2.html#cb12-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ph2.html#cb111-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb111-2"><a href="ph2.html#cb111-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb111-3"><a href="ph2.html#cb111-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##      y     x1 x2    x3    x4 x5 x6 x7 x8 x9
 ## 1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
 ## 2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
 ## 3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
 ## 4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
 <p>Ajustemos los dos modelos de interés.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ph2.html#cb14-1" tabindex="-1"></a>redu_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span>
-<span id="cb14-2"><a href="ph2.html#cb14-2" tabindex="-1"></a>comp_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ph2.html#cb113-1" tabindex="-1"></a>redu_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span>
+<span id="cb113-2"><a href="ph2.html#cb113-2" tabindex="-1"></a>comp_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>En este ejercicio nos interesa estudiar el siguiente conjunto de hipótesis.</p>
 <p><span class="math display">\[\begin{align}
 H_0 &amp;: \beta_3 = \beta_4 = 0 \\
 H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{3} \, \text{o} \, \beta_{4} \, \text{es diferente de cero}
 \end{align}\]</span></p>
 <p>Ahora construyamos el estadístico <span class="math inline">\(F_0\)</span>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="ph2.html#cb15-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span> <span class="co"># numero de observaciones</span></span>
-<span id="cb15-2"><a href="ph2.html#cb15-2" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># numero de betas en modelo reducido</span></span>
-<span id="cb15-3"><a href="ph2.html#cb15-3" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># numero de betas en modelo completo</span></span>
-<span id="cb15-4"><a href="ph2.html#cb15-4" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="ph2.html#cb15-5" tabindex="-1"></a>ssr_reduced  <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(redu_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb15-6"><a href="ph2.html#cb15-6" tabindex="-1"></a>ssr_complete <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(comp_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb15-7"><a href="ph2.html#cb15-7" tabindex="-1"></a>ms_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb15-8"><a href="ph2.html#cb15-8" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> ((ssr_complete <span class="sc">-</span> ssr_reduced) <span class="sc">/</span> (p1<span class="sc">-</span>p0)) <span class="sc">/</span> ms_res</span>
-<span id="cb15-9"><a href="ph2.html#cb15-9" tabindex="-1"></a>F0</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ph2.html#cb114-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span> <span class="co"># numero de observaciones</span></span>
+<span id="cb114-2"><a href="ph2.html#cb114-2" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># numero de betas en modelo reducido</span></span>
+<span id="cb114-3"><a href="ph2.html#cb114-3" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># numero de betas en modelo completo</span></span>
+<span id="cb114-4"><a href="ph2.html#cb114-4" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="ph2.html#cb114-5" tabindex="-1"></a>ssr_reduced  <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(redu_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb114-6"><a href="ph2.html#cb114-6" tabindex="-1"></a>ssr_complete <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(comp_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb114-7"><a href="ph2.html#cb114-7" tabindex="-1"></a>ms_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb114-8"><a href="ph2.html#cb114-8" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> ((ssr_complete <span class="sc">-</span> ssr_reduced) <span class="sc">/</span> (p1<span class="sc">-</span>p0)) <span class="sc">/</span> ms_res</span>
+<span id="cb114-9"><a href="ph2.html#cb114-9" tabindex="-1"></a>F0</span></code></pre></div>
 <pre><code>## [1] 0.2831532</code></pre>
 <p>Ahora vamos a calcular el parámetro de no centralidad <span class="math inline">\(\lambda\)</span>. Recuerde revisar la página 90 de <span class="citation">(<a href="#ref-Montgomery12">D. C. Montgomery, Peck, and Vining 2012</a>)</span> para conocer su expresión.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="ph2.html#cb17-1" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.3233333</span>, <span class="sc">-</span><span class="fl">0.2176622</span>), <span class="at">ncol=</span><span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="ph2.html#cb17-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb17-3"><a href="ph2.html#cb17-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb17-4"><a href="ph2.html#cb17-4" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">t</span>(beta2) <span class="sc">%*%</span> <span class="fu">t</span>(x2)</span>
-<span id="cb17-5"><a href="ph2.html#cb17-5" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">diag</span>(n) <span class="sc">-</span> x1 <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x1) <span class="sc">%*%</span> x1) <span class="sc">%*%</span> <span class="fu">t</span>(x1)</span>
-<span id="cb17-6"><a href="ph2.html#cb17-6" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> x2 <span class="sc">%*%</span> beta2</span>
-<span id="cb17-7"><a href="ph2.html#cb17-7" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> (a1 <span class="sc">%*%</span> a2 <span class="sc">%*%</span> a3) <span class="sc">/</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb17-8"><a href="ph2.html#cb17-8" tabindex="-1"></a>lambda</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ph2.html#cb116-1" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.3233333</span>, <span class="sc">-</span><span class="fl">0.2176622</span>), <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb116-2"><a href="ph2.html#cb116-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb116-3"><a href="ph2.html#cb116-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb116-4"><a href="ph2.html#cb116-4" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">t</span>(beta2) <span class="sc">%*%</span> <span class="fu">t</span>(x2)</span>
+<span id="cb116-5"><a href="ph2.html#cb116-5" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">diag</span>(n) <span class="sc">-</span> x1 <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x1) <span class="sc">%*%</span> x1) <span class="sc">%*%</span> <span class="fu">t</span>(x1)</span>
+<span id="cb116-6"><a href="ph2.html#cb116-6" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> x2 <span class="sc">%*%</span> beta2</span>
+<span id="cb116-7"><a href="ph2.html#cb116-7" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> (a1 <span class="sc">%*%</span> a2 <span class="sc">%*%</span> a3) <span class="sc">/</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb116-8"><a href="ph2.html#cb116-8" tabindex="-1"></a>lambda</span></code></pre></div>
 <pre><code>##           [,1]
 ## [1,] 0.5663064</code></pre>
 <p>Ahora vamos a calcular el valor-P de la prueba usando la distribución F no central y la distribució F (usual) así:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="ph2.html#cb19-1" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">ncp=</span>lambda, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ph2.html#cb118-1" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">ncp=</span>lambda, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8088857</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="ph2.html#cb21-1" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ph2.html#cb120-1" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.7565282</code></pre>
 <p>Usando el último valor-P que es mayor que un nivel de significancia <span class="math inline">\(\alpha\)</span>, no hay evidencias para rechazar <span class="math inline">\(H_0: \beta_3 = \beta_4 = 0\)</span>, y por lo tanto podemos concluir que las variables <code>x3</code> y <code>x4</code> no mejoran el modelo.</p>
 </div>
@@ -747,7 +760,7 @@ H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{3} \, \text{o} \,
 <li>comparar modelos anidados.</li>
 </ul>
 <p>El método S3 <code>anova.lm</code> (o simplemente <code>anova</code>) tiene la estructura mostrada a continuación.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="ph2.html#cb23-1" tabindex="-1"></a><span class="fu">anova</span>(object, test, <span class="at">scale=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ph2.html#cb122-1" tabindex="-1"></a><span class="fu">anova</span>(object, test, <span class="at">scale=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -770,10 +783,10 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 <p>La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (<code>mod0</code>) hasta uno con todas las covariables (<code>mod3</code>). En la segunda parte se analizará el modelo con todas las covariables directamente.</p>
 <p><strong>Primera parte</strong></p>
 <p>A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo <code>Horsepower</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ph2.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb24-2"><a href="ph2.html#cb24-2" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>Cars93)</span>
-<span id="cb24-3"><a href="ph2.html#cb24-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower, <span class="at">data=</span>Cars93)</span>
-<span id="cb24-4"><a href="ph2.html#cb24-4" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="ph2.html#cb123-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb123-2"><a href="ph2.html#cb123-2" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>Cars93)</span>
+<span id="cb123-3"><a href="ph2.html#cb123-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower, <span class="at">data=</span>Cars93)</span>
+<span id="cb123-4"><a href="ph2.html#cb123-4" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ 1
@@ -785,8 +798,8 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior se tiene que el valor-P es &lt; 2.2e-16 y por lo tanto se concluye que la variable <code>Horsepower</code> mejora el modelo (la misma conclusión se pudo obtener del <code>summary</code>).</p>
 <p>Ahora vamos a crear y comparar el modelo con sólo <code>Horsepower</code> con el modelo con <code>Horsepower</code> y <code>Type</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ph2.html#cb26-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type, <span class="at">data=</span>Cars93)</span>
-<span id="cb26-2"><a href="ph2.html#cb26-2" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ph2.html#cb125-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type, <span class="at">data=</span>Cars93)</span>
+<span id="cb125-2"><a href="ph2.html#cb125-2" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ Horsepower
@@ -798,8 +811,8 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior se tiene que el valor-P es 0.01337 y por lo tanto se concluye que el modelo <code>mod2</code> con dos covariables explica mejor la variable <code>Price</code>.</p>
 <p>Ahora vamos a crear y comparar el modelo con <code>Horsepower</code> y <code>Type</code> con el modelo con las tres covariables.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ph2.html#cb28-1" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type <span class="sc">+</span> Weight, <span class="at">data=</span>Cars93)</span>
-<span id="cb28-2"><a href="ph2.html#cb28-2" tabindex="-1"></a><span class="fu">anova</span>(mod2, mod3)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ph2.html#cb127-1" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type <span class="sc">+</span> Weight, <span class="at">data=</span>Cars93)</span>
+<span id="cb127-2"><a href="ph2.html#cb127-2" tabindex="-1"></a><span class="fu">anova</span>(mod2, mod3)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: Price ~ Horsepower + Type
@@ -810,7 +823,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 <p>De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable <code>Weight</code> no mejora el modelo <code>mod2</code> (la misma conclusión se pudo obtener del <code>summary</code>).</p>
 <p><strong>Segunda parte</strong></p>
 <p>En esta segunda parte del ejemplo se usará la función <code>anova</code> directamente sobre el modelo completo <code>mod3</code>, a continuación los resultados.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ph2.html#cb30-1" tabindex="-1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="ph2.html#cb129-1" tabindex="-1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Price
@@ -836,22 +849,22 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 </p>
 <p><strong>Solución</strong></p>
 <p>Para este ejemplo vamos a usar los datos que se muestran a continuación.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ph2.html#cb32-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb32-2"><a href="ph2.html#cb32-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
-<span id="cb32-3"><a href="ph2.html#cb32-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="ph2.html#cb131-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb131-2"><a href="ph2.html#cb131-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb131-3"><a href="ph2.html#cb131-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##      y     x1 x2    x3    x4 x5 x6 x7 x8 x9
 ## 1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
 ## 2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
 ## 3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
 ## 4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
 <p>Ahora vamos a ajustar ambos modelos usando el siguiente código.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ph2.html#cb34-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
-<span id="cb34-2"><a href="ph2.html#cb34-2" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="ph2.html#cb133-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
+<span id="cb133-2"><a href="ph2.html#cb133-2" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div>
 <p>El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.</p>
 <p><span class="math display">\[H_0: \text{las variables x3 y x4 no mejoran el modelo},\]</span>
 <span class="math display">\[H_A: \text{al menos una de ellas si mejora el modelo}\]</span></p>
 <p>Para comparar los dos modelos usamos la siguiente instrucción.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="ph2.html#cb35-1" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2, <span class="at">test=</span><span class="st">&#39;F&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ph2.html#cb134-1" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2, <span class="at">test=</span><span class="st">&#39;F&#39;</span>)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: y ~ x1 + x2
@@ -869,17 +882,17 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 <h3>Ejemplo<a href="ph2.html#ejemplo-21" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El ejemplo aquí mostrado está basado en una <a href="https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input">pregunta</a> de StackOverFlow.</p>
 <p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(\mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(\mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(\mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="ph2.html#cb37-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></span>
-<span id="cb37-2"><a href="ph2.html#cb37-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="dv">0</span>,    <span class="at">sd=</span><span class="dv">1</span>),</span>
-<span id="cb37-3"><a href="ph2.html#cb37-3" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">sd=</span><span class="dv">1</span>),</span>
-<span id="cb37-4"><a href="ph2.html#cb37-4" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="fl">0.5</span>,  <span class="at">sd=</span><span class="dv">1</span>))</span>
-<span id="cb37-5"><a href="ph2.html#cb37-5" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ph2.html#cb136-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></span>
+<span id="cb136-2"><a href="ph2.html#cb136-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="dv">0</span>,    <span class="at">sd=</span><span class="dv">1</span>),</span>
+<span id="cb136-3"><a href="ph2.html#cb136-3" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">sd=</span><span class="dv">1</span>),</span>
+<span id="cb136-4"><a href="ph2.html#cb136-4" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="fl">0.5</span>,  <span class="at">sd=</span><span class="dv">1</span>))</span>
+<span id="cb136-5"><a href="ph2.html#cb136-5" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">each=</span><span class="dv">10</span>)</span></code></pre></div>
 <p>¿Será la variable cualitativa <code>g</code> significativa en un modelo de regresión?</p>
 <p><strong>Solución</strong></p>
 <p>Vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <code>y</code>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ph2.html#cb38-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> g)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="ph2.html#cb137-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> g)</span></code></pre></div>
 <p>Obviamente esperamos concluir que la media de la variable <code>y</code> dependa de la variable de agrupación <code>g</code>. Para esto vamos a explorar el resultado con la función <code>summary</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="ph2.html#cb39-1" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ph2.html#cb138-1" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ g)
@@ -899,7 +912,7 @@ La función <code>anova</code> se puede aplicar a varios modelos y el resultado 
 ## F-statistic: 4.199 on 2 and 27 DF,  p-value: 0.02583</code></pre>
 <p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <code>y</code>. El lector podría encontrar esto un poco desconcertante.</p>
 <p>Vamos a realizar el análisis pero ahora con la función <code>anova</code>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="ph2.html#cb41-1" tabindex="-1"></a><span class="fu">anova</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ph2.html#cb140-1" tabindex="-1"></a><span class="fu">anova</span>(model)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: y
@@ -936,25 +949,25 @@ Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es 
 <p>¿Será que la inclusión simultánea de las variables <code>x3</code> y <code>x4</code> mejora el modelo para explicar la variable respuesta <code>y</code>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
 <p><strong>Solución</strong></p>
 <p>Para este ejemplo vamos a usar los datos que se muestran a continuación.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ph2.html#cb43-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb43-2"><a href="ph2.html#cb43-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
-<span id="cb43-3"><a href="ph2.html#cb43-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="ph2.html#cb142-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb142-2"><a href="ph2.html#cb142-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb142-3"><a href="ph2.html#cb142-3" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##      y     x1 x2    x3    x4 x5 x6 x7 x8 x9
 ## 1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
 ## 2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
 ## 3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
 ## 4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
 <p>Ahora vamos a ajustar ambos modelos usando el siguiente código.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ph2.html#cb45-1" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
-<span id="cb45-2"><a href="ph2.html#cb45-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="ph2.html#cb144-1" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
+<span id="cb144-2"><a href="ph2.html#cb144-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div>
 <p>El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.</p>
 <p><span class="math display">\[H_0: \text{las variables x3 y x4 no mejoran el modelo},\]</span>
 <span class="math display">\[H_A: \text{al menos una de ellas si mejora el modelo}\]</span></p>
 <p>Para aplicar la prueba razón de verosimilitud usamos el siguiente código. Los grados de libertad en esta prueba son 2 porque esa es la diferencia entre el número de parámetros de los modelos.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ph2.html#cb46-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (<span class="fu">logLik</span>(mod0) <span class="sc">-</span> <span class="fu">logLik</span>(mod1))</span>
-<span id="cb46-2"><a href="ph2.html#cb46-2" tabindex="-1"></a>lambda</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="ph2.html#cb145-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (<span class="fu">logLik</span>(mod0) <span class="sc">-</span> <span class="fu">logLik</span>(mod1))</span>
+<span id="cb145-2"><a href="ph2.html#cb145-2" tabindex="-1"></a>lambda</span></code></pre></div>
 <pre><code>## &#39;log Lik.&#39; 0.7048811 (df=4)</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ph2.html#cb48-1" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q=</span>lambda, <span class="at">df=</span><span class="dv">2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="ph2.html#cb147-1" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q=</span>lambda, <span class="at">df=</span><span class="dv">2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## &#39;log Lik.&#39; 0.7029704 (df=4)</code></pre>
 <p>Como el valor-P es grande, no hay evidencias para rechazar <span class="math inline">\(H_0: \beta_3 = \beta_4 = 0\)</span>, y por lo tanto podemos concluir que las variables <code>x3</code> y <code>x4</code> no mejoran el modelo.</p>
 </div>
@@ -973,10 +986,10 @@ y_i &amp;\sim N(\mu_i, \sigma^2), \\
 <p>¿Será que la inclusión simultánea de las variables <code>x3</code> y <code>x4</code> mejora el modelo para explicar la variable respuesta <code>y</code>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
 <p><strong>Solución</strong></p>
 <p>Lo primero que debemos hacer es ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ph2.html#cb50-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
-<span id="cb50-2"><a href="ph2.html#cb50-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
-<span id="cb50-3"><a href="ph2.html#cb50-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span>
-<span id="cb50-4"><a href="ph2.html#cb50-4" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="ph2.html#cb149-1" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb149-2"><a href="ph2.html#cb149-2" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb149-3"><a href="ph2.html#cb149-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span>
+<span id="cb149-4"><a href="ph2.html#cb149-4" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x1          x2          x3          x4 
 ##   9.8408825   2.4374996   6.4373377   0.3233333  -0.2176622</code></pre>
 <p>En este ejemplo nos interesa estudiar las siguientes dos hipótesis simultáneamente (no individualmente).</p>
@@ -1004,11 +1017,11 @@ H_A &amp;: \beta_{3} \neq 0   &amp;  H_A &amp;: \beta_{4} \neq 0
 \end{pmatrix}
 \]</span></p>
 <p>Teniendo definida la matriz <span class="math inline">\(\boldsymbol{C}\)</span>, el vector <span class="math inline">\(\boldsymbol{a}\)</span> la prueba simultánea de las hipótesis se puede hacer de la siguiente manera.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ph2.html#cb52-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb52-2"><a href="ph2.html#cb52-2" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
-<span id="cb52-3"><a href="ph2.html#cb52-3" tabindex="-1"></a>              <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">5</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb52-4"><a href="ph2.html#cb52-4" tabindex="-1"></a>mult_test <span class="ot">&lt;-</span> <span class="fu">glht</span>(<span class="at">model=</span>mod, <span class="at">linfct=</span>C, <span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>, <span class="at">rhs=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb52-5"><a href="ph2.html#cb52-5" tabindex="-1"></a><span class="fu">summary</span>(mult_test, <span class="at">test =</span> <span class="fu">adjusted</span>(<span class="at">type=</span><span class="st">&quot;single-step&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="ph2.html#cb151-1" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb151-2"><a href="ph2.html#cb151-2" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb151-3"><a href="ph2.html#cb151-3" tabindex="-1"></a>              <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">5</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb151-4"><a href="ph2.html#cb151-4" tabindex="-1"></a>mult_test <span class="ot">&lt;-</span> <span class="fu">glht</span>(<span class="at">model=</span>mod, <span class="at">linfct=</span>C, <span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>, <span class="at">rhs=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb151-5"><a href="ph2.html#cb151-5" tabindex="-1"></a><span class="fu">summary</span>(mult_test, <span class="at">test =</span> <span class="fu">adjusted</span>(<span class="at">type=</span><span class="st">&quot;single-step&quot;</span>))</span></code></pre></div>
 <pre><code>## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 

@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-16" />
+<meta name="date" content="2024-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -270,27 +277,28 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a>
 <ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#función-anova"><i class="fa fa-check"></i>Función <code>anova</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#summary-versus-anova"><i class="fa fa-check"></i><code>summary</code> versus <code>anova</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a>
@@ -298,7 +306,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-normalidad-de-los-errores"><i class="fa fa-check"></i>Chequeando normalidad de los errores</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-con-media-cero"><i class="fa fa-check"></i>Chequeando si errores con media cero</a></li>
@@ -307,10 +315,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-cumpliendo-los-supuestos"><i class="fa fa-check"></i>Ejemplo cumpliendo los supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-violando-los-supuestos-1"><i class="fa fa-check"></i>Ejemplo violando los supuestos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#prueba-de-falta-de-ajuste"><i class="fa fa-check"></i>Prueba de falta de ajuste</a>
+<ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-1-1"><i class="fa fa-check"></i>Ejemplo 1</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-2-1"><i class="fa fa-check"></i>Ejemplo 2</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
@@ -318,26 +332,26 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo:</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#estadística-press-y-r2-de-predicción"><i class="fa fa-check"></i>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#valores-de-corte-para-diagnósticos"><i class="fa fa-check"></i>Valores de corte para diagnósticos</a></li>
 </ul></li>
@@ -345,15 +359,15 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#goldfeld-quandt-test"><i class="fa fa-check"></i>Goldfeld-Quandt Test</a></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#harrison-mccabe-test"><i class="fa fa-check"></i>Harrison-McCabe test</a></li>
@@ -362,11 +376,11 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a>
 <ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a>
 <ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="mod_poli.html"><a href="mod_poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a>
@@ -375,25 +389,25 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#funciones-i-y-poly"><i class="fa fa-check"></i>Funciones <code>I()</code> y <code>poly()</code></a></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-bs"><i class="fa fa-check"></i>Función <code>bs</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-lowess"><i class="fa fa-check"></i>Función <code>lowess</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-loess"><i class="fa fa-check"></i>Función <code>loess</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a>
 <ul>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-nlminb"><i class="fa fa-check"></i>Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
@@ -404,7 +418,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#función-stepaic"><i class="fa fa-check"></i>Función <code>stepAIC</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-backward"><i class="fa fa-check"></i>Aplicación del método <strong>backward</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-forward"><i class="fa fa-check"></i>Aplicación del método <strong>forward</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-both"><i class="fa fa-check"></i>Aplicación del método <strong>both</strong></a></li>
@@ -412,19 +426,19 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-addterm-y-dropterm"><i class="fa fa-check"></i>Funciones <code>addterm</code> y <code>dropterm</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-olsrr"><i class="fa fa-check"></i>Paquete <strong>olsrr</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-mixlm"><i class="fa fa-check"></i>Paquete <strong>mixlm</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-leaps"><i class="fa fa-check"></i>Paquete <strong>leaps</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="feature_selec.html"><a href="feature_selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a>
@@ -438,24 +452,24 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#cómo-identificar-la-multicolinealidad"><i class="fa fa-check"></i>¿Cómo identificar la multicolinealidad?</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a>
 <ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a>
@@ -466,13 +480,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
 <ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a>
 <ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a>
 <ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-54"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#fast-lm-in-r"><i class="fa fa-check"></i>Fast <code>lm</code> in R</a></li>
@@ -510,11 +524,11 @@ div.csl-indent {
 <div id="función-predict" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>predict</code><a href="predict.html#función-predict" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>predict</code> es una función genérica de clase S3 que se puede aplicar a un modelo ajustado para obtener los valores de <span class="math inline">\(\hat{y}\)</span>. Abajo se muestra la estructura de la función <code>predict</code> con la lista de sus argumentos.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="predict.html#cb1-1" tabindex="-1"></a><span class="fu">predict.lm</span>(object, newdata, <span class="at">se.fit =</span> <span class="cn">FALSE</span>, <span class="at">scale =</span> <span class="cn">NULL</span>, <span class="at">df =</span> <span class="cn">Inf</span>, </span>
-<span id="cb1-2"><a href="predict.html#cb1-2" tabindex="-1"></a>    <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;confidence&quot;</span>, <span class="st">&quot;prediction&quot;</span>), </span>
-<span id="cb1-3"><a href="predict.html#cb1-3" tabindex="-1"></a>    <span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;response&quot;</span>, <span class="st">&quot;terms&quot;</span>), </span>
-<span id="cb1-4"><a href="predict.html#cb1-4" tabindex="-1"></a>    <span class="at">terms =</span> <span class="cn">NULL</span>, <span class="at">na.action =</span> na.pass, <span class="at">pred.var =</span> res.var<span class="sc">/</span>weights, </span>
-<span id="cb1-5"><a href="predict.html#cb1-5" tabindex="-1"></a>    <span class="at">weights =</span> <span class="dv">1</span>, ...) </span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="predict.html#cb41-1" tabindex="-1"></a><span class="fu">predict.lm</span>(object, newdata, <span class="at">se.fit =</span> <span class="cn">FALSE</span>, <span class="at">scale =</span> <span class="cn">NULL</span>, <span class="at">df =</span> <span class="cn">Inf</span>, </span>
+<span id="cb41-2"><a href="predict.html#cb41-2" tabindex="-1"></a>    <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;confidence&quot;</span>, <span class="st">&quot;prediction&quot;</span>), </span>
+<span id="cb41-3"><a href="predict.html#cb41-3" tabindex="-1"></a>    <span class="at">level =</span> <span class="fl">0.95</span>, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;response&quot;</span>, <span class="st">&quot;terms&quot;</span>), </span>
+<span id="cb41-4"><a href="predict.html#cb41-4" tabindex="-1"></a>    <span class="at">terms =</span> <span class="cn">NULL</span>, <span class="at">na.action =</span> na.pass, <span class="at">pred.var =</span> res.var<span class="sc">/</span>weights, </span>
+<span id="cb41-5"><a href="predict.html#cb41-5" tabindex="-1"></a>    <span class="at">weights =</span> <span class="dv">1</span>, ...) </span></code></pre></div>
 <div id="ejemplo-4" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="predict.html#ejemplo-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos <code>longley</code>. Luego de ajustar el modelo queremos predecir el valor de <span class="math inline">\(E(Employed|x=x_0)\)</span> en dos situaciones:</p>
@@ -524,10 +538,10 @@ div.csl-indent {
 </ul>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es ajustar el modelo así.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="predict.html#cb2-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Employed <span class="sc">~</span> Unemployed <span class="sc">+</span> Armed.Forces <span class="sc">+</span> Year, <span class="at">data=</span>longley)</span>
-<span id="cb2-2"><a href="predict.html#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="predict.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb2-4"><a href="predict.html#cb2-4" tabindex="-1"></a><span class="fu">tidy</span>(mod, <span class="at">quick=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="predict.html#cb42-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Employed <span class="sc">~</span> Unemployed <span class="sc">+</span> Armed.Forces <span class="sc">+</span> Year, <span class="at">data=</span>longley)</span>
+<span id="cb42-2"><a href="predict.html#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="predict.html#cb42-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb42-4"><a href="predict.html#cb42-4" tabindex="-1"></a><span class="fu">tidy</span>(mod, <span class="at">quick=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   term            estimate std.error statistic  p.value
 ##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -541,15 +555,15 @@ div.csl-indent {
 \]</span></p>
 <p>Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular <span class="math inline">\(E(Employed|x=x_0)\)</span>. Sin embargo, aquí lo vamos a realizar usando la función <code>predict</code>.</p>
 <p>Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="predict.html#cb4-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year=</span><span class="fu">c</span>(<span class="dv">1963</span>, <span class="dv">1964</span>),</span>
-<span id="cb4-2"><a href="predict.html#cb4-2" tabindex="-1"></a>                    <span class="at">Unemployed=</span><span class="fu">c</span>(<span class="dv">420</span>, <span class="dv">430</span>),</span>
-<span id="cb4-3"><a href="predict.html#cb4-3" tabindex="-1"></a>                    <span class="at">Armed.Forces=</span><span class="fu">c</span>(<span class="dv">270</span>, <span class="dv">250</span>))</span>
-<span id="cb4-4"><a href="predict.html#cb4-4" tabindex="-1"></a>nuevo</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="predict.html#cb44-1" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year=</span><span class="fu">c</span>(<span class="dv">1963</span>, <span class="dv">1964</span>),</span>
+<span id="cb44-2"><a href="predict.html#cb44-2" tabindex="-1"></a>                    <span class="at">Unemployed=</span><span class="fu">c</span>(<span class="dv">420</span>, <span class="dv">430</span>),</span>
+<span id="cb44-3"><a href="predict.html#cb44-3" tabindex="-1"></a>                    <span class="at">Armed.Forces=</span><span class="fu">c</span>(<span class="dv">270</span>, <span class="dv">250</span>))</span>
+<span id="cb44-4"><a href="predict.html#cb44-4" tabindex="-1"></a>nuevo</span></code></pre></div>
 <pre><code>##   Year Unemployed Armed.Forces
 ## 1 1963        420          270
 ## 2 1964        430          250</code></pre>
 <p>Ahora ya podemos usar la función <code>predict</code> para obtener lo solicitado.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="predict.html#cb6-1" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod, <span class="at">newdata=</span>nuevo)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="predict.html#cb46-1" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod, <span class="at">newdata=</span>nuevo)</span></code></pre></div>
 <pre><code>##        1        2 
 ## 71.89467 72.85853</code></pre>
 <p>De la salida anterior tenemos los valores de <span class="math inline">\(\widehat{Employed}\)</span>.</p>
@@ -588,19 +602,19 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 </ul>
 <p><strong>Solución</strong></p>
 <p>Lo primero es disponer los datos.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="predict.html#cb8-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb8-2"><a href="predict.html#cb8-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="predict.html#cb48-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb48-2"><a href="predict.html#cb48-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Luego se ajusta el modelo.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="predict.html#cb9-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="predict.html#cb49-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>Para obtener el IC del 95% para <span class="math inline">\(E(Y|x_0)\)</span> para <span class="math inline">\(x_0=13\)</span> y <span class="math inline">\(x_0=2\)</span> se usa el siguiente código.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="predict.html#cb10-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">2</span>))</span>
-<span id="cb10-2"><a href="predict.html#cb10-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="predict.html#cb50-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">2</span>))</span>
+<span id="cb50-2"><a href="predict.html#cb50-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 2144.826 2099.623 2190.028
 ## 2 2553.515 2471.083 2635.947</code></pre>
 <p>Para obtener el IC del 90% para <span class="math inline">\(\hat{Y}_0\)</span> cuando <span class="math inline">\(x_0=10\)</span> semanas se usa el siguiente código.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="predict.html#cb12-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="dv">10</span>)</span>
-<span id="cb12-2"><a href="predict.html#cb12-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.90</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="predict.html#cb52-1" tabindex="-1"></a>new_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Edad=</span><span class="dv">10</span>)</span>
+<span id="cb52-2"><a href="predict.html#cb52-2" tabindex="-1"></a><span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">newdata=</span>new_dt, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.90</span>)</span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 2256.286 2084.688 2427.885</code></pre>
 
@@ -608,16 +622,16 @@ Error, nos sale un error. No se le ocurra usar nombres diferentes.
 Observe que en el primer caso se usó <code>interval="confidence"</code> mientras que en el segundo se usó <code>interval="prediction"</code>.
 </div>
 <p>Ahora vamos a obtener todos los IC <span class="math inline">\(\hat{Y}_0\)</span> y los vamos a almacenar en el objeto <code>future_y</code> que luego luego vamos a agregar al marco de datos original.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="predict.html#cb14-1" tabindex="-1"></a>future_y <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
-<span id="cb14-2"><a href="predict.html#cb14-2" tabindex="-1"></a>nuevos_datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(datos, future_y)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="predict.html#cb54-1" tabindex="-1"></a>future_y <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="at">object=</span>mod1, <span class="at">interval=</span><span class="st">&quot;prediction&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span>
+<span id="cb54-2"><a href="predict.html#cb54-2" tabindex="-1"></a>nuevos_datos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(datos, future_y)</span></code></pre></div>
 <p>Con el código mostrado a continuación se construye el diagrama de dispersión y se agrega la línea de regresión (en azul) y los IC para <span class="math inline">\(E(Y|x_0)\)</span> (en rosado) por medio de <code>geom_smooth</code>. Los IC para <span class="math inline">\(\hat{Y}_0\)</span> (en rojo) se agregan por medio de <code>geom_line.</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="predict.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="predict.html#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(nuevos_datos, <span class="fu">aes</span>(<span class="at">x=</span>Edad, <span class="at">y=</span>Resistencia))<span class="sc">+</span></span>
-<span id="cb15-3"><a href="predict.html#cb15-3" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-4"><a href="predict.html#cb15-4" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="predict.html#cb15-5" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="predict.html#cb15-6" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">formula=</span>y<span class="sc">~</span>x, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;pink2&#39;</span>) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="predict.html#cb15-7" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="predict.html#cb55-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb55-2"><a href="predict.html#cb55-2" tabindex="-1"></a><span class="fu">ggplot</span>(nuevos_datos, <span class="fu">aes</span>(<span class="at">x=</span>Edad, <span class="at">y=</span>Resistencia))<span class="sc">+</span></span>
+<span id="cb55-3"><a href="predict.html#cb55-3" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb55-4"><a href="predict.html#cb55-4" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="predict.html#cb55-5" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr), <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="predict.html#cb55-6" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="at">formula=</span>y<span class="sc">~</span>x, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">level=</span><span class="fl">0.95</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;pink2&#39;</span>) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="predict.html#cb55-7" tabindex="-1"></a>    <span class="fu">theme_light</span>()</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/predict_sold_1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>De la figura anterior se observa claramente que los IC para <span class="math inline">\(\hat{Y}_0\)</span> son siempre más anchos que los IC para <span class="math inline">\(E(Y|x_0)\)</span>.</p>
 
