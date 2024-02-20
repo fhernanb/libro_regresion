@@ -314,6 +314,11 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#prueba-de-falta-de-ajuste"><i class="fa fa-check"></i>Prueba de falta de ajuste</a>
+<ul>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-1-1"><i class="fa fa-check"></i>Ejemplo 1</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-2-1"><i class="fa fa-check"></i>Ejemplo 2</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
 <ul>
@@ -681,7 +686,7 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  ei
-## W = 0.99656, p-value = 0.3637</code></pre>
+## W = 0.9967, p-value = 0.3996</code></pre>
 <p>De la salida anterior vemos que el valor-p es mayor que un nivel de significancia del 7 por ciento, eso significa que no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
 
 <div class="rmdnote">
@@ -727,7 +732,7 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  ei
-## W = 0.92096, p-value = 1.565e-15</code></pre>
+## W = 0.93148, p-value = 2.307e-14</code></pre>
 <p>De la salida anterior vemos que el valor-p es menor que un nivel de significancia del 7 por ciento, eso significa que no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
 </div>
 <div id="ejemplo-violando-los-supuestos-1" class="section level3 unnumbered hasAnchor">
@@ -769,7 +774,7 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  ei
-## W = 0.90946, p-value &lt; 2.2e-16</code></pre>
+## W = 0.90172, p-value &lt; 2.2e-16</code></pre>
 <p>De la salida anterior vemos que el valor-p es menor que un nivel de significancia del 7 por ciento, eso significa que no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
 </div>
 </div>
@@ -839,6 +844,93 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 ## 2     92 4292.5  1    388.74 8.3317 0.004854 **
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+<div id="prueba-de-falta-de-ajuste" class="section level2 unnumbered hasAnchor">
+<h2>Prueba de falta de ajuste<a href="diag1.html#prueba-de-falta-de-ajuste" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para el caso de la RLS, se quiere probar:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{cases}
+H_0:\ E(Y_i) = E(Y\vert X_i) = \beta_0 + \beta_1 X_i\\ \\
+H_1:\ E(Y_i) = E(Y\vert X_i) \neq \beta_0 + \beta_1 X_i
+\end{cases}
+\end{aligned}
+\]</span></p>
+<p>Para aplicar esta prueba construye la tabla anova de la siguiente manera:</p>
+<p>Bajo la hipótesis nula <span class="math inline">\({H_0:\ E(Y_i) = \beta_0 + \beta_1x_i}\)</span>, el estadístico se distribuye como una <span class="math inline">\(F\)</span> con <span class="math inline">\((m - 2)\)</span> y <span class="math inline">\((n - m)\)</span> grados de libertad. Así, a un nivel de significancia <span class="math inline">\({\alpha}\)</span> <strong>se rechaza la hipótesis nula de que el modelo lineal es adecuado</strong> (en favor de la hipótesis de que el modelo lineal tiene falta de ajuste) si <span class="math inline">\({F_0 &gt; F_{\alpha, m - 2, n - m}}\)</span>.</p>
+<div id="ejemplo-1-1" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo 1<a href="diag1.html#ejemplo-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que se tienen los siguientes datos.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="diag1.html#cb29-1" tabindex="-1"></a><span class="co"># Example for section 4.5 Montgomery, Peck &amp; Vining (2006)</span></span>
+<span id="cb29-2"><a href="diag1.html#cb29-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.7</span>, <span class="fl">5.0</span>,</span>
+<span id="cb29-3"><a href="diag1.html#cb29-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
+<span id="cb29-4"><a href="diag1.html#cb29-4" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="diag1.html#cb29-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.84</span>, <span class="fl">9.30</span>, <span class="fl">16.35</span>, <span class="fl">22.88</span>, <span class="fl">24.35</span>, <span class="fl">24.56</span>, <span class="fl">25.86</span>,</span>
+<span id="cb29-6"><a href="diag1.html#cb29-6" tabindex="-1"></a>       <span class="fl">29.16</span>, <span class="fl">24.59</span>, <span class="fl">22.25</span>, <span class="fl">25.90</span>, <span class="fl">27.20</span>, <span class="fl">25.61</span>, <span class="fl">25.45</span>,</span>
+<span id="cb29-7"><a href="diag1.html#cb29-7" tabindex="-1"></a>       <span class="fl">26.56</span>, <span class="fl">21.03</span>, <span class="fl">21.46</span>)</span></code></pre></div>
+<p>¿Es el modelo de regresión lineal simple apropiado para explicar <span class="math inline">\(Y\)</span> en función de <span class="math inline">\(X\)</span>?</p>
+<p><strong>Solución</strong></p>
+<p>Primero exploremos la relación entre las variables.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="diag1.html#cb30-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/lof01-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Luego vamos a ajustar el modelo.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="diag1.html#cb31-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<p>Luego construimos la tabla anova por medio de la función <code>lack_fit_test</code> del paquete <strong>model</strong>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="diag1.html#cb32-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="fu">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb32-2"><a href="diag1.html#cb32-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Luego de esto ya podemos usar la función <code>lack_fit_test</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="diag1.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb33-2"><a href="diag1.html#cb33-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
+<pre><code>## Lack of fit test - Anova Table
+##             Sum Sq Df Mean Sq F value   Pr(&gt;F)   
+## Regression  237.48  1 237.479  14.241 0.001839 **
+## Residuals   250.13 15  16.676                    
+## Lack of fit 234.57  8  29.321  13.188 0.001389 **
+## Pure error   15.56  7   2.223                    
+## Total       487.61 16                            
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De la salida anterior tenemos un valor-P de 0.001389 con lo cual podemos decir que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="diag1.html#cb35-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb35-2"><a href="diag1.html#cb35-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/lof02-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-2-1" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo 2<a href="diag1.html#ejemplo-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que se tienen los siguientes datos.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="diag1.html#cb36-1" tabindex="-1"></a><span class="co"># Example 9.6 Montgomery &amp; Runger (1996)</span></span>
+<span id="cb36-2"><a href="diag1.html#cb36-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>,</span>
+<span id="cb36-3"><a href="diag1.html#cb36-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
+<span id="cb36-4"><a href="diag1.html#cb36-4" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="diag1.html#cb36-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.3</span>, <span class="fl">1.8</span>, <span class="fl">2.8</span>, <span class="fl">1.8</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">2.6</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span>, <span class="fl">3.5</span>,</span>
+<span id="cb36-6"><a href="diag1.html#cb36-6" tabindex="-1"></a>       <span class="fl">2.8</span>, <span class="fl">2.1</span>, <span class="fl">3.4</span>, <span class="fl">3.2</span>, <span class="fl">3.4</span>, <span class="fl">5.0</span>)</span></code></pre></div>
+<p>¿Es el modelo de regresión lineal simple apropiado para explicar <span class="math inline">\(Y\)</span> en función de <span class="math inline">\(X\)</span>?</p>
+<p><strong>Solución</strong></p>
+<p>Primero exploremos la relación entre las variables.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="diag1.html#cb37-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/lof03-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Luego vamos a ajustar el modelo.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="diag1.html#cb38-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<p>Luego construimos la tabla anova por medio de la función <code>lack_fit_test</code> del paquete <strong>model</strong>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="diag1.html#cb39-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="fu">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb39-2"><a href="diag1.html#cb39-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Luego de esto ya podemos usar la función <code>lack_fit_test</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="diag1.html#cb40-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb40-2"><a href="diag1.html#cb40-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
+<pre><code>## Lack of fit test - Anova Table
+##              Sum Sq Df Mean Sq F value  Pr(&gt;F)  
+## Regression   3.4928  1  3.4928  6.6645 0.02174 *
+## Residuals    7.3372 14  0.5241                  
+## Lack of fit  4.3005  7  0.6144  1.4162 0.32882  
+## Pure error   3.0367  7  0.4338                  
+## Total       10.8300 15                          
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De la salida anterior tenemos un valor-P de 0.32882 con lo cual podemos decir que NO hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="diag1.html#cb42-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span>
+<span id="cb42-2"><a href="diag1.html#cb42-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;mediumpurple2&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/lof04-1.png" width="576" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
