@@ -1,9 +1,10 @@
 fig:summary01
-fig:unnamed-chunk-54
+fig:unnamed-chunk-62
 fig:cuali02
 fig:selection01
 fig:selection02
 rls
+trans
 rlm
 predict
 simul

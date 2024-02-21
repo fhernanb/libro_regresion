@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Regresión lineal múltiple | Modelos de Regresión con R</title>
+  <title>3 Regresión lineal múltiple | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Regresión lineal múltiple | Modelos de Regresión con R" />
+  <meta property="og:title" content="3 Regresión lineal múltiple | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Regresión lineal múltiple | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="3 Regresión lineal múltiple | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="/images/cover.png" />
@@ -25,14 +25,14 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-19" />
+<meta name="date" content="2024-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rls.html"/>
+<link rel="prev" href="trans.html"/>
 <link rel="next" href="predict.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -198,115 +198,122 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="rls.html"><a href="rls.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal múltiple</a>
+<li class="chapter" data-level="2" data-path="trans.html"><a href="trans.html"><i class="fa fa-check"></i><b>2</b> Transformaciones</a>
+<ul>
+<li class="chapter" data-level="" data-path="trans.html"><a href="trans.html#transformaciones-para-linealizar-el-modelo"><i class="fa fa-check"></i>Transformaciones para linealizar el modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="trans.html"><a href="trans.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rlm.html"><a href="rlm.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal múltiple</a>
 <ul>
 <li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#modelo-estadístico-1"><i class="fa fa-check"></i>Modelo estadístico</a>
 <ul>
-<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-3"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="rlm.html"><a href="rlm.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>3</b> Predicción</a>
+<li class="chapter" data-level="4" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>4</b> Predicción</a>
 <ul>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#función-predict"><i class="fa fa-check"></i>Función <code>predict</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-4"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-respuesta-media-eyx_0"><i class="fa fa-check"></i>Intervalo de confianza para la respuesta media <span class="math inline">\(E(Y|x_0)\)</span></a></li>
 <li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#intervalo-de-confianza-para-la-predicción-de-nuevas-observaciones"><i class="fa fa-check"></i>Intervalo de confianza para la predicción de nuevas observaciones</a>
 <ul>
-<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-5"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="predict.html"><a href="predict.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>4</b> Simulación</a>
+<li class="chapter" data-level="5" data-path="simul.html"><a href="simul.html"><i class="fa fa-check"></i><b>5</b> Simulación</a>
 <ul>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#preguntas-sobre-simulación-en-stackoverflow"><i class="fa fa-check"></i>Preguntas sobre simulación en StackOverFlow</a></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#simulando-datos-de-un-modelo-lineal"><i class="fa fa-check"></i>Simulando datos de un modelo lineal</a>
 <ul>
-<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-6"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#función-simulate"><i class="fa fa-check"></i>Función <code>simulate</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-7"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#otras-herramientas-para-simular"><i class="fa fa-check"></i>Otras herramientas para simular</a></li>
 <li class="chapter" data-level="" data-path="simul.html"><a href="simul.html#videos-sugeridos"><i class="fa fa-check"></i>Videos sugeridos</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>5</b> Intervalos de confianza</a>
+<li class="chapter" data-level="6" data-path="ic.html"><a href="ic.html"><i class="fa fa-check"></i><b>6</b> Intervalos de confianza</a>
 <ul>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint"><i class="fa fa-check"></i>Función <code>confint</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-8"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#función-confint_sigma2"><i class="fa fa-check"></i>Función <code>confint_sigma2</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-9"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ic.html"><a href="ic.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>6</b> Modelos con variables cualitativas</a>
+<li class="chapter" data-level="7" data-path="varcuali.html"><a href="varcuali.html"><i class="fa fa-check"></i><b>7</b> Modelos con variables cualitativas</a>
 <ul>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#es-posible-incluir-variables-cualitativas"><i class="fa fa-check"></i>¿Es posible incluir variables cualitativas?</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#variable-indicadora-dummy-ficticia-o-binaria"><i class="fa fa-check"></i>Variable indicadora, dummy, ficticia o binaria</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#creando-variables-indicadoras"><i class="fa fa-check"></i>Creando variables indicadoras</a>
 <ul>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-10"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#modelos-con-variables-cualitativas"><i class="fa fa-check"></i>Modelos con variables cualitativas</a>
 <ul>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-11"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#significancia-de-variables-cualitativas"><i class="fa fa-check"></i>Significancia de variables cualitativas</a>
 <ul>
-<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-12"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-13"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="varcuali.html"><a href="varcuali.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>7</b> Pruebas de hipótesis parte I</a>
+<li class="chapter" data-level="8" data-path="ph1.html"><a href="ph1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte I</a>
 <ul>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#pruebas-sobre-los-coeficientes-beta"><i class="fa fa-check"></i>Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span></a></li>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-summary-cuando-beta_j0-0"><i class="fa fa-check"></i>Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-14"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0"><i class="fa fa-check"></i>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-15"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph1.html"><a href="ph1.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis parte II</a>
+<li class="chapter" data-level="9" data-path="ph2.html"><a href="ph2.html"><i class="fa fa-check"></i><b>9</b> Pruebas de hipótesis parte II</a>
 <ul>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-sobre-todos-los-coeficientes"><i class="fa fa-check"></i>Prueba sobre todos los coeficientes</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-16"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-17"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-para-comparar-modelos-anidados"><i class="fa fa-check"></i>Prueba para comparar modelos anidados</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-18"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#función-anova"><i class="fa fa-check"></i>Función <code>anova</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-19"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-20"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#summary-versus-anova"><i class="fa fa-check"></i><code>summary</code> versus <code>anova</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-21"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#prueba-razón-de-verosimilitud"><i class="fa fa-check"></i>Prueba razón de verosimilitud</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-22"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#comparaciones-múltiples"><i class="fa fa-check"></i>Comparaciones múltiples</a>
 <ul>
-<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-23"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="ph2.html"><a href="ph2.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>9</b> Diagnósticos parte I</a>
+<li class="chapter" data-level="10" data-path="diag1.html"><a href="diag1.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte I</a>
 <ul>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#supuestos"><i class="fa fa-check"></i>Supuestos</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#residuales"><i class="fa fa-check"></i>Residuales</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-24"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-normalidad-de-los-errores"><i class="fa fa-check"></i>Chequeando normalidad de los errores</a></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#chequeando-si-errores-con-media-cero"><i class="fa fa-check"></i>Chequeando si errores con media cero</a></li>
@@ -319,7 +326,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#gráficos-de-residuales-usando-car"><i class="fa fa-check"></i>Gráficos de residuales usando car</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#prueba-de-falta-de-ajuste"><i class="fa fa-check"></i>Prueba de falta de ajuste</a>
 <ul>
@@ -327,98 +334,98 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="diag1.html"><a href="diag1.html#ejemplo-2-1"><i class="fa fa-check"></i>Ejemplo 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>10</b> Diagnósticos parte II</a>
+<li class="chapter" data-level="11" data-path="diag2.html"><a href="diag2.html"><i class="fa fa-check"></i><b>11</b> Diagnósticos parte II</a>
 <ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#matriz-sombrero-o-hat"><i class="fa fa-check"></i>Matriz sombrero o hat</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#qué-es-extrapolación-oculta"><i class="fa fa-check"></i>¿Qué es extrapolación oculta?</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-27"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#distancia-de-cook"><i class="fa fa-check"></i>Distancia de Cook</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-28"><i class="fa fa-check"></i>Ejemplo:</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dffits"><i class="fa fa-check"></i>DFFITS</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#dfbetas"><i class="fa fa-check"></i>DFBETAS</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-29"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#estadística-press-y-r2-de-predicción"><i class="fa fa-check"></i>Estadística PRESS y <span class="math inline">\(R^2\)</span> de predicción</a>
 <ul>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-30"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#valores-de-corte-para-diagnósticos"><i class="fa fa-check"></i>Valores de corte para diagnósticos</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>11</b> Pruebas de Homocedasticidad</a>
+<li class="chapter" data-level="12" data-path="homo.html"><a href="homo.html"><i class="fa fa-check"></i><b>12</b> Pruebas de Homocedasticidad</a>
 <ul>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#breusch-pagan-test"><i class="fa fa-check"></i>Breusch-Pagan Test</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-31"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#white-test"><i class="fa fa-check"></i>White test</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-32"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#score-test-for-nonconstant-error-variance"><i class="fa fa-check"></i>Score test for nonconstant error variance</a>
 <ul>
-<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-33"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#goldfeld-quandt-test"><i class="fa fa-check"></i>Goldfeld-Quandt Test</a></li>
 <li class="chapter" data-level="" data-path="homo.html"><a href="homo.html#harrison-mccabe-test"><i class="fa fa-check"></i>Harrison-McCabe test</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>12</b> Pruebas de independencia de los errores</a>
+<li class="chapter" data-level="13" data-path="indep.html"><a href="indep.html"><i class="fa fa-check"></i><b>13</b> Pruebas de independencia de los errores</a>
 <ul>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#durbin-watson-test"><i class="fa fa-check"></i>Durbin-Watson test</a>
 <ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-34"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#breusch-godfrey-test"><i class="fa fa-check"></i>Breusch-Godfrey Test</a>
 <ul>
-<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-35"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="indep.html"><a href="indep.html#ejemplo-36"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="mod_poli.html"><a href="mod_poli.html"><i class="fa fa-check"></i><b>13</b> Modelos polinomiales</a>
+<li class="chapter" data-level="14" data-path="mod_poli.html"><a href="mod_poli.html"><i class="fa fa-check"></i><b>14</b> Modelos polinomiales</a>
 <ul>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-de-una-o-varias-variables"><i class="fa fa-check"></i>Modelos polinomiales de una o varias variables</a></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#funciones-i-y-poly"><i class="fa fa-check"></i>Funciones <code>I()</code> y <code>poly()</code></a></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#modelos-polinomiales-con-splines"><i class="fa fa-check"></i>Modelos polinomiales con splines</a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-37"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-bs"><i class="fa fa-check"></i>Función <code>bs</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-38"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-39"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-lowess"><i class="fa fa-check"></i>Función <code>lowess</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-40"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-loess"><i class="fa fa-check"></i>Función <code>loess</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-41"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#optimización-con-superficies-de-respuesta"><i class="fa fa-check"></i>Optimización con superficies de respuesta</a>
 <ul>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#función-nlminb"><i class="fa fa-check"></i>Función <code>nlminb</code></a></li>
-<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-42"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mod_poli.html"><a href="mod_poli.html#polinomios-ortogonales"><i class="fa fa-check"></i>Polinomios ortogonales</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>14</b> Selección de variables</a>
+<li class="chapter" data-level="15" data-path="selec.html"><a href="selec.html"><i class="fa fa-check"></i><b>15</b> Selección de variables</a>
 <ul>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#akaike-information-criterion-aic"><i class="fa fa-check"></i>Akaike Information Criterion (<span class="math inline">\(AIC\)</span>)</a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-loglik-y-aic"><i class="fa fa-check"></i>Funciones <code>logLik</code> y <code>AIC</code></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#métodos"><i class="fa fa-check"></i>Métodos</a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#función-stepaic"><i class="fa fa-check"></i>Función <code>stepAIC</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-43"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-backward"><i class="fa fa-check"></i>Aplicación del método <strong>backward</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-forward"><i class="fa fa-check"></i>Aplicación del método <strong>forward</strong></a></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#aplicación-del-método-both"><i class="fa fa-check"></i>Aplicación del método <strong>both</strong></a></li>
@@ -426,77 +433,77 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#funciones-addterm-y-dropterm"><i class="fa fa-check"></i>Funciones <code>addterm</code> y <code>dropterm</code></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-44"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-olsrr"><i class="fa fa-check"></i>Paquete <strong>olsrr</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-45"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-mixlm"><i class="fa fa-check"></i>Paquete <strong>mixlm</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-46"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#paquete-leaps"><i class="fa fa-check"></i>Paquete <strong>leaps</strong></a>
 <ul>
-<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-47"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="selec.html"><a href="selec.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="feature_selec.html"><a href="feature_selec.html"><i class="fa fa-check"></i><b>15</b> Feature selection</a>
+<li class="chapter" data-level="16" data-path="feature_selec.html"><a href="feature_selec.html"><i class="fa fa-check"></i><b>16</b> Feature selection</a>
 <ul>
 <li class="chapter" data-level="" data-path="feature_selec.html"><a href="feature_selec.html#feature-selection-with-the-caret-r-package"><i class="fa fa-check"></i>Feature Selection with the Caret R Package</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>16</b> Multicolinealidad</a>
+<li class="chapter" data-level="17" data-path="multicoli.html"><a href="multicoli.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad</a>
 <ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#qué-es-multicolinealidad"><i class="fa fa-check"></i>¿Qué es multicolinealidad?</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#multicolinealidad-inducida"><i class="fa fa-check"></i>Multicolinealidad inducida</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#cómo-identificar-la-multicolinealidad"><i class="fa fa-check"></i>¿Cómo identificar la multicolinealidad?</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#matriz-de-correlaciones"><i class="fa fa-check"></i>Matriz de correlaciones</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-48"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#factor-de-inflación-de-la-varianza-vif"><i class="fa fa-check"></i>Factor de Inflación de la Varianza (VIF)</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>17</b> Algebra matricial con R</a>
+<li class="chapter" data-level="18" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>18</b> Algebra matricial con R</a>
 <ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>18</b> Notación de Wilkinson y Rogers</a>
+<li class="chapter" data-level="19" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>19</b> Notación de Wilkinson y Rogers</a>
 <ul>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#qué-es-una-fórmula-en-r"><i class="fa fa-check"></i>¿Qué es una fórmula en R?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#para-qué-sirve-la-notación-de-wilkinson-y-rogers"><i class="fa fa-check"></i>¿Para qué sirve la notación de Wilkinson y Rogers?</a></li>
 <li class="chapter" data-level="" data-path="WilRog.html"><a href="WilRog.html#paquete-formula-de-r"><i class="fa fa-check"></i>Paquete Formula de R</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>19</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
+<li class="chapter" data-level="20" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>20</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
 <ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-54"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>20</b> Otros aspectos importantes</a>
+<li class="chapter" data-level="21" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>21</b> Otros aspectos importantes</a>
 <ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a>
 <ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-54"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-55"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#fast-lm-in-r"><i class="fa fa-check"></i>Fast <code>lm</code> in R</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>21</b> Pasos para construir modelos</a>
+<li class="chapter" data-level="22" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>22</b> Pasos para construir modelos</a>
 <ul>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-construir-un-modelo"><i class="fa fa-check"></i>Pasos para construir UN modelo</a></li>
 <li class="chapter" data-level="" data-path="pasos.html"><a href="pasos.html#pasos-para-comparar-varios-modelos"><i class="fa fa-check"></i>Pasos para comparar varios modelos</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="misspecification.html"><a href="misspecification.html"><i class="fa fa-check"></i><b>22</b> Mala especificación</a></li>
+<li class="chapter" data-level="23" data-path="misspecification.html"><a href="misspecification.html"><i class="fa fa-check"></i><b>23</b> Mala especificación</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -518,8 +525,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rlm" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">2</span> Regresión lineal múltiple<a href="rlm.html#rlm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="rlm" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Regresión lineal múltiple<a href="rlm.html#rlm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En este capítulo se presenta una descripción breve del modelo de regresión lineal múltiple y la forma de estimar los parámetros del modelo con R.</p>
 <div id="modelo-estadístico-1" class="section level2 unnumbered hasAnchor">
 <h2>Modelo estadístico<a href="rlm.html#modelo-estadístico-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -540,16 +547,16 @@ Y_i &amp;\sim N(\mu_i, \sigma^2), \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
 <p>En cualquiera de las dos formas el vector de parámetros del modelo es <span class="math inline">\(\boldsymbol{\theta}=(\beta_0, \beta_1, \cdots, \beta_k, \sigma)^\top\)</span>.</p>
-<div id="ejemplo-3" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="rlm.html#ejemplo-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ejemplo-4" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="rlm.html#ejemplo-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation">E. &amp;. V. Montgomery D. &amp; Peck (<a href="#ref-mpv06">2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
 <p align="center">
 <img src="images/ilustracion_refrescos.png" width="600">
 </p>
 <p>Los datos del ejemplo están disponibles en el paquete <strong>MPV</strong> (por los apellidos de los autores). A continuación el código para cargar los datos y una muestra de las 6 primeras observaciones de la base de datos, en total se disponen de 20 observaciones.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="rlm.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(MPV)</span>
-<span id="cb33-2"><a href="rlm.html#cb33-2" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
-<span id="cb33-3"><a href="rlm.html#cb33-3" tabindex="-1"></a><span class="fu">head</span>(softdrink)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="rlm.html#cb49-1" tabindex="-1"></a><span class="fu">library</span>(MPV)</span>
+<span id="cb49-2"><a href="rlm.html#cb49-2" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;tiempo&#39;</span>, <span class="st">&#39;cantidad&#39;</span>, <span class="st">&#39;distancia&#39;</span>)</span>
+<span id="cb49-3"><a href="rlm.html#cb49-3" tabindex="-1"></a><span class="fu">head</span>(softdrink)</span></code></pre></div>
 <pre><code>##   tiempo cantidad distancia
 ## 1  16.68        7       560
 ## 2  11.50        3       220
@@ -558,35 +565,35 @@ Y_i &amp;\sim N(\mu_i, \sigma^2), \\
 ## 5  13.75        6       150
 ## 6  18.11        7       330</code></pre>
 <p>Un gráfico en 3d es obligratorio para explorar la relación entre las variables, este diagrama de puede obtener usando el paquete <strong>scatterplot3d</strong>. A continuación el código para construirlo.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rlm.html#cb35-1" tabindex="-1"></a><span class="fu">library</span>(scatterplot3d)</span>
-<span id="cb35-2"><a href="rlm.html#cb35-2" tabindex="-1"></a><span class="fu">attach</span>(softdrink)</span>
-<span id="cb35-3"><a href="rlm.html#cb35-3" tabindex="-1"></a><span class="fu">scatterplot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex.lab=</span><span class="dv">1</span>,</span>
-<span id="cb35-4"><a href="rlm.html#cb35-4" tabindex="-1"></a>              <span class="at">highlight.3d=</span><span class="cn">TRUE</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</span>
-<span id="cb35-5"><a href="rlm.html#cb35-5" tabindex="-1"></a>              <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="rlm.html#cb51-1" tabindex="-1"></a><span class="fu">library</span>(scatterplot3d)</span>
+<span id="cb51-2"><a href="rlm.html#cb51-2" tabindex="-1"></a><span class="fu">attach</span>(softdrink)</span>
+<span id="cb51-3"><a href="rlm.html#cb51-3" tabindex="-1"></a><span class="fu">scatterplot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex.lab=</span><span class="dv">1</span>,</span>
+<span id="cb51-4"><a href="rlm.html#cb51-4" tabindex="-1"></a>              <span class="at">highlight.3d=</span><span class="cn">TRUE</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</span>
+<span id="cb51-5"><a href="rlm.html#cb51-5" tabindex="-1"></a>              <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/3d_refrescos_01-1.png" width="672" /></p>
 <p>De la figura anterior se ve claramente que a medida que aumenta el número de cajas y la distancia los tiempos tienden a ser mayores.</p>
 <p>El mismo diagrama de dispersión anterior se puede crear usando el paquete <strong>plotly</strong>. El lector puede jugar con el diagrama, puede moverlo, girarlo, acercarse y muchas cosas más, la curiosidad le mostrará las diferentes posibilidades.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="rlm.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb36-2"><a href="rlm.html#cb36-2" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">type=</span><span class="st">&quot;scatter3d&quot;</span>, <span class="at">color=</span>tiempo) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-3"><a href="rlm.html#cb36-3" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">scene =</span> <span class="fu">list</span>(<span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Cantidad&#39;</span>),</span>
-<span id="cb36-4"><a href="rlm.html#cb36-4" tabindex="-1"></a>                      <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Distancia (pies)&#39;</span>),</span>
-<span id="cb36-5"><a href="rlm.html#cb36-5" tabindex="-1"></a>                      <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Tiempo (min)&#39;</span>)))</span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-dffeee32c430f6644c0e" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dffeee32c430f6644c0e">{"x":{"visdat":{"c3f0512360b9":["function () ","plotlyVisDat"]},"cur_data":"c3f0512360b9","attrs":{"c3f0512360b9":{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Cantidad"},"yaxis":{"title":"Distancia (pies)"},"zaxis":{"title":"Tiempo (min)"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"type":"scatter3d","mode":"markers","marker":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"line":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75]}},"frame":null},{"x":[2,30],"y":[36,1460],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[8,79.239999999999995],"line":{"color":"rgba(255,127,14,1)"}},"z":[8,79.239999999999995],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="rlm.html#cb52-1" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb52-2"><a href="rlm.html#cb52-2" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">type=</span><span class="st">&quot;scatter3d&quot;</span>, <span class="at">color=</span>tiempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="rlm.html#cb52-3" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">scene =</span> <span class="fu">list</span>(<span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Cantidad&#39;</span>),</span>
+<span id="cb52-4"><a href="rlm.html#cb52-4" tabindex="-1"></a>                      <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Distancia (pies)&#39;</span>),</span>
+<span id="cb52-5"><a href="rlm.html#cb52-5" tabindex="-1"></a>                      <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">&#39;Tiempo (min)&#39;</span>)))</span></code></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ad80b168e4fab6515cbc" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-ad80b168e4fab6515cbc">{"x":{"visdat":{"a02c64d6f1c":["function () ","plotlyVisDat"]},"cur_data":"a02c64d6f1c","attrs":{"a02c64d6f1c":{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Cantidad"},"yaxis":{"title":"Distancia (pies)"},"zaxis":{"title":"Tiempo (min)"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[7,3,3,4,6,7,2,7,30,5,16,10,4,6,9,10,6,7,3,17,10,26,9,8,4],"y":[560,220,340,80,150,330,110,210,1460,605,688,215,255,462,448,776,200,132,36,770,140,810,450,635,150],"z":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"type":"scatter3d","mode":"markers","marker":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75],"line":{"colorbar":{"title":"","ticklen":2},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[16.68,11.5,12.029999999999999,14.880000000000001,13.75,18.109999999999999,8,17.829999999999998,79.239999999999995,21.5,40.329999999999998,21,13.5,19.75,24,29,15.35,19,9.5,35.100000000000001,17.899999999999999,52.32,18.75,19.829999999999998,10.75]}},"frame":null},{"x":[2,30],"y":[36,1460],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":8,"cmax":79.239999999999995,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333334","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[8,79.239999999999995],"line":{"color":"rgba(255,127,14,1)"}},"z":[8,79.239999999999995],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>Otro gráfico de dispersión en 3d se puede construir usando el paquete <strong>rgl</strong>. A continuación está el código para obtener el diagrama de dispersión. De tarea se deja que el lector copie el código en la consola y reconstruya el gráfico.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="rlm.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
-<span id="cb37-2"><a href="rlm.html#cb37-2" tabindex="-1"></a><span class="fu">plot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">type=</span><span class="st">&#39;s&#39;</span>, <span class="at">col=</span><span class="st">&#39;pink&#39;</span>,</span>
-<span id="cb37-3"><a href="rlm.html#cb37-3" tabindex="-1"></a>       <span class="at">xlab=</span><span class="st">&#39;Cantidad&#39;</span>,</span>
-<span id="cb37-4"><a href="rlm.html#cb37-4" tabindex="-1"></a>       <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>,</span>
-<span id="cb37-5"><a href="rlm.html#cb37-5" tabindex="-1"></a>       <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="rlm.html#cb53-1" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
+<span id="cb53-2"><a href="rlm.html#cb53-2" tabindex="-1"></a><span class="fu">plot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">type=</span><span class="st">&#39;s&#39;</span>, <span class="at">col=</span><span class="st">&#39;pink&#39;</span>,</span>
+<span id="cb53-3"><a href="rlm.html#cb53-3" tabindex="-1"></a>       <span class="at">xlab=</span><span class="st">&#39;Cantidad&#39;</span>,</span>
+<span id="cb53-4"><a href="rlm.html#cb53-4" tabindex="-1"></a>       <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>,</span>
+<span id="cb53-5"><a href="rlm.html#cb53-5" tabindex="-1"></a>       <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span></code></pre></div>
 <p>Basándonos en el diagrama de dispersión 3d, el modelo que se va a ajustar se muestra a continuación.</p>
 <p><span class="math display">\[\begin{align}
 Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\
 \mu_i &amp;= \beta_0 + \beta_1 Cantidad_i + \beta_2 Distancia_i, \\
 \sigma^2 &amp;= \text{constante}
 \end{align}\]</span></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="rlm.html#cb38-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink)</span>
-<span id="cb38-2"><a href="rlm.html#cb38-2" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="rlm.html#cb54-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink)</span>
+<span id="cb54-2"><a href="rlm.html#cb54-2" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = tiempo ~ cantidad + distancia, data = softdrink)
@@ -627,12 +634,12 @@ Tiempo_i &amp;\sim N(\mu_i, \sigma^2), \\
 La interpretación de cada <span class="math inline">\(\hat{\beta}\)</span> se hace suponiendo que las demás variables quedan constantes en algún valor.
 </div>
 <p>Para incluir el plano de regresión que representa el modelo ajustado anterior se puede usar el siguiente código.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="rlm.html#cb40-1" tabindex="-1"></a><span class="co"># Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d</span></span>
-<span id="cb40-2"><a href="rlm.html#cb40-2" tabindex="-1"></a>mi_3d <span class="ot">&lt;-</span> <span class="fu">scatterplot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex.lab=</span><span class="dv">1</span>,</span>
-<span id="cb40-3"><a href="rlm.html#cb40-3" tabindex="-1"></a>                       <span class="at">highlight.3d=</span><span class="cn">TRUE</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</span>
-<span id="cb40-4"><a href="rlm.html#cb40-4" tabindex="-1"></a>                       <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span>
-<span id="cb40-5"><a href="rlm.html#cb40-5" tabindex="-1"></a><span class="co"># Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado</span></span>
-<span id="cb40-6"><a href="rlm.html#cb40-6" tabindex="-1"></a>mi_3d<span class="sc">$</span><span class="fu">plane3d</span>(mod, <span class="at">lty.box=</span><span class="st">&quot;solid&quot;</span>, <span class="at">col=</span><span class="st">&#39;mediumblue&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="rlm.html#cb56-1" tabindex="-1"></a><span class="co"># Se crea el grafico 3d y se guarda en un objeto, por ejemplo mi_3d</span></span>
+<span id="cb56-2"><a href="rlm.html#cb56-2" tabindex="-1"></a>mi_3d <span class="ot">&lt;-</span> <span class="fu">scatterplot3d</span>(<span class="at">x=</span>cantidad, <span class="at">y=</span>distancia, <span class="at">z=</span>tiempo, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex.lab=</span><span class="dv">1</span>,</span>
+<span id="cb56-3"><a href="rlm.html#cb56-3" tabindex="-1"></a>                       <span class="at">highlight.3d=</span><span class="cn">TRUE</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">xlab=</span><span class="st">&#39;Cantidad de cajas&#39;</span>,</span>
+<span id="cb56-4"><a href="rlm.html#cb56-4" tabindex="-1"></a>                       <span class="at">ylab=</span><span class="st">&#39;Distancia (pies)&#39;</span>, <span class="at">zlab=</span><span class="st">&#39;Tiempo (min)&#39;</span>)</span>
+<span id="cb56-5"><a href="rlm.html#cb56-5" tabindex="-1"></a><span class="co"># Para agregar el plano usamos $plane3d( ) con argumento modelo ajustado</span></span>
+<span id="cb56-6"><a href="rlm.html#cb56-6" tabindex="-1"></a>mi_3d<span class="sc">$</span><span class="fu">plane3d</span>(mod, <span class="at">lty.box=</span><span class="st">&quot;solid&quot;</span>, <span class="at">col=</span><span class="st">&#39;mediumblue&#39;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/3d_refrescos_03-1.png" width="672" /></p>
 
 </div>
@@ -649,7 +656,7 @@ Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis
           </div>
         </div>
       </div>
-<a href="rls.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trans.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="predict.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>21 Otros aspectos importantes | Modelos de Regresión con R</title>
+  <title>2 Transformaciones | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="21 Otros aspectos importantes | Modelos de Regresión con R" />
+  <meta property="og:title" content="2 Transformaciones | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="21 Otros aspectos importantes | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="2 Transformaciones | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="xy.html"/>
-<link rel="next" href="pasos.html"/>
+<link rel="prev" href="rls.html"/>
+<link rel="next" href="rlm.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -525,63 +525,189 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="important" class="section level1 hasAnchor" number="21">
-<h1><span class="header-section-number">21</span> Otros aspectos importantes<a href="important.html#important" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En este capítulo se presentan algunos aspectos importantes relacionados con modelación y que no se pudieron incluir en los capítulos anteriores.</p>
-<div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered hasAnchor">
-<h2>¿Qué otras funciones hay en R para ajustar un modelo?<a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="important.html#cb428-1" tabindex="-1"></a><span class="fu">lm</span>(formula, data, subset, weights, na.action,</span>
-<span id="cb428-2"><a href="important.html#cb428-2" tabindex="-1"></a>   <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">FALSE</span>, <span class="at">qr =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb428-3"><a href="important.html#cb428-3" tabindex="-1"></a>   <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>, offset, ...)</span>
-<span id="cb428-4"><a href="important.html#cb428-4" tabindex="-1"></a></span>
-<span id="cb428-5"><a href="important.html#cb428-5" tabindex="-1"></a><span class="fu">lm.fit</span>(x, y, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb428-6"><a href="important.html#cb428-6" tabindex="-1"></a>       <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
-<span id="cb428-7"><a href="important.html#cb428-7" tabindex="-1"></a></span>
-<span id="cb428-8"><a href="important.html#cb428-8" tabindex="-1"></a><span class="fu">lm.wfit</span>(x, y, w, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb428-9"><a href="important.html#cb428-9" tabindex="-1"></a>        <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
-<span id="cb428-10"><a href="important.html#cb428-10" tabindex="-1"></a></span>
-<span id="cb428-11"><a href="important.html#cb428-11" tabindex="-1"></a><span class="fu">.lm.fit</span>(x, y, <span class="at">tol =</span> <span class="fl">1e-7</span>)</span>
-<span id="cb428-12"><a href="important.html#cb428-12" tabindex="-1"></a></span>
-<span id="cb428-13"><a href="important.html#cb428-13" tabindex="-1"></a><span class="fu">lsfit</span>(x, y, <span class="at">wt =</span> <span class="cn">NULL</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>, <span class="at">tolerance =</span> <span class="fl">1e-07</span>, <span class="at">yname =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
-<div id="ejemplo-55" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="important.html#ejemplo-55" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Invéntese un problema de regresión lineal simple y use la función <code>lm.fit</code> para encontrar los parámetros del modelo.</p>
-<p><strong>Solución</strong></p>
-<p>Supongamos que tenemos las variables que se muestran a continuación.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="important.html#cb429-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb429-2"><a href="important.html#cb429-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">1</span>)</span></code></pre></div>
-<p>Para usar la función <code>lm.fit</code> es necesario que el argumento <code>x</code> sea una matriz, por esa razón vamos a construir la matriz <code>X</code> usando el vector <code>x</code>.</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="important.html#cb430-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">intercepto=</span><span class="dv">1</span>, <span class="at">variable=</span>x)</span>
-<span id="cb430-2"><a href="important.html#cb430-2" tabindex="-1"></a>X</span></code></pre></div>
-<pre><code>##      intercepto variable
-## [1,]          1        2
-## [2,]          1        5
-## [3,]          1        7
-## [4,]          1        9
-## [5,]          1        1</code></pre>
-<p>Ahora ya podemos usar la función <code>lm.fit</code> de la siguiente forma.</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="important.html#cb432-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm.fit</span>(<span class="at">x=</span>X, <span class="at">y=</span>y)</span>
-<span id="cb432-2"><a href="important.html#cb432-2" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
-<pre><code>## intercepto   variable 
-##  5.0357143 -0.4241071</code></pre>
-<p>De la salida anterior tenemos que <span class="math inline">\(\hat{\beta}_0=5.036\)</span> y <span class="math inline">\(\hat{\beta}_1=-0.424\)</span>.</p>
-</div>
-</div>
-<div id="modelos-de-regresión-con-grandes-conjuntos-de-datos" class="section level2 unnumbered hasAnchor">
-<h2>Modelos de regresión con grandes conjuntos de datos<a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En ocasiones tenemos grandes bases de datos y cuando queremos ajustar un modelo de regresión se nos pueden presentar problemas porque saturamos la memoria de nuestro computador.</p>
-<p>En <a href="https://statr.me/2011/10/large-regression/">este enlace</a> usted podrá encontrar una publicación de Yixuan Qiu en el 2011 quien explica qué hacer para abordar este tipo de situaciones.</p>
-</div>
-<div id="fast-lm-in-r" class="section level2 unnumbered hasAnchor">
-<h2>Fast <code>lm</code> in R<a href="important.html#fast-lm-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Martin Maechler en 2015 escribió una publicación en <a href="https://rpubs.com/maechler/fast_lm">Rpubs</a> en la cual compara el tiempo que tardan las funciones <code>lm</code>, <code>lsfit</code> y <code>.lm.fit</code> para ajustar un modelo de regresión. Martin Maechler creó 5 funciones basadas en <code>lm</code>, <code>lsfit</code> y <code>.lm.fit</code> para obtener los parámetros de un modelo y luego comparó los tiempos de procesamiento. Abajo una figura con los resultados de la comparación de tiempos.</p>
+<div id="trans" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Transformaciones<a href="trans.html#trans" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este capítulo se muestra cómo una transformación de la variable respuesta o de las covariables puede mejorar el modelo.</p>
+<div id="transformaciones-para-linealizar-el-modelo" class="section level2 unnumbered hasAnchor">
+<h2>Transformaciones para linealizar el modelo<a href="trans.html#transformaciones-para-linealizar-el-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En algunas ocasiones el modelo teórico de los datos tiene una estructura matemática que puede ser linealizable al transformar <span class="math inline">\(Y\)</span> y/o <span class="math inline">\(X\)</span>. En la siguiente tabla se muestran algunos de los casos en los cuales se puede linealizar el modelo.</p>
 <p align="center">
-<img src="images/comparing_lm_fits.png" width="500">
+<img src="images/tabla_mod_linealizables.png" width="800">
 </p>
-<p>¿Cuáles opciones demoran menos tiempo?</p>
+<p>En la siguiente figura se muestran los patrones de los modelos que se pueden linealizar.</p>
+<p align="center">
+<img src="images/figuras_mod_linealizables.png" width="800">
+</p>
+<div id="ejemplo-3" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="trans.html#ejemplo-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Este ejemplo está basado en el ejericio 5.1 propuesto en el libro <span class="citation">E. &amp;. V. Montgomery D. &amp; Peck (<a href="#ref-mpv06">2006</a>)</span> se presenta una base de datos de un estudio de cómo influye la temperatura (°C) sobre la viscosidad (mPa s) de las mezclas de tolueno y tetralina. La base de datos cuenta con un total de 50 observaciones, a continuación se muestran las primeras seis observaciones de la base.</p>
+<pre><code>##    temp visc
+## 1 85.63 0.27
+## 2 64.48 0.40
+## 3 42.12 0.62
+## 4 76.73 0.31
+## 5 58.18 0.46
+## 6 42.35 0.60</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li>Crear un diagrama de dispersión. ¿Parece apropiado usar una línea recta para modelar los datos?</li>
+<li>Ajuste el modelo de línea recta. Calcule las estadísticas resumidas y las gráficas residuales. ¿Cuáles son sus conclusiones sobre la adecuación del modelo?</li>
+<li>Los principios básicos de la química física sugieren que la viscosidad es una función exponencial de la temperatura. Repita la parte b usando la transformación adecuada según esta información.</li>
+<li>¿Cuál modelo se debería usar? Escriba la ecuación del modelo.</li>
+<li>Con el modelo elegido, calcule <span class="math inline">\(\widehat{Visco}\)</span> para <span class="math inline">\(Temp=0\)</span> y para <span class="math inline">\(Temp=50\)</span>.</li>
+</ol>
+<p><strong>Solución</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li>Diagrama de dispersión</li>
+</ol>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="trans.html#cb34-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb34-2"><a href="trans.html#cb34-2" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(<span class="at">x=</span>temp, <span class="at">y=</span>visc)) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="trans.html#cb34-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb34-4"><a href="trans.html#cb34-4" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">120</span>) <span class="sc">+</span> </span>
+<span id="cb34-5"><a href="trans.html#cb34-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Viscocidad (mPa s)&quot;</span>, <span class="at">x=</span><span class="st">&quot;Temperatura (°C)&quot;</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/transf01-1.png" width="480" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Ajustando el modelo de línea recta.</li>
+</ol>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="trans.html#cb35-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(visc <span class="sc">~</span> temp, <span class="at">data=</span>datos)</span></code></pre></div>
+<p>Los estadísticos de resumen se obtiene así:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="trans.html#cb36-1" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = visc ~ temp, data = datos)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.048849 -0.026135 -0.006075  0.027772  0.079221 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.0295982  0.0101903  101.04   &lt;2e-16 ***
+## temp        -0.0092809  0.0001646  -56.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.03356 on 98 degrees of freedom
+## Multiple R-squared:  0.9701, Adjusted R-squared:  0.9698 
+## F-statistic:  3179 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>De la tabla anterior se observa que:</p>
+<ul>
+<li>La temperatura es significativa porque valor-p es &lt; 2e-16.</li>
+<li>Por cada grado °C en que aumente la temperatura, la viscocidad disminuye en 0.00928098 unidades.</li>
+<li>El <span class="math inline">\(R^2\)</span> es alto, presenta un valor de 0.9701.</li>
+<li>El modelo m1 es significativo porque valor-p es &lt; 2.2e-16.</li>
+</ul>
+<p>Para ver los residuales del modelo se hace lo siguiente:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="trans.html#cb38-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb38-2"><a href="trans.html#cb38-2" tabindex="-1"></a><span class="fu">plot</span>(m1, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;purple&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/transf02-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Claramente los residuales muestran un patrón de u, eso indica que hay algo errado con el modelo m1.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="trans.html#cb39-1" tabindex="-1"></a>res_m1 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(m1)</span>
+<span id="cb39-2"><a href="trans.html#cb39-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(res_m1)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  res_m1
+## W = 0.93894, p-value = 0.0001661</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Vamos a entrenar un modelo asumiendo un patrón exponencial multiplicativo <span class="math inline">\(Y = \beta_0 e^{\beta_1X}\varepsilon\)</span>.</li>
+</ol>
+<p>Para poder ajustar este modelo en R, es necesario transformar la variable respuesta, es decir, vamos a entrenar con <span class="math inline">\(Y^*=\log(Y)\)</span>. En otras palabras, vamos a aplicar <span class="math inline">\(\log()\)</span> a ambos lados del modelo exponencial multiplicativo <span class="math inline">\(Y = \beta_0 e^{\beta_1X}\varepsilon\)</span> y lo que obtiene es:</p>
+<p><span class="math display">\[
+Y^* = \beta_0^* + \beta_1 X + \varepsilon^*,
+\]</span></p>
+<p>donde el nuevo intercepto es <span class="math inline">\(\beta_0^*=\log(\beta_0)\)</span> y el nuevo error es <span class="math inline">\(\varepsilon^*=\log(\varepsilon)\)</span>. El valor de <span class="math inline">\(\beta_1\)</span> es el mismo en el modelo original y en el modelo transformado.</p>
 
+<div class="rmdwarning">
+<p>Al ajustar el modelo transformado vamos a obtener un intercepto estimado <span class="math inline">\(\hat{\beta}_0^*\)</span> y una pendiente estimada <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
+Si queremos obtener <span class="math inline">\(\hat{\beta}_0\)</span>, debemos despejar de la ecuación <span class="math inline">\(\beta_0^*=\log(\beta_0)\)</span> el valor de <span class="math inline">\(\hat{\beta}_0\)</span>.
+</div>
+<p>Ajustemos el modelo m2.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="trans.html#cb41-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(visc) <span class="sc">~</span> temp, <span class="at">data=</span>datos)</span></code></pre></div>
+<p>Los estadísticos de resumen se obtiene así:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="trans.html#cb42-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(visc) ~ temp, data = datos)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.093451 -0.017099  0.001985  0.017799  0.096605 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.3656552  0.0098882   36.98   &lt;2e-16 ***
+## temp        -0.0199453  0.0001597 -124.87   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.03257 on 98 degrees of freedom
+## Multiple R-squared:  0.9938, Adjusted R-squared:  0.9937 
+## F-statistic: 1.559e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>De la tabla anterior se observa que:</p>
+<ul>
+<li>La temperatura es significativa porque valor-p es &lt; 2e-16.</li>
+<li>Por cada grado °C en que aumente la temperatura, la <strong>log(viscocidad)</strong> disminuye en 0.0199453 unidades.</li>
+<li>El <span class="math inline">\(R^2\)</span> es alto, presenta un valor de 0.9938.</li>
+<li>El modelo m2 es significativo porque valor-p es &lt; 2.2e-16.</li>
+</ul>
+<p>Para ver los residuales del modelo se hace lo siguiente:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="trans.html#cb44-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb44-2"><a href="trans.html#cb44-2" tabindex="-1"></a><span class="fu">plot</span>(m2, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;palegreen3&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/transf03-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="trans.html#cb45-1" tabindex="-1"></a>res_m2 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(m2)</span>
+<span id="cb45-2"><a href="trans.html#cb45-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(res_m2)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  res_m2
+## W = 0.99063, p-value = 0.7151</code></pre>
+<p>Comparemos las líneas o modejos ajustados m1 y m2 con un diagrama de dispersión.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="trans.html#cb47-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb47-2"><a href="trans.html#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="trans.html#cb47-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>datos<span class="sc">$</span>temp, <span class="at">y=</span>datos<span class="sc">$</span>visc, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">0.8</span>,</span>
+<span id="cb47-4"><a href="trans.html#cb47-4" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Temperatura (°C)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Viscocidad&quot;</span>, <span class="at">main=</span><span class="st">&quot;M1&quot;</span>)</span>
+<span id="cb47-5"><a href="trans.html#cb47-5" tabindex="-1"></a><span class="fu">abline</span>(m1, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb47-6"><a href="trans.html#cb47-6" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="trans.html#cb47-7" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>datos<span class="sc">$</span>temp, <span class="at">y=</span><span class="fu">log</span>(datos<span class="sc">$</span>visc), <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">0.8</span>,</span>
+<span id="cb47-8"><a href="trans.html#cb47-8" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Temperatura (°C)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;log(Viscocidad)&quot;</span>, <span class="at">main=</span><span class="st">&quot;M2&quot;</span>)</span>
+<span id="cb47-9"><a href="trans.html#cb47-9" tabindex="-1"></a><span class="fu">abline</span>(m2, <span class="at">col=</span><span class="st">&quot;palegreen3&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/transf04-1.png" width="768" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>¿Cuál modelo se debería usar? Escriba la ecuación del modelo.</li>
+</ol>
+<p>Usando los resultados de summary de m2 es posible escribir la ecuación ajustada para el modelo modelo transformado y para el modelo exponencial multiplicativo.</p>
+<p>Modelo transformado:</p>
+<p><span class="math display">\[
+\widehat{Visco^*} = \widehat{\log(Visco)} = 0.3657 - 0.0199 \, Temp,
+\]</span></p>
+<p>Modelo exponencial multiplicativo:</p>
+<p><span class="math display">\[
+\widehat{Visco} = 1.4415 \, e^{- 0.0199 \, Temp},
+\]</span></p>
+<p>donde <span class="math inline">\(1.4415=\exp(0.3657)\)</span>.</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Con el modelo elegido, calcule <span class="math inline">\(\widehat{Visco}\)</span> para <span class="math inline">\(Temp=0\)</span> y para <span class="math inline">\(Temp=50\)</span>.</li>
+</ol>
+<ul>
+<li>La cantidad <span class="math inline">\(\widehat{Visco} \vert Temp=0\)</span> no se debe calcular.</li>
+<li>La cantidad <span class="math inline">\(\widehat{Visco} \vert Temp=50\)</span> es <span class="math inline">\(1.4415 \, e^{- 0.0199 \times 50} = 0.5330\)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="trans.html#cb48-1" tabindex="-1"></a>visco_hat <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fl">1.4415</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.0199</span><span class="sc">*</span>x)</span>
+<span id="cb48-2"><a href="trans.html#cb48-2" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="trans.html#cb48-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>datos<span class="sc">$</span>temp, <span class="at">y=</span>datos<span class="sc">$</span>visc, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">0.8</span>,</span>
+<span id="cb48-4"><a href="trans.html#cb48-4" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Temperatura (°C)&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Viscocidad&quot;</span>, </span>
+<span id="cb48-5"><a href="trans.html#cb48-5" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Modelo final&quot;</span>)</span>
+<span id="cb48-6"><a href="trans.html#cb48-6" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="trans.html#cb48-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="at">expr=</span><span class="fu">visco_hat</span>(x), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/transf05-1.png" width="480" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-mpv06" class="csl-entry">
+Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. México: Cecsa.
 </div>
 </div>
             </section>
@@ -589,8 +715,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="xy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pasos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rls.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rlm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -621,7 +747,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/54-behind.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/012-transf.Rmd",
 "text": "Edit"
 },
 "history": {
