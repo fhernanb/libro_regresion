@@ -57,8 +57,8 @@ De la tabla anterior tenemos que el valor-P asociado a Edad es 1.64e-10, por lo 
 Para realizar pruebas de hipótesis cuando el valor de referencia $\beta_{k0}$ es diferente de cero, se puede usar la función `beta_test` del paquete **model** [@R-model]. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.
 
 ```{r eval=FALSE}
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('fhernanb/model', force=TRUE)
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("fhernanb/model")
 ```
 
 La estructura de la función se muestra a continuación.

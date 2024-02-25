@@ -65,8 +65,8 @@ mod1 <- lm(Resistencia ~ Edad, data=datos)
 Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función `anova_table_lm` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
 
 ```{r eval=FALSE}
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('fhernanb/model', force=TRUE)
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("fhernanb/model")
 ```
 
 Luego de esto ya podemos usar la función `anova_table_lm` así:

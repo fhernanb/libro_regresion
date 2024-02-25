@@ -37,8 +37,8 @@ confint(object=mod1, parm="Edad", level=0.95)
 La función `confint_sigma2` pertenece al paquete **model** y sirve para obtener un intervalo de confianza para el parámetro $\sigma^2$. El paquete **model** [@R-model] está alojado en github y para poder instalarlo se sebe usar el siguiente código.
 
 ```{r eval=FALSE}
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('fhernanb/model', force=TRUE)
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("fhernanb/model")
 ```
 
 ### Ejemplo {-}

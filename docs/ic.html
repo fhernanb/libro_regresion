@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-21" />
+<meta name="date" content="2024-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -555,8 +555,8 @@ div.csl-indent {
 <div id="función-confint_sigma2" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>confint_sigma2</code><a href="ic.html#función-confint_sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>confint_sigma2</code> pertenece al paquete <strong>model</strong> y sirve para obtener un intervalo de confianza para el parámetro <span class="math inline">\(\sigma^2\)</span>. El paquete <strong>model</strong> <span class="citation">(<a href="#ref-R-model">Hernandez and Usuga 2024</a>)</span> está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="ic.html#cb85-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="fu">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
-<span id="cb85-2"><a href="ic.html#cb85-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;fhernanb/model&#39;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="ic.html#cb85-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb85-2"><a href="ic.html#cb85-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
 <div id="ejemplo-10" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="ic.html#ejemplo-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considere el ejemplo anterior pero ahora el interés es obtener un intervalo de confinaza del 95% para <span class="math inline">\(\sigma^2\)</span>.</p>

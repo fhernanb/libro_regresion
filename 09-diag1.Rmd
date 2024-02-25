@@ -440,8 +440,8 @@ mod <- lm(y ~ x)
 Luego construimos la tabla anova por medio de la función `lack_fit_test` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
 
 ```{r eval=FALSE}
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('fhernanb/model', force=TRUE)
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("fhernanb/model")
 ```
 
 Luego de esto ya podemos usar la función `lack_fit_test`.
@@ -489,8 +489,8 @@ mod <- lm(y ~ x)
 Luego construimos la tabla anova por medio de la función `lack_fit_test` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
 
 ```{r eval=FALSE}
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('fhernanb/model', force=TRUE)
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("fhernanb/model")
 ```
 
 Luego de esto ya podemos usar la función `lack_fit_test`.
