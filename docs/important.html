@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>21 Otros aspectos importantes | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="21 Otros aspectos importantes | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-25" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -531,30 +531,30 @@ div.csl-indent {
 <div id="qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="section level2 unnumbered hasAnchor">
 <h2>¿Qué otras funciones hay en R para ajustar un modelo?<a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Hay 5 funciones en el paquete básico <strong>stats</strong> para ajustar un modelo de regresión, esas funciones son:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="important.html#cb428-1" tabindex="-1"></a><span class="fu">lm</span>(formula, data, subset, weights, na.action,</span>
-<span id="cb428-2"><a href="important.html#cb428-2" tabindex="-1"></a>   <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">FALSE</span>, <span class="at">qr =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb428-3"><a href="important.html#cb428-3" tabindex="-1"></a>   <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>, offset, ...)</span>
-<span id="cb428-4"><a href="important.html#cb428-4" tabindex="-1"></a></span>
-<span id="cb428-5"><a href="important.html#cb428-5" tabindex="-1"></a><span class="fu">lm.fit</span>(x, y, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb428-6"><a href="important.html#cb428-6" tabindex="-1"></a>       <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
-<span id="cb428-7"><a href="important.html#cb428-7" tabindex="-1"></a></span>
-<span id="cb428-8"><a href="important.html#cb428-8" tabindex="-1"></a><span class="fu">lm.wfit</span>(x, y, w, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
-<span id="cb428-9"><a href="important.html#cb428-9" tabindex="-1"></a>        <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
-<span id="cb428-10"><a href="important.html#cb428-10" tabindex="-1"></a></span>
-<span id="cb428-11"><a href="important.html#cb428-11" tabindex="-1"></a><span class="fu">.lm.fit</span>(x, y, <span class="at">tol =</span> <span class="fl">1e-7</span>)</span>
-<span id="cb428-12"><a href="important.html#cb428-12" tabindex="-1"></a></span>
-<span id="cb428-13"><a href="important.html#cb428-13" tabindex="-1"></a><span class="fu">lsfit</span>(x, y, <span class="at">wt =</span> <span class="cn">NULL</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>, <span class="at">tolerance =</span> <span class="fl">1e-07</span>, <span class="at">yname =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="important.html#cb430-1" tabindex="-1"></a><span class="fu">lm</span>(formula, data, subset, weights, na.action,</span>
+<span id="cb430-2"><a href="important.html#cb430-2" tabindex="-1"></a>   <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">FALSE</span>, <span class="at">qr =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb430-3"><a href="important.html#cb430-3" tabindex="-1"></a>   <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>, offset, ...)</span>
+<span id="cb430-4"><a href="important.html#cb430-4" tabindex="-1"></a></span>
+<span id="cb430-5"><a href="important.html#cb430-5" tabindex="-1"></a><span class="fu">lm.fit</span>(x, y, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
+<span id="cb430-6"><a href="important.html#cb430-6" tabindex="-1"></a>       <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
+<span id="cb430-7"><a href="important.html#cb430-7" tabindex="-1"></a></span>
+<span id="cb430-8"><a href="important.html#cb430-8" tabindex="-1"></a><span class="fu">lm.wfit</span>(x, y, w, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">method =</span> <span class="st">&quot;qr&quot;</span>, <span class="at">tol =</span> <span class="fl">1e-7</span>,</span>
+<span id="cb430-9"><a href="important.html#cb430-9" tabindex="-1"></a>        <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, ...)</span>
+<span id="cb430-10"><a href="important.html#cb430-10" tabindex="-1"></a></span>
+<span id="cb430-11"><a href="important.html#cb430-11" tabindex="-1"></a><span class="fu">.lm.fit</span>(x, y, <span class="at">tol =</span> <span class="fl">1e-7</span>)</span>
+<span id="cb430-12"><a href="important.html#cb430-12" tabindex="-1"></a></span>
+<span id="cb430-13"><a href="important.html#cb430-13" tabindex="-1"></a><span class="fu">lsfit</span>(x, y, <span class="at">wt =</span> <span class="cn">NULL</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>, <span class="at">tolerance =</span> <span class="fl">1e-07</span>, <span class="at">yname =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p>De todas las anteriores funciones la más conocida y usada es <code>lm</code>. Invito al lector a que consulte la ayuda de las funciones y explore las ventajas que cada una de ellas tiene.</p>
 <div id="ejemplo-55" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="important.html#ejemplo-55" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Invéntese un problema de regresión lineal simple y use la función <code>lm.fit</code> para encontrar los parámetros del modelo.</p>
 <p><strong>Solución</strong></p>
 <p>Supongamos que tenemos las variables que se muestran a continuación.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="important.html#cb429-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
-<span id="cb429-2"><a href="important.html#cb429-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="important.html#cb431-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb431-2"><a href="important.html#cb431-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">1</span>)</span></code></pre></div>
 <p>Para usar la función <code>lm.fit</code> es necesario que el argumento <code>x</code> sea una matriz, por esa razón vamos a construir la matriz <code>X</code> usando el vector <code>x</code>.</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="important.html#cb430-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">intercepto=</span><span class="dv">1</span>, <span class="at">variable=</span>x)</span>
-<span id="cb430-2"><a href="important.html#cb430-2" tabindex="-1"></a>X</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="important.html#cb432-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">intercepto=</span><span class="dv">1</span>, <span class="at">variable=</span>x)</span>
+<span id="cb432-2"><a href="important.html#cb432-2" tabindex="-1"></a>X</span></code></pre></div>
 <pre><code>##      intercepto variable
 ## [1,]          1        2
 ## [2,]          1        5
@@ -562,8 +562,8 @@ div.csl-indent {
 ## [4,]          1        9
 ## [5,]          1        1</code></pre>
 <p>Ahora ya podemos usar la función <code>lm.fit</code> de la siguiente forma.</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="important.html#cb432-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm.fit</span>(<span class="at">x=</span>X, <span class="at">y=</span>y)</span>
-<span id="cb432-2"><a href="important.html#cb432-2" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="important.html#cb434-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm.fit</span>(<span class="at">x=</span>X, <span class="at">y=</span>y)</span>
+<span id="cb434-2"><a href="important.html#cb434-2" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
 <pre><code>## intercepto   variable 
 ##  5.0357143 -0.4241071</code></pre>
 <p>De la salida anterior tenemos que <span class="math inline">\(\hat{\beta}_0=5.036\)</span> y <span class="math inline">\(\hat{\beta}_1=-0.424\)</span>.</p>

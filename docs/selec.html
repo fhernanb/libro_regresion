@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>15 Selección de variables | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="15 Selección de variables | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-25" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -543,8 +543,8 @@ div.csl-indent {
 <div id="funciones-loglik-y-aic" class="section level2 unnumbered hasAnchor">
 <h2>Funciones <code>logLik</code> y <code>AIC</code><a href="selec.html#funciones-loglik-y-aic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>logLik</code> sirve para obtener el valor de log-verosimilitud de un modelo y la función <code>AIC</code> entrega el Akaike Information Criterion. La estructura de ambas funciones se muestra a continuación.</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="selec.html#cb317-1" tabindex="-1"></a><span class="fu">logLik</span>(object)</span>
-<span id="cb317-2"><a href="selec.html#cb317-2" tabindex="-1"></a><span class="fu">AIC</span>(object, <span class="at">k=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="selec.html#cb319-1" tabindex="-1"></a><span class="fu">logLik</span>(object)</span>
+<span id="cb319-2"><a href="selec.html#cb319-2" tabindex="-1"></a><span class="fu">AIC</span>(object, <span class="at">k=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 <div id="métodos" class="section level2 unnumbered hasAnchor">
 <h2>Métodos<a href="selec.html#métodos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -572,10 +572,10 @@ Figure 15.1: Ilustración de los métodos Forward y Backward.
 <div id="función-stepaic" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>stepAIC</code><a href="selec.html#función-stepaic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>stepAIC</code> del paquete <strong>MASS</strong> <span class="citation">(<a href="#ref-R-MASS">Ripley 2023</a>)</span> es útil para hacer selección de variables en un modelo de regresión. La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="selec.html#cb318-1" tabindex="-1"></a><span class="fu">stepAIC</span>(object, scope, <span class="at">scale =</span> <span class="dv">0</span>,</span>
-<span id="cb318-2"><a href="selec.html#cb318-2" tabindex="-1"></a>        <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">&quot;both&quot;</span>, <span class="st">&quot;backward&quot;</span>, <span class="st">&quot;forward&quot;</span>),</span>
-<span id="cb318-3"><a href="selec.html#cb318-3" tabindex="-1"></a>        <span class="at">trace =</span> <span class="dv">1</span>, <span class="at">keep =</span> <span class="cn">NULL</span>, <span class="at">steps =</span> <span class="dv">1000</span>, <span class="at">use.start =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb318-4"><a href="selec.html#cb318-4" tabindex="-1"></a>        <span class="at">k =</span> <span class="dv">2</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="selec.html#cb320-1" tabindex="-1"></a><span class="fu">stepAIC</span>(object, scope, <span class="at">scale =</span> <span class="dv">0</span>,</span>
+<span id="cb320-2"><a href="selec.html#cb320-2" tabindex="-1"></a>        <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">&quot;both&quot;</span>, <span class="st">&quot;backward&quot;</span>, <span class="st">&quot;forward&quot;</span>),</span>
+<span id="cb320-3"><a href="selec.html#cb320-3" tabindex="-1"></a>        <span class="at">trace =</span> <span class="dv">1</span>, <span class="at">keep =</span> <span class="cn">NULL</span>, <span class="at">steps =</span> <span class="dv">1000</span>, <span class="at">use.start =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb320-4"><a href="selec.html#cb320-4" tabindex="-1"></a>        <span class="at">k =</span> <span class="dv">2</span>, ...)</span></code></pre></div>
 <p>Algunos de los argumentos son:</p>
 <ul>
 <li><code>object</code>: un objeto con un modelo.</li>
@@ -596,15 +596,15 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 </div>
 <p><strong>Nota</strong>: Type of transmission (1=automatic, 0=manual).</p>
 <p>Antes de iniciar es necesario revisar si hay <code>NA's</code> y eliminarlos.</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="selec.html#cb319-1" tabindex="-1"></a><span class="fu">library</span>(MPV)  <span class="co"># Aqui estan los datos</span></span>
-<span id="cb319-2"><a href="selec.html#cb319-2" tabindex="-1"></a>table.b3[<span class="dv">22</span><span class="sc">:</span><span class="dv">26</span>, ] <span class="co"># Can you see the missing values?</span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="selec.html#cb321-1" tabindex="-1"></a><span class="fu">library</span>(MPV)  <span class="co"># Aqui estan los datos</span></span>
+<span id="cb321-2"><a href="selec.html#cb321-2" tabindex="-1"></a>table.b3[<span class="dv">22</span><span class="sc">:</span><span class="dv">26</span>, ] <span class="co"># Can you see the missing values?</span></span></code></pre></div>
 <pre><code>##        y    x1  x2  x3  x4   x5 x6 x7    x8   x9  x10 x11
 ## 22 21.47 360.0 180 290 8.4 2.45  2  3 214.2 76.3 4250   1
 ## 23 16.59 400.0 185  NA 7.6 3.08  4  3 196.0 73.0 3850   1
 ## 24 31.90  96.9  75  83 9.0 4.30  2  5 165.2 61.8 2275   0
 ## 25 29.40 140.0  86  NA 8.0 2.92  2  4 176.4 65.4 2150   0
 ## 26 13.27 460.0 223 366 8.0 3.00  4  3 228.0 79.8 5430   1</code></pre>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="selec.html#cb321-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> table.b3[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="selec.html#cb323-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> table.b3[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>), ]</span></code></pre></div>
 <p>El objeto <code>datos</code> tiene la base de datos sin las líneas con <code>NA</code>, lo mismo se hubiese podido realizar usando la función <code>na.omit</code>.</p>
 <p>A continuación se muestran los diagramas de dispersión para las variables de la base de datos.</p>
 <pre><code>## 
@@ -623,8 +623,8 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="aplicación-del-método-backward" class="section level3 unnumbered hasAnchor">
 <h3>Aplicación del método <strong>backward</strong><a href="selec.html#aplicación-del-método-backward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vamos a crear un modelo <em>saturado</em>, es decir, el modelo mayor a considerar.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="selec.html#cb326-1" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data=</span>datos)</span>
-<span id="cb326-2"><a href="selec.html#cb326-2" tabindex="-1"></a><span class="fu">summary</span>(full.model)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="selec.html#cb328-1" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data=</span>datos)</span>
+<span id="cb328-2"><a href="selec.html#cb328-2" tabindex="-1"></a><span class="fu">summary</span>(full.model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ ., data = datos)
@@ -655,8 +655,8 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## F-statistic:  8.31 on 11 and 18 DF,  p-value: 5.231e-05</code></pre>
 <p>De la tabla anterior se puede pensar en que hay un efecto de <span style="color:red">enmascaramiento</span> entre las variables ya que ninguna parece significativa marginalmente.</p>
 <p>Se usa la función <code>stepAIC</code> y se elije <code>trace=TRUE</code> para obtener detalles del proceso de selección.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="selec.html#cb328-1" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># Para poder usar la funcion stepAIC</span></span>
-<span id="cb328-2"><a href="selec.html#cb328-2" tabindex="-1"></a>modback <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(full.model, <span class="at">trace=</span><span class="cn">TRUE</span>, <span class="at">direction=</span><span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="selec.html#cb330-1" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># Para poder usar la funcion stepAIC</span></span>
+<span id="cb330-2"><a href="selec.html#cb330-2" tabindex="-1"></a>modback <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(full.model, <span class="at">trace=</span><span class="cn">TRUE</span>, <span class="at">direction=</span><span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
 <pre><code>## Start:  AIC=78.96
 ## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
 ## 
@@ -774,7 +774,7 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## - x8    1    52.960 276.78 72.661
 ## - x10   1   194.838 418.66 85.076</code></pre>
 <p>Para obtener un resumen del proceso se usa:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="selec.html#cb330-1" tabindex="-1"></a>modback<span class="sc">$</span>anova</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="selec.html#cb332-1" tabindex="-1"></a>modback<span class="sc">$</span>anova</span></code></pre></div>
 <pre><code>## Stepwise Model Path 
 ## Analysis of Deviance Table
 ## 
@@ -796,7 +796,7 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## 8  - x1  1  0.7654631        25   218.7270 69.59881
 ## 9  - x9  1  5.0970905        26   223.8241 68.28989</code></pre>
 <p>Para ver la tabla de resultados del modelo <code>modback</code>.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="selec.html#cb332-1" tabindex="-1"></a><span class="fu">summary</span>(modback)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="selec.html#cb334-1" tabindex="-1"></a><span class="fu">summary</span>(modback)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x5 + x8 + x10, data = datos)
@@ -821,11 +821,11 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="aplicación-del-método-forward" class="section level3 unnumbered hasAnchor">
 <h3>Aplicación del método <strong>forward</strong><a href="selec.html#aplicación-del-método-forward" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para aplicar este metodo se debe crear un modelo vacío (<code>empty.model</code>) del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una fórmula que en este caso llamaremos <code>horizonte</code>. A continuación el codigo.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="selec.html#cb334-1" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>datos)</span>
-<span id="cb334-2"><a href="selec.html#cb334-2" tabindex="-1"></a>horizonte <span class="ot">&lt;-</span> <span class="fu">formula</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6 <span class="sc">+</span> x7 <span class="sc">+</span> x8 <span class="sc">+</span> x9 <span class="sc">+</span> x10 <span class="sc">+</span> x11)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="selec.html#cb336-1" tabindex="-1"></a>empty.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>datos)</span>
+<span id="cb336-2"><a href="selec.html#cb336-2" tabindex="-1"></a>horizonte <span class="ot">&lt;-</span> <span class="fu">formula</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6 <span class="sc">+</span> x7 <span class="sc">+</span> x8 <span class="sc">+</span> x9 <span class="sc">+</span> x10 <span class="sc">+</span> x11)</span></code></pre></div>
 <p>Se usa la función <code>stepAIC</code> y se elije <code>trace=FALSE</code> para que NO se muestren los detalles del proceso de selección.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="selec.html#cb335-1" tabindex="-1"></a>modforw <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(empty.model, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="at">scope=</span>horizonte)</span>
-<span id="cb335-2"><a href="selec.html#cb335-2" tabindex="-1"></a>modforw<span class="sc">$</span>anova</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="selec.html#cb337-1" tabindex="-1"></a>modforw <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(empty.model, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="at">scope=</span>horizonte)</span>
+<span id="cb337-2"><a href="selec.html#cb337-2" tabindex="-1"></a>modforw<span class="sc">$</span>anova</span></code></pre></div>
 <pre><code>## Stepwise Model Path 
 ## Analysis of Deviance Table
 ## 
@@ -841,7 +841,7 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## 2 + x1  1 866.49528        28   272.6097  70.20532
 ## 3 + x4  1  18.57161        27   254.0381  70.08861</code></pre>
 <p>Para ver la tabla de resultados del modelo <code>modforw</code>.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="selec.html#cb337-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="selec.html#cb339-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1 + x4, data = datos)
@@ -862,8 +862,8 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## Multiple R-squared:  0.777,  Adjusted R-squared:  0.7605 
 ## F-statistic: 47.03 on 2 and 27 DF,  p-value: 1.594e-09</code></pre>
 <p>Como la variable <span class="math inline">\(x_4\)</span> no es significativa, entonces se puede <span style="color:red">refinar</span> o actualizar el modelo <code>modforw</code> sacando <span class="math inline">\(x_4\)</span>, esto se puede realizar fácilmente por medio de la función <code>update</code> así:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="selec.html#cb339-1" tabindex="-1"></a>modforw <span class="ot">&lt;-</span> <span class="fu">update</span>(modforw, y <span class="sc">~</span> x1)</span>
-<span id="cb339-2"><a href="selec.html#cb339-2" tabindex="-1"></a><span class="fu">summary</span>(modforw)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="selec.html#cb341-1" tabindex="-1"></a>modforw <span class="ot">&lt;-</span> <span class="fu">update</span>(modforw, y <span class="sc">~</span> x1)</span>
+<span id="cb341-2"><a href="selec.html#cb341-2" tabindex="-1"></a><span class="fu">summary</span>(modforw)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1, data = datos)
@@ -887,8 +887,8 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="aplicación-del-método-both" class="section level3 unnumbered hasAnchor">
 <h3>Aplicación del método <strong>both</strong><a href="selec.html#aplicación-del-método-both" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para aplicar este método se debe crear un modelo vacío del cual iniciará el proceso. Es necesario definir un punto final de búsqueda, ese punto es una <code>formula</code> que en este caso llamaremos <code>horizonte</code>. A continuación el código.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="selec.html#cb341-1" tabindex="-1"></a>modboth <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(empty.model, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">direction=</span><span class="st">&quot;both&quot;</span>, <span class="at">scope=</span>horizonte)</span>
-<span id="cb341-2"><a href="selec.html#cb341-2" tabindex="-1"></a>modboth<span class="sc">$</span>anova</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="selec.html#cb343-1" tabindex="-1"></a>modboth <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(empty.model, <span class="at">trace=</span><span class="cn">FALSE</span>, <span class="at">direction=</span><span class="st">&quot;both&quot;</span>, <span class="at">scope=</span>horizonte)</span>
+<span id="cb343-2"><a href="selec.html#cb343-2" tabindex="-1"></a>modboth<span class="sc">$</span>anova</span></code></pre></div>
 <pre><code>## Stepwise Model Path 
 ## Analysis of Deviance Table
 ## 
@@ -908,24 +908,24 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="comparando-r2_adj" class="section level4 unnumbered hasAnchor">
 <h4>Comparando <span class="math inline">\(R^2_{Adj}\)</span><a href="selec.html#comparando-r2_adj" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para extraer el <span class="math inline">\(R^2_{Adj}\)</span> de la tabla de resultados se usa:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="selec.html#cb343-1" tabindex="-1"></a><span class="fu">summary</span>(modback)<span class="sc">$</span>adj.r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="selec.html#cb345-1" tabindex="-1"></a><span class="fu">summary</span>(modback)<span class="sc">$</span>adj.r.squared</span></code></pre></div>
 <pre><code>## [1] 0.7808368</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="selec.html#cb345-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)<span class="sc">$</span>adj.r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="selec.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)<span class="sc">$</span>adj.r.squared</span></code></pre></div>
 <pre><code>## [1] 0.7521337</code></pre>
 </div>
 <div id="comparando-hatsigma" class="section level4 unnumbered hasAnchor">
 <h4>Comparando <span class="math inline">\(\hat{\sigma}\)</span><a href="selec.html#comparando-hatsigma" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para extraer el <span class="math inline">\(\hat{\sigma}\)</span> de la tabla de resultados se usa:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="selec.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(modback)<span class="sc">$</span>sigma</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="selec.html#cb349-1" tabindex="-1"></a><span class="fu">summary</span>(modback)<span class="sc">$</span>sigma</span></code></pre></div>
 <pre><code>## [1] 2.934045</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="selec.html#cb349-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)<span class="sc">$</span>sigma</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="selec.html#cb351-1" tabindex="-1"></a><span class="fu">summary</span>(modforw)<span class="sc">$</span>sigma</span></code></pre></div>
 <pre><code>## [1] 3.120266</code></pre>
 </div>
 <div id="comparando-los-residuales" class="section level4 unnumbered hasAnchor">
 <h4>Comparando los residuales<a href="selec.html#comparando-los-residuales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="selec.html#cb351-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb351-2"><a href="selec.html#cb351-2" tabindex="-1"></a><span class="fu">plot</span>(modback, <span class="at">main=</span><span class="st">&quot;Backward&quot;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">which=</span><span class="dv">1</span>)</span>
-<span id="cb351-3"><a href="selec.html#cb351-3" tabindex="-1"></a><span class="fu">plot</span>(modforw, <span class="at">main=</span><span class="st">&quot;Forward&quot;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">which=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="selec.html#cb353-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb353-2"><a href="selec.html#cb353-2" tabindex="-1"></a><span class="fu">plot</span>(modback, <span class="at">main=</span><span class="st">&quot;Backward&quot;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">which=</span><span class="dv">1</span>)</span>
+<span id="cb353-3"><a href="selec.html#cb353-3" tabindex="-1"></a><span class="fu">plot</span>(modforw, <span class="at">main=</span><span class="st">&quot;Forward&quot;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">which=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/selection04-1.png" width="768" /></p>
 </div>
 </div>
@@ -940,14 +940,14 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="funciones-addterm-y-dropterm" class="section level2 unnumbered hasAnchor">
 <h2>Funciones <code>addterm</code> y <code>dropterm</code><a href="selec.html#funciones-addterm-y-dropterm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Estas dos funciones pertenecen al paquete <strong>MASS</strong> <span class="citation">(<a href="#ref-R-MASS">Ripley 2023</a>)</span> y son útiles para agregar/quitar 1 variable con respecto al modelo ingresado. A continuación la estructura de las funciones.</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="selec.html#cb352-1" tabindex="-1"></a><span class="fu">addterm</span>(object, ...)</span>
-<span id="cb352-2"><a href="selec.html#cb352-2" tabindex="-1"></a><span class="fu">dropterm</span> (object, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="selec.html#cb354-1" tabindex="-1"></a><span class="fu">addterm</span>(object, ...)</span>
+<span id="cb354-2"><a href="selec.html#cb354-2" tabindex="-1"></a><span class="fu">dropterm</span> (object, ...)</span></code></pre></div>
 <div id="ejemplo-45" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="selec.html#ejemplo-45" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Usando datos anteriores ajuste un modelo para explicar <code>y</code> en función de <code>x2</code> y <code>x5</code>, luego use <code>addterm</code> para determinar cual de las variables <code>x1</code>, <code>x4</code> y <code>x6</code> se debería ingresar.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="selec.html#cb353-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x5, <span class="at">data=</span>datos)</span>
-<span id="cb353-2"><a href="selec.html#cb353-2" tabindex="-1"></a>maximo <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span>
-<span id="cb353-3"><a href="selec.html#cb353-3" tabindex="-1"></a><span class="fu">addterm</span>(mod1, <span class="at">scope=</span>maximo)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="selec.html#cb355-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x5, <span class="at">data=</span>datos)</span>
+<span id="cb355-2"><a href="selec.html#cb355-2" tabindex="-1"></a>maximo <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span>
+<span id="cb355-3"><a href="selec.html#cb355-3" tabindex="-1"></a><span class="fu">addterm</span>(mod1, <span class="at">scope=</span>maximo)</span></code></pre></div>
 <pre><code>## Single term additions
 ## 
 ## Model:
@@ -974,7 +974,7 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 <div id="ejemplo-46" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="selec.html#ejemplo-46" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo vamos a usar la base de datos <code>mtcars</code> para crear todas las regresiones posibles para explicar <code>mpg</code> en función de las variables <code>disp</code>, <code>hp</code>, <code>wt</code>, <code>qsec</code>, a continuación una parte de la base de datos.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="selec.html#cb356-1" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="selec.html#cb358-1" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -983,11 +983,11 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p>A continuación el código para ajustar el modelo saturado y luego crear todas las regresiones posibles.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="selec.html#cb358-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data=</span>mtcars)</span>
-<span id="cb358-2"><a href="selec.html#cb358-2" tabindex="-1"></a></span>
-<span id="cb358-3"><a href="selec.html#cb358-3" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
-<span id="cb358-4"><a href="selec.html#cb358-4" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">ols_step_all_possible</span>(model)</span>
-<span id="cb358-5"><a href="selec.html#cb358-5" tabindex="-1"></a>res</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="selec.html#cb360-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data=</span>mtcars)</span>
+<span id="cb360-2"><a href="selec.html#cb360-2" tabindex="-1"></a></span>
+<span id="cb360-3"><a href="selec.html#cb360-3" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb360-4"><a href="selec.html#cb360-4" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">ols_step_all_possible</span>(model)</span>
+<span id="cb360-5"><a href="selec.html#cb360-5" tabindex="-1"></a>res</span></code></pre></div>
 <pre><code>##    Index N      Predictors  R-Square Adj. R-Square Mallow&#39;s Cp
 ## 3      1 1              wt 0.7528328     0.7445939  0.70869536
 ## 1      2 1            disp 0.7183433     0.7089548  0.67512054
@@ -1005,7 +1005,7 @@ Figure 15.2: Ilustración de los métodos Forward y Backward.
 ## 12    14 3    disp hp qsec 0.7541953     0.7278591  0.68301440
 ## 15    15 4 disp hp wt qsec 0.8351443     0.8107212  0.77102968</code></pre>
 <p>Los resultados anteriores se pueden ver de forma gráfica así:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="selec.html#cb360-1" tabindex="-1"></a><span class="fu">plot</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="selec.html#cb362-1" tabindex="-1"></a><span class="fu">plot</span>(res)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/selection05-1.png" width="672" /><img src="Regresion_con_R_files/figure-html/selection05-2.png" width="672" /></p>
 <p>Se le recomienda al lector explorar las viñetas del paquete <a href="https://cran.r-project.org/web/packages/olsrr/index.html">olsrr</a> para conocer todas las bondades del paquete.</p>
 </div>
@@ -1021,13 +1021,13 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <h3>Ejemplo<a href="selec.html#ejemplo-47" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo se retoman los datos del ejercicio 9.5 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En este ejemplo se busca encontrar un modelo de regresion lineal que explique la variable respuesta <span class="math inline">\(y\)</span> en función de las covariables <span class="math inline">\(x_1\)</span> a <span class="math inline">\(x_{11}\)</span>, usando el modelo backward y que todas las variables sean significativas a un nivel del 4%.</p>
 <p>Para realizar lo solicitado se usa el siguiente código:</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="selec.html#cb361-1" tabindex="-1"></a><span class="fu">library</span>(MPV) <span class="co"># Aqui estan los datos</span></span>
-<span id="cb361-2"><a href="selec.html#cb361-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> table.b3[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>), ] <span class="co"># Eliminando 2 observaciones con NA</span></span>
-<span id="cb361-3"><a href="selec.html#cb361-3" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6 <span class="sc">+</span> x7 <span class="sc">+</span> x8 <span class="sc">+</span> x9 <span class="sc">+</span> x10 <span class="sc">+</span> x11,</span>
-<span id="cb361-4"><a href="selec.html#cb361-4" tabindex="-1"></a>             <span class="at">data=</span>datos)</span>
-<span id="cb361-5"><a href="selec.html#cb361-5" tabindex="-1"></a></span>
-<span id="cb361-6"><a href="selec.html#cb361-6" tabindex="-1"></a><span class="fu">library</span>(mixlm)</span>
-<span id="cb361-7"><a href="selec.html#cb361-7" tabindex="-1"></a><span class="fu">backward</span>(modelo, <span class="at">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="selec.html#cb363-1" tabindex="-1"></a><span class="fu">library</span>(MPV) <span class="co"># Aqui estan los datos</span></span>
+<span id="cb363-2"><a href="selec.html#cb363-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> table.b3[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>), ] <span class="co"># Eliminando 2 observaciones con NA</span></span>
+<span id="cb363-3"><a href="selec.html#cb363-3" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6 <span class="sc">+</span> x7 <span class="sc">+</span> x8 <span class="sc">+</span> x9 <span class="sc">+</span> x10 <span class="sc">+</span> x11,</span>
+<span id="cb363-4"><a href="selec.html#cb363-4" tabindex="-1"></a>             <span class="at">data=</span>datos)</span>
+<span id="cb363-5"><a href="selec.html#cb363-5" tabindex="-1"></a></span>
+<span id="cb363-6"><a href="selec.html#cb363-6" tabindex="-1"></a><span class="fu">library</span>(mixlm)</span>
+<span id="cb363-7"><a href="selec.html#cb363-7" tabindex="-1"></a><span class="fu">backward</span>(modelo, <span class="at">alpha=</span><span class="fl">0.04</span>)</span></code></pre></div>
 <pre><code>## Backward elimination, alpha-to-remove: 0.04
 ## 
 ## Full model: y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
@@ -1059,7 +1059,7 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <p>El paquete <strong>leaps</strong> creado por <span class="citation">(<a href="#ref-R-leaps"><strong>R-leaps?</strong></a>)</span> está basado en <a href="https://es.wikipedia.org/wiki/Fortran">Fortran</a> y es útil cuando nos interese encontrar subconjuntos de covariables para optimizar las características de un modelo.</p>
 <p>La función <code>regsubsets</code> realiza una búsqueda exhaustiva de los mejores subconjuntos de variables <span class="math inline">\(x\)</span> para explicar <span class="math inline">\(y\)</span>. La búsqueda utiliza un algoritmo eficiente de ramificación y unión.</p>
 <p>La estructura de la función es la siguiente:</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="selec.html#cb364-1" tabindex="-1"></a><span class="fu">regsubsets</span>(x, data, nbest, nvmax, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="selec.html#cb366-1" tabindex="-1"></a><span class="fu">regsubsets</span>(x, data, nbest, nvmax, ...)</span></code></pre></div>
 <p>Algunos de los parámetros más usuados en la función son:</p>
 <ul>
 <li><code>x</code>: fórmula usual.</li>
@@ -1071,14 +1071,14 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 <h3>Ejemplo<a href="selec.html#ejemplo-48" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este ejemplo vamos a usar la base de datos <code>mtcars</code> para encontrar los <strong>dos</strong> mejores modelos con 1, 2, 3 y 4 covariables para explicar <code>mpg</code> en función de las variables <code>disp</code>, <code>hp</code>, <code>wt</code>, <code>qsec</code>.</p>
 <p>Para hacer la búsqueda usamos el siguiente código. <code>nbest=2</code> porque queremos los mejores <strong>dos</strong> modelos con cada número de covariables posible.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="selec.html#cb365-1" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
-<span id="cb365-2"><a href="selec.html#cb365-2" tabindex="-1"></a>model_subset <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> qsec, </span>
-<span id="cb365-3"><a href="selec.html#cb365-3" tabindex="-1"></a>                           <span class="at">data=</span>mtcars, <span class="at">nbest=</span><span class="dv">2</span>, <span class="at">nvmax=</span><span class="dv">13</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="selec.html#cb367-1" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb367-2"><a href="selec.html#cb367-2" tabindex="-1"></a>model_subset <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> qsec, </span>
+<span id="cb367-3"><a href="selec.html#cb367-3" tabindex="-1"></a>                           <span class="at">data=</span>mtcars, <span class="at">nbest=</span><span class="dv">2</span>, <span class="at">nvmax=</span><span class="dv">13</span>)</span></code></pre></div>
 <p>El <code>model_subset</code> es un objeto de la clase <code>regsubsets</code> y es posible usar la función S3 <code>summary</code> para objetos de esa clase. A continuación los elementos que componen <code>summary</code>.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="selec.html#cb366-1" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">summary</span>(model_subset))</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="selec.html#cb368-1" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">summary</span>(model_subset))</span></code></pre></div>
 <pre><code>## [1] &quot;which&quot;  &quot;rsq&quot;    &quot;rss&quot;    &quot;adjr2&quot;  &quot;cp&quot;     &quot;bic&quot;    &quot;outmat&quot; &quot;obj&quot;</code></pre>
 <p>El primer elemento del <code>summary</code> se obtiene así:</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="selec.html#cb368-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>which</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="selec.html#cb370-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>which</span></code></pre></div>
 <pre><code>##   (Intercept)  disp    hp    wt  qsec
 ## 1        TRUE FALSE FALSE  TRUE FALSE
 ## 1        TRUE  TRUE FALSE FALSE FALSE
@@ -1089,13 +1089,13 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 ## 4        TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
 <p>De las dos primeras líneas de la salida anterior se observa que los dos mejores modelos con <strong>una</strong> sola covariable son <code>mpg ~ wt</code> y <code>mpg ~ disp</code>. De forma similar, los dos mejores modelos con <strong>dos</strong> covariables son <code>mpg ~ hp + wt</code> y <code>mpg ~ wt + qsec</code>. De forma análoga se interpretan las líneas de la salida anterior.</p>
 <p>Es posible mostrar gráficamente los resultados anteriores usando el método S3 <code>plot</code> para objetos de la clase <code>regsubsets</code>. A continuación la estructura de la función <code>plot</code>. El parámetro <code>scale</code> nos permite explorar los mejores modelos para cada uno de los cuatro criterios <span class="math inline">\(BIC\)</span>, <span class="math inline">\(C_p\)</span>, <span class="math inline">\(R^2_{adj}\)</span> y <span class="math inline">\(R^2\)</span>.</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="selec.html#cb370-1" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">labels=</span>obj<span class="sc">$</span>xnames, <span class="at">main=</span><span class="cn">NULL</span>, </span>
-<span id="cb370-2"><a href="selec.html#cb370-2" tabindex="-1"></a>     <span class="at">scale=</span><span class="fu">c</span>(<span class="st">&quot;bic&quot;</span>, <span class="st">&quot;Cp&quot;</span>, <span class="st">&quot;adjr2&quot;</span>, <span class="st">&quot;r2&quot;</span>),</span>
-<span id="cb370-3"><a href="selec.html#cb370-3" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">gray</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.9</span>, <span class="at">length =</span> <span class="dv">10</span>)),...)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="selec.html#cb372-1" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">labels=</span>obj<span class="sc">$</span>xnames, <span class="at">main=</span><span class="cn">NULL</span>, </span>
+<span id="cb372-2"><a href="selec.html#cb372-2" tabindex="-1"></a>     <span class="at">scale=</span><span class="fu">c</span>(<span class="st">&quot;bic&quot;</span>, <span class="st">&quot;Cp&quot;</span>, <span class="st">&quot;adjr2&quot;</span>, <span class="st">&quot;r2&quot;</span>),</span>
+<span id="cb372-3"><a href="selec.html#cb372-3" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">gray</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.9</span>, <span class="at">length =</span> <span class="dv">10</span>)),...)</span></code></pre></div>
 <p>A continuación el código para mostrar gráficamente los mejores modelos usando el criterio <span class="math inline">\(R^2_{adj}\)</span> y <span class="math inline">\(BIC\)</span>.</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="selec.html#cb371-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb371-2"><a href="selec.html#cb371-2" tabindex="-1"></a><span class="fu">plot</span>(model_subset, <span class="at">scale=</span><span class="st">&quot;adjr2&quot;</span>, <span class="at">main=</span><span class="fu">expression</span>(R[Adj]<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb371-3"><a href="selec.html#cb371-3" tabindex="-1"></a><span class="fu">plot</span>(model_subset, <span class="at">scale=</span><span class="st">&quot;bic&quot;</span>, <span class="at">main=</span><span class="st">&quot;BIC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="selec.html#cb373-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb373-2"><a href="selec.html#cb373-2" tabindex="-1"></a><span class="fu">plot</span>(model_subset, <span class="at">scale=</span><span class="st">&quot;adjr2&quot;</span>, <span class="at">main=</span><span class="fu">expression</span>(R[Adj]<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb373-3"><a href="selec.html#cb373-3" tabindex="-1"></a><span class="fu">plot</span>(model_subset, <span class="at">scale=</span><span class="st">&quot;bic&quot;</span>, <span class="at">main=</span><span class="st">&quot;BIC&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/selection06-1.png" width="960" /></p>
 <p>De la figura de la izquierda vemos que:</p>
 <ul>
@@ -1105,15 +1105,15 @@ Este paquete contiene otras funciones <code>lm</code> y <code>glm</code> que se 
 </ul>
 <p>La figura de la derecha se puede analizar de forma análoga.</p>
 <p>Para obtener los valores exacto de <span class="math inline">\(R^2_{adj}\)</span> y <span class="math inline">\(BIC\)</span> mostrados en la figura anterior se usa el siguiente código.</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="selec.html#cb372-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>adjr2</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="selec.html#cb374-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>adjr2</span></code></pre></div>
 <pre><code>## [1] 0.7445939 0.7089548 0.8148396 0.8144448 0.8170643 0.8082829 0.8107212</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="selec.html#cb374-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="selec.html#cb376-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic</span></code></pre></div>
 <pre><code>## [1] -37.79462 -33.61466 -45.70597 -45.63781 -43.74996 -42.24960 -40.35723</code></pre>
 <p>Para encontrar el modelo con el mejor <span class="math inline">\(BIC\)</span> se puede usar lo siguiente:</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="selec.html#cb376-1" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic <span class="sc">==</span> <span class="fu">min</span>(<span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic))</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="selec.html#cb378-1" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic <span class="sc">==</span> <span class="fu">min</span>(<span class="fu">summary</span>(model_subset)<span class="sc">$</span>bic))</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para determinar la estructura del <span style="color:orange">modelo 3</span> identificado en la salida anterior usamos:</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="selec.html#cb378-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>which[<span class="dv">3</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="selec.html#cb380-1" tabindex="-1"></a><span class="fu">summary</span>(model_subset)<span class="sc">$</span>which[<span class="dv">3</span>, ]</span></code></pre></div>
 <pre><code>## (Intercept)        disp          hp          wt        qsec 
 ##        TRUE       FALSE        TRUE        TRUE       FALSE</code></pre>
 

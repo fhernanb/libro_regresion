@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>19 Notación de Wilkinson y Rogers | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="19 Notación de Wilkinson y Rogers | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-25" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,21 +540,21 @@ div.csl-indent {
 <li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
 </ul>
 <p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="WilRog.html#cb410-1" tabindex="-1"></a>my_form <span class="ot">&lt;-</span> <span class="fu">formula</span>(precio <span class="sc">~</span> area <span class="sc">+</span> habit)</span>
-<span id="cb410-2"><a href="WilRog.html#cb410-2" tabindex="-1"></a>my_form</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="WilRog.html#cb412-1" tabindex="-1"></a>my_form <span class="ot">&lt;-</span> <span class="fu">formula</span>(precio <span class="sc">~</span> area <span class="sc">+</span> habit)</span>
+<span id="cb412-2"><a href="WilRog.html#cb412-2" tabindex="-1"></a>my_form</span></code></pre></div>
 <pre><code>## precio ~ area + habit</code></pre>
 <p>Para conocer la clase de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="WilRog.html#cb412-1" tabindex="-1"></a><span class="fu">class</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="WilRog.html#cb414-1" tabindex="-1"></a><span class="fu">class</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Para conocer la longitud de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="WilRog.html#cb414-1" tabindex="-1"></a><span class="fu">length</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="WilRog.html#cb416-1" tabindex="-1"></a><span class="fu">length</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="WilRog.html#cb416-1" tabindex="-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="WilRog.html#cb418-1" tabindex="-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
 <pre><code>## `~`()</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="WilRog.html#cb418-1" tabindex="-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="WilRog.html#cb420-1" tabindex="-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
 <pre><code>## precio()</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="WilRog.html#cb420-1" tabindex="-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="WilRog.html#cb422-1" tabindex="-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
 <pre><code>## (area + habit)()</code></pre>
 </div>
 <div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered hasAnchor">

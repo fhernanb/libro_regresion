@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>20 ¿Cómo obtener la matriz \(\boldsymbol{X}\) y el vector \(\boldsymbol{y}\)? | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="20 ¿Cómo obtener la matriz \(\boldsymbol{X}\) y el vector \(\boldsymbol{y}\)? | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-25" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -537,11 +537,11 @@ div.csl-indent {
 </p>
 <p><strong>Solución</strong></p>
 <p>Lo primero es crear el marco de datos así:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="xy.html#cb422-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Precio =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>),</span>
-<span id="cb422-2"><a href="xy.html#cb422-2" tabindex="-1"></a>                    <span class="at">Area =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>), </span>
-<span id="cb422-3"><a href="xy.html#cb422-3" tabindex="-1"></a>                    <span class="at">Pisci =</span> <span class="fu">factor</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</span>
-<span id="cb422-4"><a href="xy.html#cb422-4" tabindex="-1"></a>                                   <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>)))</span>
-<span id="cb422-5"><a href="xy.html#cb422-5" tabindex="-1"></a>datos</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="xy.html#cb424-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Precio =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">7</span>),</span>
+<span id="cb424-2"><a href="xy.html#cb424-2" tabindex="-1"></a>                    <span class="at">Area =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">3</span>), </span>
+<span id="cb424-3"><a href="xy.html#cb424-3" tabindex="-1"></a>                    <span class="at">Pisci =</span> <span class="fu">factor</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="st">&#39;Grande&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Pequena&#39;</span>, <span class="st">&#39;Sin&#39;</span>, <span class="st">&#39;Grande&#39;</span>),</span>
+<span id="cb424-4"><a href="xy.html#cb424-4" tabindex="-1"></a>                                   <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&#39;Sin&#39;</span>,<span class="st">&#39;Pequena&#39;</span>,<span class="st">&#39;Grande&#39;</span>)))</span>
+<span id="cb424-5"><a href="xy.html#cb424-5" tabindex="-1"></a>datos</span></code></pre></div>
 <pre><code>##   Precio Area   Pisci
 ## 1     12    3  Grande
 ## 2     15    4     Sin
@@ -550,9 +550,9 @@ div.csl-indent {
 ## 5     16    5     Sin
 ## 6      7    3  Grande</code></pre>
 <p>Luego usamos la función <code>model.matrix</code> para obtener <span class="math inline">\(\boldsymbol{X}\)</span>.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="xy.html#cb424-1" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">formula</span>(Precio <span class="sc">~</span> Area <span class="sc">+</span> Pisci)</span>
-<span id="cb424-2"><a href="xy.html#cb424-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="at">object=</span>form, <span class="at">data=</span>datos)</span>
-<span id="cb424-3"><a href="xy.html#cb424-3" tabindex="-1"></a>X</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="xy.html#cb426-1" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">formula</span>(Precio <span class="sc">~</span> Area <span class="sc">+</span> Pisci)</span>
+<span id="cb426-2"><a href="xy.html#cb426-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="at">object=</span>form, <span class="at">data=</span>datos)</span>
+<span id="cb426-3"><a href="xy.html#cb426-3" tabindex="-1"></a>X</span></code></pre></div>
 <pre><code>##   (Intercept) Area PisciPequena PisciGrande
 ## 1           1    3            0           1
 ## 2           1    4            0           0
@@ -566,9 +566,9 @@ div.csl-indent {
 ## attr(,&quot;contrasts&quot;)$Pisci
 ## [1] &quot;contr.treatment&quot;</code></pre>
 <p>Luego usamos las funciones <code>model.frame</code> y <code>model.extract</code> para obtener el vector <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="xy.html#cb426-1" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(Precio <span class="sc">~</span> Area <span class="sc">+</span> Pisci, <span class="at">data=</span>datos)</span>
-<span id="cb426-2"><a href="xy.html#cb426-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model.extract</span>(mf, <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb426-3"><a href="xy.html#cb426-3" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="xy.html#cb428-1" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(Precio <span class="sc">~</span> Area <span class="sc">+</span> Pisci, <span class="at">data=</span>datos)</span>
+<span id="cb428-2"><a href="xy.html#cb428-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model.extract</span>(mf, <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb428-3"><a href="xy.html#cb428-3" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>##  1  2  3  4  5  6 
 ## 12 15 25 11 16  7</code></pre>
 

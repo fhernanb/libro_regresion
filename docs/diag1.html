@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Diagnósticos parte I | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Diagnósticos parte I | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-02-25" />
+<meta name="date" content="2024-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -565,9 +565,9 @@ div.csl-indent {
 <p>La cantidad <span class="math inline">\(h_{ii}\)</span> se llama leverage y corresponde al elemento <span class="math inline">\(i\)</span> de la diagonal de la matriz sombrero o hat <span class="math inline">\(\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top\)</span>.</p>
 <p>La varianza <span class="math inline">\(\hat{\sigma}_{(i)}^{2}\)</span> es la varianza estimada al <strong>NO</strong> tener en cuenta la observación <span class="math inline">\(i\)</span>-ésima. La cantidad <span class="math inline">\(\hat{y}_{(i)}\)</span> es la estimación de la <span class="math inline">\(i\)</span>-ésima observación usando un modelo en el cual la observación <span class="math inline">\(i\)</span>-ésima <strong>NO</strong> fue usada en el ajuste del modelo.</p>
 <p>Para obtener los residuales arriba definidos tenemos las siguientes funciones:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="diag1.html#cb169-1" tabindex="-1"></a><span class="fu">residuals</span>(object, <span class="at">type=</span><span class="fu">c</span>(<span class="st">&quot;working&quot;</span>, <span class="st">&quot;response&quot;</span>, <span class="st">&quot;deviance&quot;</span>, <span class="st">&quot;pearson&quot;</span>, <span class="st">&quot;partial&quot;</span>))</span>
-<span id="cb169-2"><a href="diag1.html#cb169-2" tabindex="-1"></a><span class="fu">rstandard</span>(object)</span>
-<span id="cb169-3"><a href="diag1.html#cb169-3" tabindex="-1"></a><span class="fu">rstudent</span>(object)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="diag1.html#cb171-1" tabindex="-1"></a><span class="fu">residuals</span>(object, <span class="at">type=</span><span class="fu">c</span>(<span class="st">&quot;working&quot;</span>, <span class="st">&quot;response&quot;</span>, <span class="st">&quot;deviance&quot;</span>, <span class="st">&quot;pearson&quot;</span>, <span class="st">&quot;partial&quot;</span>))</span>
+<span id="cb171-2"><a href="diag1.html#cb171-2" tabindex="-1"></a><span class="fu">rstandard</span>(object)</span>
+<span id="cb171-3"><a href="diag1.html#cb171-3" tabindex="-1"></a><span class="fu">rstudent</span>(object)</span></code></pre></div>
 <p>Si un modelo lineal está correctamente especificado (ajustado), los residuos de Pearson serán independientes de los valores ajustados e independientes de los predictores, y estos gráficos deben ser “gráficos nulos”, es decir, gráficos sin características sistemáticas, en el sentido de que la distribución condicional de los residuos (en el eje vertical del gráfico) no debe cambiar con los valores ajustados o con un predictor (en el eje horizontal) <span class="citation">(<a href="#ref-fox2019">J. Fox and Weisberg 2019</a>)</span>.</p>
 
 <div class="rmdwarning">
@@ -576,20 +576,20 @@ Los errores del modelo se denotan como <span class="math inline">\(\epsilon_i\)<
 <div id="ejemplo-25" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="diag1.html#ejemplo-25" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considere los datos mostrados abajo, ajuste un modelo de regresión lineal para explicar la media de <span class="math inline">\(y\)</span> en función de <span class="math inline">\(x\)</span> y usando como pesos los valores de <span class="math inline">\(w\)</span>. Obtenga los residuales usando las definiciones y luego usando las funciones de R, compruebe que los resultados coinciden.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diag1.html#cb170-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">5</span>)</span>
-<span id="cb170-2"><a href="diag1.html#cb170-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb170-3"><a href="diag1.html#cb170-3" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diag1.html#cb172-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb172-2"><a href="diag1.html#cb172-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb172-3"><a href="diag1.html#cb172-3" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
 <p><strong>Solución</strong></p>
 <p>Primero se van a calcular los residuales manualmente aplicando las definiciones.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="diag1.html#cb171-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">weights=</span>w)</span>
-<span id="cb171-2"><a href="diag1.html#cb171-2" tabindex="-1"></a></span>
-<span id="cb171-3"><a href="diag1.html#cb171-3" tabindex="-1"></a>ei <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">fitted</span>(mod)</span>
-<span id="cb171-4"><a href="diag1.html#cb171-4" tabindex="-1"></a>pi <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights)</span>
-<span id="cb171-5"><a href="diag1.html#cb171-5" tabindex="-1"></a>hii <span class="ot">&lt;-</span> <span class="fu">lm.influence</span>(mod)<span class="sc">$</span>hat</span>
-<span id="cb171-6"><a href="diag1.html#cb171-6" tabindex="-1"></a>di <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>hii))</span>
-<span id="cb171-7"><a href="diag1.html#cb171-7" tabindex="-1"></a>ri <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">lm.influence</span>(mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>hii))</span>
-<span id="cb171-8"><a href="diag1.html#cb171-8" tabindex="-1"></a></span>
-<span id="cb171-9"><a href="diag1.html#cb171-9" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">ei=</span>ei, <span class="at">pi=</span>pi, <span class="at">di=</span>di, <span class="at">ri=</span>ri)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="diag1.html#cb173-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">weights=</span>w)</span>
+<span id="cb173-2"><a href="diag1.html#cb173-2" tabindex="-1"></a></span>
+<span id="cb173-3"><a href="diag1.html#cb173-3" tabindex="-1"></a>ei <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">fitted</span>(mod)</span>
+<span id="cb173-4"><a href="diag1.html#cb173-4" tabindex="-1"></a>pi <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights)</span>
+<span id="cb173-5"><a href="diag1.html#cb173-5" tabindex="-1"></a>hii <span class="ot">&lt;-</span> <span class="fu">lm.influence</span>(mod)<span class="sc">$</span>hat</span>
+<span id="cb173-6"><a href="diag1.html#cb173-6" tabindex="-1"></a>di <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>hii))</span>
+<span id="cb173-7"><a href="diag1.html#cb173-7" tabindex="-1"></a>ri <span class="ot">&lt;-</span> ei <span class="sc">*</span> <span class="fu">sqrt</span>(mod<span class="sc">$</span>weights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">lm.influence</span>(mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>hii))</span>
+<span id="cb173-8"><a href="diag1.html#cb173-8" tabindex="-1"></a></span>
+<span id="cb173-9"><a href="diag1.html#cb173-9" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">ei=</span>ei, <span class="at">pi=</span>pi, <span class="at">di=</span>di, <span class="at">ri=</span>ri)</span></code></pre></div>
 <pre><code>##           ei          pi          di          ri
 ## 1 -2.3487395 -0.74273664 -1.36444485 -1.61615603
 ## 2 -1.7100840 -0.54077605 -0.92897379 -0.90846102
@@ -598,10 +598,10 @@ Los errores del modelo se denotan como <span class="math inline">\(\epsilon_i\)<
 ## 5  0.9285714  0.41526977  0.91348054  0.88927302
 ## 6  0.4705882  0.44643920  1.63607317  2.46342873</code></pre>
 <p>Ahora se van a calcular los residuales usando las funciones de R.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="diag1.html#cb173-1" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">ei=</span><span class="fu">residuals</span>(mod, <span class="at">type=</span><span class="st">&#39;working&#39;</span>),</span>
-<span id="cb173-2"><a href="diag1.html#cb173-2" tabindex="-1"></a>      <span class="at">pi=</span><span class="fu">residuals</span>(mod, <span class="at">type=</span><span class="st">&#39;pearson&#39;</span>),</span>
-<span id="cb173-3"><a href="diag1.html#cb173-3" tabindex="-1"></a>      <span class="at">di=</span><span class="fu">rstandard</span>(mod),</span>
-<span id="cb173-4"><a href="diag1.html#cb173-4" tabindex="-1"></a>      <span class="at">ri=</span><span class="fu">rstudent</span>(mod))</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="diag1.html#cb175-1" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">ei=</span><span class="fu">residuals</span>(mod, <span class="at">type=</span><span class="st">&#39;working&#39;</span>),</span>
+<span id="cb175-2"><a href="diag1.html#cb175-2" tabindex="-1"></a>      <span class="at">pi=</span><span class="fu">residuals</span>(mod, <span class="at">type=</span><span class="st">&#39;pearson&#39;</span>),</span>
+<span id="cb175-3"><a href="diag1.html#cb175-3" tabindex="-1"></a>      <span class="at">di=</span><span class="fu">rstandard</span>(mod),</span>
+<span id="cb175-4"><a href="diag1.html#cb175-4" tabindex="-1"></a>      <span class="at">ri=</span><span class="fu">rstudent</span>(mod))</span></code></pre></div>
 <pre><code>##           ei          pi          di          ri
 ## 1 -2.3487395 -0.74273664 -1.36444485 -1.61615603
 ## 2 -1.7100840 -0.54077605 -0.92897379 -0.90846102
@@ -672,20 +672,20 @@ x_i &amp;\sim U(-5, 6) \\
 \end{align*}\]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="diag1.html#cb175-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb175-2"><a href="diag1.html#cb175-2" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
-<span id="cb175-3"><a href="diag1.html#cb175-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
-<span id="cb175-4"><a href="diag1.html#cb175-4" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
-<span id="cb175-5"><a href="diag1.html#cb175-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
-<span id="cb175-6"><a href="diag1.html#cb175-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb175-7"><a href="diag1.html#cb175-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
-<span id="cb175-8"><a href="diag1.html#cb175-8" tabindex="-1"></a>}</span>
-<span id="cb175-9"><a href="diag1.html#cb175-9" tabindex="-1"></a></span>
-<span id="cb175-10"><a href="diag1.html#cb175-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
-<span id="cb175-11"><a href="diag1.html#cb175-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag1.html#cb177-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb177-2"><a href="diag1.html#cb177-2" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb177-3"><a href="diag1.html#cb177-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
+<span id="cb177-4"><a href="diag1.html#cb177-4" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
+<span id="cb177-5"><a href="diag1.html#cb177-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
+<span id="cb177-6"><a href="diag1.html#cb177-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb177-7"><a href="diag1.html#cb177-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
+<span id="cb177-8"><a href="diag1.html#cb177-8" tabindex="-1"></a>}</span>
+<span id="cb177-9"><a href="diag1.html#cb177-9" tabindex="-1"></a></span>
+<span id="cb177-10"><a href="diag1.html#cb177-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
+<span id="cb177-11"><a href="diag1.html#cb177-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>Los gráficos de residuales explicados anteriormente se pueden obtener usando la función <code>plot</code> sobre el modelo ajustado <code>mod</code>.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diag1.html#cb176-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb176-2"><a href="diag1.html#cb176-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;darkseagreen3&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="diag1.html#cb178-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb178-2"><a href="diag1.html#cb178-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;darkseagreen3&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>En la figura anterior se observa que los puntos del gráfico de normalidad de los residuales estandarizados <span class="math inline">\(d_i\)</span> están muy cerca de la línea de referencia. Los diagramas de dispersión entre los residuales versus <span class="math inline">\(\hat{\mu}_i\)</span> no muestran ninguna anomalía. Por estas razones podemos asumir que los supuestos del modelo se cumplen.</p>
 <p>Para estar más seguros de la normalidad de los errores vamos a aplicar la prueba <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilks</a>. En esta prueba se tienen las siguiente hipótesis.</p>
@@ -694,8 +694,8 @@ H_0 &amp;: \text{los residuales tienen distribución normal.} \\
 H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 \end{align}\]</span></p>
 <p>Para aplicar la prueba podemos usar el siguiente código:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diag1.html#cb177-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
-<span id="cb177-2"><a href="diag1.html#cb177-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag1.html#cb179-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
+<span id="cb179-2"><a href="diag1.html#cb179-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -718,20 +718,20 @@ x_i &amp;\sim U(-5, 6) \\
 \end{align*}\]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="diag1.html#cb179-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb179-2"><a href="diag1.html#cb179-2" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
-<span id="cb179-3"><a href="diag1.html#cb179-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
-<span id="cb179-4"><a href="diag1.html#cb179-4" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb179-5"><a href="diag1.html#cb179-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
-<span id="cb179-6"><a href="diag1.html#cb179-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb179-7"><a href="diag1.html#cb179-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
-<span id="cb179-8"><a href="diag1.html#cb179-8" tabindex="-1"></a>}</span>
-<span id="cb179-9"><a href="diag1.html#cb179-9" tabindex="-1"></a></span>
-<span id="cb179-10"><a href="diag1.html#cb179-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
-<span id="cb179-11"><a href="diag1.html#cb179-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="diag1.html#cb181-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb181-2"><a href="diag1.html#cb181-2" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb181-3"><a href="diag1.html#cb181-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
+<span id="cb181-4"><a href="diag1.html#cb181-4" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb181-5"><a href="diag1.html#cb181-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
+<span id="cb181-6"><a href="diag1.html#cb181-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb181-7"><a href="diag1.html#cb181-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
+<span id="cb181-8"><a href="diag1.html#cb181-8" tabindex="-1"></a>}</span>
+<span id="cb181-9"><a href="diag1.html#cb181-9" tabindex="-1"></a></span>
+<span id="cb181-10"><a href="diag1.html#cb181-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
+<span id="cb181-11"><a href="diag1.html#cb181-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>Los gráficos de residuales explicados anteriormente se pueden obtener usando la función <code>plot</code> sobre el modelo ajustado <code>mod</code>.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diag1.html#cb180-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb180-2"><a href="diag1.html#cb180-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;tomato&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diag1.html#cb182-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb182-2"><a href="diag1.html#cb182-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;tomato&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid02-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De los gráficos anteriores se observa claramente que lo residuales no dicen que algo está mal con el modelo ajustado.</p>
 <p>Para estar más seguros de la normalidad de los errores vamos a aplicar la prueba <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilks</a>. En esta prueba se tienen las siguiente hipótesis.</p>
@@ -740,8 +740,8 @@ H_0 &amp;: \text{los residuales tienen distribución normal.} \\
 H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 \end{align}\]</span></p>
 <p>Para aplicar la prueba podemos usar el siguiente código:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="diag1.html#cb181-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
-<span id="cb181-2"><a href="diag1.html#cb181-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diag1.html#cb183-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
+<span id="cb183-2"><a href="diag1.html#cb183-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -760,20 +760,20 @@ x_i &amp;\sim U(-5, 6) \\
 \end{align*}\]</span></p>
 <p><strong>Solución</strong></p>
 <p>Lo primero que se debe hacer es simular los datos y ajustar el modelo.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diag1.html#cb183-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb183-2"><a href="diag1.html#cb183-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
-<span id="cb183-3"><a href="diag1.html#cb183-3" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
-<span id="cb183-4"><a href="diag1.html#cb183-4" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x)</span>
-<span id="cb183-5"><a href="diag1.html#cb183-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
-<span id="cb183-6"><a href="diag1.html#cb183-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb183-7"><a href="diag1.html#cb183-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
-<span id="cb183-8"><a href="diag1.html#cb183-8" tabindex="-1"></a>}</span>
-<span id="cb183-9"><a href="diag1.html#cb183-9" tabindex="-1"></a></span>
-<span id="cb183-10"><a href="diag1.html#cb183-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
-<span id="cb183-11"><a href="diag1.html#cb183-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="diag1.html#cb185-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb185-2"><a href="diag1.html#cb185-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="dv">5</span>, <span class="at">max=</span><span class="dv">6</span>)</span>
+<span id="cb185-3"><a href="diag1.html#cb185-3" tabindex="-1"></a>  media <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">6</span> <span class="sc">*</span> x</span>
+<span id="cb185-4"><a href="diag1.html#cb185-4" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x)</span>
+<span id="cb185-5"><a href="diag1.html#cb185-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span>media, <span class="at">sd=</span><span class="fu">sqrt</span>(varianza))</span>
+<span id="cb185-6"><a href="diag1.html#cb185-6" tabindex="-1"></a>  marco_datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb185-7"><a href="diag1.html#cb185-7" tabindex="-1"></a>  <span class="fu">return</span>(marco_datos)</span>
+<span id="cb185-8"><a href="diag1.html#cb185-8" tabindex="-1"></a>}</span>
+<span id="cb185-9"><a href="diag1.html#cb185-9" tabindex="-1"></a></span>
+<span id="cb185-10"><a href="diag1.html#cb185-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">500</span>)</span>
+<span id="cb185-11"><a href="diag1.html#cb185-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>Los gráficos de residuales explicados anteriormente se pueden obtener usando la función <code>plot</code> sobre el modelo ajustado <code>mod</code>.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diag1.html#cb184-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb184-2"><a href="diag1.html#cb184-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;purple&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="diag1.html#cb186-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb186-2"><a href="diag1.html#cb186-2" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;purple&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid03-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>De los gráficos anteriores se observa claramente que lo residuales no dicen que algo está mal con el modelo ajustado.</p>
 <p>Para estar más seguros de la normalidad de los errores vamos a aplicar la prueba <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilks</a>. En esta prueba se tienen las siguiente hipótesis.</p>
@@ -782,8 +782,8 @@ H_0 &amp;: \text{los residuales tienen distribución normal.} \\
 H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 \end{align}\]</span></p>
 <p>Para aplicar la prueba podemos usar el siguiente código:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="diag1.html#cb185-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
-<span id="cb185-2"><a href="diag1.html#cb185-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="diag1.html#cb187-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod)</span>
+<span id="cb187-2"><a href="diag1.html#cb187-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(ei)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -806,10 +806,10 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 <p align="center">
 <img src="images/canadian.jpg" width="250">
 </p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="diag1.html#cb187-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb187-2"><a href="diag1.html#cb187-2" tabindex="-1"></a>prestige_mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> education <span class="sc">+</span> income <span class="sc">+</span> type, <span class="at">data=</span>Prestige)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="diag1.html#cb189-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb189-2"><a href="diag1.html#cb189-2" tabindex="-1"></a>prestige_mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> education <span class="sc">+</span> income <span class="sc">+</span> type, <span class="at">data=</span>Prestige)</span></code></pre></div>
 <p>Para construir los gráficos de los residuos de Pearson versus cada término del predictor lineal y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span> se usa la siguiente instrucción (<code>las=1</code> para poner los números vertical en el eje Y).</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diag1.html#cb188-1" tabindex="-1"></a><span class="fu">residualPlots</span>(prestige_mod1, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag1.html#cb190-1" tabindex="-1"></a><span class="fu">residualPlots</span>(prestige_mod1, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid_car01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <pre><code>##            Test stat Pr(&gt;|Test stat|)   
 ## education    -0.6836         0.495942   
@@ -832,13 +832,13 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 </ul>
 <p>El valor-P de esta prueba es 0.004854 y por lo tanto se justifica incluir <span class="math inline">\(Income^2\)</span>.</p>
 <p>Para dibujar los gráficos marginales de <span class="math inline">\(y_i\)</span> versus cada covariable cuantitativa y los valores ajustados <span class="math inline">\(\hat{\mu}_i\)</span> se usa la siguiente instrucción.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diag1.html#cb190-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(prestige_mod1, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="diag1.html#cb192-1" tabindex="-1"></a><span class="fu">marginalModelPlots</span>(prestige_mod1, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Warning in mmps(...): Interactions and/or factors skipped</code></pre>
 <p><img src="Regresion_con_R_files/figure-html/resid_car02-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>La línea de color azul es una regresión lowess entre <span class="math inline">\(y_i\)</span> y la variable que está en el eje horizontal. La línea de color rojo es una regresión lowess entre <span class="math inline">\(\hat{\mu}_i\)</span> y la variable que está en el eje horizontal. Según <span class="citation">J. Fox and Weisberg (<a href="#ref-fox2019">2019</a>)</span>, si el modelo se ajusta bien a los datos, las líneas (azul y roja) estarán próximas, por el contrario, si las líneas difieren demasiado, es evidencia de que el modelo no explica bien los datos.</p>
 <p>De la figura anterior se observa que las líneas (azul y roja) difieren un poco en el panel de <span class="math inline">\(y_i\)</span> versus income, eso refuerza lo observado antes de que sería bueno agregar un término <code>I(income^2)</code>.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="diag1.html#cb192-1" tabindex="-1"></a>prestige_mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span> (prestige <span class="sc">~</span> education <span class="sc">+</span> income <span class="sc">+</span> <span class="fu">I</span>(income<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> type, <span class="at">data=</span>Prestige)</span></code></pre></div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diag1.html#cb193-1" tabindex="-1"></a><span class="fu">residualPlots</span>(prestige_mod2, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diag1.html#cb194-1" tabindex="-1"></a>prestige_mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span> (prestige <span class="sc">~</span> education <span class="sc">+</span> income <span class="sc">+</span> <span class="fu">I</span>(income<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> type, <span class="at">data=</span>Prestige)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag1.html#cb195-1" tabindex="-1"></a><span class="fu">residualPlots</span>(prestige_mod2, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/resid_car03-1.png" width="576" style="display: block; margin: auto;" /></p>
 <pre><code>##             Test stat Pr(&gt;|Test stat|)  
 ## education     -0.3844          0.70156  
@@ -848,7 +848,7 @@ H_1 &amp;= \text{los residuales NO tienen distribución normal.}
 ## Tukey test    -2.1877          0.02869 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="diag1.html#cb195-1" tabindex="-1"></a><span class="fu">anova</span>(prestige_mod1, prestige_mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag1.html#cb197-1" tabindex="-1"></a><span class="fu">anova</span>(prestige_mod1, prestige_mod2)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: prestige ~ education + income + type
@@ -876,26 +876,26 @@ H_1:\ E(Y_i) = E(Y\vert X_i) \neq \beta_0 + \beta_1 X_i
 <div id="ejemplo-1-1" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo 1<a href="diag1.html#ejemplo-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suponga que se tienen los siguientes datos.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="diag1.html#cb197-1" tabindex="-1"></a><span class="co"># Example for section 4.5 Montgomery, Peck &amp; Vining (2006)</span></span>
-<span id="cb197-2"><a href="diag1.html#cb197-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.7</span>, <span class="fl">5.0</span>,</span>
-<span id="cb197-3"><a href="diag1.html#cb197-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
-<span id="cb197-4"><a href="diag1.html#cb197-4" tabindex="-1"></a></span>
-<span id="cb197-5"><a href="diag1.html#cb197-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.84</span>, <span class="fl">9.30</span>, <span class="fl">16.35</span>, <span class="fl">22.88</span>, <span class="fl">24.35</span>, <span class="fl">24.56</span>, <span class="fl">25.86</span>,</span>
-<span id="cb197-6"><a href="diag1.html#cb197-6" tabindex="-1"></a>       <span class="fl">29.16</span>, <span class="fl">24.59</span>, <span class="fl">22.25</span>, <span class="fl">25.90</span>, <span class="fl">27.20</span>, <span class="fl">25.61</span>, <span class="fl">25.45</span>,</span>
-<span id="cb197-7"><a href="diag1.html#cb197-7" tabindex="-1"></a>       <span class="fl">26.56</span>, <span class="fl">21.03</span>, <span class="fl">21.46</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag1.html#cb199-1" tabindex="-1"></a><span class="co"># Example for section 4.5 Montgomery, Peck &amp; Vining (2006)</span></span>
+<span id="cb199-2"><a href="diag1.html#cb199-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.7</span>, <span class="fl">5.0</span>,</span>
+<span id="cb199-3"><a href="diag1.html#cb199-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
+<span id="cb199-4"><a href="diag1.html#cb199-4" tabindex="-1"></a></span>
+<span id="cb199-5"><a href="diag1.html#cb199-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.84</span>, <span class="fl">9.30</span>, <span class="fl">16.35</span>, <span class="fl">22.88</span>, <span class="fl">24.35</span>, <span class="fl">24.56</span>, <span class="fl">25.86</span>,</span>
+<span id="cb199-6"><a href="diag1.html#cb199-6" tabindex="-1"></a>       <span class="fl">29.16</span>, <span class="fl">24.59</span>, <span class="fl">22.25</span>, <span class="fl">25.90</span>, <span class="fl">27.20</span>, <span class="fl">25.61</span>, <span class="fl">25.45</span>,</span>
+<span id="cb199-7"><a href="diag1.html#cb199-7" tabindex="-1"></a>       <span class="fl">26.56</span>, <span class="fl">21.03</span>, <span class="fl">21.46</span>)</span></code></pre></div>
 <p>¿Es el modelo de regresión lineal simple apropiado para explicar <span class="math inline">\(Y\)</span> en función de <span class="math inline">\(X\)</span>?</p>
 <p><strong>Solución</strong></p>
 <p>Primero exploremos la relación entre las variables.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diag1.html#cb198-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="diag1.html#cb200-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/lof01-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Luego vamos a ajustar el modelo.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diag1.html#cb199-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag1.html#cb201-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>Luego construimos la tabla anova por medio de la función <code>lack_fit_test</code> del paquete <strong>model</strong>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="diag1.html#cb200-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb200-2"><a href="diag1.html#cb200-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="diag1.html#cb202-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb202-2"><a href="diag1.html#cb202-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
 <p>Luego de esto ya podemos usar la función <code>lack_fit_test</code>.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diag1.html#cb201-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb201-2"><a href="diag1.html#cb201-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag1.html#cb203-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb203-2"><a href="diag1.html#cb203-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
 <pre><code>## Lack of fit test - Anova Table
 ##             Sum Sq Df Mean Sq F value   Pr(&gt;F)   
 ## Regression  237.48  1 237.479  14.241 0.001839 **
@@ -906,32 +906,32 @@ H_1:\ E(Y_i) = E(Y\vert X_i) \neq \beta_0 + \beta_1 X_i
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior tenemos un valor-P de 0.001389 con lo cual podemos decir que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diag1.html#cb203-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb203-2"><a href="diag1.html#cb203-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag1.html#cb205-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb205-2"><a href="diag1.html#cb205-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/lof02-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ejemplo-2-1" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo 2<a href="diag1.html#ejemplo-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suponga que se tienen los siguientes datos.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="diag1.html#cb204-1" tabindex="-1"></a><span class="co"># Example 9.6 Montgomery &amp; Runger (1996)</span></span>
-<span id="cb204-2"><a href="diag1.html#cb204-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>,</span>
-<span id="cb204-3"><a href="diag1.html#cb204-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
-<span id="cb204-4"><a href="diag1.html#cb204-4" tabindex="-1"></a></span>
-<span id="cb204-5"><a href="diag1.html#cb204-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.3</span>, <span class="fl">1.8</span>, <span class="fl">2.8</span>, <span class="fl">1.8</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">2.6</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span>, <span class="fl">3.5</span>,</span>
-<span id="cb204-6"><a href="diag1.html#cb204-6" tabindex="-1"></a>       <span class="fl">2.8</span>, <span class="fl">2.1</span>, <span class="fl">3.4</span>, <span class="fl">3.2</span>, <span class="fl">3.4</span>, <span class="fl">5.0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag1.html#cb206-1" tabindex="-1"></a><span class="co"># Example 9.6 Montgomery &amp; Runger (1996)</span></span>
+<span id="cb206-2"><a href="diag1.html#cb206-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.3</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>,</span>
+<span id="cb206-3"><a href="diag1.html#cb206-3" tabindex="-1"></a>       <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">5.6</span>, <span class="fl">6.0</span>, <span class="fl">6.0</span>, <span class="fl">6.5</span>, <span class="fl">6.9</span>)</span>
+<span id="cb206-4"><a href="diag1.html#cb206-4" tabindex="-1"></a></span>
+<span id="cb206-5"><a href="diag1.html#cb206-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.3</span>, <span class="fl">1.8</span>, <span class="fl">2.8</span>, <span class="fl">1.8</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">2.6</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span>, <span class="fl">3.5</span>,</span>
+<span id="cb206-6"><a href="diag1.html#cb206-6" tabindex="-1"></a>       <span class="fl">2.8</span>, <span class="fl">2.1</span>, <span class="fl">3.4</span>, <span class="fl">3.2</span>, <span class="fl">3.4</span>, <span class="fl">5.0</span>)</span></code></pre></div>
 <p>¿Es el modelo de regresión lineal simple apropiado para explicar <span class="math inline">\(Y\)</span> en función de <span class="math inline">\(X\)</span>?</p>
 <p><strong>Solución</strong></p>
 <p>Primero exploremos la relación entre las variables.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="diag1.html#cb205-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag1.html#cb207-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/lof03-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Luego vamos a ajustar el modelo.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diag1.html#cb206-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="diag1.html#cb208-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <p>Luego construimos la tabla anova por medio de la función <code>lack_fit_test</code> del paquete <strong>model</strong>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="diag1.html#cb207-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb207-2"><a href="diag1.html#cb207-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="diag1.html#cb209-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb209-2"><a href="diag1.html#cb209-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
 <p>Luego de esto ya podemos usar la función <code>lack_fit_test</code>.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="diag1.html#cb208-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb208-2"><a href="diag1.html#cb208-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="diag1.html#cb210-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb210-2"><a href="diag1.html#cb210-2" tabindex="-1"></a><span class="fu">lack_fit_test</span>(mod)</span></code></pre></div>
 <pre><code>## Lack of fit test - Anova Table
 ##              Sum Sq Df Mean Sq F value  Pr(&gt;F)  
 ## Regression   3.4928  1  3.4928  6.6645 0.02174 *
@@ -942,8 +942,8 @@ H_1:\ E(Y_i) = E(Y\vert X_i) \neq \beta_0 + \beta_1 X_i
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>De la salida anterior tenemos un valor-P de 0.32882 con lo cual podemos decir que NO hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="diag1.html#cb210-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span>
-<span id="cb210-2"><a href="diag1.html#cb210-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;mediumpurple2&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="diag1.html#cb212-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;chartreuse3&quot;</span>)</span>
+<span id="cb212-2"><a href="diag1.html#cb212-2" tabindex="-1"></a><span class="fu">abline</span>(mod, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;mediumpurple2&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/lof04-1.png" width="576" style="display: block; margin: auto;" /></p>
 
 </div>
