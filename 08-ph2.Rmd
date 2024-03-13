@@ -37,7 +37,7 @@ En esta prueba la idea es determinar si la variabilidad explicada por la Regresi
 
 Asumiendo $H_0$ verdadera, la distribución del estadístico $F_0$ es $F_{k, n-k-1}$.
 
-### Ejemplo {-}
+### Ejemplo para RLS {-}
 Como ilustración vamos a usar los datos del ejemplo sobre la resistencia de piezas soldadas en función de la edad de la soldadura. ¿Será que la variable edad si ayuda a explicar la resistencia?, ¿será que la variable edad es significativa para el modelo? 
 
 <p align="center">
@@ -62,7 +62,7 @@ datos <- read.table(file=file, header=TRUE)
 mod1 <- lm(Resistencia ~ Edad, data=datos)
 ```
 
-Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función `anova_table_lm` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
+Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función `anova_table_lm` del paquete **model** propuesto por @R-model. Para instalar el paquete **model** podemos usar el siguiente código.
 
 ```{r eval=FALSE}
 if (!require("remotes")) install.packages("remotes")
@@ -76,7 +76,7 @@ library(model)
 anova_table_lm(mod1)
 ```
 
-De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar $H_0: \beta_{edad}=0$, eso significa que la variable edad si ayuda a explicar la media de la variable respuesta.
+De la tabla anterior se observa que el valor-P es muy pequeño, por lo tanto hay evidencias para rechazar $H_0: \beta_{edad}=0$, eso significa que la variable edad si ayuda a explicar la media de la variable respuesta.
 
 Otra forma de aplicar la prueba de significancia de la regresión es usando la función `summary` la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).
 
@@ -87,8 +87,8 @@ summary(mod1)
 En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 1.643e-10 y por lo tanto podemos rechazar $H_0$ a un nivel de significancia usual del 5%, eso significa que la variable edad si ayuda a explicar la resistencia.
 
 
-### Ejemplo {-}
-Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de [@mpv06]. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
+### Ejemplo para RLM {-}
+Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de @mpv06. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el __Tiempo__ necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables __Número de Cajas__ y __Distancia__. 
 
 ¿Será que las variables __Número de Cajas__ y __Distancia__ son significativas en el modelo?
 
@@ -130,7 +130,7 @@ summary(mod2)
 En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 4.687e-16 y por lo tanto podemos rechazar $H_0$ a un nivel de significancia usual del 5%, eso significa que al menos una de las dos covariables del modelo es significativa para explicar el tiempo medio.
 
 ```{block2, type='rmdnote'}
-El no rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0$ significa que ninguna de las variables aporta información para explicar la media de $Y$. Lo que se debe hacer luego es buscar nuevas covariables que sean significativas.
+El no rechazar $H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0$ significa que ninguna de las variables aporta información para explicar la media de $Y$. Lo que se debe hacer es buscar nuevas covariables que SI sean significativas.
 ```
 
 ```{block2, type='rmdnote'}
@@ -175,15 +175,15 @@ donde $SS_R(complete)$ es la suma de cuadrados de la regresión para el modelo c
 - $F_{p_1-p_0, n-p_1}$ si $H_0$ es cierta.
 - $F_{p_1-p_0, n-p_1, \lambda}$ si $H_1$ es cierta, siendo $\lambda$ el parámetro de no centralidad de una distribución F.
 
-Para conocer la expresión de $\lambda$ se recomienda revisar la página 90 de [@Montgomery12] y los comentarios al respecto.
+Para conocer la expresión de $\lambda$ se recomienda revisar la página 90 de @Montgomery12 y los comentarios al respecto.
 
 ### Ejemplo {-}
-Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos comparar dos modelos anidados:
+Usando la base de datos `table.b4` del paquete **MPV** de @R-MPV, queremos comparar dos modelos anidados:
 
 - el modelo reducido con la fórmula `y ~ x1 + x2`,
 - y el modelo completo con la fórmula `y ~ x1 + x2 + x3 + x4`. 
 
-¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+¿Será que la inclusión simultánea de las variables $x_3$ y $x_4$ mejora el modelo para explicar la variable respuesta $y$? Use $\alpha=0.03$ para concluir.
 
 <p align="center">
   <img src="images/blocks.jpg" width="200">
@@ -227,7 +227,51 @@ F0 <- ((ssr_complete - ssr_reduced) / (p1-p0)) / ms_res
 F0
 ```
 
-Ahora vamos a calcular el parámetro de no centralidad $\lambda$. Recuerde revisar la página 90 de [@Montgomery12] para conocer su expresión.
+Para tomar la decisión podemos hacerlo de dos formas: usando un valor de referencia o usando el valor-P.
+
+- Usando el valor de referencia
+
+Buscamos el cuantil $f_{\alpha, p_1-p_0, n-p_1}$ usando el $\alpha=0.03$ dado en el enunciado.
+
+```{r}
+qf(p=0.03, df1=p1-p0, df2=n-p1, lower.tail=FALSE)
+```
+
+Como $F_0=0.2831$ es menor que $f_{\alpha, p_1-p_0, n-p_1}=4.2412$, por lo tanto no hay evidencias para rechazar $H_0$.
+
+- Usando el valor-P
+
+Buscamos el área a la derecha de $F_0=0.2831$ en una distribución F con $p_1-p_0$ y $n-p_1$ grados de libertad.
+
+```{r}
+pf(q=0.2831, df1=p1-p0, df2=n-p1, lower.tail=FALSE)
+```
+
+Como el valor-P es 0.7566 y es mayor que el nivel de significancia $\alpha=0.03$, no hay evidencias para rechazar $H_0$.
+
+En conclusión, las dos variables $x_3$ y $x_4$ no mejoran el modelo. Es mejor un modelo sólo con $x_2$ y $x_1$.
+
+Exploremos la tabla de resumen para el modelo completo.
+
+```{r}
+summary(comp_mod)
+```
+
+Si miramos la tabla anterior podríamos caer en la tentación de decir que las variables $x_4$, $x_3$ y $x_2$ no aportan al modelo, ya que sus valores-P de contribución individual son muy grandes. Sin embargo, esto es una **TRAMPA**, nos podemos equivocar. Por esa razón, obtengamos ahora la tabla de resumen para el modelo reducido.
+
+```{r}
+summary(redu_mod)
+```
+
+La variable $x_2$ que en la tabla de modelo completo aparecía como no significativa ahora si aparece como significativa a un nivel $\alpha=0.10$. Este fenómeno se llama efecto de enmascaramiento. Al tener en el modelo $x_3$ y $x_4$, ellas opacan la importancia o enmascaran a la variable $x_2$.
+
+```{block2, type="rmdwarning"}
+Nunca use los resultados del summary para juzgar si varias variables son importantes o no, use la prueba para modelos anidados. Recuerde el efecto de enmascaramiento.
+```
+
+** Lo que viene a continuación es opcional**
+
+Ahora vamos a calcular el parámetro de no centralidad $\lambda$. Recuerde revisar la página 90 de @Montgomery12 para conocer su expresión.
 
 ```{r}
 beta2 <- matrix(c(0.3233333, -0.2176622), ncol=1)
@@ -240,14 +284,14 @@ lambda <- (a1 %*% a2 %*% a3) / summary(comp_mod)$sigma^2
 lambda
 ```
 
-Ahora vamos a calcular el valor-P de la prueba usando la distribución F no central y la distribució F (usual) así:
+Ahora vamos a calcular el valor-P de la prueba usando la distribución F no central y la distribución F (usual) así:
 
 ```{r}
 pf(q=F0, df1=p1-p0, df2=n-p1, ncp=lambda, lower.tail=FALSE)
 pf(q=F0, df1=p1-p0, df2=n-p1, lower.tail=FALSE)
 ```
 
-Usando el último valor-P que es mayor que un nivel de significancia $\alpha$, no hay evidencias para rechazar $H_0: \beta_3 = \beta_4 = 0$, y por lo tanto podemos concluir que las variables `x3` y `x4` no mejoran el modelo.
+Usando el último valor-P que es mayor que un nivel de significancia $\alpha$, no hay evidencias para rechazar $H_0: \beta_3 = \beta_4 = 0$, y por lo tanto podemos concluir que las variables $x_3$ y $x_4$ no mejoran el modelo.
 
 ## Función `anova` {-}
 La función `anova` permite realizar pruebas de hipótesis como las mostradas en las secciones anteriores, en particular la función sirve para:
@@ -276,7 +320,7 @@ La función `anova` se puede aplicar a varios modelos y el resultado será una c
 A continuación se muestran dos ejemplos en los cuales se ilustra la utilidad de la función `anova`.
 
 ### Ejemplo {-}
-En este ejemplo se mostrará la segunda utilidad de la función `anova`. Para esto vamos a utilizar la base de datos `Cars93` del paquete `MASS`. El objetivo es construir un modelo para explicar la media del `Price` de los autos en función de las variables `Horsepower`, `Type` y `Weight`.
+En este ejemplo se mostrará la segunda utilidad de la función `anova`. Para esto vamos a utilizar la base de datos `Cars93` del paquete `MASS`. El objetivo es construir un modelo para explicar la media del `Price` de los autos en función de las variables `Horsepower`, `Type` y `Weight`. Usar un nivel de significancia $\alpha=0.07$.
 
 <p align="center">
   <img src="images/car.gif" width="200">
@@ -325,15 +369,15 @@ En esta segunda parte del ejemplo se usará la función `anova` directamente sob
 anova(mod3)
 ```
 
-En la tabla anterior aparecen los resultados de una prueba de hipótesis secuencial a partir de la fórmula de `mod3`. La fórmula de `mod3` es `Price ~ Horsepower + Type + Weight`, por lo tanto en la primera línea de la tabla aparece la variable `Horsepower`, luego en la segunda aparece `Type` y así hasta la última variable `Weight`. El valor-P reportado en la primer línea es < 2e-16, esto indica el modelo con `Horsepower` es mejor que el modelo sin covariables; el valor-P de la segunda línea es 0.01411, esto indica que es mejor un modelo con las covariables `Horsepower` y `Type`; por último el valor-P de la tercer línea es 0.64803, esto indica que la variable `Weight` no mejora el modelo, es decir, que es mejor un modelo con solo `Horsepower` y `Type`.
+En la tabla anterior aparecen los resultados de una prueba de hipótesis secuencial a partir de la fórmula de `mod3`. La fórmula de `mod3` es `Price ~ Horsepower + Type + Weight`, por lo tanto en la primera línea de la tabla aparece la variable `Horsepower`, luego en la segunda aparece `Type` y así hasta la última variable `Weight`. El valor-P reportado en la primer línea es < 2e-16, esto indica que el modelo con `Horsepower` es mejor que el modelo sin covariables; el valor-P de la segunda línea es 0.01411, esto indica que es mejor un modelo con las covariables `Horsepower` y `Type`; por último el valor-P de la tercera línea es 0.64803, esto indica que la variable `Weight` no mejora el modelo, es decir, que es mejor un modelo con `Horsepower` y `Type` solamente.
 
 ### Ejemplo {-}
-Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos comparar dos modelos anidados:
+Usando la base de datos `table.b4` del paquete **MPV** propuesto por @R-MPV, queremos comparar dos modelos anidados:
 
 - el modelo reducido con la fórmula `y ~ x1 + x2`,
 - y el modelo completo con la fórmula `y ~ x1 + x2 + x3 + x4`. 
 
-¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+¿Será que la inclusión simultánea de las variables $x_3$ y $x_4$ mejora el modelo para explicar la variable respuesta $y$? Use $\alpha=0.03$ para concluir.
 
 <p align="center">
   <img src="images/blocks.jpg" width="200">
@@ -367,7 +411,7 @@ Para comparar los dos modelos usamos la siguiente instrucción.
 anova(mod1, mod2, test='F')
 ```
 
-De la salida anterior se observa que el valor-P de la prueba es de 0.7565, usando un nivel de significancia del 5%, se concluye que la inclusión de las variables `x3` y `x4` no mejoran el modelo.
+De la salida anterior se observa que el valor-P de la prueba es de 0.7565, usando un nivel de significancia del 5%, se concluye que la inclusión de las variables $x_3$ y $x_4$ no mejoran el modelo.
 
 ## `summary` versus `anova` {-}
 La función `summary` permite evaluar el efecto de una variable asumiendo que las restantes variables siguen en el modelo, esto es llamado prueba de hipótesis marginal. Cuando se tiene una variable cualitativa (con $k$ niveles) dentro del modelo, ella aparecerá en la tabla del `summary` por medio de $k-1$ variables indicadoras y por lo tanto se tendrán $k-1$ valores-P asociados. Usar esos valores-P para decidir si una variable cualitativa es importante en el modelo puede ser engañoso, a continuación un ejemplo de esta situación.
@@ -389,19 +433,19 @@ g <- rep(c("A", "B", "C"), each=10)
 
 __Solución__
 
-Vamos a ajustar el modelo con fórmula `y ~ g` para estudiar el efecto de la agrupación `g` en la media de la variable respuesta `y`.
+Vamos a ajustar el modelo con fórmula `y ~ g` para estudiar el efecto de la agrupación `g` en la media de la variable respuesta $y$.
 
 ```{r}
 model <- lm(y ~ g)
 ```
 
-Obviamente esperamos concluir que la media de la variable `y` dependa de la variable de agrupación `g`. Para esto vamos a explorar el resultado con la función `summary`.
+Obviamente esperamos concluir que la media de la variable $y$ dependa de la variable de agrupación `g`. Para esto vamos a explorar el resultado con la función `summary`.
 
 ```{r}
 summary(model)
 ```
 
-De la salida anterior vemos que los efectos `gB` y `gC` tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable `g` no tiene efecto sobre la media de `y`. El lector podría encontrar esto un poco desconcertante.
+De la salida anterior vemos que los efectos `gB` y `gC` tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable `g` no tiene efecto sobre la media de $y$. El lector podría encontrar esto un poco desconcertante.
 
 Vamos a realizar el análisis pero ahora con la función `anova`.
 
@@ -414,7 +458,7 @@ En la fila donde aparece la variable `g` tenemos el resultado de la prueba de hi
 $$H_0: \text{la variable g no influye en la media de y},$$
 $$H_A: \text{la variable g si influye en la media de y}$$
 
-El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar $H_0$, es decir, encontramos que la variable `g` si influye sobre la media de la variable `y`.
+El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar $H_0$, es decir, encontramos que la variable `g` si influye sobre la media de la variable $y$.
 
 ```{block2, type='rmdtip'}
 Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función `anova` que los resultados del `summary`.
@@ -432,12 +476,12 @@ $$
 donde $L$ representa el valor de la verosimilitud y $l$ el valor de log-verosimilitud. Bajo la hipótesis nula, $\lambda \sim \chi^2_{k}$ donde $k$ es la diferencia entre el número de parámetros de los modelos comparados.
 
 ### Ejemplo {-}
-Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos comparar dos modelos anidados:
+Usando la base de datos `table.b4` del paquete **MPV** propuesto por @R-MPV, queremos comparar dos modelos anidados:
 
 - el modelo reducido con la fórmula `y ~ x1 + x2`,
 - y el modelo completo con la fórmula `y ~ x1 + x2 + x3 + x4`. 
 
-¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+¿Será que la inclusión simultánea de las variables $x_3$ y $x_4$ mejora el modelo para explicar la variable respuesta $y$? Use $\alpha=0.03$ para concluir.
 
 __Solución__
 
@@ -469,13 +513,13 @@ lambda
 pchisq(q=lambda, df=2, lower.tail=FALSE)
 ```
 
-Como el valor-P es grande, no hay evidencias para rechazar $H_0: \beta_3 = \beta_4 = 0$, y por lo tanto podemos concluir que las variables `x3` y `x4` no mejoran el modelo.
+Como el valor-P es grande, no hay evidencias para rechazar $H_0: \beta_3 = \beta_4 = 0$, y por lo tanto podemos concluir que las variables $x_3$ y $x_4$ no mejoran el modelo.
 
 ## Comparaciones múltiples {-}
-En esta sección se muestra como utilizar el paquete __multcomp__ [@R-multcomp] que está basado en el libro "Multiple comparisons using R" [@bretz2010] para estudiar pruebas de hipótesis múltiples.
+En esta sección se muestra como utilizar el paquete __multcomp__ propuesto por @R-multcomp que está basado en el libro "Multiple comparisons using R" de @bretz2010 para estudiar pruebas de hipótesis múltiples.
 
 ### Ejemplo {-}
-Usando la base de datos `table.b4` del paquete **MPV** [@R-MPV], queremos ajustar el siguiente modelo:
+Usando la base de datos `table.b4` del paquete **MPV** de @R-MPV, queremos ajustar el siguiente modelo:
 
 \begin{align}
 y_i &\sim N(\mu_i, \sigma^2), \\ 
@@ -483,7 +527,7 @@ y_i &\sim N(\mu_i, \sigma^2), \\
 \sigma^2 &= \text{constante}
 \end{align}
 
-¿Será que la inclusión simultánea de las variables `x3` y `x4` mejora el modelo para explicar la variable respuesta `y`? Use $\alpha=0.03$ para concluir.
+¿Será que la inclusión simultánea de las variables $x_3$ y $x_4$ mejora el modelo para explicar la variable respuesta $y$? Use $\alpha=0.03$ para concluir.
 
 __Solución__
 
@@ -503,7 +547,7 @@ H_0 &: \beta_{3} = 0      &  H_0 &: \beta_{4} = 0 \\
 H_A &: \beta_{3} \neq 0   &  H_A &: \beta_{4} \neq 0 
 \end{align*}
 
-Los dos conjuntos de hipótesis anteriores se pueden escribir matricialmente usando una matriz de constrate $\boldsymbol{C}$ que multiplica al vector de parámetros $\boldsymbol{\beta}$ y luego igualando es producto con el vector $\boldsymbol{a}=(0, 0)^\top$ que contiene lados derechos de las hipótesis anteriores.
+Los dos conjuntos de hipótesis anteriores se pueden escribir matricialmente usando una matriz de constrates $\boldsymbol{C}$ que multiplica al vector de parámetros $\boldsymbol{\beta}$. A continuación se muestra la matriz $\boldsymbol{C}$ que permite obtener las dos parejas de hipótesis anteriores:
 
 $$
 \boldsymbol{C} \boldsymbol{\beta} = 
@@ -524,7 +568,7 @@ $$
 \end{pmatrix}
 $$
 
-Teniendo definida la matriz $\boldsymbol{C}$, el vector $\boldsymbol{a}$ la prueba simultánea de las hipótesis se puede hacer de la siguiente manera.
+Los lados derechos de las hipótesis son constantes y se escriben como un vector $\boldsymbol{a}=(0, 0)^\top$. Teniendo definida la matriz $\boldsymbol{C}$, el vector $\boldsymbol{a}$ la prueba simultánea de las hipótesis se puede hacer de la siguiente manera.
 
 ```{r message=FALSE}
 library(multcomp)
@@ -534,13 +578,12 @@ mult_test <- glht(model=mod, linfct=C, alternative='two.sided', rhs=c(0, 0))
 summary(mult_test, test = adjusted(type="single-step"))
 ```
 
-De la salida anterior se obtiene que los dos valores-P "ajustados" (ver sección 2.1.2 de [@bretz2010]) son:
+De la salida anterior se obtiene que los dos valores-P "ajustados" (ver sección 2.1.2 de @bretz2010) son:
 
 $$
 q_1 = 0.704 \qquad q_2 = 0.998
 $$
-
-lo que significa que no hay evidencias para rechazar $H_0 : \beta_{3} = 0$ ni evidencias para rechazar $H_0 : \beta_{4} = 0$ porque ambos valores-P "ajustados" fueron mayores del nivel de significancia de 0.03. En otras palabras, ni `x3` ni `x4` aportan información para explicar la media de `y`.
+Esto significa que no hay evidencias para rechazar $H_0 : \beta_{3} = 0$ ni evidencias para rechazar $H_0 : \beta_{4} = 0$ porque ambos valores-P "ajustados" fueron mayores del nivel de significancia de 0.03. En otras palabras, ni `x3` ni `x4` aportan información para explicar la media de $y$.
 
 ```{block2, type='rmdwarning'}
 Si un valor-P "ajustado" es menor que el $\alpha$, se rechaza su correspondiente hipótesis nula $H_0$, pero si el valor-P "ajustado" es mayor que el $\alpha$, no se rechaza $H_0$. En una aplicación es posible que se rechacen todas/algunas/ninguna de las $H_0$.

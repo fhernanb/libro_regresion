@@ -437,7 +437,7 @@ Luego vamos a ajustar el modelo.
 mod <- lm(y ~ x)
 ```
 
-Luego construimos la tabla anova por medio de la función `lack_fit_test` del paquete **model**. Para instalar el paquete **model** podemos usar el siguiente código.
+Luego construimos la tabla anova por medio de la función `lack_fit_test` del paquete **model**. Para instalar el paquete **model** propuesto por @R-model podemos usar el siguiente código.
 
 ```{r eval=FALSE}
 if (!require("remotes")) install.packages("remotes")
