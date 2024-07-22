@@ -152,9 +152,15 @@ El $VIF$ para la variable $X_4$ fue pequeño porque en la generación de los dat
 
 Vamos ahora a dibujar la matriz de correlaciones de Pearson así:
 
-```{r}
-library(dplyr)
-datos %>% select(-y) %>% cor(method="pearson") %>% round(digits=2) -> mat_cor
+```{r multicolini}
+# library(dplyr)
+# datos |> 
+#   select(!y) |> 
+#   cor(method="pearson") |> 
+#   round(digits=2) -> mat_cor
+
+mat_cor <- cor(datos[, -1])
+
 library(corrplot)
 corrplot(mat_cor, type="upper", tl.col="black", tl.srt=45)
 ```

@@ -105,7 +105,12 @@ Dos preguntas que surgen al mirar la figura anterior son:
 Para saber si un punto es outlier se puede usar la prueba de Bonferroni y para saber si un punto es influyente se puede utilizar Distancia de Cook. En las siguientes secciones se mostrará identificar outliers y puntos influyentes.
 
 ## Prueba de Bonferroni para detectar outliers  {-}
-El paquete **car** [@R-car] tiene la función `outlierTest` para realizar una prueba de hipótesis con $H_0:$ la observación $i$-ésima NO es un outlier frente a $H_1:$ la observación $i$-ésima SI es un outlier. La estructura de la función `outlierTest` se muestra a continuación.
+El paquete **car** de @R-car tiene la función `outlierTest` para realizar una prueba de hipótesis de
+
+- $H_0:$ la observación $i$-ésima NO es un outlier.
+- $H_1:$ la observación $i$-ésima SI es un outlier. 
+
+La estructura de la función `outlierTest` se muestra a continuación.
 
 ```{r eval=FALSE}
 outlierTest(model, cutoff=0.05, n.max=10, order=TRUE, labels=names(rstudent), ...)

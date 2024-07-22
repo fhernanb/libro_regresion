@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Pruebas de hipótesis parte I | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Pruebas de hipótesis parte I | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-03-13" />
+<meta name="date" content="2024-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -65,7 +66,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -561,10 +563,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
 <span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
 <p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="ph1.html#cb112-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb112-2"><a href="ph1.html#cb112-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb112-3"><a href="ph1.html#cb112-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span>
-<span id="cb112-4"><a href="ph1.html#cb112-4" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ph1.html#cb116-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb116-2"><a href="ph1.html#cb116-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb116-3"><a href="ph1.html#cb116-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span>
+<span id="cb116-4"><a href="ph1.html#cb116-4" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Resistencia ~ Edad, data = datos)
@@ -589,10 +591,10 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <div id="función-beta_test-cuando-beta_k0-neq-0" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(<a href="#ref-R-model">Hernandez and Usuga 2024</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ph1.html#cb114-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb114-2"><a href="ph1.html#cb114-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ph1.html#cb118-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb118-2"><a href="ph1.html#cb118-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
 <p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="ph1.html#cb115-1" tabindex="-1"></a><span class="fu">beta_test</span>(object, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ph1.html#cb119-1" tabindex="-1"></a><span class="fu">beta_test</span>(object, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</span></code></pre></div>
 <p>Los argumentos de esta función son:</p>
 <ul>
 <li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
@@ -612,8 +614,8 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 <p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
 <span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
 <p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ph1.html#cb116-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb116-2"><a href="ph1.html#cb116-2" tabindex="-1"></a><span class="fu">beta_test</span>(<span class="at">object=</span>mod, <span class="at">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="at">ref.value=</span><span class="dv">2700</span>, <span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ph1.html#cb120-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb120-2"><a href="ph1.html#cb120-2" tabindex="-1"></a><span class="fu">beta_test</span>(<span class="at">object=</span>mod, <span class="at">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="at">ref.value=</span><span class="dv">2700</span>, <span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</span></code></pre></div>
 <pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
 ## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
 <p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>
@@ -622,7 +624,7 @@ Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span c
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-R-model" class="csl-entry">
 Hernandez, Freddy, and Olga Usuga. 2024. <em>Model: This Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.
 </div>

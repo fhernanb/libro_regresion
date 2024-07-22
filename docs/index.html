@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-03-13" />
+<meta name="date" content="2024-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -65,7 +66,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -530,7 +532,7 @@ div.csl-indent {
 <p class="author"><em>Freddy Hernández</em></p>
 <p class="author"><em>Olga Usuga</em></p>
 <p class="author"><em>Mauricio Mazo</em></p>
-<p class="date"><em>2024-03-13</em></p>
+<p class="date"><em>2024-07-22</em></p>
 </div>
 <div id="bienvenido" class="section level1 unnumbered hasAnchor">
 <h1>Bienvenido<a href="index.html#bienvenido" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -545,7 +547,7 @@ div.csl-indent {
 </div>
 <div id="software-y-convenciones" class="section level2 unnumbered hasAnchor">
 <h2>Software y convenciones<a href="index.html#software-y-convenciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para realizar este libro usamos los paquetes <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> y <strong>bookdown</strong> <span class="citation">(<a href="#ref-R-bookdown">Xie 2023</a>)</span> que permiten unir la ventajas de LaTeX y R en un mismo archivo.</p>
+<p>Para realizar este libro usamos los paquetes <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> y <strong>bookdown</strong> <span class="citation">(<a href="#ref-R-bookdown">Xie 2024</a>)</span> que permiten unir la ventajas de LaTeX y R en un mismo archivo.</p>
 <p>En todo el libro se presentarán códigos que el lector puede copiar y pegar en su consola de R para obtener los mismos resultados aquí del libro. Los códigos se destacan en una caja de color similar a la mostrada a continuación.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="dv">4</span> <span class="sc">+</span> <span class="dv">6</span></span>
 <span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
@@ -575,12 +577,12 @@ Advertencia.
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-xie2015" class="csl-entry">
 Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
 </div>
 <div id="ref-R-bookdown" class="csl-entry">
-———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
+———. 2024. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
 </div>
 </div>
             </section>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Intervalos de confianza | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Intervalos de confianza | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-03-13" />
+<meta name="date" content="2024-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -65,7 +66,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -531,7 +533,7 @@ div.csl-indent {
 <div id="función-confint" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>confint</code><a href="ic.html#función-confint" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>confint</code> de R se usa para obtener intevalos de confianza de los parámetros de un modelo de regresión lineal, la estructura de esta función se muestra a continuación.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="ic.html#cb83-1" tabindex="-1"></a><span class="fu">confint</span>(object, parm, <span class="at">level =</span> <span class="fl">0.95</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="ic.html#cb87-1" tabindex="-1"></a><span class="fu">confint</span>(object, parm, <span class="at">level =</span> <span class="fl">0.95</span>, ...)</span></code></pre></div>
 <p>A continuación se presenta una corta descripción de los parámetros de la función.</p>
 <ul>
 <li><code>object</code>: es un objeto con el modelo ajustado.</li>
@@ -543,11 +545,11 @@ div.csl-indent {
 <p>Como ilustración vamos a usar los datos del ejemplo mostrado en el capítulo <a href="rls.html#rls">1</a>. En ese ejemplo se ajustó un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma. El objetivo es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>A continuación el código para cargar los datos y ajustar el modelo de interés.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="ic.html#cb84-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb84-2"><a href="ic.html#cb84-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb84-3"><a href="ic.html#cb84-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="ic.html#cb88-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
+<span id="cb88-2"><a href="ic.html#cb88-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb88-3"><a href="ic.html#cb88-3" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div>
 <p>El objetivo ahora es construir un intervalo de confianza del 95% para el parámetro <span class="math inline">\(\beta_1\)</span>. La instrucción para obtener el intervalo de confianza se muestra a continuación.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="ic.html#cb85-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="at">object=</span>mod1, <span class="at">parm=</span><span class="st">&quot;Edad&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="ic.html#cb89-1" tabindex="-1"></a><span class="fu">confint</span>(<span class="at">object=</span>mod1, <span class="at">parm=</span><span class="st">&quot;Edad&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##          2.5 %   97.5 %
 ## Edad -43.22338 -31.0838</code></pre>
 </div>
@@ -555,15 +557,15 @@ div.csl-indent {
 <div id="función-confint_sigma2" class="section level2 unnumbered hasAnchor">
 <h2>Función <code>confint_sigma2</code><a href="ic.html#función-confint_sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>confint_sigma2</code> pertenece al paquete <strong>model</strong> y sirve para obtener un intervalo de confianza para el parámetro <span class="math inline">\(\sigma^2\)</span>. El paquete <strong>model</strong> <span class="citation">(<a href="#ref-R-model">Hernandez and Usuga 2024</a>)</span> está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="ic.html#cb87-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb87-2"><a href="ic.html#cb87-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="ic.html#cb91-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb91-2"><a href="ic.html#cb91-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
 <div id="ejemplo-10" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="ic.html#ejemplo-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considere el ejemplo anterior pero ahora el interés es obtener un intervalo de confinaza del 95% para <span class="math inline">\(\sigma^2\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>Si deseamos construir un intervalo de confianza del 95% para <span class="math inline">\(\sigma^2\)</span> del ejemplo anterior se debe escribir el siguiente código.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="ic.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb88-2"><a href="ic.html#cb88-2" tabindex="-1"></a><span class="fu">confint_sigma2</span>(<span class="at">object=</span>mod1, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="ic.html#cb92-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb92-2"><a href="ic.html#cb92-2" tabindex="-1"></a><span class="fu">confint_sigma2</span>(<span class="at">object=</span>mod1, <span class="at">level=</span><span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>##           2.5 %   97.5 %
 ## Sigma2 5273.516 20199.24</code></pre>
 
@@ -571,7 +573,7 @@ div.csl-indent {
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-R-model" class="csl-entry">
 Hernandez, Freddy, and Olga Usuga. 2024. <em>Model: This Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.
 </div>

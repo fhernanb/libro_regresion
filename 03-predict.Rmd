@@ -20,7 +20,18 @@ Suponga que queremos ajustar un modelo de regresión para explicar el número de
 
 __Solución__
 
-Lo primero que se debe hacer es ajustar el modelo así.
+Primero exploremos los datos.
+
+```{r message=FALSE}
+library(dplyr)
+longley |> 
+  select(Employed, Unemployed, Armed.Forces, Year) -> datos
+
+plot(datos, pch=20)
+```
+
+
+Luego lo que se debe hacer es ajustar el modelo así.
 
 ```{r}
 mod <- lm(Employed ~ Unemployed + Armed.Forces + Year, data=longley)
@@ -32,12 +43,12 @@ tidy(mod, quick=TRUE)
 De la tabla anterior tenemos que el modelo ajustado es el siguiente:
 
 $$
-\widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year})
+\widehat{\text{Employed}} = -1797.22 - 0.01 \, \text{Unemployed} - 0.01 \, \text{Armed.Forces} + 0.96 \, \text{Year}
 $$
 
 Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular $E(Employed|\boldsymbol{X}=\boldsymbol{x}_0)$. Sin embargo, aquí lo vamos a realizar usando la función `predict`.
 
-Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.
+Ahora vamos construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.
 
 ```{r}
 nuevo <- data.frame(Year=c(1963, 1964),
@@ -95,6 +106,7 @@ Lo primero es disponer los datos.
 ```{r}
 file <- "https://raw.githubusercontent.com/fhernanb/datos/master/propelente"
 datos <- read.table(file=file, header=TRUE)
+head(datos)
 ```
 
 Luego se ajusta el modelo.
