@@ -13,7 +13,7 @@ predict.lm(object, newdata, se.fit = FALSE, scale = NULL, df = Inf,
 ```
 
 ### Ejemplo {-}
-Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos `longley`. Luego de ajustar el modelo queremos predecir el valor de $E(Employed|x=x_0)$ en dos situaciones:
+Suponga que queremos ajustar un modelo de regresión para explicar el número de trabajadores empleados (Employed) en función de las covariables Unemployed, Armed.Forces y Year del conjunto de datos `longley`. Luego de ajustar el modelo queremos predecir el valor de $E(Employed|\boldsymbol{X}=\boldsymbol{x}_0)$ en dos situaciones:
 
 - Año 1963 con 420 desempleados y 270 personas en fuerzas armadas.
 - Año 1964 con 430 desempleados y 250 personas en fuerzas armadas.
@@ -35,7 +35,7 @@ $$
 \widehat{\text{Employed}} = -1797.22 - 0.01(\text{Unemployed}) - 0.01(\text{Armed.Forces}) + 0.96(\text{Year})
 $$
 
-Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular $E(Employed|x=x_0)$. Sin embargo, aquí lo vamos a realizar usando la función `predict`.
+Podríamos usar la expresión anterior y reemplazar los valores de año, desempleados y personas en fuerzas armadas, dadas arriba, para calcular $E(Employed|\boldsymbol{X}=\boldsymbol{x}_0)$. Sin embargo, aquí lo vamos a realizar usando la función `predict`.
 
 Lo segundo que debemos hacer es construir un nuevo marco de datos con la información de las covariables, usando los mismos nombres y los mismos tipos de variables (cuali o cuanti) que en el conjunto de datos con el cual se entrenó el modelo.
 
@@ -102,6 +102,14 @@ Luego se ajusta el modelo.
 ```{r}
 mod1 <- lm(Resistencia ~ Edad, data=datos)
 ```
+
+Ahora vamos a explorar la tabla de resumen del modelo anterior.
+
+```{r}
+summary(mod1)
+```
+
+En la tabla anterior está toda la información para hacer las estimaciones manualmente pero aquí lo vamos a realizar de forma computacional.
 
 Para obtener el IC del 95% para $E(Y|x_0)$ para $x_0=13$ y $x_0=2$ se usa el siguiente código.
 
