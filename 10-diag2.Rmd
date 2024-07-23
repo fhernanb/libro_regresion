@@ -159,7 +159,7 @@ $$
 donde la notación $(i)$ significa "sin la observación $i$-ésima", eso quiere decir que $\hat{y}_{j(i)}$ es la estimación de $j$-ésima sin haber tenido en cuenta $i$-ésima observación en el ajuste del modelo. La cantidad $p=k+1$ se refiere a todos los $\beta$'s en el modelo ($\beta_0, \beta_1, \beta_2, \ldots, \beta_k$).
 
 <p align="center">
-  <img src="images/get_out.gif" width="200">
+  <img src="images/get_out.gif" width="400">
 </p>
 
 Una forma sencilla de calcular los valores de la distancia de Cook $D_i$ es por medio de la expresión.
@@ -195,23 +195,11 @@ datos <- read.table(file=url, sep="\t", header=TRUE)
 head(datos, n=5)
 ```
 
-Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con `pairs`.
+Antes de ajustar cualquier modelo es fundamental hacer un análisis descriptivo de los datos. Comenzaremos construyendo un diagrama de dispersión con `ggpairs`.
 
-```{r upb_01, fig.height=6, fig.width=6, fig.align='center'}
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor, ...) {
-  usr <- par("usr"); on.exit(par(usr))
-  par(usr=c(0, 1, 0, 1))
-  r <- cor(x, y)
-  txt <- format(c(r, 0.123456789), digits=digits)[1]
-  txt <- paste(prefix, txt, sep="")
-  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
-  text(0.5, 0.5, txt, cex=cex.cor * r, col=gray(1-r))
-}
-
-# Creamos el grafico SOLO para las variables cuantitativas
-pairs(datos[, c("Peso", "Estatura", "circun_cuello", "circun_muneca")], 
-      pch=19, las=1,
-      upper.panel=panel.smooth, lower.panel=panel.cor)
+```{r upb_01, fig.height=5, fig.width=7, fig.align='center', message=FALSE}
+library("GGally")
+ggpairs(datos[, c("Peso", "Estatura", "circun_cuello", "circun_muneca")])
 ```
 
 De la figura anterior se observa que hay un punto que se aleja de la nube, es un estudiante que pesa un poco más de 100 kilogramos.

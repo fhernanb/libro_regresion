@@ -542,21 +542,21 @@ div.csl-indent {
 <li>Lado derecho que contiene las variables explicativas y sus relaciones.</li>
 </ul>
 <p>A continuación se muestra un ejemplo de una fórmula para representar el modelo estadístico <span class="math inline">\(precio = \beta_0 + \beta_1 area + \beta_2 habit\)</span>.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="WilRog.html#cb424-1" tabindex="-1"></a>my_form <span class="ot">&lt;-</span> <span class="fu">formula</span>(precio <span class="sc">~</span> area <span class="sc">+</span> habit)</span>
-<span id="cb424-2"><a href="WilRog.html#cb424-2" tabindex="-1"></a>my_form</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="WilRog.html#cb423-1" tabindex="-1"></a>my_form <span class="ot">&lt;-</span> <span class="fu">formula</span>(precio <span class="sc">~</span> area <span class="sc">+</span> habit)</span>
+<span id="cb423-2"><a href="WilRog.html#cb423-2" tabindex="-1"></a>my_form</span></code></pre></div>
 <pre><code>## precio ~ area + habit</code></pre>
 <p>Para conocer la clase de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="WilRog.html#cb426-1" tabindex="-1"></a><span class="fu">class</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="WilRog.html#cb425-1" tabindex="-1"></a><span class="fu">class</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] &quot;formula&quot;</code></pre>
 <p>Para conocer la longitud de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="WilRog.html#cb428-1" tabindex="-1"></a><span class="fu">length</span>(my_form)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="WilRog.html#cb427-1" tabindex="-1"></a><span class="fu">length</span>(my_form)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Para explorar los tres elementos de <code>my_form</code> usamos:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="WilRog.html#cb430-1" tabindex="-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="WilRog.html#cb429-1" tabindex="-1"></a>my_form[<span class="dv">1</span>] <span class="co"># el separador</span></span></code></pre></div>
 <pre><code>## `~`()</code></pre>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="WilRog.html#cb432-1" tabindex="-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="WilRog.html#cb431-1" tabindex="-1"></a>my_form[<span class="dv">2</span>] <span class="co"># el lado izquierdo</span></span></code></pre></div>
 <pre><code>## precio()</code></pre>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="WilRog.html#cb434-1" tabindex="-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="WilRog.html#cb433-1" tabindex="-1"></a>my_form[<span class="dv">3</span>] <span class="co"># el lado derecho</span></span></code></pre></div>
 <pre><code>## (area + habit)()</code></pre>
 </div>
 <div id="para-qué-sirve-la-notación-de-wilkinson-y-rogers" class="section level2 unnumbered hasAnchor">

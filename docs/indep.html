@@ -542,38 +542,38 @@ H_1 &amp;: \text{los errores no son independientes.}
 <div id="ejemplo-33" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="indep.html#ejemplo-33" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El siguiente ejemplo fue tomado de la documentación de la función <code>dwtest</code>.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="indep.html#cb280-1" tabindex="-1"></a><span class="do">## generate regressor</span></span>
-<span id="cb280-2"><a href="indep.html#cb280-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dv">50</span>)</span>
-<span id="cb280-3"><a href="indep.html#cb280-3" tabindex="-1"></a></span>
-<span id="cb280-4"><a href="indep.html#cb280-4" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0 (white noise)</span></span>
-<span id="cb280-5"><a href="indep.html#cb280-5" tabindex="-1"></a>err1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb280-6"><a href="indep.html#cb280-6" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
-<span id="cb280-7"><a href="indep.html#cb280-7" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err1</span>
-<span id="cb280-8"><a href="indep.html#cb280-8" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb280-9"><a href="indep.html#cb280-9" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
-<span id="cb280-10"><a href="indep.html#cb280-10" tabindex="-1"></a><span class="fu">dwtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="indep.html#cb279-1" tabindex="-1"></a><span class="do">## generate regressor</span></span>
+<span id="cb279-2"><a href="indep.html#cb279-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dv">50</span>)</span>
+<span id="cb279-3"><a href="indep.html#cb279-3" tabindex="-1"></a></span>
+<span id="cb279-4"><a href="indep.html#cb279-4" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0 (white noise)</span></span>
+<span id="cb279-5"><a href="indep.html#cb279-5" tabindex="-1"></a>err1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb279-6"><a href="indep.html#cb279-6" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
+<span id="cb279-7"><a href="indep.html#cb279-7" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err1</span>
+<span id="cb279-8"><a href="indep.html#cb279-8" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb279-9"><a href="indep.html#cb279-9" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
+<span id="cb279-10"><a href="indep.html#cb279-10" tabindex="-1"></a><span class="fu">dwtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
 ## 
 ## data:  mod1
 ## DW = 2.0407, p-value = 0.6204
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="indep.html#cb282-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;deepskyblue1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="indep.html#cb281-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod1), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;deepskyblue1&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/indep_errores_01-1.png" width="672" /></p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="indep.html#cb283-1" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0.9 respectively</span></span>
-<span id="cb283-2"><a href="indep.html#cb283-2" tabindex="-1"></a>err2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">filter</span>(<span class="at">x=</span>err1, <span class="at">filter=</span><span class="fl">0.9</span>, <span class="at">method=</span><span class="st">&quot;recursive&quot;</span>)</span>
-<span id="cb283-3"><a href="indep.html#cb283-3" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
-<span id="cb283-4"><a href="indep.html#cb283-4" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err2</span>
-<span id="cb283-5"><a href="indep.html#cb283-5" tabindex="-1"></a></span>
-<span id="cb283-6"><a href="indep.html#cb283-6" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
-<span id="cb283-7"><a href="indep.html#cb283-7" tabindex="-1"></a><span class="fu">dwtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="indep.html#cb282-1" tabindex="-1"></a><span class="do">## generate the AR(1) error terms with parameter rho = 0.9 respectively</span></span>
+<span id="cb282-2"><a href="indep.html#cb282-2" tabindex="-1"></a>err2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">filter</span>(<span class="at">x=</span>err1, <span class="at">filter=</span><span class="fl">0.9</span>, <span class="at">method=</span><span class="st">&quot;recursive&quot;</span>)</span>
+<span id="cb282-3"><a href="indep.html#cb282-3" tabindex="-1"></a><span class="do">## generate dependent variable</span></span>
+<span id="cb282-4"><a href="indep.html#cb282-4" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> err2</span>
+<span id="cb282-5"><a href="indep.html#cb282-5" tabindex="-1"></a></span>
+<span id="cb282-6"><a href="indep.html#cb282-6" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
+<span id="cb282-7"><a href="indep.html#cb282-7" tabindex="-1"></a><span class="fu">dwtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
 ## 
 ## data:  mod2
 ## DW = 0.27804, p-value &lt; 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="indep.html#cb285-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod2), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="indep.html#cb284-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(mod2), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
 </div>
 </div>
@@ -583,16 +583,16 @@ H_1 &amp;: \text{los errores no son independientes.}
 <div id="ejemplo-34" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="indep.html#ejemplo-34" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Usando los datos el ejemplo anterior aplicar la prueba Breusch-Godfrey.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="indep.html#cb286-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb286-2"><a href="indep.html#cb286-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
-<span id="cb286-3"><a href="indep.html#cb286-3" tabindex="-1"></a><span class="fu">bgtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="indep.html#cb285-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb285-2"><a href="indep.html#cb285-2" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x)</span>
+<span id="cb285-3"><a href="indep.html#cb285-3" tabindex="-1"></a><span class="fu">bgtest</span>(mod1) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 1
 ## 
 ## data:  mod1
 ## LM test = 0.051656, df = 1, p-value = 0.8202</code></pre>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="indep.html#cb288-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
-<span id="cb288-2"><a href="indep.html#cb288-2" tabindex="-1"></a><span class="fu">bgtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="indep.html#cb287-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x)</span>
+<span id="cb287-2"><a href="indep.html#cb287-2" tabindex="-1"></a><span class="fu">bgtest</span>(mod2) <span class="do">## perform Durbin-Watson test</span></span></code></pre></div>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 1
 ## 

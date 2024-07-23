@@ -552,30 +552,30 @@ H_1 &amp;: \text{los errores no tienen varianza constante.}
 <p>Simule un conjunto de datos donde se viole la hipótesis de varianza constante (de los <span class="math inline">\(e_i\)</span> o de las <span class="math inline">\(y_i\)</span>) y aplique las pruebas de hipótesis para ver si son capaces de detectar la violación del supuesto de homocedasticidad.</p>
 <p><strong>Solución</strong>
 En el código mostrado a continuación se simulan observaciones en las cuales la varianza de <span class="math inline">\(e_i\)</span> no es constante ya que para generar los datos se usa la instrucción <code>ei &lt;- rnorm(n=n, sd=x2)</code>, es decir que la varianza depende de la variable <span class="math inline">\(x_2\)</span>.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="homo.html#cb269-1" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb269-2"><a href="homo.html#cb269-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb269-3"><a href="homo.html#cb269-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">6</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
-<span id="cb269-4"><a href="homo.html#cb269-4" tabindex="-1"></a>  ei <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span>x2)</span>
-<span id="cb269-5"><a href="homo.html#cb269-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x2 <span class="sc">+</span> ei</span>
-<span id="cb269-6"><a href="homo.html#cb269-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb269-7"><a href="homo.html#cb269-7" tabindex="-1"></a>}</span>
-<span id="cb269-8"><a href="homo.html#cb269-8" tabindex="-1"></a></span>
-<span id="cb269-9"><a href="homo.html#cb269-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb269-10"><a href="homo.html#cb269-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_data</span>(<span class="at">n=</span>n)</span>
-<span id="cb269-11"><a href="homo.html#cb269-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelo de interes</span></span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="homo.html#cb268-1" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb268-2"><a href="homo.html#cb268-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb268-3"><a href="homo.html#cb268-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">6</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb268-4"><a href="homo.html#cb268-4" tabindex="-1"></a>  ei <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span>x2)</span>
+<span id="cb268-5"><a href="homo.html#cb268-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x2 <span class="sc">+</span> ei</span>
+<span id="cb268-6"><a href="homo.html#cb268-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb268-7"><a href="homo.html#cb268-7" tabindex="-1"></a>}</span>
+<span id="cb268-8"><a href="homo.html#cb268-8" tabindex="-1"></a></span>
+<span id="cb268-9"><a href="homo.html#cb268-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb268-10"><a href="homo.html#cb268-10" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_data</span>(<span class="at">n=</span>n)</span>
+<span id="cb268-11"><a href="homo.html#cb268-11" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelo de interes</span></span></code></pre></div>
 <p>Vamos a aplicar la prueba de forma manual.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="homo.html#cb270-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">resid</span>(mod)</span>
-<span id="cb270-2"><a href="homo.html#cb270-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ei<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
-<span id="cb270-3"><a href="homo.html#cb270-3" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
-<span id="cb270-4"><a href="homo.html#cb270-4" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb270-5"><a href="homo.html#cb270-5" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
-<span id="cb270-6"><a href="homo.html#cb270-6" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span>k, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb270-7"><a href="homo.html#cb270-7" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="homo.html#cb269-1" tabindex="-1"></a>ei <span class="ot">&lt;-</span> <span class="fu">resid</span>(mod)</span>
+<span id="cb269-2"><a href="homo.html#cb269-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ei<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos) <span class="co"># Modelando ei^2 ~ x1 + x2</span></span>
+<span id="cb269-3"><a href="homo.html#cb269-3" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
+<span id="cb269-4"><a href="homo.html#cb269-4" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb269-5"><a href="homo.html#cb269-5" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
+<span id="cb269-6"><a href="homo.html#cb269-6" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span>k, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb269-7"><a href="homo.html#cb269-7" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
 <pre><code>##      estadistico       valorP
 ## [1,]    29.23532 4.483652e-07</code></pre>
 <p>Vamos a aplicar la prueba de forma automática con la función <code>bptest</code>.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="homo.html#cb272-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb272-2"><a href="homo.html#cb272-2" tabindex="-1"></a><span class="fu">bptest</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="homo.html#cb271-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb271-2"><a href="homo.html#cb271-2" tabindex="-1"></a><span class="fu">bptest</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -596,7 +596,7 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 <p>Aplicar White test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
 <p>Para aplicar el test se usa el argumento <code>varformula</code> y se escribe la fórmula con los términos no lineales <span class="math inline">\(\delta_3 x_1 x_2 + \delta_4 x_1^2 + \delta_5 x_2^2\)</span>, los términos lineales están por defecto.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="homo.html#cb274-1" tabindex="-1"></a><span class="fu">bptest</span>(mod, <span class="at">varformula =</span> <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="homo.html#cb273-1" tabindex="-1"></a><span class="fu">bptest</span>(mod, <span class="at">varformula =</span> <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -604,11 +604,11 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 ## BP = 35.551, df = 5, p-value = 1.168e-06</code></pre>
 <p>Como el valor-P es pequeño entonces hay evidencias para rechazar la hipótesis de homocedasticidad.</p>
 <p>La prueba se puede también realizar de forma manual, a continuación se muestra el procedimiento.</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="homo.html#cb276-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">resid</span>(mod)<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos) </span>
-<span id="cb276-2"><a href="homo.html#cb276-2" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
-<span id="cb276-3"><a href="homo.html#cb276-3" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
-<span id="cb276-4"><a href="homo.html#cb276-4" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb276-5"><a href="homo.html#cb276-5" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="homo.html#cb275-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">resid</span>(mod)<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1 <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>datos) </span>
+<span id="cb275-2"><a href="homo.html#cb275-2" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared</span>
+<span id="cb275-3"><a href="homo.html#cb275-3" tabindex="-1"></a>estadistico <span class="ot">&lt;-</span> n <span class="sc">*</span> R2</span>
+<span id="cb275-4"><a href="homo.html#cb275-4" tabindex="-1"></a>valorP <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="at">q=</span>estadistico, <span class="at">df=</span><span class="dv">5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb275-5"><a href="homo.html#cb275-5" tabindex="-1"></a><span class="fu">cbind</span>(estadistico, valorP)</span></code></pre></div>
 <pre><code>##      estadistico       valorP
 ## [1,]    35.55051 1.168159e-06</code></pre>
 </div>
@@ -621,8 +621,8 @@ En el código mostrado a continuación se simulan observaciones en las cuales la
 <h3>Ejemplo<a href="homo.html#ejemplo-32" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Aplicar Score test para los datos simulados del ejemplo anterior.</p>
 <p><strong>Solución</strong></p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="homo.html#cb278-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb278-2"><a href="homo.html#cb278-2" tabindex="-1"></a><span class="fu">ncvTest</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="homo.html#cb277-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb277-2"><a href="homo.html#cb277-2" tabindex="-1"></a><span class="fu">ncvTest</span>(mod)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 11.3376, Df = 1, p = 0.00075954</code></pre>
