@@ -71,7 +71,7 @@ En este ejemplo se usó `stats::lm` para indicar que queremos la función `lm` u
 Se puede realizar de dos manera:
 
 <p align="center">
-  <img src="images/formas_ident_multicoli.png" width="600">
+  <img src="images/formas_ident_multicoli.PNG" width="600">
 </p>
 
 ## Matriz de correlaciones {-}
