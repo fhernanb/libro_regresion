@@ -169,26 +169,51 @@ De la figura anterior se puede ver que las variables $X_5$, $X_1$, $X_2$, $X_6$ 
 
 ### Número de condición {-}
 
-Mide la dispersión en el espectro de los valores propios de la matriz $\mathbf{X}^\top\mathbf{X}$. Se calcula como: $\kappa = \lambda_{\max} / \lambda_{\min}$. En $R$ se obtienen valores en raíz cuadrada, es decir, $\sqrt{\kappa}$, para el cual el criterio para detectar multicolinealidad es}
+Mide la dispersión en el espectro de los valores propios de la matriz $\mathbf{X}^\top\mathbf{X}$. Se calcula como: $\kappa = \lambda_{\max} / \lambda_{\min}$.
 
-   * Si $\sqrt{\kappa} \leq 10$ no hay problemas de multicolinealidad.
-
-   * Si $10 < \sqrt{\kappa} \leq 31.62$ hay problemas de multicolinealidad moderada.
-
-   * Si $\sqrt{\kappa} > 31.62$ hay problemas de multicolinealidad graves.
+- Si $\sqrt{\kappa} \leq 10$ no hay problemas de multicolinealidad.
+- Si $10 < \sqrt{\kappa} \leq 31.62$ hay problemas de multicolinealidad moderada.
+- Si $\sqrt{\kappa} > 31.62$ hay problemas de multicolinealidad graves.
 
 
 ### Ejemplo {-}
-Considere los datos del ejemplo anterior y calcule $\kappa$.
+Considere los datos del ejemplo anterior y calcule $\sqrt{\kappa}$.
 
 __Solución__
 
-En el modelo ajustado `mod` está la matriz $\mathbf{X}$ que nos permite obtener $\kappa$. A continuación el código a usar.
+En el modelo ajustado `mod` está la matriz $\mathbf{X}$ que nos permite obtener $\sqrt{\kappa}$. A continuación el código a usar.
 
 ```{r}
 X <- mod$x
 res <- eigen(t(X) %*% X)
-max(res$values) / min(res$values)
+k <- max(res$values) / min(res$values)
+sqrt(k)
 ```
 
-De la salida anterior vemos que $\kappa$ es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.
+De la salida anterior vemos que $\sqrt{\kappa}$ es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.
+
+### Índice de condición {-}
+
+Es una medida útil para determinar el número de dependencias casi lineales en $\mathbf{X}^\top\mathbf{X}$. Se calcula como: $\kappa_j = \lambda_{\max} / \lambda_j,\ j = 1, \ldots, p$. El criterio para detectar multicolinealidad es:
+
+- Si $\sqrt{\kappa_j} \leq 10\ \forall j$, no hay problemas de multicolinealidad.
+- Si al menos para un $j$, $10 < \sqrt{\kappa_j} \leq 31.62$, entonces hay problemas de multicolinealidad moderada.
+- Si al menos para un $j$, $\sqrt{\kappa_j} > 31.62$, entonces hay problemas de multicolinealidad graves (\textcolor{red}{por lo menos hay una asociación casi lineal entre dos o más predictoras}).
+
+### Ejemplo {-}
+Considere los datos del ejemplo anterior y calcule $\sqrt{\kappa_j}$.
+
+__Solución__
+
+En el modelo ajustado `mod` está la matriz $\mathbf{X}$ que nos permite obtener $\sqrt{\kappa_j}$. A continuación el código a usar.
+
+```{r}
+X <- mod$x
+res <- eigen(t(X) %*% X)
+k <- max(res$values) / res$values
+sqrt(k)
+```
+
+De la salida anterior vemos que $\sqrt{\kappa_j}$ es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.
+
+

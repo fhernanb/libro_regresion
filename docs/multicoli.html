@@ -463,19 +463,21 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#número-de-condición"><i class="fa fa-check"></i>Número de condición</a></li>
 <li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-49"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#índice-de-condición"><i class="fa fa-check"></i>Índice de condición</a></li>
+<li class="chapter" data-level="" data-path="multicoli.html"><a href="multicoli.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="algmat.html"><a href="algmat.html"><i class="fa fa-check"></i><b>18</b> Algebra matricial con R</a>
 <ul>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#matrices"><i class="fa fa-check"></i>Matrices</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-50"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#operaciones-básicas-sobre-una-matriz"><i class="fa fa-check"></i>Operaciones básicas sobre una matriz</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a>
 <ul>
-<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-51"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-52"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="algmat.html"><a href="algmat.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="WilRog.html"><a href="WilRog.html"><i class="fa fa-check"></i><b>19</b> Notación de Wilkinson y Rogers</a>
@@ -486,13 +488,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="20" data-path="xy.html"><a href="xy.html"><i class="fa fa-check"></i><b>20</b> ¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</a>
 <ul>
-<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-53"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="xy.html"><a href="xy.html#ejemplo-54"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="important.html"><a href="important.html"><i class="fa fa-check"></i><b>21</b> Otros aspectos importantes</a>
 <ul>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#qué-otras-funciones-hay-en-r-para-ajustar-un-modelo"><i class="fa fa-check"></i>¿Qué otras funciones hay en R para ajustar un modelo?</a>
 <ul>
-<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-54"><i class="fa fa-check"></i>Ejemplo</a></li>
+<li class="chapter" data-level="" data-path="important.html"><a href="important.html#ejemplo-55"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#modelos-de-regresión-con-grandes-conjuntos-de-datos"><i class="fa fa-check"></i>Modelos de regresión con grandes conjuntos de datos</a></li>
 <li class="chapter" data-level="" data-path="important.html"><a href="important.html#fast-lm-in-r"><i class="fa fa-check"></i>Fast <code>lm</code> in R</a></li>
@@ -715,23 +717,45 @@ VIF = \frac{1}{1 - {R}^{2}_{k}},
 <h2>Análisis de los valores propios de <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span><a href="multicoli.html#análisis-de-los-valores-propios-de-mathbfxtopmathbfx" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="número-de-condición" class="section level3 unnumbered hasAnchor">
 <h3>Número de condición<a href="multicoli.html#número-de-condición" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Mide la dispersión en el espectro de los valores propios de la matriz <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>. Se calcula como: <span class="math inline">\(\kappa = \lambda_{\max} / \lambda_{\min}\)</span>. En <span class="math inline">\(R\)</span> se obtienen valores en raíz cuadrada, es decir, <span class="math inline">\(\sqrt{\kappa}\)</span>, para el cual el criterio para detectar multicolinealidad es}</p>
+<p>Mide la dispersión en el espectro de los valores propios de la matriz <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>. Se calcula como: <span class="math inline">\(\kappa = \lambda_{\max} / \lambda_{\min}\)</span>.</p>
 <ul>
-<li><p>Si <span class="math inline">\(\sqrt{\kappa} \leq 10\)</span> no hay problemas de multicolinealidad.</p></li>
-<li><p>Si <span class="math inline">\(10 &lt; \sqrt{\kappa} \leq 31.62\)</span> hay problemas de multicolinealidad moderada.</p></li>
-<li><p>Si <span class="math inline">\(\sqrt{\kappa} &gt; 31.62\)</span> hay problemas de multicolinealidad graves.</p></li>
+<li>Si <span class="math inline">\(\sqrt{\kappa} \leq 10\)</span> no hay problemas de multicolinealidad.</li>
+<li>Si <span class="math inline">\(10 &lt; \sqrt{\kappa} \leq 31.62\)</span> hay problemas de multicolinealidad moderada.</li>
+<li>Si <span class="math inline">\(\sqrt{\kappa} &gt; 31.62\)</span> hay problemas de multicolinealidad graves.</li>
 </ul>
 </div>
 <div id="ejemplo-49" class="section level3 unnumbered hasAnchor">
 <h3>Ejemplo<a href="multicoli.html#ejemplo-49" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Considere los datos del ejemplo anterior y calcule <span class="math inline">\(\kappa\)</span>.</p>
+<p>Considere los datos del ejemplo anterior y calcule <span class="math inline">\(\sqrt{\kappa}\)</span>.</p>
 <p><strong>Solución</strong></p>
-<p>En el modelo ajustado <code>mod</code> está la matriz <span class="math inline">\(\mathbf{X}\)</span> que nos permite obtener <span class="math inline">\(\kappa\)</span>. A continuación el código a usar.</p>
+<p>En el modelo ajustado <code>mod</code> está la matriz <span class="math inline">\(\mathbf{X}\)</span> que nos permite obtener <span class="math inline">\(\sqrt{\kappa}\)</span>. A continuación el código a usar.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="multicoli.html#cb18-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
 <span id="cb18-2"><a href="multicoli.html#cb18-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb18-3"><a href="multicoli.html#cb18-3" tabindex="-1"></a><span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> <span class="fu">min</span>(res<span class="sc">$</span>values)</span></code></pre></div>
-<pre><code>## [1] 223212.4</code></pre>
-<p>De la salida anterior vemos que <span class="math inline">\(\kappa\)</span> es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.</p>
+<span id="cb18-3"><a href="multicoli.html#cb18-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> <span class="fu">min</span>(res<span class="sc">$</span>values)</span>
+<span id="cb18-4"><a href="multicoli.html#cb18-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
+<pre><code>## [1] 472.4536</code></pre>
+<p>De la salida anterior vemos que <span class="math inline">\(\sqrt{\kappa}\)</span> es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.</p>
+</div>
+<div id="índice-de-condición" class="section level3 unnumbered hasAnchor">
+<h3>Índice de condición<a href="multicoli.html#índice-de-condición" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Es una medida útil para determinar el número de dependencias casi lineales en <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>. Se calcula como: <span class="math inline">\(\kappa_j = \lambda_{\max} / \lambda_j,\ j = 1, \ldots, p\)</span>. El criterio para detectar multicolinealidad es:</p>
+<ul>
+<li>Si <span class="math inline">\(\sqrt{\kappa_j} \leq 10\ \forall j\)</span>, no hay problemas de multicolinealidad.</li>
+<li>Si al menos para un <span class="math inline">\(j\)</span>, <span class="math inline">\(10 &lt; \sqrt{\kappa_j} \leq 31.62\)</span>, entonces hay problemas de multicolinealidad moderada.</li>
+<li>Si al menos para un <span class="math inline">\(j\)</span>, <span class="math inline">\(\sqrt{\kappa_j} &gt; 31.62\)</span>, entonces hay problemas de multicolinealidad graves ().</li>
+</ul>
+</div>
+<div id="ejemplo-50" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="multicoli.html#ejemplo-50" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considere los datos del ejemplo anterior y calcule <span class="math inline">\(\sqrt{\kappa_j}\)</span>.</p>
+<p><strong>Solución</strong></p>
+<p>En el modelo ajustado <code>mod</code> está la matriz <span class="math inline">\(\mathbf{X}\)</span> que nos permite obtener <span class="math inline">\(\sqrt{\kappa_j}\)</span>. A continuación el código a usar.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="multicoli.html#cb20-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
+<span id="cb20-2"><a href="multicoli.html#cb20-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb20-3"><a href="multicoli.html#cb20-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> res<span class="sc">$</span>values</span>
+<span id="cb20-4"><a href="multicoli.html#cb20-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
+<pre><code>## [1]   1.000000   2.129467   4.975017  70.662683 116.906646 306.561681 472.453635</code></pre>
+<p>De la salida anterior vemos que <span class="math inline">\(\sqrt{\kappa_j}\)</span> es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.</p>
 
 </div>
 </div>
