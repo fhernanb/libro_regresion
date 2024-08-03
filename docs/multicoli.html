@@ -25,7 +25,7 @@
 <meta name="author" content="Mauricio Mazo" />
 
 
-<meta name="date" content="2024-07-29" />
+<meta name="date" content="2024-08-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -336,8 +344,10 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-de-balanceo"><i class="fa fa-check"></i>Punto de balanceo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
-<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar outliers</a>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#uso-de-los-residuales-para-detectar-atípicos-outliers"><i class="fa fa-check"></i>Uso de los residuales para detectar atípicos (outliers)</a></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-atípicos-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar atípicos (outliers)</a>
 <ul>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-26"><i class="fa fa-check"></i>Ejemplo</a></li>
 </ul></li>
@@ -552,20 +562,20 @@ div.csl-indent {
 <h2>Multicolinealidad inducida<a href="multicoli.html#multicolinealidad-inducida" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La mejor forma de comprender el efecto de la multicolinealidad es crear un conjunto de datos donde exista el problema y ver los efectos que ella tiene.</p>
 <p>La función que se muestra a continuación simula datos de un modelo de regresión lineal en el cual la variable <span class="math inline">\(X_2\)</span> es múltiplo de la variable <span class="math inline">\(X_1\)</span>. El vector de parámetros en la simulación es <span class="math inline">\(\boldsymbol{\theta}=(-3, 2, -4, \sigma=2)^\top\)</span>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="multicoli.html#cb1-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb1-2"><a href="multicoli.html#cb1-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>)</span>
-<span id="cb1-3"><a href="multicoli.html#cb1-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> x1 <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span><span class="fl">0.01</span>) <span class="co"># x2 es el doble de x1 + ruido</span></span>
-<span id="cb1-4"><a href="multicoli.html#cb1-4" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x2, <span class="at">sd=</span><span class="dv">2</span>)</span>
-<span id="cb1-5"><a href="multicoli.html#cb1-5" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb1-6"><a href="multicoli.html#cb1-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="multicoli.html#cb393-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb393-2"><a href="multicoli.html#cb393-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>)</span>
+<span id="cb393-3"><a href="multicoli.html#cb393-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> x1 <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">sd=</span><span class="fl">0.01</span>) <span class="co"># x2 es el doble de x1 + ruido</span></span>
+<span id="cb393-4"><a href="multicoli.html#cb393-4" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x2, <span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb393-5"><a href="multicoli.html#cb393-5" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb393-6"><a href="multicoli.html#cb393-6" tabindex="-1"></a>}</span></code></pre></div>
 <p>Vamos a simular dos conjuntos de datos con <span class="math inline">\(n=20\)</span> observaciones cada uno. Se fija la semilla en el valor 12345 para que usted pueda replicar el ejemplo y obtener los mismo resultados.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="multicoli.html#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb2-2"><a href="multicoli.html#cb2-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">40</span>)</span>
-<span id="cb2-3"><a href="multicoli.html#cb2-3" tabindex="-1"></a>datos1 <span class="ot">&lt;-</span> datos[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, ]</span>
-<span id="cb2-4"><a href="multicoli.html#cb2-4" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos[<span class="dv">21</span><span class="sc">:</span><span class="dv">40</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="multicoli.html#cb394-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb394-2"><a href="multicoli.html#cb394-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">40</span>)</span>
+<span id="cb394-3"><a href="multicoli.html#cb394-3" tabindex="-1"></a>datos1 <span class="ot">&lt;-</span> datos[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, ]</span>
+<span id="cb394-4"><a href="multicoli.html#cb394-4" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos[<span class="dv">21</span><span class="sc">:</span><span class="dv">40</span>, ]</span></code></pre></div>
 <p>Ahora vamos a ajustar un modelo con <code>datos1</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="multicoli.html#cb3-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos1)</span>
-<span id="cb3-2"><a href="multicoli.html#cb3-2" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="multicoli.html#cb395-1" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos1)</span>
+<span id="cb395-2"><a href="multicoli.html#cb395-2" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## stats::lm(formula = y ~ x1 + x2, data = datos1)
@@ -584,8 +594,8 @@ div.csl-indent {
 ## Multiple R-squared:  0.9864, Adjusted R-squared:  0.9848 
 ## F-statistic: 617.5 on 2 and 17 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Ahora los resultados con el segundo conjunto de datos.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="multicoli.html#cb5-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos2)</span>
-<span id="cb5-2"><a href="multicoli.html#cb5-2" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="multicoli.html#cb397-1" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>datos2)</span>
+<span id="cb397-2"><a href="multicoli.html#cb397-2" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## stats::lm(formula = y ~ x1 + x2, data = datos2)
@@ -628,8 +638,8 @@ En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la func
 <p>Usando la base de datos <code>mtcars</code> explore las variables que están fuertemente correlacionadas.</p>
 <p><strong>Solución</strong></p>
 <p>Primero exploremos la base de datos.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="multicoli.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-2"><a href="multicoli.html#cb7-2" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="multicoli.html#cb399-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb399-2"><a href="multicoli.html#cb399-2" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 32
 ## Columns: 11
 ## $ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8,…
@@ -644,8 +654,8 @@ En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la func
 ## $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3,…
 ## $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, 2,…</code></pre>
 <p>Ahora vamos a calcular la matriz de correlaciones.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="multicoli.html#cb9-1" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method=</span><span class="st">&quot;pearson&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits=</span><span class="dv">2</span>) <span class="ot">-&gt;</span> mat_cor</span>
-<span id="cb9-2"><a href="multicoli.html#cb9-2" tabindex="-1"></a>mat_cor</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="multicoli.html#cb401-1" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method=</span><span class="st">&quot;pearson&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits=</span><span class="dv">2</span>) <span class="ot">-&gt;</span> mat_cor</span>
+<span id="cb401-2"><a href="multicoli.html#cb401-2" tabindex="-1"></a>mat_cor</span></code></pre></div>
 <pre><code>##        mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 ## mpg   1.00 -0.85 -0.85 -0.78  0.68 -0.87  0.42  0.66  0.60  0.48 -0.55
 ## cyl  -0.85  1.00  0.90  0.83 -0.70  0.78 -0.59 -0.81 -0.52 -0.49  0.53
@@ -659,10 +669,10 @@ En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la func
 ## gear  0.48 -0.49 -0.56 -0.13  0.70 -0.58 -0.21  0.21  0.79  1.00  0.27
 ## carb -0.55  0.53  0.39  0.75 -0.09  0.43 -0.66 -0.57  0.06  0.27  1.00</code></pre>
 <p>Mirar la matriz para encontrar las variables que tienen mayor correlación (positiva o negativa) es difícil, lo mejor es usar herramientas gráficas.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="multicoli.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="multicoli.html#cb403-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code></pre></div>
 <pre><code>## corrplot 0.92 loaded</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="multicoli.html#cb13-1" tabindex="-1"></a><span class="fu">corrplot</span>(mat_cor, <span class="at">type=</span><span class="st">&quot;upper&quot;</span>, <span class="at">order=</span><span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="at">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
-<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="multicoli.html#cb405-1" tabindex="-1"></a><span class="fu">corrplot</span>(mat_cor, <span class="at">type=</span><span class="st">&quot;upper&quot;</span>, <span class="at">order=</span><span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="at">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
 <p>Combinando los resultados de la matriz anterior y el conocimiento de las variables es posible identificar variables que podrían generar el problema de multicolinealidad.</p>
 </div>
 </div>
@@ -673,7 +683,7 @@ En este ejemplo se usó <code>stats::lm</code> para indicar que queremos la func
 VIF = \frac{1}{1 - {R}^{2}_{k}},
 \]</span></p>
 <p>siendo <span class="math inline">\(R^2_k\)</span> el coeficiente de determinación de la regresión auxiliar de la varaible <span class="math inline">\(X_k\)</span> sobre el resto de las variables explicativas. El <span class="math inline">\(VIF\)</span> toma valores entre 1 e <span class="math inline">\(\infty\)</span>.</p>
-<p>El <span class="math inline">\(VIF\)</span> para cada término del modelo mide el efecto combinado que tienen las dependencias entre los regresores sobre la varianza de ese término. Si hay uno o más <span class="math inline">\(VIF\)</span> grandes, hay multicolinealidad. La experiencia indica que si cualquiera de los <span class="math inline">\(VIF\)</span> es mayor que 5 o 10, es indicio de que los coeficientes asociados de regresión están mal estimados debido a la multicolinealidad <span class="citation">(<a href="#ref-mpv06">Montgomery 2006</a>)</span>. La regla de decisión se puede resumir así:</p>
+<p>El <span class="math inline">\(VIF\)</span> para cada término del modelo mide el efecto combinado que tienen las dependencias entre los regresores sobre la varianza de ese término. Si hay uno o más <span class="math inline">\(VIF\)</span> grandes, hay multicolinealidad. La experiencia indica que si cualquiera de los <span class="math inline">\(VIF\)</span> es mayor que 5 o 10, es indicio de que los coeficientes asociados de regresión están mal estimados debido a la multicolinealidad <span class="citation">(<a href="#ref-mpv06">E. &amp;. V. Montgomery D. &amp; Peck 2006</a>)</span>. La regla de decisión se puede resumir así:</p>
 <ul>
 <li>Si <span class="math inline">\(\text{VIF} \leq 5\)</span> no hay problemas de multicolinealidad.</li>
 <li>Si <span class="math inline">\(5 &lt; \text{VIF} \leq 10\)</span> hay problemas de multicolinealidad moderada.</li>
@@ -684,31 +694,31 @@ VIF = \frac{1}{1 - {R}^{2}_{k}},
 <p>Simular un conjunto de datos en el cual existan variables que sean combinación lineal de otras variables. Usar el <span class="math inline">\(VIF\)</span> para identificar las posibles variables colineales y luego comprobar los resultados con la matriz de correlaciones.</p>
 <p><strong>Solución</strong></p>
 <p>Vamos a crear una función para generar datos de un modelo lineal donde algunas de las variables que son combinación de otras. Mire el siguiente código e identifique las líneas donde se indujo la colinealidad.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="multicoli.html#cb14-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb14-2"><a href="multicoli.html#cb14-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb14-3"><a href="multicoli.html#cb14-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb14-4"><a href="multicoli.html#cb14-4" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">10</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
-<span id="cb14-5"><a href="multicoli.html#cb14-5" tabindex="-1"></a>  x4 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="at">n=</span>n, <span class="at">shape1=</span><span class="fl">0.5</span>, <span class="at">shape2=</span><span class="fl">0.7</span>)</span>
-<span id="cb14-6"><a href="multicoli.html#cb14-6" tabindex="-1"></a>  ruido1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">max=</span><span class="fl">0.5</span>)</span>
-<span id="cb14-7"><a href="multicoli.html#cb14-7" tabindex="-1"></a>  ruido2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">max=</span><span class="fl">0.5</span>)</span>
-<span id="cb14-8"><a href="multicoli.html#cb14-8" tabindex="-1"></a>  x5 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> ruido1</span>
-<span id="cb14-9"><a href="multicoli.html#cb14-9" tabindex="-1"></a>  x6 <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">*</span> x2 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x3 <span class="sc">+</span> ruido2</span>
-<span id="cb14-10"><a href="multicoli.html#cb14-10" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x2, <span class="at">sd=</span><span class="dv">2</span>)</span>
-<span id="cb14-11"><a href="multicoli.html#cb14-11" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2, x3, x4, x5, x6)</span>
-<span id="cb14-12"><a href="multicoli.html#cb14-12" tabindex="-1"></a>}</span></code></pre></div>
-<p>Ahora vamos a generar una base de datos, luego vamos a ajustar el un modelo de regresión para explicar la media de la variable <span class="math inline">\(Y\)</span> en función de las otras variables y por último vamos a calcular los <span class="math inline">\(VIF\)</span> para cada variable explicativa usando la función <code>vif</code> de paquete <code>car</code> creado por <span class="citation">Fox, Weisberg, and Price (<a href="#ref-R-car">2023</a>)</span>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="multicoli.html#cb15-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">30</span>)</span>
-<span id="cb15-2"><a href="multicoli.html#cb15-2" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data=</span>datos, <span class="at">x=</span><span class="cn">TRUE</span>)</span>
-<span id="cb15-3"><a href="multicoli.html#cb15-3" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="multicoli.html#cb406-1" tabindex="-1"></a>gen_dat <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb406-2"><a href="multicoli.html#cb406-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb406-3"><a href="multicoli.html#cb406-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb406-4"><a href="multicoli.html#cb406-4" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">10</span>, <span class="at">prob=</span><span class="fl">0.4</span>)</span>
+<span id="cb406-5"><a href="multicoli.html#cb406-5" tabindex="-1"></a>  x4 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="at">n=</span>n, <span class="at">shape1=</span><span class="fl">0.5</span>, <span class="at">shape2=</span><span class="fl">0.7</span>)</span>
+<span id="cb406-6"><a href="multicoli.html#cb406-6" tabindex="-1"></a>  ruido1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">max=</span><span class="fl">0.5</span>)</span>
+<span id="cb406-7"><a href="multicoli.html#cb406-7" tabindex="-1"></a>  ruido2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span>n, <span class="at">min=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">max=</span><span class="fl">0.5</span>)</span>
+<span id="cb406-8"><a href="multicoli.html#cb406-8" tabindex="-1"></a>  x5 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> x2 <span class="sc">+</span> ruido1</span>
+<span id="cb406-9"><a href="multicoli.html#cb406-9" tabindex="-1"></a>  x6 <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">*</span> x2 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x3 <span class="sc">+</span> ruido2</span>
+<span id="cb406-10"><a href="multicoli.html#cb406-10" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span>n, <span class="at">mean=</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x2, <span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb406-11"><a href="multicoli.html#cb406-11" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2, x3, x4, x5, x6)</span>
+<span id="cb406-12"><a href="multicoli.html#cb406-12" tabindex="-1"></a>}</span></code></pre></div>
+<p>Ahora vamos a generar una base de datos, luego vamos a ajustar el un modelo de regresión para explicar la media de la variable <span class="math inline">\(Y\)</span> en función de las otras variables y por último vamos a calcular los <span class="math inline">\(VIF\)</span> para cada variable explicativa usando la función <code>vif</code> de paquete <code>car</code> creado por <span class="citation">John Fox, Weisberg, and Price (<a href="#ref-R-car">2023</a>)</span>.</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="multicoli.html#cb407-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">gen_dat</span>(<span class="at">n=</span><span class="dv">30</span>)</span>
+<span id="cb407-2"><a href="multicoli.html#cb407-2" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data=</span>datos, <span class="at">x=</span><span class="cn">TRUE</span>)</span>
+<span id="cb407-3"><a href="multicoli.html#cb407-3" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mod)</span></code></pre></div>
 <pre><code>##         x1         x2         x3         x4         x5         x6 
 ## 2179.55685 2093.65153  298.35108    1.05934 3675.23843  920.11083</code></pre>
 <p>De la salida anterior vemos que los <span class="math inline">\(VIF\)</span> de todas las variables, excepto <span class="math inline">\(X_4\)</span>, son muy grandes, eso indica que hay un problema de colinealidad entre esas variables.</p>
 <p>El <span class="math inline">\(VIF\)</span> para la variable <span class="math inline">\(X_4\)</span> fue pequeño porque en la generación de los datos esa variable no tuvo nada que ver con las restantes.</p>
 <p>Vamos ahora a dibujar la matriz de correlaciones de Pearson así:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="multicoli.html#cb17-1" tabindex="-1"></a>mat_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb17-2"><a href="multicoli.html#cb17-2" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="multicoli.html#cb17-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb17-4"><a href="multicoli.html#cb17-4" tabindex="-1"></a><span class="fu">corrplot</span>(mat_cor, <span class="at">type=</span><span class="st">&quot;upper&quot;</span>, <span class="at">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="at">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="multicoli.html#cb409-1" tabindex="-1"></a>mat_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb409-2"><a href="multicoli.html#cb409-2" tabindex="-1"></a></span>
+<span id="cb409-3"><a href="multicoli.html#cb409-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb409-4"><a href="multicoli.html#cb409-4" tabindex="-1"></a><span class="fu">corrplot</span>(mat_cor, <span class="at">type=</span><span class="st">&quot;upper&quot;</span>, <span class="at">tl.col=</span><span class="st">&quot;black&quot;</span>, <span class="at">tl.srt=</span><span class="dv">45</span>)</span></code></pre></div>
 <p><img src="Regresion_con_R_files/figure-html/multicolini-1.png" width="672" /></p>
 <p>De la figura anterior se puede ver que las variables <span class="math inline">\(X_5\)</span>, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_6\)</span> y <span class="math inline">\(X_3\)</span> son las que presentan mayores correlaciones absolutas entre ellas. La variable <span class="math inline">\(X_4\)</span> no muestra correlación con ninguna de las otras covariables.</p>
 </div>
@@ -729,10 +739,10 @@ VIF = \frac{1}{1 - {R}^{2}_{k}},
 <p>Considere los datos del ejemplo anterior y calcule <span class="math inline">\(\sqrt{\kappa}\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>En el modelo ajustado <code>mod</code> está la matriz <span class="math inline">\(\mathbf{X}\)</span> que nos permite obtener <span class="math inline">\(\sqrt{\kappa}\)</span>. A continuación el código a usar.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="multicoli.html#cb18-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
-<span id="cb18-2"><a href="multicoli.html#cb18-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb18-3"><a href="multicoli.html#cb18-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> <span class="fu">min</span>(res<span class="sc">$</span>values)</span>
-<span id="cb18-4"><a href="multicoli.html#cb18-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="multicoli.html#cb410-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
+<span id="cb410-2"><a href="multicoli.html#cb410-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb410-3"><a href="multicoli.html#cb410-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> <span class="fu">min</span>(res<span class="sc">$</span>values)</span>
+<span id="cb410-4"><a href="multicoli.html#cb410-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
 <pre><code>## [1] 472.4536</code></pre>
 <p>De la salida anterior vemos que <span class="math inline">\(\sqrt{\kappa}\)</span> es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.</p>
 </div>
@@ -750,10 +760,10 @@ VIF = \frac{1}{1 - {R}^{2}_{k}},
 <p>Considere los datos del ejemplo anterior y calcule <span class="math inline">\(\sqrt{\kappa_j}\)</span>.</p>
 <p><strong>Solución</strong></p>
 <p>En el modelo ajustado <code>mod</code> está la matriz <span class="math inline">\(\mathbf{X}\)</span> que nos permite obtener <span class="math inline">\(\sqrt{\kappa_j}\)</span>. A continuación el código a usar.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="multicoli.html#cb20-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
-<span id="cb20-2"><a href="multicoli.html#cb20-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb20-3"><a href="multicoli.html#cb20-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> res<span class="sc">$</span>values</span>
-<span id="cb20-4"><a href="multicoli.html#cb20-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="multicoli.html#cb412-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> mod<span class="sc">$</span>x</span>
+<span id="cb412-2"><a href="multicoli.html#cb412-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb412-3"><a href="multicoli.html#cb412-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">max</span>(res<span class="sc">$</span>values) <span class="sc">/</span> res<span class="sc">$</span>values</span>
+<span id="cb412-4"><a href="multicoli.html#cb412-4" tabindex="-1"></a><span class="fu">sqrt</span>(k)</span></code></pre></div>
 <pre><code>## [1]   1.000000   2.129467   4.975017  70.662683 116.906646 306.561681 472.453635</code></pre>
 <p>De la salida anterior vemos que <span class="math inline">\(\sqrt{\kappa_j}\)</span> es muy pero muy grande, eso significa que hay problemas de multicolinealidad, como era de esperarse.</p>
 

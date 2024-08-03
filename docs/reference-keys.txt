@@ -26,4 +26,3 @@ xy
 important
 pasos
 misspecification
-número-de-condición
