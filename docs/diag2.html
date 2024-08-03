@@ -336,6 +336,7 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#ejemplo-25"><i class="fa fa-check"></i>Ejemplo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#reto-para-el-lector"><i class="fa fa-check"></i>Reto para el lector</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-de-balanceo"><i class="fa fa-check"></i>Punto de balanceo</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#punto-atípico-outlier-y-punto-influyente"><i class="fa fa-check"></i>Punto atípico (outlier) y punto influyente</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#uso-de-los-residuales-para-detectar-atípicos-outliers"><i class="fa fa-check"></i>Uso de los residuales para detectar atípicos (outliers)</a></li>
 <li class="chapter" data-level="" data-path="diag2.html"><a href="diag2.html#prueba-de-bonferroni-para-detectar-atípicos-outliers"><i class="fa fa-check"></i>Prueba de Bonferroni para detectar atípicos (outliers)</a>
@@ -607,6 +608,17 @@ Supongamos que queremos saber si el vector de covariables <span class="math inli
 <div id="reto-para-el-lector" class="section level3 unnumbered hasAnchor">
 <h3>Reto para el lector<a href="diag2.html#reto-para-el-lector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use la información del ejemplo anterior y determine si la observación con valores de <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span> está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con <span class="math inline">\(x=4\)</span> y <span class="math inline">\(z=1\)</span>.</p>
+</div>
+</div>
+<div id="punto-de-balanceo" class="section level2 unnumbered hasAnchor">
+<h2>Punto de balanceo<a href="diag2.html#punto-de-balanceo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Un punto de balanceo es una observación en el espacio de las predictoras pero alejada del resto de la muestra y que puede controlar ciertas propiedades del modelo ajustado.</p>
+<p>Este tipo de observaciones posiblemente no afecte los coeficientes de regresión estimados pero sí las estadísticas de resumen como el <span class="math inline">\(R^2\)</span> y los errores estándar de los coeficientes estimados.</p>
+<p>Los puntos de balanceo son detectados mediante el análisis de los elementos de la diagonal principal de la matriz <span class="math inline">\(\boldsymbol{H}\)</span>, los <span class="math inline">\(h_{ii}\)</span> proporcionan una medida estandarizada de
+la distancia de la <span class="math inline">\(i\)</span>-ésima observación al centro del espacio definido por las predictoras.</p>
+
+<div class="rmdnote">
+Se asume que la observación <span class="math inline">\(i\)</span> es un <strong>punto de balanceo</strong> si <span class="math inline">\(h_{ii} &gt; 2p/n\)</span>, pero si <span class="math inline">\(2p/n &gt; 1\)</span>, este criterio no funciona pues los <span class="math inline">\(h_{ii}\)</span> siempre son menores que 1.
 </div>
 </div>
 <div id="punto-atípico-outlier-y-punto-influyente" class="section level2 unnumbered hasAnchor">

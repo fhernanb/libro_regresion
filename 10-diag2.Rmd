@@ -85,6 +85,19 @@ lm.influence(mod)$hat
 ### Reto para el lector {-}
 Use la información del ejemplo anterior y determine si la observación con valores de $x=4$ y $z=1$ está o no dentro del cascarón de los datos, en otras palabras, determine si se podría cometer extrapolación oculta al usar el modelo ajustado con $x=4$ y $z=1$.
 
+## Punto de balanceo {-}
+
+Un punto de balanceo es una observación en el espacio de las predictoras pero alejada del resto de la muestra y que puede controlar ciertas propiedades del modelo ajustado.
+
+Este tipo de observaciones posiblemente no afecte los coeficientes de regresión estimados pero sí las estadísticas de resumen como el $R^2$ y los errores estándar de los coeficientes estimados.
+
+Los puntos de balanceo son detectados mediante el análisis de los elementos de la diagonal principal de la matriz $\boldsymbol{H}$, los $h_{ii}$ proporcionan una medida estandarizada de
+la distancia de la $i$-ésima observación al centro del espacio definido por las predictoras.
+
+```{block2, type="rmdnote"}
+Se asume que la observación $i$ es un **punto de balanceo** si $h_{ii} > 2p/n$, pero si $2p/n > 1$, este criterio no funciona pues los $h_{ii}$ siempre son menores que 1.
+```
+
 ## Punto atípico (outlier) y punto influyente {-}
 Los conceptos de atípico e influyente son diferentes y se definen así:
 
