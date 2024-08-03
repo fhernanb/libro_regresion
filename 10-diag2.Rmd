@@ -89,7 +89,7 @@ Use la información del ejemplo anterior y determine si la observación con valo
 Los conceptos de atípico e influyente son diferentes y se definen así:
 
 - Punto atípico (outlier): es una observación que es numéricamente distante del resto de los datos.
-- Punto influyente: punto que tiene impacto en las estimativas del modelo.
+- Punto influyente: es una observación que tiene impacto en las estimativas del modelo.
 
 En la siguiente figura se ilustra la diferencia entre los conceptos de atípico e influyente.
 
@@ -99,12 +99,19 @@ En la siguiente figura se ilustra la diferencia entre los conceptos de atípico 
 
 Dos preguntas que surgen al mirar la figura anterior son:
 
-- ¿Cómo saber si un punto es un outlier? 
+- ¿Cómo saber si un punto es un atípico (outlier)? 
 - ¿Cómo saber si un punto es influyente?
 
-Para saber si un punto es outlier se puede usar la prueba de Bonferroni y para saber si un punto es influyente se puede utilizar Distancia de Cook. En las siguientes secciones se mostrará identificar outliers y puntos influyentes.
+Para saber si un punto es atípico (outlier) se puede usar la prueba de Bonferroni o los residuales $d_i$ o $r_i$, y para saber si un punto es influyente se puede utilizar Distancia de Cook. En las siguientes secciones se mostrará cómo identificar atípicos y puntos influyentes.
 
-## Prueba de Bonferroni para detectar outliers  {-}
+## Uso de los residuales para detectar atípicos (outliers) {-}
+
+Una forma sencilla de detectar posibles observaciones atípicas (outliers) es usando las siguientes reglas:
+
+- Un $d_i$ grande, $|di| > 3$, es indicio de una observación potencialmente atípica.
+- Un $r_i$ grande, $|ri| > 3$, es indicio de una observación potencialmente atípica.
+
+## Prueba de Bonferroni para detectar atípicos (outliers) {-}
 El paquete **car** de @R-car tiene la función `outlierTest` para realizar una prueba de hipótesis de
 
 - $H_0:$ la observación $i$-ésima NO es un outlier.
@@ -131,7 +138,7 @@ __Solución__
 
 Primero vamos a ajustar el modelo y luego vamos a aplicar la prueba de Bonferroni para detectar outliers.
 
-```{r}
+```{r message=FALSE}
 url <- "https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2"
 datos <- read.table(file=url, sep="\t", header=TRUE)
 
@@ -170,10 +177,10 @@ $$
 
 donde $d_i$ corresponde al __residual estandarizado__.
 
-Otra forma de obtener las distancias de Cook $D_i$ es ajustando el modelo de interés `mod` y luego aplicar la función `cooks.distance(mod)` sobre el modelo.
+Otra forma de obtener las distancias de Cook $D_i$ es ajustando el modelo de interés `mod` y luego aplicar la función `cooks.distance` sobre el modelo.
 
 ```{block2, type='rmdnote'}
-Son puntos influyentes las observaciones que presenten $D_i=\frac{4}{n-p-2}$.
+Son puntos influyentes las observaciones que presenten $D_i>1$.
 ```
 
 ### Ejemplo: {-}
@@ -327,7 +334,7 @@ $$
 DFFITS_i = \frac{\hat{y}_i - \hat{y}_{i(i)}}{\sqrt{s_{(i)}^2 h_{ii}}}.
 $$
 
-Se sugiere investigar toda observación con $|DFFITS| > 2 \sqrt{p/n}$.
+Una observación será influyente si $|DFFITS| > 2 \sqrt{p/n}$.
 
 La función en R para obtener los $DFFITS_i$ es `dffits`.
 
@@ -340,7 +347,7 @@ $$
 
 donde $C_{jj}$ es $j$-ésimo elemento de la diagonal de $(\boldsymbol{X}^\top \boldsymbol{X})^{-1}$. 
 
-Se sugiere investigar toda observación con $|DFBETAS| > 2 \sqrt{n}$.
+Una observación será influyente si $|DFBETAS| > 2 \sqrt{n}$.
 
 La función en R para obtener los $DFBETAS_{i,j}$ es `dfbetas`.
 
@@ -354,30 +361,36 @@ y <- c(5, 9, 8, 7, 19)
 
 __Solución__
 
-Vamos a crear unos datos para el ejemplo.
+Vamos a crear un diagrama de dispersión para los datos del ejemplo.
 
-```{r ejem_dffits01}
+```{r ejem_dffits01, fig.height=4, fig.width=4, fig.align='center'}
 plot(x=x, y=y, pch=19, col="tomato", las=1)
+text(1:5, x=x-0.1, y=y, cex=0.5)
+```
+
+Lo siguiente es ajustar el modelo de regresión de interés.
+
+```{r}
 mod <- lm(y ~ x)
 ```
 
-Vamos a calcular DFFITS.
+Vamos a calcular DFFITS usando la función `dffits` sobre el modelo ya ajustado.
 
 ```{r}
 dffits(mod)
 ```
 
-De la salida anterior vemos que la observación 5 es la que tiene el mayor valor de DFFITS.
+De la salida anterior vemos que la observación 5 es la única que tiene un $|DFFITS|$ mayor a $2\sqrt{\frac{p}{n}}=2\sqrt{\frac{2}{5}}=1.26$. Por esa razón podemos considerar a la observación 5 como una observación influyente.
 
-Vamos a calcular DFBETAS.
+Vamos a calcular DFBETAS usando la función `dfbetas` sobre el modelo ya ajustado.
 
 ```{r}
 dfbetas(mod)
 ```
 
-De la salida anterior vemos nuevamente que la observación 5 tiene la mayor influencia sobre $\hat{\beta}_0$ y sobre $\hat{\beta}_1$.
+De la salida anterior vemos nuevamente que la observación 5 tiene la mayor influencia sobre $\hat{\beta}_0$ y sobre $\hat{\beta}_1$. Como ambos valores de $|DFBETAS|$ son mayores a $\frac{2}{\sqrt{n}}=\frac{2}{\sqrt{5}}=0.89$, podemos considerar a la observación 5 como una observación influyente.
 
-Existe otra función llamda `dfbeta` sin la letra __s__, veamos para que sirve esta función.
+Existe otra función llamda `dfbeta` (sin la letra __s__), veamos para qué sirve esta función.
 
 ```{r}
 dfbeta(mod)

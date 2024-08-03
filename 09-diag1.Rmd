@@ -21,7 +21,7 @@ __Forma II__
 Ambos conjuntos de supuestos son equivalentes, la forma I está dirigida hacia los errores mientras que en la forma II está dirigida hacia los $y_i$.
 
 ## Residuales {-}
-Los residuales en los modelos de regresión nos ayuda a:
+Los residuales en los modelos de regresión nos ayudan a:
 
 - determinar qué tan bien el modelo explica el patrón de los datos,
 - verificar el cumplimiento de los supuestos del modelo.
@@ -30,17 +30,22 @@ Los residuales en los modelos de regresión nos ayuda a:
   <img src="images/ResidualsLinear.gif" width="200">
 </p>
 
-A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión.
+A continuación se muestran los diferentes tipos de residuales que se pueden definir para un modelo de regresión. Todas las fórmulas mostradas coinciden con las fórmulas usadas internamente por R para calcular los residuales.
 
 <p align="center">
   <img src="images/tipos_de_residuales.png" width="600">
 </p>
 
-La cantidad $w_i$ corresponde al peso o importancia de cada observación en el modelo, por defecto es $w_i=1$. 
+- La cantidad $w_i$ usada en varios residuales corresponde al peso o importancia de cada observación en el modelo, por defecto es $w_i=1$.
+- La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top$. 
+- La varianza $\hat{\sigma}_{(i)}^{2}$ es la varianza estimada al __NO__ tener en cuenta la observación $i$-ésima. La cantidad $\hat{y}_{(i)}$ es la estimación de la $i$-ésima observación usando un modelo en el cual la observación $i$-ésima __NO__ fue usada en el ajuste del modelo.
 
-La cantidad $h_{ii}$ se llama leverage y corresponde al elemento $i$ de la diagonal de la matriz sombrero o hat $\boldsymbol{H} = \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top$. 
-
-La varianza $\hat{\sigma}_{(i)}^{2}$ es la varianza estimada al __NO__ tener en cuenta la observación $i$-ésima. La cantidad $\hat{y}_{(i)}$ es la estimación de la $i$-ésima observación usando un modelo en el cual la observación $i$-ésima __NO__ fue usada en el ajuste del modelo.
+```{block2, type="rmdnote"}
+En algunos textos los residuales estandarizados y estudentizados se definen de una forma más sencilla sin involucrar los pesos $w_i$ ni los valores $h_{ii}$. Las fórmulas sencillas de esos residuales son:
+  
+- $d_i=\frac{e_i}{\sqrt{\hat{\sigma^2}}}$. 
+- $r_i=\frac{e_i}{\sqrt{\hat{\sigma^2} (1-h_{ii})}}$
+```
 
 Para obtener los residuales arriba definidos tenemos las siguientes funciones:
 
@@ -57,7 +62,7 @@ Los errores del modelo se denotan como $\epsilon_i$ mientras que los residuales 
 ```
 
 ### Ejemplo {-}
-Considere los datos mostrados abajo, ajuste un modelo de regresión lineal para explicar la media de $y$ en función de $x$ y usando como pesos los valores de $w$. Obtenga los residuales usando las definiciones y luego usando las funciones de R, compruebe que los resultados coinciden.
+Considere los datos mostrados abajo, ajuste un modelo de regresión lineal para explicar la media de $y$ en función de $x$ y usando como pesos los valores de $w$. Obtenga los residuales usando las definiciones (fórmulas) y luego usando las funciones de R, compruebe que los resultados coinciden.
 
 ```{r}
 x <- c(4, 6, 8, 7, 8, 5)
