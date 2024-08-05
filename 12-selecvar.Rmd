@@ -206,42 +206,6 @@ addterm(mod1, scope=maximo)
 
 De la salida anterior se ve que ingresar `x1` mejoraría el modelo porque lo llevaría de un $AIC=79.974$ a uno con $AIC=73.319$.
 
-## Paquete **olsrr** {-}
-El paquete **olsrr** creado por @R-olsrr contiene varias funciones útiles para modelación, en particular se destaca la función `ols_step_all_possible` que se puede utilizar para obtener todas las regresiones posibles.
-
-Si un modelo tiene inicialmente $k$ variables cuantitativas entonces se pueden construir $2^k$ modelos diferentes con subconjuntos de las variables originales. A continuación un ejemplo de cómo crece el número de todas las regresiones posibles en función del número $k$ de covariables.
-
-```{r, echo=FALSE}
-k <- c(2, 4, 8, 16, 32)
-num_de_regresiones <- 2^k
-cbind(k, num_de_regresiones)
-```
-
-### Ejemplo {-}
-En este ejemplo vamos a usar la base de datos `mtcars` para crear todas las regresiones posibles para explicar `mpg` en función de las variables `disp`, `hp`, `wt`, `qsec`, a continuación una parte de la base de datos.
-
-```{r}
-head(mtcars)
-```
-
-A continuación el código para ajustar el modelo saturado y luego crear todas las regresiones posibles.
-
-```{r message=FALSE}
-model <- lm(mpg ~ disp + hp + wt + qsec, data=mtcars)
-
-library(olsrr)
-res <- ols_step_all_possible(model)
-res
-```
-
-Los resultados anteriores se pueden ver de forma gráfica así:
-
-```{r selection05}
-plot(res)
-```
-
-Se le recomienda al lector explorar las viñetas del paquete [olsrr](https://cran.r-project.org/web/packages/olsrr/index.html) para conocer todas las bondades del paquete.
-
 ## Paquete **mixlm** {-}
 El paquete **mixlm** creado por @R-mixlm contiene un buen número de funciones para modelación. Algunas de las funciones a destacar son `forward`, `backward`, `stepWise`.
 

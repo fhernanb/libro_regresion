@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Pruebas de hipótesis parte I | Modelos de Regresión con R</title>
+  <title>14 Todas las regresiones posibles | Modelos de Regresión con R</title>
   <meta name="description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Pruebas de hipótesis parte I | Modelos de Regresión con R" />
+  <meta property="og:title" content="14 Todas las regresiones posibles | Modelos de Regresión con R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.png" />
   <meta property="og:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="github-repo" content="fhernanb/libro_regresion" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Pruebas de hipótesis parte I | Modelos de Regresión con R" />
+  <meta name="twitter:title" content="14 Todas las regresiones posibles | Modelos de Regresión con R" />
   
   <meta name="twitter:description" content="Libro de Modelos de Regresión con R para los estudiantes de la Escuela de Estadística de la Universidad Nacional de Colombia." />
   <meta name="twitter:image" content="/images/cover.png" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="varcuali.html"/>
-<link rel="next" href="ph2.html"/>
+<link rel="prev" href="indep.html"/>
+<link rel="next" href="mod_poli.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -540,106 +540,74 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ph1" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">8</span> Pruebas de hipótesis parte I<a href="ph1.html#ph1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En este capítulo se muestra como realizar pruebas de hipótesis para un modelo de regresión lineal.</p>
-<p>La prueba explicada a continuación se conoce como prueba de Wald en honor a Abraham Wald (1902-1950).</p>
-<div id="pruebas-sobre-los-coeficientes-beta" class="section level2 unnumbered hasAnchor">
-<h2>Pruebas sobre los coeficientes <span class="math inline">\(\beta\)</span><a href="ph1.html#pruebas-sobre-los-coeficientes-beta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Cuando se tiene un modelo de regresión con <span class="math inline">\(k\)</span> variables en la matriz de diseño <span class="math inline">\(\boldsymbol{X}\)</span> (la primera columna de <span class="math inline">\(\boldsymbol{X}\)</span> son unos y no se cuenta como variable), es usual que nos interese estudiar</p>
-<p><span class="math display">\[H_0: \beta_j = \beta_{j0},\]</span>
-frente a una de las tres siguientes hipótesis alternas:
-<span class="math display">\[H_A: \beta_j &lt; \beta_{j0}, \quad H_A: \beta_j \neq \beta_{j0}, \quad H_A: \beta_j  &gt; \beta_{j0},\]</span>
-para algún <span class="math inline">\(j = 0, 1, 2, \ldots, k\)</span>.</p>
-<p>Para estas pruebas el estadístico de prueba está dado por</p>
-<p><span class="math display">\[
-t_0 = \frac{\hat{\beta}_j - \beta_{j0}}{s.e.(\hat{\beta}_j)},
-\]</span></p>
-<p>y bajo la hipótesis nula cierta, <span class="math inline">\(t_0 \sim t_{n-k-1}\)</span>.</p>
-
-<div class="rmdnote">
-Cuando se realiza una prueba de hipótesis sobre uno de los coeficientes <span class="math inline">\(\beta\)</span>, se asume que las variables restantes permanecen en el modelo, en otras palabras, esta es una prueba marginal.
-</div>
-</div>
-<div id="función-summary-cuando-beta_j0-0" class="section level2 unnumbered hasAnchor">
-<h2>Función <code>summary</code> cuando <span class="math inline">\(\beta_{j0} = 0\)</span><a href="ph1.html#función-summary-cuando-beta_j0-0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{j0}\)</span> es igual a cero se puede usar la función <code>summary</code>.</p>
-<div id="ejemplo-15" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="ph1.html#ejemplo-15" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
-<p>¿Será la variable Edad una variable significativa para el modelo? es decir, ¿será el coeficiente de la Edad igual a cero o no?</p>
-<p align="center">
-<img src="images/ilustracion_soldadura.png" width="400">
-</p>
-<p><strong>Solución</strong></p>
-<p>Las anteriores preguntas se pueden resumir por medio del siguiente conjunto de hipótesis.</p>
-<p><span class="math display">\[H_0: \beta_{Edad} = 0,\]</span>
-<span class="math display">\[H_A: \beta_{Edad} \neq 0\]</span></p>
-<p>Para responder a esta pregunta vamos a ajustar el modelo de la forma usual y luego vamos a construir la tabla de resumen del modelo, el código para hacer esto es el siguiente.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ph1.html#cb116-1" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fhernanb/datos/master/propelente&quot;</span></span>
-<span id="cb116-2"><a href="ph1.html#cb116-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb116-3"><a href="ph1.html#cb116-3" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span>
-<span id="cb116-4"><a href="ph1.html#cb116-4" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Resistencia ~ Edad, data = datos)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -215.98  -50.68   28.74   66.61  106.76 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 2627.822     44.184   59.48  &lt; 2e-16 ***
-## Edad         -37.154      2.889  -12.86 1.64e-10 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 96.11 on 18 degrees of freedom
-## Multiple R-squared:  0.9018, Adjusted R-squared:  0.8964 
-## F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10</code></pre>
-<p>De la tabla anterior tenemos que el valor-P asociado a Edad es 1.64e-10, por lo tanto a un nivel de significancia usual de 5%, hay evidencias para rechazar <span class="math inline">\(H_0\)</span> y se concluye que la variable Edad si aporta información para predecir la media de la Resistencia.</p>
-</div>
-</div>
-<div id="función-beta_test-cuando-beta_k0-neq-0" class="section level2 unnumbered hasAnchor">
-<h2>Función <code>beta_test</code> cuando <span class="math inline">\(\beta_{k0} \neq 0\)</span><a href="ph1.html#función-beta_test-cuando-beta_k0-neq-0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para realizar pruebas de hipótesis cuando el valor de referencia <span class="math inline">\(\beta_{k0}\)</span> es diferente de cero, se puede usar la función <code>beta_test</code> del paquete <strong>model</strong> <span class="citation">(<a href="#ref-R-model">Hernandez and Usuga 2024</a>)</span>. Este paquete está alojado en github y para poder instalarlo se sebe usar el siguiente código.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ph1.html#cb118-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb118-2"><a href="ph1.html#cb118-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;fhernanb/model&quot;</span>)</span></code></pre></div>
-<p>La estructura de la función se muestra a continuación.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ph1.html#cb119-1" tabindex="-1"></a><span class="fu">beta_test</span>(object, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">&quot;two.sided&quot;</span>, <span class="st">&quot;less&quot;</span>, <span class="st">&quot;greater&quot;</span>), parm, ref.value)</span></code></pre></div>
-<p>Los argumentos de esta función son:</p>
+<div id="allpossibleregre" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> Todas las regresiones posibles<a href="allpossibleregre.html#allpossibleregre" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este capítulo se muestra como elegir el mejor modelo de regresión cuando es posible ajustar o entrenar todos los posibles modelos relacionados a un problema.</p>
+<div id="criterios-para-elegir-modelos" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Criterios para elegir modelos<a href="allpossibleregre.html#criterios-para-elegir-modelos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A continuación una lista de los posibles indicadores y el ideal de cada uno de ellos.</p>
 <ul>
-<li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
-<li><code>alternative</code>: una cadena de caracteres indicando el signo de la hipótesis alterna, los valores posibles son <code>two.sided</code> (valor por defecto), <code>greater</code> o <code>less</code>.</li>
-<li><code>parm</code>: vector con el nombre de la variable.</li>
-<li><code>ref.value</code>: valor de referencia <span class="math inline">\(\beta_{j0}\)</span> de la prueba.</li>
+<li><span class="math inline">\(R^2\)</span>: coeficiente de determinación, entre más grande mejor.</li>
+<li><span class="math inline">\(R^2_A\)</span>: coeficiente de determinación ajustado, entre más grande mejor.</li>
+<li><span class="math inline">\(C_p\)</span> de Mallows: el mejor modelo es aquél para el cual <span class="math inline">\(C_p\)</span> es el más pequeño posible.</li>
+<li><span class="math inline">\(AIC\)</span>: Akaike Information Criterium, entre más pequeño mejor.</li>
 </ul>
-<div id="ejemplo-16" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo<a href="ph1.html#ejemplo-16" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Aquí vamos a retomar el ejemplo 2.1 del libro de <a href="https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278">Montgomery, Peck and Vining (2003)</a>. En el ejemplo 2.1 los autores ajustaron un modelo de regresión lineal simple para explicar la Resistencia de una soldadura en función de la Edad de la misma.</p>
-<p>El proveedor de la soldadura afirma que la resistencia media para soldaduras nuevas es 2700 psi. Pruebe la hipótesis de que la resistencia media es diferente a un nivel de significancia del 5%.</p>
-<p align="center">
-<img src="images/ilustracion_soldadura.png" width="400">
-</p>
-<p><strong>Solución</strong></p>
-<p>La anterior pregunta se pueden resumir por medio del siguiente conjunto de hipótesis.</p>
-<p><span class="math display">\[H_0: \beta_{0} = 2700,\]</span>
-<span class="math display">\[H_A: \beta_{0} \neq 2700\]</span></p>
-<p>Para responder a esta pregunta vamos usar la función <code>beta_test</code>.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ph1.html#cb120-1" tabindex="-1"></a><span class="fu">library</span>(model)</span>
-<span id="cb120-2"><a href="ph1.html#cb120-2" tabindex="-1"></a><span class="fu">beta_test</span>(<span class="at">object=</span>mod, <span class="at">parm=</span><span class="st">&#39;(Intercept)&#39;</span>, <span class="at">ref.value=</span><span class="dv">2700</span>, <span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>)</span></code></pre></div>
-<pre><code>##             Estimate  Std.Err t value Pr(&gt;t)
-## (Intercept) 2627.822   44.184 -1.6336 0.1197</code></pre>
-<p>Como el valor-P obtenido es 0.1197, entonces la resistencia media para soldaduras nuevas sigue siendo de 2700 psi, en otras palabras, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, esto a un nivel de significancia del 5%.</p>
+</div>
+<div id="paquete-olsrr" class="section level2 unnumbered hasAnchor">
+<h2>Paquete <strong>olsrr</strong><a href="allpossibleregre.html#paquete-olsrr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El paquete <strong>olsrr</strong> creado por <span class="citation">Hebbali (<a href="#ref-R-olsrr">2024</a>)</span> contiene varias funciones útiles para modelación, en particular se destaca la función <code>ols_step_all_possible</code> que se puede utilizar para obtener todas las regresiones posibles.</p>
+<p>Si un modelo tiene inicialmente <span class="math inline">\(k\)</span> variables cuantitativas entonces se pueden construir <span class="math inline">\(2^k\)</span> modelos diferentes con subconjuntos de las variables originales. A continuación un ejemplo de cómo crece el número de todas las regresiones posibles en función del número <span class="math inline">\(k\)</span> de covariables.</p>
+<pre><code>##       k num_de_regresiones
+## [1,]  2                  4
+## [2,]  4                 16
+## [3,]  8                256
+## [4,] 16              65536
+## [5,] 32         4294967296</code></pre>
+<div id="ejemplo-35" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo<a href="allpossibleregre.html#ejemplo-35" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este ejemplo vamos a usar la base de datos <code>mtcars</code> para crear todas las regresiones posibles para explicar <code>mpg</code> en función de las variables <code>disp</code>, <code>hp</code>, <code>wt</code>, <code>qsec</code>, a continuación una parte de la base de datos.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="allpossibleregre.html#cb290-1" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p>A continuación el código para ajustar el modelo saturado y luego crear todas las regresiones posibles.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="allpossibleregre.html#cb292-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data=</span>mtcars)</span>
+<span id="cb292-2"><a href="allpossibleregre.html#cb292-2" tabindex="-1"></a></span>
+<span id="cb292-3"><a href="allpossibleregre.html#cb292-3" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb292-4"><a href="allpossibleregre.html#cb292-4" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">ols_step_all_possible</span>(model)</span>
+<span id="cb292-5"><a href="allpossibleregre.html#cb292-5" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>##    Index N      Predictors  R-Square Adj. R-Square Mallow&#39;s Cp
+## 3      1 1              wt 0.7528328     0.7445939  0.70869536
+## 1      2 1            disp 0.7183433     0.7089548  0.67512054
+## 2      3 1              hp 0.6024373     0.5891853  0.50969578
+## 4      4 1            qsec 0.1752963     0.1478062  0.07541973
+## 8      5 2           hp wt 0.8267855     0.8148396  0.78108710
+## 10     6 2         wt qsec 0.8264161     0.8144448  0.77856272
+## 6      7 2         disp wt 0.7809306     0.7658223  0.72532105
+## 5      8 2         disp hp 0.7482402     0.7308774  0.69454380
+## 7      9 2       disp qsec 0.7215598     0.7023571  0.66395284
+## 9     10 2         hp qsec 0.6368769     0.6118339  0.52014395
+## 14    11 3      hp wt qsec 0.8347678     0.8170643  0.78199548
+## 11    12 3      disp hp wt 0.8268361     0.8082829  0.76789526
+## 13    13 3    disp wt qsec 0.8264170     0.8078189  0.76988533
+## 12    14 3    disp hp qsec 0.7541953     0.7278591  0.68301440
+## 15    15 4 disp hp wt qsec 0.8351443     0.8107212  0.77102968</code></pre>
+<p>Los resultados anteriores se pueden ver de forma gráfica así:</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="allpossibleregre.html#cb294-1" tabindex="-1"></a><span class="fu">plot</span>(res)</span></code></pre></div>
+<p><img src="Regresion_con_R_files/figure-html/selection05-1.png" width="672" /><img src="Regresion_con_R_files/figure-html/selection05-2.png" width="672" /></p>
+<p>Se le recomienda al lector explorar las viñetas del paquete <a href="https://cran.r-project.org/web/packages/olsrr/index.html">olsrr</a> para conocer todas las bondades del paquete.</p>
 
 </div>
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-R-model" class="csl-entry">
-Hernandez, Freddy, and Olga Usuga. 2024. <em>Model: This Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.
+<div id="ref-R-olsrr" class="csl-entry">
+Hebbali, Aravind. 2024. <em>Olsrr: Tools for Building OLS Regression Models</em>. <a href="https://olsrr.rsquaredacademy.com/">https://olsrr.rsquaredacademy.com/</a>.
 </div>
 </div>
             </section>
@@ -647,8 +615,8 @@ Hernandez, Freddy, and Olga Usuga. 2024. <em>Model: This Package Contains Useful
           </div>
         </div>
       </div>
-<a href="varcuali.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ph2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="indep.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mod_poli.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -679,7 +647,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fhernanb/libro_regresion/edit/master/07-ph1.Rmd",
+"link": "https://github.com/fhernanb/libro_regresion/edit/master/12-all_possible_reg.Rmd",
 "text": "Edit"
 },
 "history": {

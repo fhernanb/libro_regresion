@@ -16,6 +16,8 @@ diag1
 diag2
 homo
 indep
+allpossibleregre
+criterios-para-elegir-modelos
 mod_poli
 selec
 feature_selec
