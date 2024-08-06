@@ -1,0 +1,81 @@
+# Todas las regresiones posibles {#allpossibleregre}
+En este capítulo se muestra como elegir el mejor modelo de regresión cuando es posible ajustar o entrenar todos los posibles modelos relacionados a un problema.
+
+Si un modelo tiene $k$ variables cuantitativas, se pueden construir $2^k$ modelos diferentes con subconjuntos de las variables originales. A continuación un ejemplo de cómo crece el número de todas las regresiones posibles en función del número $k$ de covariables.
+
+```{r, echo=FALSE}
+k <- c(2, 4, 8, 16, 32)
+num_de_regresiones <- 2^k
+cbind(k, num_de_regresiones)
+```
+
+## Criterios para elegir modelos {-}
+A continuación una lista de los posibles indicadores y el ideal de cada uno de ellos.
+
+- $R^2$: coeficiente de determinación, entre más grande mejor.
+- $R^2_A$: coeficiente de determinación ajustado, entre más grande mejor.
+- $C_p$ de Mallows: el mejor modelo es aquél para el cual $C_p$ es el más pequeño posible.
+- $AIC$: Akaike Information Criterium, entre más pequeño mejor.
+
+## Paquete **olsrr** {-}
+El paquete **olsrr** creado por @R-olsrr contiene varias funciones útiles para modelación, en particular se destacan dos funciones.
+
+```{r eval=FALSE}
+ols_step_all_possible(model)
+
+ols_step_best_subset(model,
+                     max_order = NULL,
+                     include = NULL,
+                     exclude = NULL,
+                     metric = c("rsquare", "adjr", "predrsq", 
+                                "cp", "aic", "sbic", "sbc", 
+                                "msep", "fpe", "apc", "hsp"))
+```
+
+
+### Ejemplo {-}
+En este ejemplo vamos a usar la base de datos `mtcars` para crear todas las regresiones posibles para explicar `mpg` en función de las covariables `disp`, `hp`, `wt`, `qsec`, a continuación una parte de la base de datos.
+
+```{r}
+head(mtcars)
+```
+
+__Solución__
+
+Lo primero que se debe hacer es ajustar el modelo saturado (o modelo full) para luego crear todas las regresiones posibles que incluyan las covariables `disp`, `hp`, `wt`, `qsec`.
+
+```{r message=FALSE}
+model <- lm(mpg ~ disp + hp + wt + qsec, data=mtcars)
+
+library(olsrr)
+res <- ols_step_all_possible(model)
+res # Este objeto contiene los resultados
+```
+
+Los resultados anteriores se pueden ver de forma gráfica así:
+
+```{r allreg01}
+plot(res)
+```
+
+### Ejemplo {-}
+En este ejemplo vamos a usar la base de datos `mtcars` para identificar el mejor modelo que explique `mpg` en función de las covariables `disp`, `hp`, `wt`, `qsec`. La restricción que se impone es que el modelo TIENE que incluir la variable `hp` y la métrica a usar será el $R^2_{Adj}$.
+
+__Solución__
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data=mtcars)
+
+library(olsrr)
+res <- ols_step_best_subset(model, include="hp", metric="adjr")
+res # Este objeto contiene los resultados
+```
+
+Los resultados anteriores se pueden ver de forma gráfica así:
+
+```{r allreg02}
+plot(res)
+```
+
+Se le recomienda al lector explorar las viñetas del paquete [olsrr](https://cran.r-project.org/web/packages/olsrr/index.html) para conocer todas las bondades del paquete.
+
