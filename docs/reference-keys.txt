@@ -3,6 +3,8 @@ fig:unnamed-chunk-65
 fig:cuali02
 fig:selection01
 fig:selection02
+fig:selectionEstII01
+fig:coefStand01
 rls
 trans
 rlm
@@ -21,10 +23,10 @@ allpossibleregre
 selec
 feature_selec
 multicoli
+coefstand
 algmat
 WilRog
 xy
 important
 pasos
 misspecification
-fig:selectionEstII01

@@ -79,3 +79,22 @@ plot(res)
 
 Se le recomienda al lector explorar las viñetas del paquete [olsrr](https://cran.r-project.org/web/packages/olsrr/index.html) para conocer todas las bondades del paquete.
 
+### Ejemplo {-}
+Volver a realizar el ejemplo anterior pero usando la función `myAllRegTable` del curso de Estadística II.
+
+__Solución__
+
+Para accerder a la función `myAllRegTable` se corre el siguiente código y se carga el paquete **leaps** creado por @R-leaps. 
+
+```{r}
+library(leaps)
+source("https://raw.githubusercontent.com/fhernanb/Trabajos_Est_2/main/Trabajo%201/funciones.R")
+```
+
+Luego se ajusta el modelo y luego si se aplica la función `myAllRegTable` así:
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data=mtcars)
+myAllRegTable(model)
+```
+

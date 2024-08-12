@@ -383,13 +383,84 @@ summary(mod1)
 
 Para aplicar el modelo Backward visto en clase usamos la siguiente instrucción.
 
-```{r}
+```{r eval=FALSE}
 mod2 <- myBackward(base.full=mod, alpha.to.leave=0.05)
+```
+
+```
+## -------------STEP  1 -------------
+##  The drop statistics : 
+## Single term deletions
+## 
+## Model:
+## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
+##        Df Sum of Sq    RSS    AIC F value Pr(>F)  
+## <none>              187.40 78.962                 
+## x1      1    18.736 206.14 79.820  1.7996 0.1964  
+## x2      1     6.462 193.86 77.979  0.6207 0.4411  
+## x3      1    17.770 205.17 79.679  1.7069 0.2078  
+## x4      1     2.418 189.82 77.346  0.2323 0.6357  
+## x5      1    35.864 223.26 82.215  3.4447 0.0799 .
+## x6      1     0.632 188.03 77.063  0.0607 0.8082  
+## x7      1    11.065 198.47 78.683  1.0628 0.3162  
+## x8      1    20.047 207.45 80.011  1.9256 0.1822  
+## x9      1    15.758 203.16 79.384  1.5136 0.2344  
+## x10     1     7.836 195.24 78.190  0.7526 0.3971  
+## x11     1     0.465 187.87 77.036  0.0446 0.8350  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## --------
+## Term dropped in step 1 : x11 
+## --------
+
+.
+.
+.
+
+## -------------STEP  9 -------------
+##  The drop statistics : 
+## Single term deletions
+## 
+## Model:
+## y ~ x5 + x8 + x10
+##        Df Sum of Sq    RSS    AIC F value    Pr(>F)    
+## <none>              228.85 70.955                      
+## x5      1    38.934 267.78 73.982  4.7636   0.03761 *  
+## x8      1    59.013 287.86 76.296  7.2203   0.01199 *  
+## x10     1   245.912 474.76 92.306 30.0876 7.375e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 Para ver un resumen del modelo resultante de Backward hacemos lo siguiente:
 
-```{r}
+```{r eval=FALSE}
 summary(mod2)
 ```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x5 + x8 + x10)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.512 -1.945 -0.631  1.931  6.003 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  5.010946  11.275042   0.444   0.6601    
+## x5           2.625031   1.202720   2.183   0.0376 *  
+## x8           0.211874   0.078850   2.687   0.0120 *  
+## x10         -0.009334   0.001702  -5.485 7.37e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## s: 2.859 on 28 degrees of freedom
+## Multiple R-squared: 0.8151,
+## Adjusted R-squared: 0.7953 
+## F-statistic: 41.14 on 3 and 28 DF,  p-value: 2.156e-10
+```
+
 
