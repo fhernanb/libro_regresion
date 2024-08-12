@@ -33,7 +33,7 @@ Los métodos para realizar selcción de variables se pueden clasificar de la sig
 
 A continuación una imagen ilustrativa para entender ambos métodos.
 
-```{r selection01, echo=F, fig.cap='Ilustración de los métodos Forward y Backward.', dpi=60, fig.align='center'}
+```{r selection01, echo=F, fig.cap='Ilustración de los métodos.', dpi=60, fig.align='center'}
 knitr::include_graphics("images/forward_backward.png")
 ```
 
@@ -63,11 +63,13 @@ En este ejemplo se busca encontrar un modelo de regresion lineal que explique la
 
 A continuación se muestra el encabezado de la base de datos y la definición de las variables.
 
-```{r selection02, echo=F, fig.cap='Ilustración de los métodos Forward y Backward.', dpi=60, fig.align='center'}
-knitr::include_graphics("images/tableb3.png")
+```{r selection02, echo=F, fig.cap='Ilustración de la base de datos.', dpi=60, fig.align='center'}
+knitr::include_graphics("images/tableb3.PNG")
 ```
 
 __Nota__: Type of transmission (1=automatic, 0=manual).
+
+__Solución__
 
 Antes de iniciar es necesario revisar si hay `NA's` y eliminarlos.
 
@@ -313,5 +315,81 @@ Para determinar la estructura del <span style="color:orange">modelo 3</span> ide
 
 ```{r}
 summary(model_subset)$which[3, ]
+```
+
+## Funciones para el curso Estadística II {-}
+
+El curso de Estadística II tiene unas funciones especiales (`myStepwise` y `myBackward`) para realizar la selección de variables según se ha explicado en clase. 
+
+
+Para accerder a estas funciones se corre el siguiente código:
+
+```{r}
+source("https://raw.githubusercontent.com/fhernanb/Trabajos_Est_2/main/Trabajo%201/funciones.R")
+```
+
+### Ejemplo {-}
+En este ejemplo se busca encontrar un modelo de regresion lineal que explique la variable respuesta $y$ en función de las covariables $x_1$ a $x_{11}$, los datos provienen del ejercicio 9.5 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278).
+
+A continuación se muestra el encabezado de la base de datos y la definición de las variables.
+
+```{r selectionEstII01, echo=F, fig.cap='Ilustración de la base de datos.', dpi=60, fig.align='center'}
+knitr::include_graphics("images/tableb3.PNG")
+```
+
+__Nota__: Type of transmission (1=automatic, 0=manual).
+
+__Solución__
+
+Antes de iniciar es necesario revisar si hay `NA's` y eliminarlos.
+
+```{r, message=F}
+library(MPV)  # Aqui estan los datos
+table.b3[22:26, ] # Can you see the missing values?
+datos <- table.b3[-c(23, 25), ]
+```
+
+El objeto `datos` tiene la base de datos sin las líneas con `NA`, lo mismo se hubiese podido realizar usando la función `na.omit`.
+
+A continuación se muestran los diagramas de dispersión para las variables de la base de datos.
+```{r, selectionEstII02, echo=F, fig.asp=0.8, fig.width=10}
+library(psych)
+pairs.panels(table.b3, 
+             method="pearson", # correlation method
+             hist.col="#00AFBB",
+             density=FALSE,  # show density plots
+             ellipses=FALSE, # show correlation ellipses
+             smooth=FALSE)
+```
+
+Ahora vamos a ajustar el modelo saturado, es decir, el modelo con todas las covariables.
+
+```{r}
+mod <- lm(y ~ ., data=table.b3)
+```
+
+Para aplicar el modelo Forward visto en clase usamos la siguiente instrucción.
+
+```{r}
+attach(table.b3)
+mod1 <- myStepwise(full.model=mod, alpha.to.enter=0.05, alpha.to.leave=0.05)
+```
+
+Para ver un resumen del modelo resultante de Forward hacemos lo siguiente:
+
+```{r}
+summary(mod1)
+```
+
+Para aplicar el modelo Backward visto en clase usamos la siguiente instrucción.
+
+```{r}
+mod2 <- myBackward(base.full=mod, alpha.to.leave=0.05)
+```
+
+Para ver un resumen del modelo resultante de Backward hacemos lo siguiente:
+
+```{r}
+summary(mod2)
 ```
 
