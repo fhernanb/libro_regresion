@@ -81,17 +81,6 @@ datos <- table.b3[-c(23, 25), ]
 
 El objeto `datos` tiene la base de datos sin las líneas con `NA`, lo mismo se hubiese podido realizar usando la función `na.omit`.
 
-A continuación se muestran los diagramas de dispersión para las variables de la base de datos.
-```{r, selection03, echo=F, fig.asp=0.8, fig.width=10}
-library(psych)
-pairs.panels(table.b3, 
-             method="pearson", # correlation method
-             hist.col="#00AFBB",
-             density=FALSE,  # show density plots
-             ellipses=FALSE, # show correlation ellipses
-             smooth=FALSE)
-```
-
 ### Aplicación del método __backward__ {-}
 Vamos a crear un modelo _saturado_, es decir, el modelo mayor a considerar.
 
@@ -319,8 +308,19 @@ summary(model_subset)$which[3, ]
 
 ## Funciones para el curso Estadística II {-}
 
-El curso de Estadística II tiene unas funciones especiales (`myStepwise` y `myBackward`) para realizar la selección de variables según se ha explicado en clase. 
+El curso de Estadística II tiene las funciones especiales (`myStepwise` y `myBackward`) para realizar la selección de variables como se ha explicado en clase. 
 
+La forma de usar las dos funciones para los tres métodos explicados en clase se muestra a continuación.
+
+- Método forward: `myStepwise(full.model=full_mod, alpha.to.enter=alpha, alpha.to.leave=1)`.
+- Método backward: `myBackward(base.full=mod, alpha.to.leave=alpha)`.
+- Método both: `myStepwise(full.model=mod, alpha.to.enter=alpha, alpha.to.leave=alpha)`.
+
+El objeto `full_mod` es el modelo saturado con todas los términos de interés. La cantidad `alpha` corresponde al nivel de significancia de las pruebas individuales de significancia. Sólo el método forward se fija `alpha.to.leave=1` para evitar la salida de alguna de las covariables que ingresó.
+
+```{block2, type="rmdwarning"}
+Para el método forward y both se usa la misma función `myStepwise`. Cuando queremos forward usamos dentro `alpha.to.leave=1` y cuando queremos both usamos `alpha.to.leave=alpha`.
+```
 
 Para accerder a estas funciones se corre el siguiente código:
 
@@ -339,6 +339,8 @@ knitr::include_graphics("images/tableb3.PNG")
 
 __Nota__: Type of transmission (1=automatic, 0=manual).
 
+Aplique los tres métodos de búsqueda vistos en clase usando $\alpha=0.05$ para las pruebas de hipótesis de individuales de significancia de las variables.
+
 __Solución__
 
 Antes de iniciar es necesario revisar si hay `NA's` y eliminarlos.
@@ -351,116 +353,182 @@ datos <- table.b3[-c(23, 25), ]
 
 El objeto `datos` tiene la base de datos sin las líneas con `NA`, lo mismo se hubiese podido realizar usando la función `na.omit`.
 
-A continuación se muestran los diagramas de dispersión para las variables de la base de datos.
-```{r, selectionEstII02, echo=F, fig.asp=0.8, fig.width=10}
-library(psych)
-pairs.panels(table.b3, 
-             method="pearson", # correlation method
-             hist.col="#00AFBB",
-             density=FALSE,  # show density plots
-             ellipses=FALSE, # show correlation ellipses
-             smooth=FALSE)
-```
-
 Ahora vamos a ajustar el modelo saturado, es decir, el modelo con todas las covariables.
 
 ```{r}
-mod <- lm(y ~ ., data=table.b3)
+mod <- lm(y ~ ., data=datos)
 ```
 
-Para aplicar el modelo Forward visto en clase usamos la siguiente instrucción.
-
-```{r}
-attach(table.b3)
-mod1 <- myStepwise(full.model=mod, alpha.to.enter=0.05, alpha.to.leave=0.05)
-```
-
-Para ver un resumen del modelo resultante de Forward hacemos lo siguiente:
-
-```{r}
-summary(mod1)
-```
-
-Para aplicar el modelo Backward visto en clase usamos la siguiente instrucción.
+Para aplicar el método <span style="color:red">Forward</span> visto en clase usamos la siguiente instrucción.
 
 ```{r eval=FALSE}
-mod2 <- myBackward(base.full=mod, alpha.to.leave=0.05)
+attach(datos)
+mod_forward <- myStepwise(full.model=mod, alpha.to.enter=0.05, alpha.to.leave=1)
 ```
 
 ```
-## -------------STEP  1 -------------
-##  The drop statistics : 
-## Single term deletions
-## 
-## Model:
-## y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
-##        Df Sum of Sq    RSS    AIC F value Pr(>F)  
-## <none>              187.40 78.962                 
-## x1      1    18.736 206.14 79.820  1.7996 0.1964  
-## x2      1     6.462 193.86 77.979  0.6207 0.4411  
-## x3      1    17.770 205.17 79.679  1.7069 0.2078  
-## x4      1     2.418 189.82 77.346  0.2323 0.6357  
-## x5      1    35.864 223.26 82.215  3.4447 0.0799 .
-## x6      1     0.632 188.03 77.063  0.0607 0.8082  
-## x7      1    11.065 198.47 78.683  1.0628 0.3162  
-## x8      1    20.047 207.45 80.011  1.9256 0.1822  
-## x9      1    15.758 203.16 79.384  1.5136 0.2344  
-## x10     1     7.836 195.24 78.190  0.7526 0.3971  
-## x11     1     0.465 187.87 77.036  0.0446 0.8350  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## --------
-## Term dropped in step 1 : x11 
-## --------
+=====
+Initial model without covariates
 
-.
-.
-.
+            Estimate Std. Error  t value     Pr(>|t|)
+(Intercept) 20.03833   1.144254 17.51214 5.810909e-17
 
-## -------------STEP  9 -------------
-##  The drop statistics : 
-## Single term deletions
-## 
-## Model:
-## y ~ x5 + x8 + x10
-##        Df Sum of Sq    RSS    AIC F value    Pr(>F)    
-## <none>              228.85 70.955                      
-## x5      1    38.934 267.78 73.982  4.7636   0.03761 *  
-## x8      1    59.013 287.86 76.296  7.2203   0.01199 *  
-## x10     1   245.912 474.76 92.306 30.0876 7.375e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+S = 6.267335, R-sq = 0.000000, R-sq(adj) = 0.000000, C-p = 81.412038
+=====
++++ Adding x1 
+
+               Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept) 33.49000993 1.535476457 21.810826 4.127754e-19
+x1          -0.04702616 0.004984804 -9.433904 3.428631e-10
+
+S = 3.120266, R-sq = 0.760681, R-sq(adj) = 0.752134, C-p = 0.184405
+=====
+```
+
+Para ver un resumen del modelo resultante con Forward hacemos lo siguiente:
+
+```{r eval=FALSE}
+summary(mod_forward)
+```
+
+```
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.6063 -2.0276 -0.0457  1.4531  7.0213 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 33.490010   1.535476  21.811  < 2e-16 ***
+x1          -0.047026   0.004985  -9.434 3.43e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.12 on 28 degrees of freedom
+Multiple R-squared:  0.7607,	Adjusted R-squared:  0.7521 
+F-statistic:    89 on 1 and 28 DF,  p-value: 3.429e-10
+
+```
+
+Para aplicar el método <span style="color:red">Backward</span> visto en clase usamos la siguiente instrucción.
+
+```{r eval=FALSE}
+mod_back <- myBackward(base.full=mod, alpha.to.leave=0.05)
+```
+
+```
+-------------STEP  1 -------------
+ The drop statistics : 
+Single term deletions
+
+Model:
+y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11
+       Df Sum of Sq    RSS    AIC F value Pr(>F)  
+<none>              187.40 78.962                 
+x1      1    18.736 206.14 79.820  1.7996 0.1964  
+x2      1     6.462 193.86 77.979  0.6207 0.4411  
+x3      1    17.770 205.17 79.679  1.7069 0.2078  
+x4      1     2.418 189.82 77.346  0.2323 0.6357  
+x5      1    35.864 223.26 82.215  3.4447 0.0799 .
+x6      1     0.632 188.03 77.063  0.0607 0.8082  
+x7      1    11.065 198.47 78.683  1.0628 0.3162  
+x8      1    20.047 207.45 80.011  1.9256 0.1822  
+x9      1    15.758 203.16 79.384  1.5136 0.2344  
+x10     1     7.836 195.24 78.190  0.7526 0.3971  
+x11     1     0.465 187.87 77.036  0.0446 0.8350  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--------
+Term dropped in step 1 : x11 
+--------
+
+-------------STEP  2 -------------
+ The drop statistics : 
+Single term deletions
+
+Model:
+y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10
+       Df Sum of Sq    RSS    AIC F value  Pr(>F)  
+<none>              187.87 77.036                  
+x1      1    18.280 206.15 77.822  1.8488 0.18985  
+x2      1     6.642 194.51 76.078  0.6718 0.42259  
+x3      1    17.815 205.68 77.754  1.8018 0.19532  
+x4      1     2.363 190.23 75.411  0.2389 0.63057  
+x5      1    36.370 224.24 80.345  3.6783 0.07028 .
+x6      1     0.536 188.40 75.121  0.0542 0.81844  
+x7      1    14.124 201.99 77.211  1.4285 0.24672  
+x8      1    20.301 208.17 78.114  2.0531 0.16814  
+x9      1    16.914 204.78 77.622  1.7106 0.20652  
+x10     1     7.985 195.85 76.285  0.8076 0.38009  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--------
+Term dropped in step 2 : x6 
+--------
+.
+.
+.
+-------------STEP  10 -------------
+ The drop statistics : 
+Single term deletions
+
+Model:
+y ~ x8 + x10
+       Df Sum of Sq    RSS    AIC F value    Pr(>F)    
+<none>              260.14 70.800                      
+x8      1    50.377 310.52 74.111  5.2286   0.03028 *  
+x10     1   233.391 493.53 88.012 24.2239 3.758e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
 
 Para ver un resumen del modelo resultante de Backward hacemos lo siguiente:
 
 ```{r eval=FALSE}
-summary(mod2)
+summary(mod_back)
 ```
 
 ```
-## 
-## Call:
-## lm(formula = y ~ x5 + x8 + x10)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -4.512 -1.945 -0.631  1.931  6.003 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  5.010946  11.275042   0.444   0.6601    
-## x5           2.625031   1.202720   2.183   0.0376 *  
-## x8           0.211874   0.078850   2.687   0.0120 *  
-## x10         -0.009334   0.001702  -5.485 7.37e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## s: 2.859 on 28 degrees of freedom
-## Multiple R-squared: 0.8151,
-## Adjusted R-squared: 0.7953 
-## F-statistic: 41.14 on 3 and 28 DF,  p-value: 2.156e-10
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.396 -2.040 -0.691  2.532  6.686 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 16.234963  10.914249   1.488   0.1485    
+x8           0.212338   0.092861   2.287   0.0303 *  
+x10         -0.010215   0.002075  -4.922 3.76e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.104 on 27 degrees of freedom
+Multiple R-squared:  0.7716,	Adjusted R-squared:  0.7547 
+F-statistic: 45.61 on 2 and 27 DF,  p-value: 2.196e-09
 ```
 
+Para aplicar el método de selección <span style="color:red">en ambas direcciones</span> usamos la siguiente instrucción.
+
+```{r eval=FALSE}
+mod_both <- myStepwise(full.model=mod, alpha.to.enter=0.05, alpha.to.leave=0.05)
+```
+
+```
+=====
+Initial model without covariates
+
+            Estimate Std. Error  t value     Pr(>|t|)
+(Intercept) 20.03833   1.144254 17.51214 5.810909e-17
+
+S = 6.267335, R-sq = 0.000000, R-sq(adj) = 0.000000, C-p = 81.412038
+=====
++++ Adding x1 
+
+               Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept) 33.49000993 1.535476457 21.810826 4.127754e-19
+x1          -0.04702616 0.004984804 -9.433904 3.428631e-10
+
+S = 3.120266, R-sq = 0.760681, R-sq(adj) = 0.752134, C-p = 0.184405
+=====
+```
 
