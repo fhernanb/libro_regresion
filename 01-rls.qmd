@@ -10,7 +10,7 @@ El modelo estadístico en regresión lineal simple se puede escribir de dos form
 
 \begin{align} \label{mod1}
 Y_i &= \beta_0 + \beta_1X_i + \epsilon_i,\\ 
-\epsilon_i &\sim N(0, \sigma^2)
+\epsilon_i &\sim N(0, \sigma^2).
 \end{align}
 
 2.  En esta forma la variable respuesta $Y$ tiene distribución normal con media que cambia en función de la variable $X$ pero con varianza constante. El modelo en esta forma se puede expresar como sigue.
@@ -18,7 +18,7 @@ Y_i &= \beta_0 + \beta_1X_i + \epsilon_i,\\
 \begin{align} \label{mod2}
 Y_i &\sim N(\mu_i, \sigma^2), \\ 
 \mu_i &= \beta_0 + \beta_1 X_i, \\
-\sigma^2 &= \text{constante}
+\sigma^2 &= \text{constante}.
 \end{align}
 
 En cualquiera de las dos formas el vector de parámetros del modelo es $\boldsymbol{\theta}=(\beta_0, \beta_1, \sigma)^\top$. Para estimar este vector de parámetros se suelen utilizar dos métodos: [Estimación por mínimos cuadrados] y [Estimación por máxima verosimilitud].
