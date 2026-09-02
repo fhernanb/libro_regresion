@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Pruebas de hipótesis parte II – Análisis de regresión con R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10-diag1.html" rel="next">
+<link href="./08-ph1.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0d3ac16015dd0859924b68075192f47b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-ph2.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pruebas de hipótesis parte II</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Análisis de regresión con R</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-rls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regresión lineal simple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-transf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Transformaciones</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-rlm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regresión lineal múltiple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-predict.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Predicción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-simul.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Simulación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-ic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Intervalos de confianza</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-var_cuali.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modelos con variables cualitativas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-ph1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pruebas de hipótesis parte I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-ph2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pruebas de hipótesis parte II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-diag1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diagnósticos parte I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-diag2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Diagnósticos parte II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-ph-homoce.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Pruebas de Homocedasticidad</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-ph-indep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Pruebas de independencia de los errores</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-mod_poli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelos polinomiales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-all_possible_reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Todas las regresiones posibles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-selecvar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Selección de variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Feature selection</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18-multicoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Multicolinealidad</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19-coefEstandarizados.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regresión con coeficientes de regresión estandarizados</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./20-algebramatricial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Algebra matricial con R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-Wilkinson-Rogers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Notación de Wilkinson y Rogers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-xy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">¿Cómo obtener la matriz <span class="math inline">\(\boldsymbol{X}\)</span> y el vector <span class="math inline">\(\boldsymbol{y}\)</span>?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-behind.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Otros aspectos importantes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-pasos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Pasos para construir modelos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Mala especificación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prueba-sobre-todos-los-coeficientes" id="toc-prueba-sobre-todos-los-coeficientes" class="nav-link active" data-scroll-target="#prueba-sobre-todos-los-coeficientes">Prueba sobre todos los coeficientes</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-para-rls" id="toc-ejemplo-para-rls" class="nav-link" data-scroll-target="#ejemplo-para-rls">Ejemplo para RLS</a></li>
+  <li><a href="#ejemplo-para-rlm" id="toc-ejemplo-para-rlm" class="nav-link" data-scroll-target="#ejemplo-para-rlm">Ejemplo para RLM</a></li>
+  </ul></li>
+  <li><a href="#prueba-para-comparar-modelos-anidados" id="toc-prueba-para-comparar-modelos-anidados" class="nav-link" data-scroll-target="#prueba-para-comparar-modelos-anidados">Prueba para comparar modelos anidados</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#función-anova" id="toc-función-anova" class="nav-link" data-scroll-target="#función-anova">Función <code>anova</code></a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo</a></li>
+  <li><a href="#ejemplo-2" id="toc-ejemplo-2" class="nav-link" data-scroll-target="#ejemplo-2">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#summary-versus-anova" id="toc-summary-versus-anova" class="nav-link" data-scroll-target="#summary-versus-anova"><code>summary</code> versus <code>anova</code></a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-3" id="toc-ejemplo-3" class="nav-link" data-scroll-target="#ejemplo-3">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#prueba-razón-de-verosimilitud" id="toc-prueba-razón-de-verosimilitud" class="nav-link" data-scroll-target="#prueba-razón-de-verosimilitud">Prueba razón de verosimilitud</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-4" id="toc-ejemplo-4" class="nav-link" data-scroll-target="#ejemplo-4">Ejemplo</a></li>
+  </ul></li>
+  <li><a href="#comparaciones-múltiples" id="toc-comparaciones-múltiples" class="nav-link" data-scroll-target="#comparaciones-múltiples">Comparaciones múltiples</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-5" id="toc-ejemplo-5" class="nav-link" data-scroll-target="#ejemplo-5">Ejemplo</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="ph2" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Pruebas de hipótesis parte II</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>En este capítulo se muestra como realizar pruebas de significancia en un modelo de regresión. Las pruebas aquí explicadas son las siguientes:</p>
+<ul>
+<li>Prueba sobre todos los coeficientes (prueba de significancia de la regresión).</li>
+<li>Prueba para comparar modelos anidados (prueba parcial F).</li>
+</ul>
+<section id="prueba-sobre-todos-los-coeficientes" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prueba-sobre-todos-los-coeficientes">Prueba sobre todos los coeficientes</h2>
+<p>Supongamos que tenemos un modelo de regresión múltiple como se muestra a continuación.</p>
+<p><span class="math display">\[\begin{align}
+y_i &amp;\sim N(\mu_i, \sigma^2), \\
+\mu_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki}, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>Para este modelo nos podemos preguntar si <strong>alguna</strong> de las covariables aporta información al modelo o si <strong>ninguna</strong> aporta información al modelo. Esta duda se puede resumir simbólicamente por medio del siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \beta_1=\beta_2=\ldots=\beta_k=0 \\
+H_1 &amp;= \text{al menos uno de los} \, \beta_j\neq0 \, \text{con} \, j=1,2,\ldots,k,
+\end{align}\]</span></p>
+<p>La prueba para analizar las hipótesis anteriores se llama <strong>prueba de significancia de la regresión</strong>.</p>
+<p>En todo modelo de regresión vamos a tener una variabilidad Total (<span class="math inline">\(SS_T\)</span>), una variabilidad explicada por el modelo de Regresión (<span class="math inline">\(SS_R\)</span>) y una variabilidad Residual (<span class="math inline">\(SS_{Res}\)</span>) que no logra ser explicada por el modelo, abajo una figura ilustrativa de las tres variabilidades.</p>
+<p align="center">
+<img src="images/ph_significancia_reg.png" width="500">
+</p>
+<p>En esta prueba la idea es determinar si la variabilidad explicada por la Regresión (<span class="math inline">\(SS_R\)</span>) es una parte considerable de la variabilidad Total (<span class="math inline">\(SS_T\)</span>) o no. Para realizar esta prueba se construye la tabla anova (analysis of variance) tal como se muestra a continuación.</p>
+<p align="center">
+<img src="images/tabla_ph_significancia_reg.png" width="600">
+</p>
+<p>Asumiendo <span class="math inline">\(H_0\)</span> verdadera, la distribución del estadístico <span class="math inline">\(F_0\)</span> es <span class="math inline">\(F_{k, n-k-1}\)</span>.</p>
+<section id="ejemplo-para-rls" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-para-rls">Ejemplo para RLS</h3>
+<p>Como ilustración vamos a usar los datos del ejemplo sobre la resistencia de piezas soldadas en función de la edad de la soldadura. ¿Será que la variable edad si ayuda a explicar la resistencia?, ¿será que la variable edad es significativa para el modelo?</p>
+<p align="center">
+<img src="images/ilustracion_soldadura.png" width="400">
+</p>
+<p><strong>Solución</strong></p>
+<p>En este problema nos interesa estudiar el siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \beta_{edad}=0 \\
+H_1 &amp;: \beta_{edad} \neq 0
+\end{align}\]</span></p>
+<p>Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/fhernanb/datos/master/propelente"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span>file, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Resistencia <span class="sc">~</span> Edad, <span class="at">data=</span>datos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso podemos usar la función <code>anova_table_lm</code> del paquete <strong>model</strong> propuesto por <span class="citation" data-cites="R-model">Hernandez and Usuga (<a href="references.html#ref-R-model" role="doc-biblioref">2026</a>)</span>. Para instalar el paquete <strong>model</strong> podemos usar el siguiente código.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"remotes"</span>)) <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"fhernanb/model"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Luego de esto ya podemos usar la función <code>anova_table_lm</code> así:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(model)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table
+            Sum Sq Df Mean Sq F value    Pr(&gt;F)    
+Regression 1527483  1 1527483  165.38 1.643e-10 ***
+Residuals   166255 18    9236                      
+Total      1693738 19                              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>De la tabla anterior se observa que el valor-P es muy pequeño, por lo tanto hay evidencias para rechazar <span class="math inline">\(H_0: \beta_{edad}=0\)</span>, eso significa que la variable edad si ayuda a explicar la media de la variable respuesta.</p>
+<p>Otra forma de aplicar la prueba de significancia de la regresión es usando la función <code>summary</code> la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Resistencia ~ Edad, data = datos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-215.98  -50.68   28.74   66.61  106.76 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2627.822     44.184   59.48  &lt; 2e-16 ***
+Edad         -37.154      2.889  -12.86 1.64e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 96.11 on 18 degrees of freedom
+Multiple R-squared:  0.9018,    Adjusted R-squared:  0.8964 
+F-statistic: 165.4 on 1 and 18 DF,  p-value: 1.643e-10</code></pre>
+</div>
+</div>
+<p>En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 1.643e-10 y por lo tanto podemos rechazar <span class="math inline">\(H_0\)</span> a un nivel de significancia usual del 5%, eso significa que la variable edad si ayuda a explicar la resistencia.</p>
+</section>
+<section id="ejemplo-para-rlm" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-para-rlm">Ejemplo para RLM</h3>
+<p>Como ilustración vamos a usar los datos del ejemplo 3.1 del libro de <span class="citation" data-cites="mpv06">Montgomery (<a href="references.html#ref-mpv06" role="doc-biblioref">2006</a>)</span>. En el ejemplo 3.1 los autores ajustaron un modelo de regresión lineal múltiple para explicar el <strong>Tiempo</strong> necesario para que un trabajador haga el mantenimiento y surta una máquina dispensadora de refrescos en función de las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong>.</p>
+<p>¿Será que las variables <strong>Número de Cajas</strong> y <strong>Distancia</strong> son significativas en el modelo?</p>
+<p align="center">
+<img src="images/ilustracion_refrescos.png" width="600">
+</p>
+<p><strong>Solución</strong></p>
+<p>En este problema nos interesa estudiar el siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \beta_{cant}=\beta_{dis}=0 \\
+H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{cant} \, \text{o} \, \beta_{dis} \, \text{es diferente de cero}
+\end{align}\]</span></p>
+<p>Para responder esta pregunta vamos a aplicar la prueba de significancia de la regresión. Lo primero que se debe hacer es ajustar el modelo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(softdrink) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'tiempo'</span>, <span class="st">'cantidad'</span>, <span class="st">'distancia'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tiempo <span class="sc">~</span> cantidad <span class="sc">+</span> distancia, <span class="at">data=</span>softdrink, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Luego de ajustar el modelo debemos calcular los elementos de la tabla anova, para eso usamos el siguiente código.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova_table_lm</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Anova Table
+           Sum Sq Df Mean Sq F value    Pr(&gt;F)    
+Regression 5550.8  2 2775.41  261.24 4.687e-16 ***
+Residuals   233.7 22   10.62                      
+Total      5784.5 24                              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>De la tabla anterior se observa que el valor-P es muy pequeño por lo tanto hay evidencias para rechazar <span class="math inline">\(H_0: \beta_{cant}=\beta_{dis}=0\)</span>, eso significa que al menos una (o ambas) de las variables si ayudan a explicar la media de la variable respuesta.</p>
+<p>Otra forma de aplicar la prueba de significancia de la regresión es usando la función <code>summary</code> la cual nos entrega una parte de la tabla anova anterior (no toda la tabla anova).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = tiempo ~ cantidad + distancia, data = softdrink, 
+    x = TRUE)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.7880 -0.6629  0.4364  1.1566  7.4197 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2.341231   1.096730   2.135 0.044170 *  
+cantidad    1.615907   0.170735   9.464 3.25e-09 ***
+distancia   0.014385   0.003613   3.981 0.000631 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.259 on 22 degrees of freedom
+Multiple R-squared:  0.9596,    Adjusted R-squared:  0.9559 
+F-statistic: 261.2 on 2 and 22 DF,  p-value: 4.687e-16</code></pre>
+</div>
+</div>
+<p>En la última línea de la salida anterior tenemos la información de la prueba de hipótesis sobre significancia de la regresión. El valor-P de esta prueba es 4.687e-16 y por lo tanto podemos rechazar <span class="math inline">\(H_0\)</span> a un nivel de significancia usual del 5%, eso significa que al menos una de las dos covariables del modelo es significativa para explicar el tiempo medio.</p>
+<div class="cell" type="rmdnote">
+
+<div class="rmdnote">
+El no rechazar <span class="math inline">\(H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0\)</span> significa que ninguna de las variables aporta información para explicar la media de <span class="math inline">\(Y\)</span>. Lo que se debe hacer es buscar nuevas covariables que SI sean significativas.
+</div>
+</div>
+<div class="cell" type="rmdnote">
+
+<div class="rmdnote">
+El rechazar <span class="math inline">\(H_0: \beta_1 = \beta_2 = \ldots = \beta_k = 0\)</span> significa que una, o dos, o tres, o cuatro, …, o que todas las <span class="math inline">\(k\)</span> covariables son significativas. Pero, ¿cómo saber cuales variables son significativas?
+</div>
+</div>
+</section>
+</section>
+<section id="prueba-para-comparar-modelos-anidados" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prueba-para-comparar-modelos-anidados">Prueba para comparar modelos anidados</h2>
+<p>Esta prueba se usa para comparar modelos que comparten una estructura anidada.</p>
+<p>A continuación se muestran dos modelos (reducido y completo) anidados a manera de ilustración.</p>
+<p>Modelo reducido <span class="math display">\[\begin{align}
+y_i &amp;\sim N(\mu_i, \sigma^2), \\
+\mu_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>Modelo completo <span class="math display">\[\begin{align}
+y_i &amp;\sim N(\mu_i, \sigma^2), \\
+\mu_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i}, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>La pregunta que surge aquí es: ¿vale la pena incluir las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> simultáneamente al modelo reducido? ¿esas variables mejoran el modelo reducido? ¿será mejor el modelo reducido o el modelo completo?</p>
+<p>Los interrogantes anteriores se pueden resumir simbólicamente así:</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \beta_3=\beta_4=0 \\
+H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{3} \, \text{o} \, \beta_{4} \, \text{es diferente de cero}
+\end{align}\]</span></p>
+<p>Para realizar esta prueba se usa el siguiente estadístico</p>
+<p><span class="math display">\[
+F_0 = \frac{\frac{SS_R(complete) - SS_R(reduced)}{p_1-p_0}}{MS_{Res}},
+\]</span> donde <span class="math inline">\(SS_R(complete)\)</span> es la suma de cuadrados de la regresión para el modelo completo, <span class="math inline">\(SS_R(reduced)\)</span> es la suma de cuadrados de la regresión para el modelo reducido, <span class="math inline">\(p_1\)</span> es el número de <span class="math inline">\(\beta\)</span>’s en el modelo completo, <span class="math inline">\(p_0\)</span> es el número de <span class="math inline">\(\beta\)</span>’s en el modelo reducido y <span class="math inline">\(MS_{Res}\)</span> es la estimación de <span class="math inline">\(\sigma^2\)</span> en el modelo completo. La distribución del estadístico <span class="math inline">\(F_0\)</span> es:</p>
+<ul>
+<li><span class="math inline">\(F_{p_1-p_0, n-p_1}\)</span> si <span class="math inline">\(H_0\)</span> es cierta.</li>
+<li><span class="math inline">\(F_{p_1-p_0, n-p_1, \lambda}\)</span> si <span class="math inline">\(H_1\)</span> es cierta, siendo <span class="math inline">\(\lambda\)</span> el parámetro de no centralidad de una distribución F.</li>
+</ul>
+<p>Para conocer la expresión de <span class="math inline">\(\lambda\)</span> se recomienda revisar la página 90 de <span class="citation" data-cites="Montgomery12">Montgomery et al. (<a href="references.html#ref-Montgomery12" role="doc-biblioref">2012</a>)</span> y los comentarios al respecto.</p>
+<section id="ejemplo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo">Ejemplo</h3>
+<p>Usando la base de datos <code>table.b4</code> del paquete <strong>MPV</strong> de <span class="citation" data-cites="R-MPV">Braun and MacQueen (<a href="references.html#ref-R-MPV" role="doc-biblioref">2023</a>)</span>, queremos comparar dos modelos anidados:</p>
+<ul>
+<li>el modelo reducido con la fórmula <code>y ~ x1 + x2</code>,</li>
+<li>y el modelo completo con la fórmula <code>y ~ x1 + x2 + x3 + x4</code>.</li>
+</ul>
+<p>¿Será que la inclusión simultánea de las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> mejora el modelo para explicar la variable respuesta <span class="math inline">\(y\)</span>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
+<p align="center">
+<img src="images/blocks.jpg" width="200">
+</p>
+<p><strong>Solución</strong></p>
+<p>Primero veamos los datos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     y     x1 x2    x3    x4 x5 x6 x7 x8 x9
+1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
+2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
+3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
+4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
+</div>
+</div>
+<p>Ajustemos los dos modelos de interés.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>redu_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>comp_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4, <span class="at">x=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>En este ejercicio nos interesa estudiar el siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[\begin{align}
+H_0 &amp;: \beta_3 = \beta_4 = 0 \\
+H_1 &amp;= \text{al menos uno de los coefiencientes} \, \beta_{3} \, \text{o} \, \beta_{4} \, \text{es diferente de cero}
+\end{align}\]</span></p>
+<p>Ahora construyamos el estadístico <span class="math inline">\(F_0\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span> <span class="co"># numero de observaciones</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># numero de betas en modelo reducido</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># numero de betas en modelo completo</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ssr_reduced  <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(redu_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>ssr_complete <span class="ot">&lt;-</span> <span class="fu">sum</span>(table.b4<span class="sc">$</span>y) <span class="sc">-</span> <span class="fu">sum</span>(comp_mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ms_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> ((ssr_complete <span class="sc">-</span> ssr_reduced) <span class="sc">/</span> (p1<span class="sc">-</span>p0)) <span class="sc">/</span> ms_res</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>F0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2831532</code></pre>
+</div>
+</div>
+<p>Para tomar la decisión podemos hacerlo de dos formas: usando un valor de referencia o usando el valor-P.</p>
+<ul>
+<li>Usando el valor de referencia</li>
+</ul>
+<p>Buscamos el cuantil <span class="math inline">\(f_{\alpha, p_1-p_0, n-p_1}\)</span> usando el <span class="math inline">\(\alpha=0.03\)</span> dado en el enunciado.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qf</span>(<span class="at">p=</span><span class="fl">0.03</span>, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.241262</code></pre>
+</div>
+</div>
+<p>Como <span class="math inline">\(F_0=0.2831\)</span> es menor que <span class="math inline">\(f_{\alpha, p_1-p_0, n-p_1}=4.2412\)</span>, por lo tanto no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
+<ul>
+<li>Usando el valor-P</li>
+</ul>
+<p>Buscamos el área a la derecha de <span class="math inline">\(F_0=0.2831\)</span> en una distribución F con <span class="math inline">\(p_1-p_0\)</span> y <span class="math inline">\(n-p_1\)</span> grados de libertad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span><span class="fl">0.2831</span>, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7565673</code></pre>
+</div>
+</div>
+<p>Como el valor-P es 0.7566 y es mayor que el nivel de significancia <span class="math inline">\(\alpha=0.03\)</span>, no hay evidencias para rechazar <span class="math inline">\(H_0\)</span>.</p>
+<p>En conclusión, las dos variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> no mejoran el modelo. Es mejor un modelo sólo con <span class="math inline">\(x_2\)</span> y <span class="math inline">\(x_1\)</span>.</p>
+<p>Exploremos la tabla de resumen para el modelo completo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x1 + x2 + x3 + x4, data = table.b4, x = TRUE)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.0005 -1.8955  0.0506  1.8327  5.1112 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)   9.8409     3.2571   3.021  0.00702 **
+x1            2.4375     0.6704   3.636  0.00176 **
+x2            6.4373     3.8206   1.685  0.10836   
+x3            0.3233     0.4324   0.748  0.46377   
+x4           -0.2177     3.7475  -0.058  0.95429   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.893 on 19 degrees of freedom
+Multiple R-squared:  0.8082,    Adjusted R-squared:  0.7679 
+F-statistic: 20.02 on 4 and 19 DF,  p-value: 1.332e-06</code></pre>
+</div>
+</div>
+<p>Si miramos la tabla anterior podríamos caer en la tentación de decir que las variables <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_2\)</span> no aportan al modelo, ya que sus valores-P de contribución individual son muy grandes. Sin embargo, esto es una <strong>TRAMPA</strong>, nos podemos equivocar. Por esa razón, obtengamos ahora la tabla de resumen para el modelo reducido.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(redu_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x1 + x2, data = table.b4, x = TRUE)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.7639 -1.9454 -0.1822  1.8068  5.0423 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  10.0418     2.9585   3.394  0.00273 ** 
+x1            2.7134     0.4849   5.595 1.49e-05 ***
+x2            6.1643     3.1864   1.935  0.06663 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.792 on 21 degrees of freedom
+Multiple R-squared:  0.8025,    Adjusted R-squared:  0.7837 
+F-statistic: 42.67 on 2 and 21 DF,  p-value: 4.007e-08</code></pre>
+</div>
+</div>
+<p>La variable <span class="math inline">\(x_2\)</span> que en la tabla de modelo completo aparecía como no significativa ahora si aparece como significativa a un nivel <span class="math inline">\(\alpha=0.10\)</span>. Este fenómeno se llama efecto de enmascaramiento. Al tener en el modelo <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span>, ellas opacan la importancia o enmascaran a la variable <span class="math inline">\(x_2\)</span>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nunca use los resultados del summary para juzgar si varias variables son importantes o no, use la prueba para modelos anidados. Recuerde el efecto de enmascaramiento.</p>
+</div>
+</div>
+<p>** Lo que viene a continuación es opcional**</p>
+<p>Ahora vamos a calcular el parámetro de no centralidad <span class="math inline">\(\lambda\)</span>. Recuerde revisar la página 90 de <span class="citation" data-cites="Montgomery12">Montgomery et al. (<a href="references.html#ref-Montgomery12" role="doc-biblioref">2012</a>)</span> para conocer su expresión.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.3233333</span>, <span class="sc">-</span><span class="fl">0.2176622</span>), <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> comp_mod<span class="sc">$</span>x[, <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="fu">t</span>(beta2) <span class="sc">%*%</span> <span class="fu">t</span>(x2)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="fu">diag</span>(n) <span class="sc">-</span> x1 <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(x1) <span class="sc">%*%</span> x1) <span class="sc">%*%</span> <span class="fu">t</span>(x1)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>a3 <span class="ot">&lt;-</span> x2 <span class="sc">%*%</span> beta2</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> (a1 <span class="sc">%*%</span> a2 <span class="sc">%*%</span> a3) <span class="sc">/</span> <span class="fu">summary</span>(comp_mod)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>lambda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.5663064</code></pre>
+</div>
+</div>
+<p>Ahora vamos a calcular el valor-P de la prueba usando la distribución F no central y la distribución F (usual) así:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">ncp=</span>lambda, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8088857</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q=</span>F0, <span class="at">df1=</span>p1<span class="sc">-</span>p0, <span class="at">df2=</span>n<span class="sc">-</span>p1, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7565282</code></pre>
+</div>
+</div>
+<p>Usando el último valor-P que es mayor que un nivel de significancia <span class="math inline">\(\alpha\)</span>, no hay evidencias para rechazar <span class="math inline">\(H_0: \beta_3 = \beta_4 = 0\)</span>, y por lo tanto podemos concluir que las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> no mejoran el modelo.</p>
+</section>
+</section>
+<section id="función-anova" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="función-anova">Función <code>anova</code></h2>
+<p>La función <code>anova</code> permite realizar pruebas de hipótesis como las mostradas en las secciones anteriores, en particular la función sirve para:</p>
+<ul>
+<li>comparar secuencialmente las variables de un modelo.</li>
+<li>comparar modelos anidados.</li>
+</ul>
+<p>El método S3 <code>anova.lm</code> (o simplemente <code>anova</code>) tiene la estructura mostrada a continuación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(object, test, <span class="at">scale=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Los argumentos de esta función son:</p>
+<ul>
+<li><code>object</code>: un objeto de la clase <code>lm</code>.</li>
+<li><code>test</code>: una cadena de caracteres indicando el tipo de prueba, <code>F</code>, <code>Chisq</code> o <code>Cp</code>, el valor por defecto es <code>F</code>.</li>
+<li><code>scale</code>: valor de la estimación de <span class="math inline">\(\sigma^2\)</span>. Cuando es igual a cero se usa el estimador del modelo con más parámetros.</li>
+</ul>
+<div class="cell" type="rmdnote">
+
+<div class="rmdnote">
+<p>La función <code>anova</code> se puede aplicar a un solo modelo y el resultado será una prueba de hipótesis secuencial en las variables.</p>
+La función <code>anova</code> se puede aplicar a varios modelos y el resultado será una comparación de modelos.
+</div>
+</div>
+<p>A continuación se muestran dos ejemplos en los cuales se ilustra la utilidad de la función <code>anova</code>.</p>
+<section id="ejemplo-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-1">Ejemplo</h3>
+<p>En este ejemplo se mostrará la segunda utilidad de la función <code>anova</code>. Para esto vamos a utilizar la base de datos <code>Cars93</code> del paquete <code>MASS</code>. El objetivo es construir un modelo para explicar la media del <code>Price</code> de los autos en función de las variables <code>Horsepower</code>, <code>Type</code> y <code>Weight</code>. Usar un nivel de significancia <span class="math inline">\(\alpha=0.07\)</span>.</p>
+<p align="center">
+<img src="images/car.gif" width="200">
+</p>
+<p><strong>Solución</strong></p>
+<p>La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (<code>mod0</code>) hasta uno con todas las covariables (<code>mod3</code>). En la segunda parte se analizará el modelo con todas las covariables directamente.</p>
+<p><strong>Primera parte</strong></p>
+<p>A continuación el código para crear y comparar los modelos sin covariables y el modelo con solo <code>Horsepower</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>Cars93)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower, <span class="at">data=</span>Cars93)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: Price ~ 1
+Model 2: Price ~ Horsepower
+  Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+1     92 8584.0                                  
+2     91 3250.9  1    5333.1 149.29 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>De la salida anterior se tiene que el valor-P es &lt; 2.2e-16 y por lo tanto se concluye que la variable <code>Horsepower</code> mejora el modelo (la misma conclusión se pudo obtener del <code>summary</code>).</p>
+<p>Ahora vamos a crear y comparar el modelo con sólo <code>Horsepower</code> con el modelo con <code>Horsepower</code> y <code>Type</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type, <span class="at">data=</span>Cars93)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: Price ~ Horsepower
+Model 2: Price ~ Horsepower + Type
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
+1     91 3250.9                              
+2     86 2758.1  5    492.81 3.0733 0.01337 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>De la salida anterior se tiene que el valor-P es 0.01337 y por lo tanto se concluye que el modelo <code>mod2</code> con dos covariables explica mejor la variable <code>Price</code>.</p>
+<p>Ahora vamos a crear y comparar el modelo con <code>Horsepower</code> y <code>Type</code> con el modelo con las tres covariables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Horsepower <span class="sc">+</span> Type <span class="sc">+</span> Weight, <span class="at">data=</span>Cars93)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod2, mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: Price ~ Horsepower + Type
+Model 2: Price ~ Horsepower + Type + Weight
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     86 2758.1                           
+2     85 2751.3  1    6.7934 0.2099  0.648</code></pre>
+</div>
+</div>
+<p>De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable <code>Weight</code> no mejora el modelo <code>mod2</code> (la misma conclusión se pudo obtener del <code>summary</code>).</p>
+<p><strong>Segunda parte</strong></p>
+<p>En esta segunda parte del ejemplo se usará la función <code>anova</code> directamente sobre el modelo completo <code>mod3</code>, a continuación los resultados.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: Price
+           Df Sum Sq Mean Sq  F value  Pr(&gt;F)    
+Horsepower  1 5333.1  5333.1 164.7661 &lt; 2e-16 ***
+Type        5  492.8    98.6   3.0451 0.01411 *  
+Weight      1    6.8     6.8   0.2099 0.64803    
+Residuals  85 2751.3    32.4                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>En la tabla anterior aparecen los resultados de una prueba de hipótesis secuencial a partir de la fórmula de <code>mod3</code>. La fórmula de <code>mod3</code> es <code>Price ~ Horsepower + Type + Weight</code>, por lo tanto en la primera línea de la tabla aparece la variable <code>Horsepower</code>, luego en la segunda aparece <code>Type</code> y así hasta la última variable <code>Weight</code>. El valor-P reportado en la primer línea es &lt; 2e-16, esto indica que el modelo con <code>Horsepower</code> es mejor que el modelo sin covariables; el valor-P de la segunda línea es 0.01411, esto indica que es mejor un modelo con las covariables <code>Horsepower</code> y <code>Type</code>; por último el valor-P de la tercera línea es 0.64803, esto indica que la variable <code>Weight</code> no mejora el modelo, es decir, que es mejor un modelo con <code>Horsepower</code> y <code>Type</code> solamente.</p>
+</section>
+<section id="ejemplo-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-2">Ejemplo</h3>
+<p>Usando la base de datos <code>table.b4</code> del paquete <strong>MPV</strong> propuesto por <span class="citation" data-cites="R-MPV">Braun and MacQueen (<a href="references.html#ref-R-MPV" role="doc-biblioref">2023</a>)</span>, queremos comparar dos modelos anidados:</p>
+<ul>
+<li>el modelo reducido con la fórmula <code>y ~ x1 + x2</code>,</li>
+<li>y el modelo completo con la fórmula <code>y ~ x1 + x2 + x3 + x4</code>.</li>
+</ul>
+<p>¿Será que la inclusión simultánea de las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> mejora el modelo para explicar la variable respuesta <span class="math inline">\(y\)</span>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
+<p align="center">
+<img src="images/blocks.jpg" width="200">
+</p>
+<p><strong>Solución</strong></p>
+<p>Para este ejemplo vamos a usar los datos que se muestran a continuación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     y     x1 x2    x3    x4 x5 x6 x7 x8 x9
+1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
+2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
+3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
+4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
+</div>
+</div>
+<p>Ahora vamos a ajustar ambos modelos usando el siguiente código.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[H_0: \text{las variables x3 y x4 no mejoran el modelo},\]</span> <span class="math display">\[H_A: \text{al menos una de ellas si mejora el modelo}\]</span></p>
+<p>Para comparar los dos modelos usamos la siguiente instrucción.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod1, mod2, <span class="at">test=</span><span class="st">'F'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: y ~ x1 + x2
+Model 2: y ~ x1 + x2 + x3 + x4
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     21 163.71                           
+2     19 158.98  2    4.7384 0.2832 0.7565</code></pre>
+</div>
+</div>
+<p>De la salida anterior se observa que el valor-P de la prueba es de 0.7565, usando un nivel de significancia del 5%, se concluye que la inclusión de las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> no mejoran el modelo.</p>
+</section>
+</section>
+<section id="summary-versus-anova" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="summary-versus-anova"><code>summary</code> versus <code>anova</code></h2>
+<p>La función <code>summary</code> permite evaluar el efecto de una variable asumiendo que las restantes variables siguen en el modelo, esto es llamado prueba de hipótesis marginal. Cuando se tiene una variable cualitativa (con <span class="math inline">\(k\)</span> niveles) dentro del modelo, ella aparecerá en la tabla del <code>summary</code> por medio de <span class="math inline">\(k-1\)</span> variables indicadoras y por lo tanto se tendrán <span class="math inline">\(k-1\)</span> valores-P asociados. Usar esos valores-P para decidir si una variable cualitativa es importante en el modelo puede ser engañoso, a continuación un ejemplo de esta situación.</p>
+<section id="ejemplo-3" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-3">Ejemplo</h3>
+<p>El ejemplo aquí mostrado está basado en una <a href="https://stats.stackexchange.com/questions/115304/interpreting-output-from-anova-when-using-lm-as-input">pregunta</a> de StackOverFlow.</p>
+<p>El ejemplo consiste en simular un conjunto de 30 valores de <span class="math inline">\(y \sim N(\mu, 1)\)</span>, donde las observaciones 1 a 10 tienen <span class="math inline">\(\mu=0\)</span>, las observaciones 11 a 20 tienen <span class="math inline">\(\mu=-0.5\)</span> y las restantes diez tienen <span class="math inline">\(\mu=0.5\)</span>. Para diferenciar las observaciones se tendrá la variable de agruación cualitativa <code>g</code> que contendrá las letras A, B y C diez veces cada una. El código para simular los datos se muestra a continuación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8867</span>)  <span class="co"># this makes the example exactly reproducible</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="dv">0</span>,    <span class="at">sd=</span><span class="dv">1</span>),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="sc">-</span><span class="fl">0.5</span>, <span class="at">sd=</span><span class="dv">1</span>),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean=</span><span class="fl">0.5</span>,  <span class="at">sd=</span><span class="dv">1</span>))</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>¿Será la variable cualitativa <code>g</code> significativa en un modelo de regresión?</p>
+<p><strong>Solución</strong></p>
+<p>Vamos a ajustar el modelo con fórmula <code>y ~ g</code> para estudiar el efecto de la agrupación <code>g</code> en la media de la variable respuesta <span class="math inline">\(y\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> g)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Obviamente esperamos concluir que la media de la variable <span class="math inline">\(y\)</span> dependa de la variable de agrupación <code>g</code>. Para esto vamos a explorar el resultado con la función <code>summary</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ g)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.59080 -0.54685  0.04124  0.79890  2.56064 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  -0.4440     0.3855  -1.152    0.260
+gB           -0.9016     0.5452  -1.654    0.110
+gC            0.6729     0.5452   1.234    0.228
+
+Residual standard error: 1.219 on 27 degrees of freedom
+Multiple R-squared:  0.2372,    Adjusted R-squared:  0.1807 
+F-statistic: 4.199 on 2 and 27 DF,  p-value: 0.02583</code></pre>
+</div>
+</div>
+<p>De la salida anterior vemos que los efectos <code>gB</code> y <code>gC</code> tienen valores-P altos, superiores al usual 5%, y por lo tanto estaríamos tentados a decir que la variable <code>g</code> no tiene efecto sobre la media de <span class="math inline">\(y\)</span>. El lector podría encontrar esto un poco desconcertante.</p>
+<p>Vamos a realizar el análisis pero ahora con la función <code>anova</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: y
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+g          2 12.484  6.2418   4.199 0.02583 *
+Residuals 27 40.135  1.4865                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>En la fila donde aparece la variable <code>g</code> tenemos el resultado de la prueba de hipótesis</p>
+<p><span class="math display">\[H_0: \text{la variable g no influye en la media de y},\]</span> <span class="math display">\[H_A: \text{la variable g si influye en la media de y}\]</span></p>
+<p>El valor-P de esta prueba es de 0.02583, esto indica que hay evidencias para rechazar <span class="math inline">\(H_0\)</span>, es decir, encontramos que la variable <code>g</code> si influye sobre la media de la variable <span class="math inline">\(y\)</span>.</p>
+<div class="cell" type="rmdtip">
+
+<div class="rmdtip">
+Cuando se quiera explorar el efecto de una variable cualitativa en un modelo es mejor usar la función <code>anova</code> que los resultados del <code>summary</code>.
+</div>
+</div>
+</section>
+</section>
+<section id="prueba-razón-de-verosimilitud" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prueba-razón-de-verosimilitud">Prueba razón de verosimilitud</h2>
+<p>Esta prueba evalúa la bondad de ajuste de dos modelos estadísticos competitivos en función de la razón de sus verosimilitudes, específicamente uno encontrado por maximización en todo el espacio de parámetros y otro encontrado después de imponer alguna restricción (<span class="math inline">\(H_0\)</span>).</p>
+<p>El estadístico de la prueba razón de verosimilitud se muestra a continuación.</p>
+<p><span class="math display">\[
+\lambda = -2 \log \left[ \frac{L(\Theta_0)}{L(\Theta)} \right] = -2 \left[ l(\Theta_0)-l(\Theta) \right],
+\]</span></p>
+<p>donde <span class="math inline">\(L\)</span> representa el valor de la verosimilitud y <span class="math inline">\(l\)</span> el valor de log-verosimilitud. Bajo la hipótesis nula, <span class="math inline">\(\lambda \sim \chi^2_{k}\)</span> donde <span class="math inline">\(k\)</span> es la diferencia entre el número de parámetros de los modelos comparados.</p>
+<section id="ejemplo-4" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-4">Ejemplo</h3>
+<p>Usando la base de datos <code>table.b4</code> del paquete <strong>MPV</strong> propuesto por <span class="citation" data-cites="R-MPV">Braun and MacQueen (<a href="references.html#ref-R-MPV" role="doc-biblioref">2023</a>)</span>, queremos comparar dos modelos anidados:</p>
+<ul>
+<li>el modelo reducido con la fórmula <code>y ~ x1 + x2</code>,</li>
+<li>y el modelo completo con la fórmula <code>y ~ x1 + x2 + x3 + x4</code>.</li>
+</ul>
+<p>¿Será que la inclusión simultánea de las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> mejora el modelo para explicar la variable respuesta <span class="math inline">\(y\)</span>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
+<p><strong>Solución</strong></p>
+<p>Para este ejemplo vamos a usar los datos que se muestran a continuación.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(table.b4, <span class="at">n=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     y     x1 x2    x3    x4 x5 x6 x7 x8 x9
+1 29.5 5.0208  1 3.531 1.500  2  7  4 62  0
+2 27.9 4.5429  1 2.275 1.175  1  6  3 40  0
+3 25.9 4.5573  1 4.050 1.232  1  6  3 54  0
+4 29.9 5.0597  1 4.455 1.121  1  6  3 42  0</code></pre>
+</div>
+</div>
+<p>Ahora vamos a ajustar ambos modelos usando el siguiente código.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data=</span>table.b4)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El objetivo en este ejercicio analizar el siguiente conjunto de hipótesis.</p>
+<p><span class="math display">\[H_0: \text{las variables x3 y x4 no mejoran el modelo},\]</span> <span class="math display">\[H_A: \text{al menos una de ellas si mejora el modelo}\]</span></p>
+<p>Para aplicar la prueba razón de verosimilitud usamos el siguiente código. Los grados de libertad en esta prueba son 2 porque esa es la diferencia entre el número de parámetros de los modelos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> (<span class="fu">logLik</span>(mod0) <span class="sc">-</span> <span class="fu">logLik</span>(mod1))</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>lambda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'log Lik.' 0.7048811 (df=4)</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="at">q=</span>lambda, <span class="at">df=</span><span class="dv">2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'log Lik.' 0.7029704 (df=4)</code></pre>
+</div>
+</div>
+<p>Como el valor-P es grande, no hay evidencias para rechazar <span class="math inline">\(H_0: \beta_3 = \beta_4 = 0\)</span>, y por lo tanto podemos concluir que las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> no mejoran el modelo.</p>
+</section>
+</section>
+<section id="comparaciones-múltiples" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="comparaciones-múltiples">Comparaciones múltiples</h2>
+<p>En esta sección se muestra como utilizar el paquete <strong>multcomp</strong> propuesto por <span class="citation" data-cites="R-multcomp">Hothorn et al. (<a href="references.html#ref-R-multcomp" role="doc-biblioref">2026</a>)</span> que está basado en el libro “Multiple comparisons using R” de <span class="citation" data-cites="bretz2010">Frank Bretz (<a href="references.html#ref-bretz2010" role="doc-biblioref">2010</a>)</span> para estudiar pruebas de hipótesis múltiples.</p>
+<section id="ejemplo-5" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ejemplo-5">Ejemplo</h3>
+<p>Usando la base de datos <code>table.b4</code> del paquete <strong>MPV</strong> de <span class="citation" data-cites="R-MPV">Braun and MacQueen (<a href="references.html#ref-R-MPV" role="doc-biblioref">2023</a>)</span>, queremos ajustar el siguiente modelo:</p>
+<p><span class="math display">\[\begin{align}
+y_i &amp;\sim N(\mu_i, \sigma^2), \\
+\mu_i &amp;= \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i}, \\
+\sigma^2 &amp;= \text{constante}
+\end{align}\]</span></p>
+<p>¿Será que la inclusión simultánea de las variables <span class="math inline">\(x_3\)</span> y <span class="math inline">\(x_4\)</span> mejora el modelo para explicar la variable respuesta <span class="math inline">\(y\)</span>? Use <span class="math inline">\(\alpha=0.03\)</span> para concluir.</p>
+<p><strong>Solución</strong></p>
+<p>Lo primero que debemos hacer es ajustar el modelo de interés.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MPV)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(table.b4) </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4, <span class="at">data=</span>table.b4)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)          x1          x2          x3          x4 
+  9.8408825   2.4374996   6.4373377   0.3233333  -0.2176622 </code></pre>
+</div>
+</div>
+<p>En este ejemplo nos interesa estudiar las siguientes dos hipótesis simultáneamente (no individualmente).</p>
+<p><span class="math display">\[\begin{align*}
+H_0 &amp;: \beta_{3} = 0      &amp;  H_0 &amp;: \beta_{4} = 0 \\
+H_A &amp;: \beta_{3} \neq 0   &amp;  H_A &amp;: \beta_{4} \neq 0
+\end{align*}\]</span></p>
+<p>Los dos conjuntos de hipótesis anteriores se pueden escribir matricialmente usando una matriz de constrates <span class="math inline">\(\boldsymbol{C}\)</span> que multiplica al vector de parámetros <span class="math inline">\(\boldsymbol{\beta}\)</span>. A continuación se muestra la matriz <span class="math inline">\(\boldsymbol{C}\)</span> que permite obtener las dos parejas de hipótesis anteriores:</p>
+<p><span class="math display">\[
+\boldsymbol{C} \boldsymbol{\beta} =
+\begin{pmatrix}
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+\beta_4 \\
+\end{pmatrix} =
+\begin{pmatrix}
+\beta_3 \\
+\beta_4
+\end{pmatrix}
+\]</span></p>
+<p>Los lados derechos de las hipótesis son constantes y se escriben como un vector <span class="math inline">\(\boldsymbol{a}=(0, 0)^\top\)</span>. Teniendo definida la matriz <span class="math inline">\(\boldsymbol{C}\)</span>, el vector <span class="math inline">\(\boldsymbol{a}\)</span> la prueba simultánea de las hipótesis se puede hacer de la siguiente manera.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'multcomp' was built under R version 4.6.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'mvtnorm' was built under R version 4.6.1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">5</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>mult_test <span class="ot">&lt;-</span> <span class="fu">glht</span>(<span class="at">model=</span>mod, <span class="at">linfct=</span>C, <span class="at">alternative=</span><span class="st">'two.sided'</span>, <span class="at">rhs=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mult_test, <span class="at">test =</span> <span class="fu">adjusted</span>(<span class="at">type=</span><span class="st">"single-step"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Fit: lm(formula = y ~ x1 + x2 + x3 + x4, data = table.b4)
+
+Linear Hypotheses:
+       Estimate Std. Error t value Pr(&gt;|t|)
+1 == 0   0.3233     0.4324   0.748    0.704
+2 == 0  -0.2177     3.7475  -0.058    0.998
+(Adjusted p values reported -- single-step method)</code></pre>
+</div>
+</div>
+<p>De la salida anterior se obtiene que los dos valores-P “ajustados” (ver sección 2.1.2 de <span class="citation" data-cites="bretz2010">Frank Bretz (<a href="references.html#ref-bretz2010" role="doc-biblioref">2010</a>)</span>) son:</p>
+<p><span class="math display">\[
+q_1 = 0.704 \qquad q_2 = 0.998
+\]</span> Esto significa que no hay evidencias para rechazar <span class="math inline">\(H_0 : \beta_{3} = 0\)</span> ni evidencias para rechazar <span class="math inline">\(H_0 : \beta_{4} = 0\)</span> porque ambos valores-P “ajustados” fueron mayores del nivel de significancia de 0.03. En otras palabras, ni <code>x3</code> ni <code>x4</code> aportan información para explicar la media de <span class="math inline">\(y\)</span>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si un valor-P “ajustado” es menor que el <span class="math inline">\(\alpha\)</span>, se rechaza su correspondiente hipótesis nula <span class="math inline">\(H_0\)</span>, pero si el valor-P “ajustado” es mayor que el <span class="math inline">\(\alpha\)</span>, no se rechaza <span class="math inline">\(H_0\)</span>. En una aplicación es posible que se rechacen todas/algunas/ninguna de las <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-MPV" class="csl-entry" role="listitem">
+Braun, W. J., and S. MacQueen. 2023. <em>MPV: Data Sets from Montgomery, Peck and Vining</em>. <a href="https://CRAN.R-project.org/package=MPV">https://CRAN.R-project.org/package=MPV</a>.
+</div>
+<div id="ref-bretz2010" class="csl-entry" role="listitem">
+Frank Bretz, Peter Westfall, Torsten Hothorn. 2010. <em>Multiple Comparisons Using r</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-R-model" class="csl-entry" role="listitem">
+Hernandez, Freddy, and Olga Usuga. 2026. <em>Model: This Package Contains Useful Functions for Modeling Regresion</em>. <a href="https://fhernanb.github.io/model">https://fhernanb.github.io/model</a>.
+</div>
+<div id="ref-R-multcomp" class="csl-entry" role="listitem">
+Hothorn, Torsten, Frank Bretz, and Peter Westfall. 2026. <em>Multcomp: Simultaneous Inference in General Parametric Models</em>. <a href="https://codeberg.org/thothorn/multcomp">https://codeberg.org/thothorn/multcomp</a>.
+</div>
+<div id="ref-Montgomery12" class="csl-entry" role="listitem">
+Montgomery, Douglas C., Elizabeth A. Peck, and Geoffrey G. Vining. 2012. <em>Introduction to Linear Regression Analysis (5th Ed.)</em>. Wiley &amp; Sons.
+</div>
+<div id="ref-mpv06" class="csl-entry" role="listitem">
+Montgomery, E. &amp; Vining, D. &amp; Peck. 2006. <em>Introducción Al Análisis de Regresión Lineal</em>. 3ed ed. Cecsa.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08-ph1.html" class="pagination-link" aria-label="Pruebas de hipótesis parte I">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Pruebas de hipótesis parte I</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./10-diag1.html" class="pagination-link" aria-label="Diagnósticos parte I">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diagnósticos parte I</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

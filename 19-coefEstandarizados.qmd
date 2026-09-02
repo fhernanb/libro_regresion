@@ -1,0 +1,55 @@
+# Regresión con coeficientes de regresión estandarizados {#coefstand}
+En este capítulo se muestra cómo obtener los coeficientes estandarizados para un modelo de regresión lineal múltiple. 
+
+Para obtener los coeficientes estandarizados se va a usar la función `myCoefficients(lm.model, dataset)` y el paquete **car** creado por @R-car. 
+
+Para poder usar la función se debe correr el siguiente código:
+
+```{r message=FALSE}
+library(car)
+source("https://raw.githubusercontent.com/fhernanb/Trabajos_Est_2/main/Trabajo%201/funciones.R")
+```
+
+### Ejemplo {-}
+En este ejemplo se busca encontrar un modelo de regresion lineal que explique la variable respuesta $y$ en función de las covariables $x_1$ a $x_{11}$, los datos provienen del ejercicio 9.5 del libro de [Montgomery, Peck and Vining (2003)](https://www.amazon.com/Introduccion-analisis-regresion-lineal-Spanish/dp/9702403278).
+
+A continuación se muestra el encabezado de la base de datos y la definición de las variables.
+
+```{r coefStand01, echo=F, fig.cap='Ilustración de la base de datos.', dpi=60, fig.align='center'}
+knitr::include_graphics("images/tableb3.PNG")
+```
+
+__Nota__: Type of transmission (1=automatic, 0=manual).
+
+Ajustar un modelo de regresión en el cual los coeficientes estimados se puedan comparar directamente.
+
+__Solución__
+
+Antes de iniciar es necesario revisar si hay `NA's` y eliminarlos.
+
+```{r, message=F}
+library(MPV)  # Aqui estan los datos
+table.b3[22:26, ] # Can you see the missing values?
+datos <- table.b3[-c(23, 25), ]
+```
+
+Ahora ajustamos el modelo en la forma tradicional.
+
+```{r}
+mod <- lm(y ~ ., data=table.b3)
+```
+
+Luego aplicamos la función `myCoefficients` al modelo `mod` ajustado antes.
+
+```{r}
+attach(table.b3)
+myCoefficients(lm.model=mod, dataset=table.b3)
+```
+
+En la segunda columna de la salida anterior están los coeficientes $\beta$ y en la tercera columna están los coeficientes estandarizados $\beta^\star$. La variable más importante en el modelo es x3, seguida de x1 porque sus $\beta^\star$ son los más grandes en valor absoluto.
+
+La última columna de la tabla contiene los VIF, los cuales son una medida de multicolinealidad.
+
+
+
+

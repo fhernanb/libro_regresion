@@ -1,0 +1,20 @@
+# Pasos para construir modelos {#pasos}
+En este capítulo se sugieren unos pasos para la construcción de modelos de regresión.
+
+<p align="center">
+  <img src="images/construir_modelos.gif" width="300">
+</p>
+
+## Pasos para construir UN modelo {-}
+A continuación se muestran los pasos sugeridos.
+
+<p align="center">
+  <img src="images/pasos1.png" width="600">
+</p>
+
+## Pasos para comparar varios modelos {-}
+A continuación se muestran los pasos sugeridos.
+
+<p align="center">
+  <img src="images/pasos2.png" width="600">
+</p>

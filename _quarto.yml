@@ -1,0 +1,49 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Análisis de regresión con R"
+  author: "Freddy Hernández"
+  date: today
+  chapters:
+    - index.qmd
+    - 01-rls.qmd
+    - 02-transf.qmd
+    - 03-rlm.qmd
+    - 04-predict.qmd
+    - 05-simul.qmd
+    - 06-ic.qmd
+    - 07-var_cuali.qmd
+    - 08-ph1.qmd
+    - 09-ph2.qmd
+    - 10-diag1.qmd
+    - 11-diag2.qmd
+    - 12-ph-homoce.qmd
+    - 13-ph-indep.qmd
+    - 14-mod_poli.qmd
+    - 15-all_possible_reg.qmd
+    - 16-selecvar.qmd
+    - 17-feature_selection.qmd
+    - 18-multicoli.qmd
+    - 19-coefEstandarizados.qmd
+    - 20-algebramatricial.qmd
+    - 21-Wilkinson-Rogers.qmd
+    - 22-xy.qmd
+    - 23-behind.qmd
+    - 24-pasos.qmd
+    - 25-misspecification.qmd
+    - references.qmd
+
+bibliography: mis_ref.bib
+
+format:
+  html:
+    theme:
+      - simplex
+      - brand
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

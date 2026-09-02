@@ -1,0 +1,132 @@
+# Simulación {#simul}
+
+En este capítulo se muestra como simular datos que sigan un modelo o estructura dada. Aprender a simular datos es de mucha utilidad para comprender la naturaleza de los datos y para poner a prueba algunos procedimientos de modelos de regresión.
+
+<p align="center">
+
+<img src="images/lego.jpg" width="300"/>
+
+</p>
+
+## Preguntas sobre simulación en StackOverFlow {.unnumbered}
+
+Una de las preguntas más frecuente que hacen los usuarios en StackOverFlow es: "How to simulate linear models in R?". Muchas respuestas se han dado para ayudar a esos usuarios que necesitan simular datos con una estructura dada.
+
+A continuación se muestran algunas de esas preguntas/respuestas hechas en StackOverFlow, invito a lector para que visite los enlaces y explore las respuestas dadas.
+
+- [How to generate observations from a linear model in R](https://stackoverflow.com/questions/23301703/how-to-generate-observations-from-a-linear-model-in-r).
+- [How to generate random Y at specific X from a linear model in R?](https://stackoverflow.com/questions/15889174/how-to-generate-random-y-at-specific-x-from-a-linear-model-in-r).
+- [Simulate data in R from a linear model where the parameters are correlated](https://stackoverflow.com/questions/47294225/simulate-data-in-r-from-a-linear-model-where-the-parameters-are-correlated).
+- [Create Simulated Data Multiple Regression in R](https://stackoverflow.com/questions/27114449/create-simulated-data-multiple-regression-in-r).
+- [Simulate data from regression model with exact parameters in R](https://stackoverflow.com/questions/57360673/simulate-data-from-regression-model-with-exact-parameters-in-r).
+
+Las respuestas a cómo simular datos de un modelo lineal son muy variadas, algunas sencillas, otras un poco más complejas, y por esa razón en la siguiente sección se mostrará como simular datos de una forma didáctica.
+
+## Simulando datos de un modelo lineal {.unnumbered}
+
+Para simular de forma exitosa datos de un modelo lineal, se recomienda tener el modelo escrito en **forma simbólica** ya que eso facilita identificar la variable respuesta, su distribución y los parámetros que van a depender de las variables independientes.
+
+A continuación se muestra un ejemplo de como simular observaciones de un modelo lineal.
+
+### Ejemplo {.unnumbered}
+
+Crear una función que simule `n` observaciones del siguiente modelo que tiene el vector de parámetros $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$.
+
+\begin{align*} 
+y_i &\sim  N(\mu_i, \sigma^2) \\ 
+\mu_i &= 4 - 6 x_i \\
+x_i &\sim U(-5, 6) \\
+\sigma^2 &= 16
+\end{align*}
+
+**Solución**
+
+Todo modelo en lenguaje simbólico se lee de arriba hacia abajo $\Downarrow$ pero al escribirlo en R se hace de abajo hacia arriba $\Uparrow$.
+
+A continuación se muestra la función solicitada la cual sólo tiene un argumento y que entrega como resultado un marco de datos con la información. Estimado lector, mire con detalle el modelo simbólico e identifique todos esos elementos en el código de abajo.
+
+```{r}
+gen_dat <- function(n) {
+  varianza <- 16
+  x <- runif(n=n, min=-5, max=6)
+  media <- 4 - 6 * x
+  y <- rnorm(n=n, mean=media, sd=sqrt(varianza))
+  marco_datos <- data.frame(y=y, x=x)
+  return(marco_datos)
+}
+```
+
+Vamos a poner a prueba la función para simular 5 observaciones de la siguiente manera.
+
+```{r}
+datos <- gen_dat(n=5)
+datos
+```
+
+Vamos ahora a simular 200 observaciones, a dibujar un diagrama de dispersión y a estimar el vector de parámetros $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$.
+
+```{r simul01, fig.height=3, fig.width=5, fig.align='center'}
+datos <- gen_dat(n=200)
+
+library(ggplot2)
+ggplot(datos, aes(x=x, y=y)) +
+  geom_point() + theme_light()
+```
+
+De la figura anterior se observa que la nube tiene pendiente negativa y eso se debe a $\beta_1=-6$; la nube tiene la misma dispersión y eso de debe a que $\sigma$ es constante e igual a 4.
+
+Para estimar $\boldsymbol{\Theta}=(\beta_0=4, \beta_1=-6, \sigma=4)^\top$ podemos usar el siguiente código.
+
+```{r}
+mod <- lm(y ~ x, data=datos)
+theta_hat <- c(coef(mod), sigma=summary(mod)$sigma)
+theta_hat
+```
+
+De la salida anterior vemos que el vector estimado $\hat{\boldsymbol{\Theta}}$ está muy cerca del vector de parámetros $\boldsymbol{\Theta}$
+
+::: callout-warning
+El código usado en este ejemplo para simular datos de un modelo lineal es un código sencillo y didáctico. Este código busca que el lector aprenda a escribir de una forma sencilla las relaciones entre la variable respuesta, las variables independientes y la influencia de los parámetros.
+
+Este código NO es un código óptimo desde el punto de vista computacional. Muy seguramente usa muchos recursos de memoria y puede demorar un poco para simular datos. Sin embargo, es un código FÁCIL de entender.
+:::
+
+## Función `simulate` {.unnumbered}
+
+La función `simulate` del paquete básico **stats** permite simular respuestas a partir de un modelo de clase lm o glm. La estructura de la función es la siguiente:
+
+```{r eval=FALSE}
+simulate(object, nsim = 1, seed = NULL, ...)
+```
+
+### Ejemplo {.unnumbered}
+
+Use las 5 primeras observaciones base de datos `cars` y con esos ajuste un modelo lineal para explicar la distancia promedio para detener el vehículo en función de la velocidad a la cual estaba el vehículo cuando se presionaron los frenos. Luego use ese modelo para simular distancias de frenado.
+
+**Solución**
+
+```{r}
+datos <- cars[1:5, ]
+mod <- lm(dist ~ speed, data=datos)
+simulate(object=mod, nsim=1, seed=1234)
+```
+
+## Otras herramientas para simular {.unnumbered}
+
+Abajo una lista de herramientas para simular datos a partir de un modelo.
+
+- Paquete [simglm](https://cran.r-project.org/web/packages/simglm/): Simulate Models Based on the Generalized Linear Model.
+- Paquete [simrel](https://cran.r-project.org/web/packages/simrel/index.html): Simulation of Multivariate Linear Model Data.
+- [Make your R simulation models 20 times faster](https://www.r-bloggers.com/make-your-r-simulation-models-20-times-faster/).
+
+## Videos sugeridos {.unnumbered}
+
+A continuación se muestran algunos videos que muestran cómo simular datos de un modelo lineal usando R.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/p7kSSSsv4ms" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pGvJl8vvlXY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>

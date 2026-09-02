@@ -1,0 +1,11 @@
+# Prefacio {.unnumbered}
+
+Bienvenido al libro Modelos de Regresión con R.
+
+![cover](images/cover.png){width=50%}
+
+Este libro está destinado para estudiantes de ingeniería y estadística que deseen aprender sobre modelos de regresión y la forma de aplicarlos por medio del lenguaje de programación R.
+
+[Freddy Hernández](https://fhernanb.github.io/)\
+[Olga Usuga](https://www.udea.edu.co/)\
+[Mauricio Mazo](https://unal.edu.co/)
